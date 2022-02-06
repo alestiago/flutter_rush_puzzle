@@ -5,8 +5,11 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zcomponents/zcomponents.dart';
 import 'package:rush_hour_puzzle/counter/counter.dart';
 import 'package:rush_hour_puzzle/l10n/l10n.dart';
 
@@ -22,29 +25,85 @@ class CounterPage extends StatelessWidget {
   }
 }
 
-class CounterView extends StatelessWidget {
+class CounterView extends StatefulWidget {
   const CounterView({Key? key}) : super(key: key);
 
   @override
+  State<CounterView> createState() => _CounterViewState();
+}
+
+class _CounterViewState extends State<CounterView> {
+  final PageController _pageController = PageController(viewportFraction: 0.7);
+
+  Key? selected;
+
+  final themes = [
+    BoardTheme.fromMaterialColor(Colors.blue),
+    BoardTheme.fromMaterialColor(Colors.green),
+    BoardTheme.fromMaterialColor(Colors.red),
+    BoardTheme.fromMaterialColor(Colors.purple),
+  ];
+
+  late final Animatable<Color?> background = TweenSequence<Color?>([
+    for (int index = 0; index < (themes.length - 1); index++)
+      TweenSequenceItem(
+        weight: 1,
+        tween: ColorTween(
+          begin: themes[index].background,
+          end: themes[index + 1].background,
+        ),
+      ),
+  ]);
+  @override
   Widget build(BuildContext context) {
+    final ZTransform chooseState = ZTransform(
+      rotate: ZVector.only(x: -0.25, y: -0.75),
+    );
+    final ZTransform play2d = ZTransform(
+      scale: ZVector.all(1.2),
+    );
+    final ZTransform play3d = ZTransform(
+      scale: ZVector.all(2),
+      rotate: ZVector.only(x: 1.2, y: -0.2, z: -0.5),
+    );
     final l10n = context.l10n;
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.counterAppBarTitle)),
-      body: const Center(child: CounterText()),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: () => context.read<CounterCubit>().increment(),
-            child: const Icon(Icons.add),
-          ),
-          const SizedBox(height: 8),
-          FloatingActionButton(
-            onPressed: () => context.read<CounterCubit>().decrement(),
-            child: const Icon(Icons.remove),
-          ),
-        ],
+      body: AnimatedBuilder(
+        animation: _pageController,
+        builder: (context, child) {
+          final color =
+              _pageController.hasClients ? _pageController.page! / 3 : .0;
+
+          return DecoratedBox(
+            decoration: BoxDecoration(
+              color: background.transform(color),
+            ),
+            child: child,
+          );
+        },
+        child: PageView(
+          physics: selected != null ? NeverScrollableScrollPhysics() : null,
+          controller: _pageController,
+          children: [
+            for (int index = 0; index < themes.length; index++)
+              if (selected == null || selected == ValueKey(index))
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  key: ValueKey(index),
+                  onTap: () {
+                    setState(() {
+                      selected = ValueKey(index);
+                    });
+                  },
+                  child: ZGame(
+                    theme: themes[index],
+                    transform: selected != null ? play2d : chooseState,
+                  ),
+                )
+              else
+                SizedBox(),
+          ],
+        ),
       ),
     );
   }
