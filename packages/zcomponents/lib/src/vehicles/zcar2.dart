@@ -37,7 +37,7 @@ class ZCar2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = _getWidth();
+    final width = length * size + space * (length - 1);
     final halfWidth = width / 2;
     const distanceWheel = size / 1.5;
     const distanceZWheel = size / 2 - 5;
@@ -115,7 +115,7 @@ class ZCar2 extends StatelessWidget {
               ),
             ),
 
-            // top front
+            // top front 
             ZPositioned(
               translate: const ZVector.only(x: size + space / 2 - 10 / 2),
               child: ZRect(
@@ -125,7 +125,7 @@ class ZCar2 extends StatelessWidget {
                 fill: true,
               ),
             ),
-            // top back
+            // top back (trunk door)
             ZPositioned(
               translate:
                   const ZVector.only(x: -size - space / 2 + trunkDepth / 2),
@@ -136,19 +136,8 @@ class ZCar2 extends StatelessWidget {
                 fill: true,
               ),
             ),
-            ZPositioned(
-              rotate: const ZVector.only(y: tau / 4),
-              child: ZPositioned(
-                translate: ZVector.only(x: width / 2, z: -(size - 8) / 4),
-                child: ZRect(
-                  width: (size - 8) / 2,
-                  height: size,
-                  color: sideColor,
-                  fill: true,
-                ),
-              ),
-            ),
-            // front
+
+            // front (hood car)
             ZPositioned(
               rotate: const ZVector.only(y: tau / 4),
               child: ZPositioned(
@@ -176,6 +165,20 @@ class ZCar2 extends StatelessWidget {
                       ],
                     ),
                   ],
+                ),
+              ),
+            ),
+
+            // back
+            ZPositioned(
+              rotate: const ZVector.only(y: tau / 4),
+              child: ZPositioned(
+                translate: ZVector.only(x: -halfWidth, z: -(size - 8) / 4),
+                child: ZRect(
+                  width: (size - 8) / 2,
+                  height: size,
+                  color: sideColor,
+                  fill: true,
                 ),
               ),
             ),
@@ -210,6 +213,7 @@ class ZCar2 extends StatelessWidget {
                 ),
               ),
             ),
+            // top box for taxi or police car
             if (topBoxColor != null)
               ZPositioned(
                 key: const Key('topBoxColor'),
@@ -227,9 +231,7 @@ class ZCar2 extends StatelessWidget {
     );
   }
 
-  double _getWidth() {
-    return length * size + space * (length - 1);
-  }
+ 
 }
 
 enum _ZWheelSide { left, right }
