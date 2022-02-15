@@ -1,21 +1,17 @@
+// ignore_for_file: public_member_api_docs, cast_nullable_to_non_nullable
+
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:vector_math/vector_math_64.dart' as v_math;
 import 'package:zcomponents/zcomponents.dart';
-import 'package:zflutter/zflutter.dart';
-
-class TileOffset {
-  const TileOffset(this.dx, this.dy);
-
-  final int dx;
-  final int dy;
-}
 
 class ZVehicleController extends StatefulWidget {
   const ZVehicleController({
     Key? key,
     required this.length,
-    this.axis = Axis.horizontal,
-    this.offset = const TileOffset(0, 0),
+    required this.axis,
+    required this.offset,
     required this.child,
   }) : super(key: key);
 
@@ -31,161 +27,183 @@ class ZVehicleController extends StatefulWidget {
 }
 
 class _ZVehicleControllerState extends State<ZVehicleController> {
-  final size = 30.0;
-
-  final space = 10.0;
-
   bool dragging = false;
+
+  List<ZTransform> transforms = [];
+
+  late BoundingBox _boundingBox = game.boxFor(
+    widget.offset,
+    widget.length,
+    widget.axis,
+  );
+
+  Matrix4 matrix = Matrix4.translationValues(0, 0, 0);
+
+  BoundingBox? _draggingBox;
+
+  Offset dragStartOffset = Offset.zero;
 
   @override
   Widget build(BuildContext context) {
-    return ZPositioned(
-      translate: _translateMatrix(
-            widget.offset,
-            size,
-            space,
-            widget.length,
-            widget.axis,
-          ) +
-          const ZVector(0, 0, 18),
-      child: ZGroup(
-        children: [
-          TweenAnimationBuilder<double>(
-            tween: Tween(begin: 0, end: dragging ? 10 : 0),
-            duration: const Duration(milliseconds: 200),
+    return ZGroup(
+      children: [
+        ZPositioned(
+          translate: game.board.vMinPosition,
+          child: ZCircle(diameter: 4, color: Colors.red),
+        ),
+        ZPositioned(
+          translate: game.board.vMaxPosition,
+          child: ZCircle(diameter: 4, color: Colors.red),
+        ),
+        ZPositioned(
+          translate: _boundingBox.vMinPosition,
+          child: ZCircle(diameter: 4, color: Colors.blue),
+        ),
+        ZPositioned(
+          translate: _boundingBox.vMaxPosition,
+          child: ZCircle(diameter: 4, color: Colors.green),
+        ),
+        ZTrackPosition(
+          onTransform: (transforms) {
+            this.transforms = transforms;
+          },
+          child: TweenAnimationBuilder<ZVector>(
+            tween: ZVectorTween(
+              begin: _boundingBox.vCenter,
+              end: dragging
+                  ? (_draggingBox?.vCenter ?? ZVector.zero)
+                  : _boundingBox.vCenter,
+            ),
+            duration:
+                dragging ? Duration.zero : const Duration(milliseconds: 100),
             builder: (context, value, child) {
               return ZPositioned(
-                translate: ZVector(0, 0, value),
+                translate: value,
+                rotate: widget.axis == Axis.horizontal
+                    ? ZVector.zero
+                    : const ZVector(0, 0, pi / 2),
                 child: child!,
               );
             },
-            child: widget.child,
+            child: ZPositioned(
+              translate: const ZVector(0, 0, 18),
+              child: ZGroup(
+                children: [
+                  TweenAnimationBuilder<double>(
+                    tween: Tween(begin: 0, end: dragging ? 10 : 0),
+                    duration: const Duration(milliseconds: 200),
+                    builder: (context, value, child) {
+                      return ZPositioned(
+                        translate: ZVector(0, 0, value),
+                        child: child!,
+                      );
+                    },
+                    child: widget.child,
+                  ),
+                  ZBoxGestureDetector(
+                    width: game.tileSizeForLength(widget.length) + 4,
+                    height: game.tileSize + 4,
+                    depth: game.tileSize + 4,
+                    onPanDown: (details) {
+                      setState(() {
+                        matrix = ZUtils.matrixFromTransformations(transforms)
+                          ..invert();
+                        dragStartOffset = details.globalPosition;
+                        _draggingBox = _boundingBox;
+                        dragging = true;
+                      });
+                    },
+                    onPanUpdate: (details) {
+                      final offset = details.globalPosition - dragStartOffset;
+                      final projectedOffset =
+                          v_math.Vector3(offset.dx, offset.dy, 0)
+                              .dot(matrix.right);
+
+                      setState(() {
+                        Offset realOffset;
+                        if (widget.axis == Axis.horizontal) {
+                          realOffset = Offset(projectedOffset, 0);
+                        } else {
+                          realOffset = Offset(0, -projectedOffset);
+                        }
+                        _draggingBox = _boundingBox.translate(realOffset).clamp(
+                              game.board,
+                            );
+                      });
+                    },
+                    onPanEnd: (details) {
+                      final velocityOffset = details.velocity.pixelsPerSecond;
+                      final projectedOffset = v_math.Vector3(
+                        velocityOffset.dx,
+                        velocityOffset.dy,
+                        0,
+                      ).dot(matrix.right);
+                      setState(() {
+                        dragging = false;
+                        _boundingBox =
+                            game.round(_draggingBox!, projectedOffset);
+                        _draggingBox = null;
+                      });
+                    },
+                    onPanCancel: () {
+                      setState(() {
+                        dragging = false;
+                        _boundingBox = game.round(_draggingBox!, 0);
+                        _draggingBox = null;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ),
           ),
-          ZBoxGestureDetector(
-            width: _getWidth() + 4,
-            height: size + 4,
-            depth: size + 4,
-            onPointerDown: (details) {
-              setState(() {
-                dragging = true;
-              });
-            },
-            onPointerUp: (details) {
-              setState(() {
-                dragging = false;
-              });
-            },
-            onPointerCancel: (details) {
-              setState(() {
-                dragging = false;
-              });
-            },
-          ),
-        ],
-      ),
+        ),
+      ],
     );
-  }
-
-  double _getWidth() {
-    return widget.length * size + space * (widget.length - 1);
-  }
-
-  ZVector _translateMatrix(
-    TileOffset offset,
-    double size,
-    double space,
-    int vehicleLength,
-    Axis axis, [
-    int tileLength = 6,
-  ]) {
-    final halfLength = tileLength / 2;
-    final boardStart = ZVector(
-      (halfLength - 0.5) * size + space * (halfLength - 0.5),
-      (halfLength - 0.5) * size + space * (halfLength - 0.5),
-      0,
-    ).multiplyScalar(-1);
-    final relativePosition = ZVector(
-      offset.dx * size + space * (offset.dx),
-      offset.dy * size + space * (offset.dy),
-      0,
-    );
-
-    final ZVector vehicleOffset;
-    final vehicleRealLength =
-        (vehicleLength - 1) * size / 2 + space * (vehicleLength - 1) / 2;
-
-    if (axis == Axis.horizontal) {
-      vehicleOffset = ZVector(vehicleRealLength, 0, 0);
-    } else {
-      vehicleOffset = ZVector(0, vehicleRealLength, 0);
-    }
-    return boardStart + relativePosition + vehicleOffset;
   }
 }
 
-class ZBoxGestureDetector extends StatelessWidget {
-  const ZBoxGestureDetector({
+class ZTrackPosition extends ZPositioned {
+  ZTrackPosition({
     Key? key,
-    required this.width,
-    required this.height,
-    required this.depth,
-    this.onPointerDown,
-    this.onPointerMove,
-    this.onPointerUp,
-    this.onPointerHover,
-    this.onPointerCancel,
-  }) : super(key: key);
+    this.onTransform,
+    required Widget child,
+  }) : super(key: key, child: child);
 
-  final double width;
-  final double height;
-  final double depth;
-
-  /// Called when a pointer comes into contact with the screen (for touch
-  /// pointers), or has its button pressed (for mouse pointers) at this widget's
-  /// location.
-  final PointerDownEventListener? onPointerDown;
-
-  /// Called when a pointer that triggered an [onPointerDown] changes position.
-  final PointerMoveEventListener? onPointerMove;
-
-  /// Called when a pointer that triggered an [onPointerDown] is no longer in
-  /// contact with the screen.
-  final PointerUpEventListener? onPointerUp;
-
-  /// Called when a pointer that has not triggered an [onPointerDown] changes
-  /// position.
-  ///
-  /// This is only fired for pointers which report their location when not down
-  /// (e.g. mouse pointers, but not most touch pointers).
-  final PointerHoverEventListener? onPointerHover;
-
-  /// Called when the input from a pointer that triggered an [onPointerDown] is
-  /// no longer directed towards this receiver.
-  final PointerCancelEventListener? onPointerCancel;
-
-
+  final void Function(List<ZTransform>)? onTransform;
+  @override
+  void updateParentData(
+    RenderObject renderObject,
+    ZPositioned oldWidget,
+    ZTransform transform,
+  ) {
+    super.updateParentData(renderObject, oldWidget, transform);
+    final parentData = renderObject.parentData as ZParentData;
+    onTransform?.call(parentData.transforms.toList());
+  }
 
   @override
-  Widget build(BuildContext context) {
-    final gestureDetector = Listener(
-      behavior: HitTestBehavior.opaque,
-      onPointerDown: onPointerDown,
-      onPointerMove: onPointerMove,
-      onPointerUp: onPointerUp,
-      onPointerCancel: onPointerCancel,
-      onPointerHover: onPointerHover,
+  Type get debugTypicalAncestorWidgetClass => ZWidget;
+
+  @override
+  void startParentData(RenderObject renderObject, ZTransform transform) {
+    assert(
+      renderObject.parentData is ZParentData,
+      'ZTrackPosition should only be used with ZWidgets',
     );
-    return ZBoxToBoxAdapter(
-      width: width,
-      height: height,
-      depth: depth,
-      color: Colors.transparent,
-      front: gestureDetector,
-      top: gestureDetector,
-      left: gestureDetector,
-      right: gestureDetector,
-      bottom: gestureDetector,
-      rear: gestureDetector,
-    );
+    final parentData = renderObject.parentData as ZParentData;
+    onTransform?.call(parentData.transforms.toList());
+  }
+}
+
+class ZVectorTween extends Tween<ZVector> {
+  ZVectorTween({
+    ZVector? begin,
+    ZVector? end,
+  }) : super(begin: begin, end: end);
+
+  @override
+  ZVector lerp(double t) {
+    return ZVector.lerp(begin, end, t);
   }
 }

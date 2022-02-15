@@ -5,8 +5,6 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zcomponents/zcomponents.dart';
@@ -38,10 +36,10 @@ class _CounterViewState extends State<CounterView> {
   Key? selected;
 
   final themes = [
-    BoardTheme.fromMaterialColor(Colors.blue),
-    BoardTheme.fromMaterialColor(Colors.green),
-    BoardTheme.fromMaterialColor(Colors.red),
-    BoardTheme.fromMaterialColor(Colors.purple),
+    BoardThemeData.fromMaterialColor(Colors.blue),
+    BoardThemeData.fromMaterialColor(Colors.green),
+    BoardThemeData.fromMaterialColor(Colors.red),
+    BoardThemeData.fromMaterialColor(Colors.purple),
   ];
 
   late final Animatable<Color?> background = TweenSequence<Color?>([
@@ -49,8 +47,8 @@ class _CounterViewState extends State<CounterView> {
       TweenSequenceItem(
         weight: 1,
         tween: ColorTween(
-          begin: themes[index].background,
-          end: themes[index + 1].background,
+          begin: themes[index].backgroundColor,
+          end: themes[index + 1].backgroundColor,
         ),
       ),
   ]);

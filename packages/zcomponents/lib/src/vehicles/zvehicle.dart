@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:zcomponents/zcomponents.dart';
-import 'package:zflutter/zflutter.dart';
 
 class ZVehicle extends StatelessWidget {
   const ZVehicle({
