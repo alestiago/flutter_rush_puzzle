@@ -37,9 +37,9 @@ class _ZVehicleControllerState extends State<ZVehicleController> {
     widget.axis,
   );
 
-  Matrix4 matrix = Matrix4.translationValues(0, 0, 0);
-
   BoundingBox? _draggingBox;
+
+  Matrix4 matrix = Matrix4.translationValues(0, 0, 0);
 
   Offset dragStartOffset = Offset.zero;
 
@@ -133,7 +133,7 @@ class _ZVehicleControllerState extends State<ZVehicleController> {
                     },
                     onPanEnd: (details) {
                       final velocityOffset = details.velocity.pixelsPerSecond;
-                      final projectedOffset = v_math.Vector3(
+                      final projectedVelocity = v_math.Vector3(
                         velocityOffset.dx,
                         velocityOffset.dy,
                         0,
@@ -141,7 +141,7 @@ class _ZVehicleControllerState extends State<ZVehicleController> {
                       setState(() {
                         dragging = false;
                         _boundingBox =
-                            game.round(_draggingBox!, projectedOffset);
+                            game.round(_draggingBox!, projectedVelocity);
                         _draggingBox = null;
                       });
                     },
