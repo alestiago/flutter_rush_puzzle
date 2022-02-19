@@ -1,5 +1,10 @@
+import 'dart:math' as math;
+
 import 'package:flutter/widgets.dart';
 import 'package:zflutter/zflutter.dart';
+
+/// A quarter of a turn. 45 degrees or pi/2 radians
+const double quarterTurn = math.pi / 2;
 
 /// Squared game tiles
 class ZTile extends StatelessWidget {
@@ -37,7 +42,7 @@ class ZTile extends StatelessWidget {
 
   late final Widget _leftFace = ZPositioned(
     translate: ZVector.only(x: -size / 2),
-    rotate: const ZVector.only(y: -tau / 4),
+    rotate: const ZVector.only(y: -quarterTurn),
     child: ZRect(
       key: const Key('tile_leftFace'),
       width: depth,
@@ -49,7 +54,7 @@ class ZTile extends StatelessWidget {
 
   late final _rightFace = ZPositioned(
     translate: ZVector.only(x: size / 2),
-    rotate: const ZVector.only(y: tau / 4),
+    rotate: const ZVector.only(y: quarterTurn),
     child: ZRect(
       key: const Key('tile_rightFace'),
       width: depth,
@@ -61,7 +66,7 @@ class ZTile extends StatelessWidget {
 
   late final _topFace = ZPositioned(
     translate: ZVector.only(y: -size / 2),
-    rotate: const ZVector.only(x: -tau / 4),
+    rotate: const ZVector.only(x: -quarterTurn),
     child: ZRect(
       key: const Key('tile_topFace'),
       width: size,
@@ -73,7 +78,7 @@ class ZTile extends StatelessWidget {
 
   late final _bottomFace = ZPositioned(
     translate: ZVector.only(y: size / 2),
-    rotate: const ZVector.only(x: tau / 4),
+    rotate: const ZVector.only(x: quarterTurn),
     child: ZRect(
       width: size,
       color: sideColor,

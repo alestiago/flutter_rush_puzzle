@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:zcomponents/zcomponents.dart';
+
 import 'package:zflutter/zflutter.dart';
 
 const trunkDepth = 10.0;
@@ -7,36 +9,27 @@ const wheelOutterRadius = 7.0;
 
 const size = 30.0;
 
-class ZCar2 extends StatelessWidget {
-  const ZCar2({
+final int length = 2;
+
+class ZCar extends StatelessWidget {
+  const ZCar({
     Key? key,
-    this.length = 2,
-    required this.sideColor,
-    Color? topColor,
-    Color? topMiddleColor,
-    Color? doorSideColor,
-    this.topBoxColor,
-  })  : topColor = topColor ?? sideColor,
-        doorSideColor = doorSideColor ?? sideColor,
-        topMiddleColor = topMiddleColor ?? topColor ?? sideColor,
-        super(key: key);
-
-  final int length;
-
-  final Color sideColor;
-
-  final Color topColor;
-
-  final Color topMiddleColor;
-
-  final Color doorSideColor;
-
-  final Color? topBoxColor;
+    required this.theme,
+  }) : super(key: key);
 
   static const space = 10.0;
 
+  final CarThemeData theme;
+
   @override
   Widget build(BuildContext context) {
+    final sideColor = theme.sideColor ?? theme.color;
+
+    final doorSideColor = theme.doorSideColor ?? sideColor;
+    final topColor = theme.topColor ?? theme.color;
+    final topMiddleColor = theme.topMiddleColor ?? topColor;
+    final topBoxColor = theme.topBoxColor;
+
     final width = length * size + space * (length - 1);
     final halfWidth = width / 2;
     const distanceWheel = size / 1.5;
@@ -44,13 +37,6 @@ class ZCar2 extends StatelessWidget {
     return ZGroup(
       sortMode: SortMode.update,
       children: [
-        // Debug box
-        ZBox(
-          width: width,
-          height: size,
-          depth: size,
-          color: sideColor.withOpacity(0.1),
-        ),
         // Left side
         _ZCarSide(
           side: _ZWheelSide.left,
@@ -115,7 +101,7 @@ class ZCar2 extends StatelessWidget {
               ),
             ),
 
-            // top front 
+            // top front
             ZPositioned(
               translate: const ZVector.only(x: size + space / 2 - 10 / 2),
               child: ZRect(
@@ -222,7 +208,7 @@ class ZCar2 extends StatelessWidget {
                   width: 2,
                   height: 10,
                   depth: 2,
-                  color: topBoxColor!,
+                  color: topBoxColor,
                 ),
               ),
           ],
@@ -230,8 +216,6 @@ class ZCar2 extends StatelessWidget {
       ],
     );
   }
-
- 
 }
 
 enum _ZWheelSide { left, right }

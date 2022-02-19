@@ -11,6 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   provider:
+  puzzle_models:
+    path: ../puzzle_models
   vector_math: 
   zflutter:
     git: 

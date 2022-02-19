@@ -3,22 +3,18 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:puzzle_models/puzzle_models.dart';
 import 'package:vector_math/vector_math_64.dart' as v_math;
 import 'package:zcomponents/zcomponents.dart';
 
 class ZVehicleController extends StatefulWidget {
   const ZVehicleController({
     Key? key,
-    required this.length,
-    required this.axis,
-    required this.offset,
     required this.child,
+    required this.vehicle,
   }) : super(key: key);
 
-  final int length;
-  final Axis axis;
-
-  final TileOffset offset;
+  final Vehicle vehicle;
 
   final Widget child;
 
@@ -32,9 +28,9 @@ class _ZVehicleControllerState extends State<ZVehicleController> {
   List<ZTransform> transforms = [];
 
   late BoundingBox _boundingBox = game.boxFor(
-    widget.offset,
-    widget.length,
-    widget.axis,
+    widget.vehicle.firstPosition,
+    widget.vehicle.length,
+    widget.vehicle.steering,
   );
 
   BoundingBox? _draggingBox;
@@ -45,41 +41,28 @@ class _ZVehicleControllerState extends State<ZVehicleController> {
 
   @override
   Widget build(BuildContext context) {
+    final isDebug = DebugGame.isDebugMode(context);
+    final child = isDebug ? ZBoxDebug(box: _boundingBox) : widget.child;
     return ZGroup(
       children: [
-        ZPositioned(
-          translate: game.board.vMinPosition,
-          child: ZCircle(diameter: 4, color: Colors.red),
-        ),
-        ZPositioned(
-          translate: game.board.vMaxPosition,
-          child: ZCircle(diameter: 4, color: Colors.red),
-        ),
-        ZPositioned(
-          translate: _boundingBox.vMinPosition,
-          child: ZCircle(diameter: 4, color: Colors.blue),
-        ),
-        ZPositioned(
-          translate: _boundingBox.vMaxPosition,
-          child: ZCircle(diameter: 4, color: Colors.green),
-        ),
-        ZTrackPosition(
+        if (isDebug) ZPositionDebug(box: _boundingBox),
+        ZPositionTracker(
           onTransform: (transforms) {
             this.transforms = transforms;
           },
           child: TweenAnimationBuilder<ZVector>(
             tween: ZVectorTween(
-              begin: _boundingBox.vCenter,
+              begin: _boundingBox.zCenter,
               end: dragging
-                  ? (_draggingBox?.vCenter ?? ZVector.zero)
-                  : _boundingBox.vCenter,
+                  ? (_draggingBox?.zCenter ?? ZVector.zero)
+                  : _boundingBox.zCenter,
             ),
             duration:
                 dragging ? Duration.zero : const Duration(milliseconds: 100),
             builder: (context, value, child) {
               return ZPositioned(
                 translate: value,
-                rotate: widget.axis == Axis.horizontal
+                rotate: widget.vehicle.steering == Steering.horizonal
                     ? ZVector.zero
                     : const ZVector(0, 0, pi / 2),
                 child: child!,
@@ -98,15 +81,15 @@ class _ZVehicleControllerState extends State<ZVehicleController> {
                         child: child!,
                       );
                     },
-                    child: widget.child,
+                    child: child,
                   ),
                   ZBoxGestureDetector(
-                    width: game.tileSizeForLength(widget.length) + 4,
+                    width: game.tileSizeForLength(widget.vehicle.length) + 4,
                     height: game.tileSize + 4,
                     depth: game.tileSize + 4,
                     onPanDown: (details) {
                       setState(() {
-                        matrix = ZUtils.matrixFromTransformations(transforms)
+                        matrix = matrixFromTransformations(transforms)
                           ..invert();
                         dragStartOffset = details.globalPosition;
                         _draggingBox = _boundingBox;
@@ -121,14 +104,15 @@ class _ZVehicleControllerState extends State<ZVehicleController> {
 
                       setState(() {
                         Offset realOffset;
-                        if (widget.axis == Axis.horizontal) {
+                        if (widget.vehicle.steering == Steering.horizonal) {
                           realOffset = Offset(projectedOffset, 0);
                         } else {
                           realOffset = Offset(0, -projectedOffset);
                         }
-                        _draggingBox = _boundingBox.translate(realOffset).clamp(
-                              game.board,
-                            );
+                        _draggingBox =
+                            _boundingBox.translate(realOffset).clampInside(
+                                  game.board,
+                                );
                       });
                     },
                     onPanEnd: (details) {
@@ -138,19 +122,10 @@ class _ZVehicleControllerState extends State<ZVehicleController> {
                         velocityOffset.dy,
                         0,
                       ).dot(matrix.right);
-                      setState(() {
-                        dragging = false;
-                        _boundingBox =
-                            game.round(_draggingBox!, projectedVelocity);
-                        _draggingBox = null;
-                      });
+                      onDragEnd(projectedVelocity);
                     },
                     onPanCancel: () {
-                      setState(() {
-                        dragging = false;
-                        _boundingBox = game.round(_draggingBox!, 0);
-                        _draggingBox = null;
-                      });
+                      onDragEnd(0);
                     },
                   ),
                 ],
@@ -161,49 +136,62 @@ class _ZVehicleControllerState extends State<ZVehicleController> {
       ],
     );
   }
+
+  void onDragEnd(double velocity) {
+    setState(() {
+      dragging = false;
+      _boundingBox = game.round(_draggingBox!, velocity);
+      _draggingBox = null;
+    });
+  }
 }
 
-class ZTrackPosition extends ZPositioned {
-  ZTrackPosition({
-    Key? key,
-    this.onTransform,
-    required Widget child,
-  }) : super(key: key, child: child);
+class ZPositionDebug extends StatelessWidget {
+  const ZPositionDebug({Key? key, required this.box}) : super(key: key);
 
-  final void Function(List<ZTransform>)? onTransform;
-  @override
-  void updateParentData(
-    RenderObject renderObject,
-    ZPositioned oldWidget,
-    ZTransform transform,
-  ) {
-    super.updateParentData(renderObject, oldWidget, transform);
-    final parentData = renderObject.parentData as ZParentData;
-    onTransform?.call(parentData.transforms.toList());
-  }
+  final BoundingBox box;
 
   @override
-  Type get debugTypicalAncestorWidgetClass => ZWidget;
-
-  @override
-  void startParentData(RenderObject renderObject, ZTransform transform) {
-    assert(
-      renderObject.parentData is ZParentData,
-      'ZTrackPosition should only be used with ZWidgets',
+  Widget build(BuildContext context) {
+    return ZGroup(
+      children: [
+        ZPositioned(
+          translate: box.zMinPosition,
+          child: ZCircle(
+            diameter: 4,
+            color: Colors.blue,
+            stroke: 4,
+          ),
+        ),
+        ZPositioned(
+          translate: box.zMaxPosition,
+          child: ZCircle(
+            diameter: 4,
+            color: Colors.green,
+            stroke: 4,
+          ),
+        ),
+      ],
     );
-    final parentData = renderObject.parentData as ZParentData;
-    onTransform?.call(parentData.transforms.toList());
   }
 }
 
-class ZVectorTween extends Tween<ZVector> {
-  ZVectorTween({
-    ZVector? begin,
-    ZVector? end,
-  }) : super(begin: begin, end: end);
+class ZBoxDebug extends StatelessWidget {
+  const ZBoxDebug({Key? key, required this.box}) : super(key: key);
+
+  final BoundingBox box;
 
   @override
-  ZVector lerp(double t) {
-    return ZVector.lerp(begin, end, t);
+  Widget build(BuildContext context) {
+    return ZGroup(
+      children: [
+        ZBox(
+          width: box.size.longestSide,
+          height: box.size.shortestSide,
+          depth: size,
+          color: Colors.red.withOpacity(0.2),
+        ),
+      ],
+    );
   }
 }

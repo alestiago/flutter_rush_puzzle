@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:puzzle_models/puzzle_models.dart';
 import 'package:zcomponents/zcomponents.dart';
 
 /// Board game
@@ -42,7 +43,7 @@ class _Board extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final innerBorder = rect.tileSize * 6 + rect.tileSpace * 9.0;
+    final size = rect.boardSize - rect.boardBorder * 2;
 
     return ZGroup(
       sortMode: SortMode.update,
@@ -52,6 +53,22 @@ class _Board extends StatelessWidget {
           translate: const ZVector.only(z: -10000),
           child: ZShape(color: Colors.transparent, visible: false),
         ),
+        if (DebugGame.isDebugMode(context))
+          ZPositioned(
+            translate: game.boardTopLeft + const ZVector.only(z: 5),
+            child: ZGroup(
+              children: [
+                ZPositioned(
+                  translate: game.board.zMinPosition,
+                  child: ZCircle(diameter: 1, color: Colors.red, stroke: 2),
+                ),
+                ZPositioned(
+                  translate: game.board.zMaxPosition,
+                  child: ZCircle(diameter: 1, color: Colors.red, stroke: 2),
+                ),
+              ],
+            ),
+          ),
         ZGroup(
           sortMode: SortMode.update,
           children: [
@@ -59,9 +76,9 @@ class _Board extends StatelessWidget {
               translate: ZVector(0, 0, -rect.boardDepth / 2 - 0.5),
               child: ZRect(
                 color: theme.boardInnerBackgroundColor!,
-                height: innerBorder + rect.boardBorder * 2,
+                height: size,
                 fill: true,
-                width: innerBorder + rect.boardBorder * 2,
+                width: size,
                 backfaceColor: theme.boardBackColor,
               ),
             ),
@@ -74,46 +91,32 @@ class _Board extends StatelessWidget {
             ),
           ],
         ),
-        ZGroup(
-          sortMode: SortMode.update,
-          children: [
-            for (final i in [-3, -2, -1, 1, 2, 3])
-              for (final j in [-3, -2, -1, 1, 2, 3])
-                ZPositioned(
-                  translate: _translateMatrix(
-                        i,
-                        j,
-                        rect.tileSize,
-                        rect.tileSpace,
-                      ) +
-                      const ZVector.only(z: -2),
-                  child: ZTile(
-                    sideColor: theme.tileSideColor!,
-                    color: theme.tileColor!,
-                    size: rect.tileSize,
-                    depth: rect.tileDepth,
+
+        ZPositioned(
+          translate: rect.boardTopLeft + const ZVector.only(z: -2),
+          child: ZGroup(
+            sortMode: SortMode.update,
+            children: [
+              for (final i in [0, 1, 2, 3, 4, 5])
+                for (final j in [0, 1, 2, 3, 4, 5])
+                  ZPositioned(
+                    translate: _tileTranslation(Position(i, j), rect),
+                    child: ZTile(
+                      sideColor: theme.tileSideColor!,
+                      color: theme.tileColor!,
+                      size: rect.tileSize,
+                      depth: rect.tileDepth,
+                    ),
                   ),
-                ),
-          ],
+            ],
+          ),
         ),
       ],
     );
   }
 
-  ZVector _translateMatrix(int i, int j, double size, double space) {
-    final double dx;
-    if (i < 0) {
-      dx = size * (i + 0.5) + space * (i + 0.5);
-    } else {
-      dx = size * (i - 0.5) + space * (i - 0.5);
-    }
-    final double dy;
-    if (j < 0) {
-      dy = size * (j + 0.5) + space * (j + 0.5);
-    } else {
-      dy = size * (j - 0.5) + space * (j - 0.5);
-    }
-    return ZVector(dx, dy, 0);
+  ZVector _tileTranslation(Position position, GameRect rect) {
+    return rect.boxFor(position, 1, Steering.horizonal).zCenter;
   }
 }
 
@@ -130,18 +133,17 @@ class _BoardBorders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final innerBorder = rect.tileSize * 6 + rect.tileSpace * 10.0;
+    final length = rect.boardSize - rect.boardBorder * 2;
+    final halfLength = length / 2;
+    final quarterLength = length / 4;
+    final halfBorder = rect.boardBorder / 2;
 
     final side = ZGroup(
       children: [
         ZPositioned(
-          translate: ZVector(
-            innerBorder / 4,
-            innerBorder / 2 + rect.boardBorder / 2,
-            0,
-          ),
+          translate: ZVector(quarterLength, halfLength + halfBorder, 0),
           child: ZBox(
-            width: innerBorder / 2,
+            width: halfLength,
             height: rect.boardBorder,
             depth: rect.boardDepth,
             color: theme.boardColor!,
@@ -150,13 +152,9 @@ class _BoardBorders extends StatelessWidget {
           ),
         ),
         ZPositioned(
-          translate: ZVector(
-            -innerBorder / 4,
-            innerBorder / 2 + rect.boardBorder / 2,
-            0,
-          ),
+          translate: ZVector(-quarterLength, halfLength + halfBorder, 0),
           child: ZBox(
-            width: innerBorder / 2,
+            width: halfLength,
             height: rect.boardBorder,
             depth: rect.boardDepth,
             color: theme.boardColor!,
@@ -171,8 +169,8 @@ class _BoardBorders extends StatelessWidget {
       children: [
         ZPositioned(
           translate: ZVector(
-            innerBorder / 2 + rect.boardBorder / 2,
-            innerBorder / 2 + rect.boardBorder / 2,
+            halfLength + halfBorder,
+            halfLength + halfBorder,
             0,
           ),
           child: ZBox(
@@ -220,12 +218,12 @@ class _BoardBorders extends StatelessWidget {
         // Right
         ZPositioned(
           translate: ZVector(
-            innerBorder / 2 + rect.boardBorder / 2,
-            innerBorder / 4,
+            halfLength + rect.boardBorder / 2,
+            quarterLength,
             0,
           ),
           child: ZBox(
-            height: innerBorder / 2,
+            height: halfLength,
             width: rect.boardBorder,
             depth: rect.boardDepth,
             color: theme.boardColor!,
@@ -235,12 +233,12 @@ class _BoardBorders extends StatelessWidget {
         ),
         ZPositioned(
           translate: ZVector(
-            innerBorder / 2 + rect.boardBorder / 2,
-            -innerBorder / 4 - rect.tileSize / 2 - rect.tileSpace / 2,
+            halfLength + halfBorder,
+            -quarterLength - rect.tileSize / 2 - rect.tileSpace / 2,
             0,
           ),
           child: ZBox(
-            height: innerBorder / 2 - rect.tileSize - rect.tileSpace,
+            height: halfLength - rect.tileSize - rect.tileSpace,
             width: rect.boardBorder,
             depth: rect.boardDepth,
             color: theme.boardColor!,
@@ -250,7 +248,7 @@ class _BoardBorders extends StatelessWidget {
         ),
         ZPositioned(
           translate: ZVector(
-            innerBorder / 2 + rect.boardBorder / 2,
+            halfLength + halfBorder,
             -rect.tileSize / 2 - rect.tileSpace / 2,
             -rect.boardDepth / 2 + rect.tileDepth / 2,
           ),
