@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:zflutter/zflutter.dart';
 
 /// A ZBox that has GestureDetectors for each face
-class ZBoxGestureDetector extends StatelessWidget {
+class ZHitBox extends StatelessWidget {
   /// A ZBox that has GestureDetectors for each face
-  const ZBoxGestureDetector({
+  const ZHitBox({
     Key? key,
     required this.width,
     required this.height,
