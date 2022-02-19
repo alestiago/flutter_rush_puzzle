@@ -14,6 +14,10 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
+  puzzle_models:
+    path: packages/puzzle_models
+  zcomponents:
+    path: packages/zcomponents
 
 dev_dependencies:
   bloc_test: ^9.0.2
@@ -21,8 +25,6 @@ dev_dependencies:
     sdk: flutter
   mocktail: ^0.2.0
   very_good_analysis: ^2.4.0
-  zcomponents:
-    path: packages/zcomponents
 
 flutter:
   uses-material-design: true

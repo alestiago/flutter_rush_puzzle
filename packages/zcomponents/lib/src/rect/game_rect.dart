@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:puzzle_models/puzzle_models.dart';
 import 'package:zcomponents/zcomponents.dart';
 
 /// Layout properties for the game
@@ -27,19 +28,25 @@ class GameRect {
   /// Size of the board borders
   final boardBorder = 5.0;
 
+  /// Padding between the board border and the tils
+  late final boardPadding = 2 * tileSpace;
+
   /// Depth of a tile
   final boardDepth = 20.0;
 
   /// Returns the real offset for a relative position
-  Offset getPoint(TileOffset offset) {
+  Offset getPoint(Position offset) {
     return Offset(
-      offset.dx * tileSize + tileSpace * offset.dx,
-      offset.dy * tileSize + tileSpace * offset.dy,
+      offset.x * tileSize + tileSpace * offset.x,
+      offset.y * tileSize + tileSpace * offset.y,
     );
   }
 
   /// Total size of the game constraints
   late final size = tileSizeForLength(tileCount);
+
+  /// Total size of the board with tiles and the external borders
+  late final boardSize = size + boardPadding * 2 + boardBorder * 2;
 
   /// Returns the size of a tile with a given length
   double tileSizeForLength(int length) {
@@ -61,9 +68,9 @@ class GameRect {
     return ZVector(size, size, 0).multiplyScalar(-1);
   }();
 
-  BoundingBox boxFor(TileOffset offset, int length, Axis axis) {
+  BoundingBox boxFor(Position offset, int length, Steering steering) {
     final minPosition = getPoint(offset);
-    final maxPosition = axis == Axis.horizontal
+    final maxPosition = steering == Steering.horizonal
         ? Offset(
             minPosition.dx + tileSizeForLength(length),
             minPosition.dy + tileSizeForLength(1),
@@ -116,6 +123,6 @@ class GameRect {
       roundAxis(box.minPosition.dy),
       box.width,
       box.height,
-    ).clamp(board);
+    ).clampInside(board);
   }
 }
