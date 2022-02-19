@@ -13,12 +13,20 @@ class ZVehicle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Widget child;
     if (data.length == 2) {
-      return ZCar(
+      child = ZCar(
         theme: context.select((VehiclesThemeData d) => d.car),
       );
     } else {
-      return const ZBus();
+      child = const ZBus();
     }
+
+    return ZPositioned(
+      rotate: ZVector.only(
+        z: data.steering == Steering.horizonal ? 0 : quarterTurn,
+      ),
+      child: child,
+    );
   }
 }

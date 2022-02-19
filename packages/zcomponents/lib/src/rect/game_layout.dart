@@ -3,9 +3,9 @@ import 'package:puzzle_models/puzzle_models.dart';
 import 'package:zcomponents/zcomponents.dart';
 
 /// Layout properties for the game
-class GameRect {
+class GameLayout {
   /// Layout properties for the game
-  GameRect({
+  GameLayout({
     required this.tileSize,
     required this.tileSpace,
     this.tileCount = 6,
@@ -82,9 +82,15 @@ class GameRect {
     return BoundingBox(minPosition, maxPosition);
   }
 
+  BoundingBox boxForVehicle(Vehicle vehicle) {
+    return boxFor(vehicle.firstPosition, vehicle.length, vehicle.steering);
+  }
+
   late List<double> offsets = [
     for (final tile in List.generate(tileCount, (i) => i)) tileStride(tile)
   ];
+
+  final Tolerance tolerance = _kDefaultTolerance;
 
   static final Tolerance _kDefaultTolerance = Tolerance(
     velocity: 1.0 /
@@ -94,35 +100,4 @@ class GameRect {
     distance: 1.0 /
         WidgetsBinding.instance!.window.devicePixelRatio, // logical pixels
   );
-
-  BoundingBox round(BoundingBox box, double velocity) {
-    double roundAxis(double value) {
-      int offset;
-      final offsetEntry = offsets.asMap().entries.reduce(
-        (MapEntry<int, double> prev, MapEntry<int, double> curr) {
-          return (curr.value - value).abs() < (prev.value - value).abs()
-              ? curr
-              : prev;
-        },
-      );
-      offset = offsetEntry.key;
-
-      if (offsetEntry.value > value &&
-          velocity < -_kDefaultTolerance.velocity) {
-        offset -= 1;
-      } else if (offsetEntry.value < value &&
-          velocity > _kDefaultTolerance.velocity) {
-        offset += 1;
-      }
-      offset = offset.clamp(0, offsets.length - 1);
-      return offsets[offset];
-    }
-
-    return BoundingBox.fromLTWH(
-      roundAxis(box.minPosition.dx),
-      roundAxis(box.minPosition.dy),
-      box.width,
-      box.height,
-    ).clampInside(board);
-  }
 }

@@ -10,11 +10,11 @@ class ZBoard extends StatelessWidget {
   /// Board game
   const ZBoard({
     Key? key,
-    required this.rect,
+    required this.layout,
   }) : super(key: key);
 
   /// Rect of the game
-  final GameRect rect;
+  final GameLayout layout;
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +23,8 @@ class ZBoard extends StatelessWidget {
 
     return ZGroup(
       children: [
-        _BoardBorders(theme: theme, rect: rect),
-        _Board(theme: theme, rect: rect),
+        _BoardBorders(theme: theme, layout: layout),
+        _Board(theme: theme, layout: layout),
       ],
     );
   }
@@ -34,16 +34,16 @@ class _Board extends StatelessWidget {
   const _Board({
     Key? key,
     required this.theme,
-    required this.rect,
+    required this.layout,
   }) : super(key: key);
 
   final BoardThemeData theme;
 
-  final GameRect rect;
+  final GameLayout layout;
 
   @override
   Widget build(BuildContext context) {
-    final size = rect.boardSize - rect.boardBorder * 2;
+    final size = layout.boardSize - layout.boardBorder * 2;
 
     return ZGroup(
       sortMode: SortMode.update,
@@ -55,15 +55,15 @@ class _Board extends StatelessWidget {
         ),
         if (DebugGame.isDebugMode(context))
           ZPositioned(
-            translate: game.boardTopLeft + const ZVector.only(z: 5),
+            translate: layout.boardTopLeft + const ZVector.only(z: 5),
             child: ZGroup(
               children: [
                 ZPositioned(
-                  translate: game.board.zMinPosition,
+                  translate: layout.board.zMinPosition,
                   child: ZCircle(diameter: 1, color: Colors.red, stroke: 2),
                 ),
                 ZPositioned(
-                  translate: game.board.zMaxPosition,
+                  translate: layout.board.zMaxPosition,
                   child: ZCircle(diameter: 1, color: Colors.red, stroke: 2),
                 ),
               ],
@@ -73,7 +73,7 @@ class _Board extends StatelessWidget {
           sortMode: SortMode.update,
           children: [
             ZPositioned(
-              translate: ZVector(0, 0, -rect.boardDepth / 2 - 0.5),
+              translate: ZVector(0, 0, -layout.boardDepth / 2 - 0.5),
               child: ZRect(
                 color: theme.boardInnerBackgroundColor!,
                 height: size,
@@ -93,19 +93,19 @@ class _Board extends StatelessWidget {
         ),
 
         ZPositioned(
-          translate: rect.boardTopLeft + const ZVector.only(z: -2),
+          translate: layout.boardTopLeft + const ZVector.only(z: -2),
           child: ZGroup(
             sortMode: SortMode.update,
             children: [
               for (final i in [0, 1, 2, 3, 4, 5])
                 for (final j in [0, 1, 2, 3, 4, 5])
                   ZPositioned(
-                    translate: _tileTranslation(Position(i, j), rect),
+                    translate: _tileTranslation(Position(i, j), layout),
                     child: ZTile(
                       sideColor: theme.tileSideColor!,
                       color: theme.tileColor!,
-                      size: rect.tileSize,
-                      depth: rect.tileDepth,
+                      size: layout.tileSize,
+                      depth: layout.tileDepth,
                     ),
                   ),
             ],
@@ -115,7 +115,7 @@ class _Board extends StatelessWidget {
     );
   }
 
-  ZVector _tileTranslation(Position position, GameRect rect) {
+  ZVector _tileTranslation(Position position, GameLayout rect) {
     return rect.boxFor(position, 1, Steering.horizonal).zCenter;
   }
 }
@@ -124,19 +124,19 @@ class _BoardBorders extends StatelessWidget {
   const _BoardBorders({
     Key? key,
     required this.theme,
-    required this.rect,
+    required this.layout,
   }) : super(key: key);
 
   final BoardThemeData theme;
 
-  final GameRect rect;
+  final GameLayout layout;
 
   @override
   Widget build(BuildContext context) {
-    final length = rect.boardSize - rect.boardBorder * 2;
+    final length = layout.boardSize - layout.boardBorder * 2;
     final halfLength = length / 2;
     final quarterLength = length / 4;
-    final halfBorder = rect.boardBorder / 2;
+    final halfBorder = layout.boardBorder / 2;
 
     final side = ZGroup(
       children: [
@@ -144,8 +144,8 @@ class _BoardBorders extends StatelessWidget {
           translate: ZVector(quarterLength, halfLength + halfBorder, 0),
           child: ZBox(
             width: halfLength,
-            height: rect.boardBorder,
-            depth: rect.boardDepth,
+            height: layout.boardBorder,
+            depth: layout.boardDepth,
             color: theme.boardColor!,
             topColor: theme.boardInnerSideColor,
             bottomColor: theme.boardOutterSideColor,
@@ -155,8 +155,8 @@ class _BoardBorders extends StatelessWidget {
           translate: ZVector(-quarterLength, halfLength + halfBorder, 0),
           child: ZBox(
             width: halfLength,
-            height: rect.boardBorder,
-            depth: rect.boardDepth,
+            height: layout.boardBorder,
+            depth: layout.boardDepth,
             color: theme.boardColor!,
             topColor: theme.boardInnerSideColor,
             bottomColor: theme.boardOutterSideColor,
@@ -174,9 +174,9 @@ class _BoardBorders extends StatelessWidget {
             0,
           ),
           child: ZBox(
-            width: rect.boardBorder,
-            height: rect.boardBorder,
-            depth: rect.boardDepth,
+            width: layout.boardBorder,
+            height: layout.boardBorder,
+            depth: layout.boardDepth,
             color: theme.boardColor!,
             bottomColor: theme.boardOutterSideColor,
             rightColor: theme.boardOutterSideColor,
@@ -218,14 +218,14 @@ class _BoardBorders extends StatelessWidget {
         // Right
         ZPositioned(
           translate: ZVector(
-            halfLength + rect.boardBorder / 2,
+            halfLength + layout.boardBorder / 2,
             quarterLength,
             0,
           ),
           child: ZBox(
             height: halfLength,
-            width: rect.boardBorder,
-            depth: rect.boardDepth,
+            width: layout.boardBorder,
+            depth: layout.boardDepth,
             color: theme.boardColor!,
             leftColor: theme.boardInnerSideColor,
             rightColor: theme.boardOutterSideColor,
@@ -234,13 +234,13 @@ class _BoardBorders extends StatelessWidget {
         ZPositioned(
           translate: ZVector(
             halfLength + halfBorder,
-            -quarterLength - rect.tileSize / 2 - rect.tileSpace / 2,
+            -quarterLength - layout.tileSize / 2 - layout.tileSpace / 2,
             0,
           ),
           child: ZBox(
-            height: halfLength - rect.tileSize - rect.tileSpace,
-            width: rect.boardBorder,
-            depth: rect.boardDepth,
+            height: halfLength - layout.tileSize - layout.tileSpace,
+            width: layout.boardBorder,
+            depth: layout.boardDepth,
             color: theme.boardColor!,
             leftColor: theme.boardInnerSideColor,
             rightColor: theme.boardOutterSideColor,
@@ -249,13 +249,13 @@ class _BoardBorders extends StatelessWidget {
         ZPositioned(
           translate: ZVector(
             halfLength + halfBorder,
-            -rect.tileSize / 2 - rect.tileSpace / 2,
-            -rect.boardDepth / 2 + rect.tileDepth / 2,
+            -layout.tileSize / 2 - layout.tileSpace / 2,
+            -layout.boardDepth / 2 + layout.tileDepth / 2,
           ),
           child: ZBox(
-            height: rect.tileSize + rect.tileSpace,
-            width: rect.boardBorder,
-            depth: rect.tileDepth,
+            height: layout.tileSize + layout.tileSpace,
+            width: layout.boardBorder,
+            depth: layout.tileDepth,
             color: theme.boardColor!,
             frontColor: theme.boardInnerBackgroundColor,
             leftColor: theme.boardInnerSideColor,

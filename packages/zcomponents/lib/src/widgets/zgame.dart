@@ -4,7 +4,7 @@ import 'package:puzzle_models/puzzle_models.dart';
 
 import 'package:zcomponents/zcomponents.dart';
 
-final GameRect game = GameRect(tileSize: 30, tileSpace: 10);
+final GameLayout layout = GameLayout(tileSize: 30, tileSpace: 10);
 
 class ZGame extends StatelessWidget {
   const ZGame({
@@ -18,9 +18,10 @@ class ZGame extends StatelessWidget {
   final List<Widget> vehicles;
 
   final BoardThemeData theme;
+
   final VehiclesThemeData? vehiclesTheme;
 
-  final ZTransform? transform;
+  final ZPosition? transform;
 
   @override
   Widget build(BuildContext context) {
@@ -28,50 +29,46 @@ class ZGame extends StatelessWidget {
       data: theme,
       child: AnimatedVehiclesTheme(
         data: vehiclesTheme,
-        child: TweenAnimationBuilder<ZTransform?>(
-          tween: ZTransformTween(
-            begin: transform,
-            end: transform,
-          ),
-          duration: const Duration(milliseconds: 600),
-          builder: (_, animatedTransform, __) => ZDragDetector(
-            builder: (context, controller) {
-              final transform = animatedTransform ?? ZTransform();
-              return LayoutBuilder(
-                builder: (context, constraints) {
-                  final scale =
-                      constraints.biggest.shortestSide / game.boardSize;
-                  return Align(
-                    child: ZIllustration(
-                      children: [
-                        ZPositioned(
-                          rotate: transform.rotate,
-                          scale: ZVector.all(scale),
-                          translate: transform.translate,
-                          child: ZPositioned(
-                            rotate: controller.value,
-                            child: ZGroup(
-                              children: [
-                                ZBoard(
-                                  rect: game,
+        child: ZDragDetector(
+          builder: (context, controller) {
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                final scale =
+                    constraints.biggest.shortestSide / layout.boardSize;
+                return ZIllustration(
+                  children: [
+                    ZPositioned(
+                      scale: ZVector.all(scale),
+                      child: ZAnimatedPositioned.position(
+                        position: transform ?? ZPosition(),
+                        duration: const Duration(milliseconds: 600),
+                        child: ZPositioned(
+                          rotate: controller.value,
+                          child: ZGroup(
+                            children: [
+                              ZBoard(
+                                layout: layout,
+                              ),
+                              ZPositioned(
+                                translate: layout.boardTopLeft,
+                                child: Builder(
+                                  builder: (context) {
+                                    return ZGroup(
+                                      children: vehicles,
+                                    );
+                                  },
                                 ),
-                                ZPositioned(
-                                  translate: game.boardTopLeft,
-                                  child: ZGroup(
-                                    children: vehicles,
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  );
-                },
-              );
-            },
-          ),
+                  ],
+                );
+              },
+            );
+          },
         ),
       ),
     );

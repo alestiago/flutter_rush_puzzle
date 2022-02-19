@@ -8,10 +8,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puzzle_models/puzzle_models.dart';
-import 'package:rush_hour_puzzle/game_piece/game_piece.dart';
+import 'package:rush_hour_puzzle/game/cubit/counter_cubit.dart';
+import 'package:rush_hour_puzzle/vehicle/widgets/vehicle_view.dart';
 import 'package:zcomponents/zcomponents.dart';
-import 'package:rush_hour_puzzle/counter/counter.dart';
-import 'package:rush_hour_puzzle/l10n/l10n.dart';
 
 final vehicles = [
   Vehicle(
@@ -112,30 +111,26 @@ final vehicles = [
   ),
 ];
 
-class CounterPage extends StatelessWidget {
-  const CounterPage({Key? key}) : super(key: key);
+class GamePage extends StatelessWidget {
+  const GamePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => CounterCubit(),
-      child: const CounterView(),
+      child: const GameView(),
     );
   }
 }
 
-class CounterView extends StatefulWidget {
-  const CounterView({Key? key}) : super(key: key);
+class GameView extends StatefulWidget {
+  const GameView({Key? key}) : super(key: key);
 
   @override
-  State<CounterView> createState() => _CounterViewState();
+  State<GameView> createState() => _GameViewState();
 }
 
-class _CounterViewState extends State<CounterView> {
-  final PageController _pageController = PageController(viewportFraction: 0.7);
-
-  Key? selected;
-
+class _GameViewState extends State<GameView> {
   final themes = [
     BoardThemeData.fromMaterialColor(Colors.blue),
     BoardThemeData.fromMaterialColor(Colors.green),
@@ -155,11 +150,11 @@ class _CounterViewState extends State<CounterView> {
   ]);
   @override
   Widget build(BuildContext context) {
-    final ZTransform chooseState = ZTransform(
+    final chooseState = ZPosition(
       rotate: ZVector.only(x: -0.25, y: -0.75),
     );
-    final ZTransform play2d = ZTransform();
-    final ZTransform play3d = ZTransform(
+    final play2d = ZPosition();
+    final play3d = ZPosition(
       rotate: ZVector.only(x: 1.2, y: -0.2, z: -0.5),
     );
 
@@ -175,43 +170,27 @@ class _CounterViewState extends State<CounterView> {
         topColor: Colors.yellow[600],
       ),
     );
-    final l10n = context.l10n;
-    return Scaffold(
-        body: AnimatedBuilder(
-      animation: _pageController,
-      builder: (context, child) {
-        final color =
-            _pageController.hasClients ? _pageController.page! / 3 : .0;
 
-        return DecoratedBox(
-          decoration: BoxDecoration(
-            color: background.transform(color),
+    return Scaffold(
+      backgroundColor: themes.first.backgroundColor,
+      body: DebugGame(
+        debug: false,
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: ZGame(
+            theme: themes.first,
+            vehiclesTheme: vehicleTheme,
+            transform: play2d,
+            vehicles: [
+              for (final vehicle in vehicles)
+                VehicleView(
+                  key: Key('Vehicle${vehicle.id}'),
+                  vehicle: vehicle,
+                ),
+            ],
           ),
-          child: child,
-        );
-      },
-      child: DebugGame(
-        debug: true,
-        child: ZGame(
-          theme: themes.first,
-          vehiclesTheme: vehicleTheme,
-          transform: play2d,
-          vehicles: [
-            for (final vehicle in vehicles) GamePiece(vehicle: vehicle),
-          ],
         ),
       ),
-    ));
-  }
-}
-
-class CounterText extends StatelessWidget {
-  const CounterText({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final count = context.select((CounterCubit cubit) => cubit.state);
-    return Text('$count', style: theme.textTheme.headline1);
+    );
   }
 }
