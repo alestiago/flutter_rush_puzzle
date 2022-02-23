@@ -25,7 +25,7 @@ class VehicleHitBox extends StatelessWidget {
         context.read<VehicleBloc>().add(
               VehicleDragStarted(
                 dragPosition: details.globalPosition,
-                boundary: layout.board,
+                boundary: layout.boundary,
               ),
             );
       },
