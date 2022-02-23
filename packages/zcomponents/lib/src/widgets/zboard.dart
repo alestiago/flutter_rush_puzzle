@@ -59,11 +59,11 @@ class _Board extends StatelessWidget {
             child: ZGroup(
               children: [
                 ZPositioned(
-                  translate: layout.board.zMinPosition,
+                  translate: layout.boundary.zMinPosition,
                   child: ZCircle(diameter: 1, color: Colors.red, stroke: 2),
                 ),
                 ZPositioned(
-                  translate: layout.board.zMaxPosition,
+                  translate: layout.boundary.zMaxPosition,
                   child: ZCircle(diameter: 1, color: Colors.red, stroke: 2),
                 ),
               ],

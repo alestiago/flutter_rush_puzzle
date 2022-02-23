@@ -133,7 +133,7 @@ BoundingBox getFinalPosition(
   required double velocity,
 }) {
   double roundPosition(double value) {
-    final offset = value / layout.tileStride(1);
+    final offset = value / layout.tileStride;
     int roundedOffset;
 
     final tolerance = layout.tolerance;
@@ -145,7 +145,7 @@ BoundingBox getFinalPosition(
       roundedOffset = offset.round();
     }
 
-    return layout.tileStride(roundedOffset);
+    return layout.tileStrideForLength(roundedOffset);
   }
 
   return BoundingBox.fromLTWH(

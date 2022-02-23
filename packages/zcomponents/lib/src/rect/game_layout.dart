@@ -20,6 +20,9 @@ class GameLayout {
   /// Space between tiles
   final double tileSpace;
 
+  /// Space that occupies a tile and the following space
+  late final double tileStride = tileSize + tileSpace;
+
   /// Number of tiles for a given axis
   /// It is implicit that it is squared and there are the same amount of tiles
   /// in the horizontal and vertical axis
@@ -34,65 +37,64 @@ class GameLayout {
   /// Depth of a tile
   final boardDepth = 20.0;
 
-  /// Returns the real offset for a relative position
-  Offset getPoint(Position offset) {
-    return Offset(
-      offset.x * tileSize + tileSpace * offset.x,
-      offset.y * tileSize + tileSpace * offset.y,
-    );
-  }
+  /// Total size of the board with tiles and the external borders
+  late final boardSize = size + boardPadding * 2 + boardBorder * 2;
 
   /// Total size of the game constraints
   late final size = tileSizeForLength(tileCount);
 
-  /// Total size of the board with tiles and the external borders
-  late final boardSize = size + boardPadding * 2 + boardBorder * 2;
+  /// Board bounding box
+  late final BoundingBox boundary = BoundingBox(
+    Offset.zero,
+    Offset(size, size),
+  );
+
+  /// Returns the real offset for a relative position
+  Offset offsetForPosition(Position offset) {
+    return Offset(offset.x * tileStride, offset.y * tileStride);
+  }
 
   /// Returns the size of a tile with a given length
   double tileSizeForLength(int length) {
-    return length * tileSize + (length - 1) * tileSpace;
+    return length * tileStride - tileSpace;
   }
 
   /// Returns the size of the tile and the next space for a given length
-  double tileStride(int length) {
-    return length * (tileSize + tileSpace);
+  double tileStrideForLength(int length) {
+    return length * tileStride;
   }
-
-  /// Board bounding box
-  late final BoundingBox board = BoundingBox(Offset.zero, Offset(size, size));
 
   /// Returns offset of the board top left from a center point origin
   late final ZVector boardTopLeft = () {
     final halfLength = tileCount / 2;
     final size = halfLength * tileSize + tileSpace * (halfLength - 0.5);
-    return ZVector(size, size, 0).multiplyScalar(-1);
+    return ZVector(-size, -size, 0);
   }();
 
+  /// Generates a boundary box for a vehicle
+  BoundingBox boxForVehicle(Vehicle vehicle) {
+    return boxFor(vehicle.firstPosition, vehicle.length, vehicle.steering);
+  }
+
+  /// Generates a boundary box for a given offest, length and steering
   BoundingBox boxFor(Position offset, int length, Steering steering) {
-    final minPosition = getPoint(offset);
+    final minPosition = offsetForPosition(offset);
     final maxPosition = steering == Steering.horizonal
         ? Offset(
             minPosition.dx + tileSizeForLength(length),
-            minPosition.dy + tileSizeForLength(1),
+            minPosition.dy + tileSize,
           )
         : Offset(
-            minPosition.dx + tileSizeForLength(1),
+            minPosition.dx + tileSize,
             minPosition.dy + tileSizeForLength(length),
           );
     return BoundingBox(minPosition, maxPosition);
   }
 
-  BoundingBox boxForVehicle(Vehicle vehicle) {
-    return boxFor(vehicle.firstPosition, vehicle.length, vehicle.steering);
-  }
+  /// Tolerance while drag and drop
+  late final Tolerance tolerance = _kDefaultTolerance;
 
-  late List<double> offsets = [
-    for (final tile in List.generate(tileCount, (i) => i)) tileStride(tile)
-  ];
-
-  final Tolerance tolerance = _kDefaultTolerance;
-
-  static final Tolerance _kDefaultTolerance = Tolerance(
+  static late final Tolerance _kDefaultTolerance = Tolerance(
     velocity: 1.0 /
         (0.050 *
             WidgetsBinding.instance!.window

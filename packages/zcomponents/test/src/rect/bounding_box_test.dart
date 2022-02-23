@@ -98,7 +98,7 @@ void main() {
       expect(box.fitsInside(BoundingBox.fromLTWH(100, 100, 200, 200)), isTrue);
     });
 
-    test('does not fitsInside if box is the smaller', () async {
+    test('does not fitsInside if box is smaller', () async {
       final box = BoundingBox.fromLTWH(0, 0, 200, 200);
       expect(box.fitsInside(BoundingBox.fromLTWH(100, 100, 100, 100)), isFalse);
     });
