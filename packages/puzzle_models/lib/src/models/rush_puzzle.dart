@@ -15,7 +15,7 @@ class RushPuzzle extends Equatable {
     required this.dimension,
     required this.vehicles,
   })  : assert(
-          vehicles.contains(jammedVehicle),
+          vehicles.any((v) => v.id == jammedVehicle.id),
           'Jammed vehicle not in state',
         ),
         assert(
@@ -50,6 +50,21 @@ class RushPuzzle extends Equatable {
   /// A puzzle is solved if the [jammedVehicle] reaches the [exit].
   bool get isSolved {
     return jammedVehicle.firstPosition == exit;
+  }
+
+  // ignore: public_member_api_docs
+  RushPuzzle copyWith({
+    List<Vehicle>? vehicles,
+    Position? exit,
+    Position? dimension,
+    Vehicle? jammedVehicle,
+  }) {
+    return RushPuzzle(
+      exit: exit ?? this.exit,
+      jammedVehicle: jammedVehicle ?? this.jammedVehicle,
+      dimension: dimension ?? this.dimension,
+      vehicles: vehicles ?? this.vehicles,
+    );
   }
 
   @override

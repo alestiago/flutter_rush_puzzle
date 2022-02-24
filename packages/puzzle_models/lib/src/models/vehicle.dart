@@ -84,15 +84,22 @@ class Vehicle extends Equatable {
   }
 
   /// Moves the [Vehicle] to the given [Position].
-  Vehicle driveTo(RushPuzzle puzzle, Position to) {
-    // TODO(alestiago): include assertion that the vehicle can move to the
-    // specified position.
-    return Vehicle(
+  RushPuzzle driveTo(RushPuzzle puzzle, Position to) {
+    assert(puzzle.vehicles.contains(this), 'Vehicle must be in the puzzle.');
+    assert(
+      drivingBoundary(puzzle).bounds().contains(to),
+      'Vehicle cannot move to the specified position.',
+    );
+    if (firstPosition == to) return puzzle;
+
+    final vehicle = Vehicle(
       id: id,
       length: length,
       steering: steering,
       firstPosition: to,
     );
+
+    return puzzle.copyWith(vehicles: puzzle.vehicles.replace(vehicle));
   }
 
   /// The [Position]s that the vehicle occupies.
@@ -118,4 +125,14 @@ class Vehicle extends Equatable {
         firstPosition,
         lastPosition,
       ];
+}
+
+extension on List<Vehicle> {
+  List<Vehicle> replace(Vehicle vehicle) {
+    final replacedVehicle = firstWhere((v) => v.id == vehicle.id);
+    final index = indexOf(replacedVehicle);
+    if (index != -1) this[index] = vehicle;
+
+    return this;
+  }
 }

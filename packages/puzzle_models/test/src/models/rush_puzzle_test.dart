@@ -3,7 +3,6 @@ import 'package:test/test.dart';
 
 void main() {
   group('RushPuzzle', () {
-    // TODO(alestiago): test RushPuzzle.
     group('isSolved', () {
       test(
         'is true '
@@ -27,6 +26,66 @@ void main() {
           expect(puzzle.isSolved, true);
         },
       );
+    });
+
+    group('copyWith', () {
+      test(
+          'stays the same '
+          'when empty ', () {
+        final vehicle = Vehicle(
+          id: 'A',
+          length: 3,
+          steering: Steering.horizonal,
+          firstPosition: const Position(0, 0),
+        );
+        final puzzle = RushPuzzle(
+          jammedVehicle: vehicle,
+          vehicles: [vehicle],
+          exit: const Position(6, 3),
+          dimension: const Position(5, 5),
+        );
+
+        final copy = puzzle.copyWith();
+
+        expect(copy, equals(puzzle));
+      });
+
+      test('copies correctly', () {
+        final vehicle = Vehicle(
+          id: 'A',
+          length: 3,
+          steering: Steering.horizonal,
+          firstPosition: const Position(0, 0),
+        );
+        final puzzle = RushPuzzle(
+          jammedVehicle: vehicle,
+          vehicles: [vehicle],
+          exit: const Position(6, 3),
+          dimension: const Position(5, 5),
+        );
+
+        final vehicle2 = Vehicle(
+          id: 'B',
+          length: 3,
+          steering: Steering.horizonal,
+          firstPosition: const Position(0, 1),
+        );
+        final puzzle2 = RushPuzzle(
+          exit: const Position(5, 3),
+          jammedVehicle: vehicle2,
+          dimension: const Position(4, 4),
+          vehicles: [vehicle2],
+        );
+
+        final copy = puzzle.copyWith(
+          exit: puzzle2.exit,
+          jammedVehicle: puzzle2.jammedVehicle,
+          vehicles: puzzle2.vehicles,
+          dimension: puzzle2.dimension,
+        );
+
+        expect(copy, equals(puzzle2));
+      });
     });
   });
 }
