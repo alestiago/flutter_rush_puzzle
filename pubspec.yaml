@@ -8,12 +8,17 @@ environment:
 
 dependencies:
   bloc: ^8.0.2
+  equatable:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
+  puzzle_models:
+    path: packages/puzzle_models
+  zcomponents:
+    path: packages/zcomponents
 
 dev_dependencies:
   bloc_test: ^9.0.2
