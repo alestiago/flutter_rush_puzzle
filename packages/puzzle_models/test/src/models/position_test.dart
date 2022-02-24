@@ -31,6 +31,30 @@ void main() {
       },
     );
 
+    group('lerp', () {
+      test(
+          'lerps correctly '
+          'when line is horizontal', () {
+        const position1 = Position(0, 0);
+        const position2 = Position(2, 0);
+
+        final actual = Position.lerp(position1, position2, 1);
+
+        expect(actual, equals(const Position(1, 0)));
+      });
+
+      test(
+          'lerps correctly '
+          'when line is diagonal', () {
+        const position1 = Position(0, 0);
+        const position2 = Position(2, 2);
+
+        final actual = Position.lerp(position1, position2, 1);
+
+        expect(actual, equals(const Position(1, 1)));
+      });
+    });
+
     group('+ operator', () {
       test(
         'correctly adds',

@@ -1,5 +1,4 @@
 import 'package:puzzle_models/puzzle_models.dart';
-import 'package:puzzle_models/src/models/rush_puzzle.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -199,7 +198,65 @@ void main() {
     });
 
     group('driveTo', () {
-      // TODO(alestiago): Write test.
+      test('moves vehicle', () {
+        final vehicle = Vehicle(
+          id: '1',
+          length: 2,
+          steering: Steering.horizonal,
+          firstPosition: const Position(0, 0),
+        );
+        final puzzle = RushPuzzle(
+          exit: const Position(6, 0),
+          jammedVehicle: vehicle,
+          dimension: const Position(5, 5),
+          vehicles: [vehicle],
+        );
+
+        final newPosition = vehicle.firstPosition + const Position(1, 0);
+        final newPuzzle = vehicle.driveTo(
+          puzzle,
+          newPosition,
+        );
+
+        expect(
+          newPuzzle.vehicles,
+          equals([
+            Vehicle(
+              id: vehicle.id,
+              length: vehicle.length,
+              steering: vehicle.steering,
+              firstPosition: newPosition,
+            )
+          ]),
+        );
+      });
+
+      test(
+          'throws AssertionError '
+          'when drives to an invalid positon', () {
+        final vehicleA = Vehicle(
+          id: 'A',
+          length: 2,
+          steering: Steering.horizonal,
+          firstPosition: const Position(0, 0),
+        );
+        final vehicleB = Vehicle(
+          id: 'B',
+          length: 2,
+          steering: Steering.horizonal,
+          firstPosition: const Position(3, 0),
+        );
+        final puzzle = RushPuzzle(
+          exit: const Position(6, 3),
+          jammedVehicle: vehicleA,
+          dimension: const Position(5, 5),
+          vehicles: [vehicleA, vehicleB],
+        );
+        expect(
+          () => vehicleA.driveTo(puzzle, vehicleB.firstPosition),
+          throwsA(isA<AssertionError>()),
+        );
+      });
     });
 
     group('positions', () {
