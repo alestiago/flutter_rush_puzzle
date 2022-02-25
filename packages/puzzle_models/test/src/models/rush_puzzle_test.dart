@@ -6,7 +6,7 @@ void main() {
     group('isSolved', () {
       test(
         'is true '
-        'when jammedCar is in exit',
+        'when jammedVehcile is in exit',
         () {
           final jammedVehicle = Vehicle(
             id: 'A',
@@ -16,7 +16,7 @@ void main() {
           );
 
           final puzzle = RushPuzzle(
-            jammedVehicle: jammedVehicle,
+            jammedVehicleId: jammedVehicle.id,
             vehicles: {jammedVehicle.id: jammedVehicle},
           );
 
@@ -36,7 +36,7 @@ void main() {
           firstPosition: const Position(0, 0),
         );
         final puzzle = RushPuzzle(
-          jammedVehicle: vehicle,
+          jammedVehicleId: vehicle.id,
           vehicles: {vehicle.id: vehicle},
         );
 
@@ -53,7 +53,7 @@ void main() {
           firstPosition: const Position(0, 0),
         );
         final puzzle = RushPuzzle(
-          jammedVehicle: vehicle,
+          jammedVehicleId: vehicle.id,
           vehicles: {vehicle.id: vehicle},
         );
 
@@ -64,12 +64,12 @@ void main() {
           firstPosition: const Position(0, 1),
         );
         final puzzle2 = RushPuzzle(
-          jammedVehicle: vehicle2,
+          jammedVehicleId: vehicle2.id,
           vehicles: {vehicle2.id: vehicle2},
         );
 
         final copy = puzzle.copyWith(
-          jammedVehicle: puzzle2.jammedVehicle,
+          jammedVehicleId: puzzle2.jammedVehicleId,
           vehicles: puzzle2.vehicles,
         );
 
