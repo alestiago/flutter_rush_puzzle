@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:puzzle_models/puzzle_models.dart';
+import 'package:puzzle_models/src/models/puzzle_difficulty.dart';
 
 /// {@template rush_puzzle}
 /// Represents a Rush Hour puzzle.
@@ -10,6 +11,7 @@ import 'package:puzzle_models/puzzle_models.dart';
 class RushPuzzle extends Equatable {
   /// {@macro rush_puzzle}
   RushPuzzle({
+    required this.difficulty,
     required this.jammedVehicleId,
     required this.vehicles,
   })  : assert(
@@ -44,6 +46,9 @@ class RushPuzzle extends Equatable {
   /// The id of the [Vehicle] that is jammed (stuck) and must reach the [exit].
   final String jammedVehicleId;
 
+  /// {@macro puzzle_difficulty}
+  final PuzzleDifficulty difficulty;
+
   /// Asess if the puzzle is solved.
   ///
   /// A puzzle is solved if the [jammedVehicleId] reaches the [exit].
@@ -55,10 +60,12 @@ class RushPuzzle extends Equatable {
   RushPuzzle copyWith({
     Map<String, Vehicle>? vehicles,
     String? jammedVehicleId,
+    PuzzleDifficulty? difficulty,
   }) {
     return RushPuzzle(
       jammedVehicleId: jammedVehicleId ?? this.jammedVehicleId,
       vehicles: vehicles ?? this.vehicles,
+      difficulty: difficulty ?? this.difficulty,
     );
   }
 
@@ -68,5 +75,6 @@ class RushPuzzle extends Equatable {
         exit,
         dimension,
         jammedVehicleId,
+        difficulty,
       ];
 }

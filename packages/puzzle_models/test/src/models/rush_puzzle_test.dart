@@ -16,6 +16,7 @@ void main() {
           );
 
           final puzzle = RushPuzzle(
+            difficulty: PuzzleDifficulty.beginner,
             jammedVehicleId: jammedVehicle.id,
             vehicles: {jammedVehicle.id: jammedVehicle},
           );
@@ -36,6 +37,7 @@ void main() {
           firstPosition: const Position(0, 0),
         );
         final puzzle = RushPuzzle(
+          difficulty: PuzzleDifficulty.beginner,
           jammedVehicleId: vehicle.id,
           vehicles: {vehicle.id: vehicle},
         );
@@ -53,6 +55,7 @@ void main() {
           firstPosition: const Position(0, 0),
         );
         final puzzle = RushPuzzle(
+          difficulty: PuzzleDifficulty.beginner,
           jammedVehicleId: vehicle.id,
           vehicles: {vehicle.id: vehicle},
         );
@@ -64,11 +67,13 @@ void main() {
           firstPosition: const Position(0, 1),
         );
         final puzzle2 = RushPuzzle(
+          difficulty: PuzzleDifficulty.expert,
           jammedVehicleId: vehicle2.id,
           vehicles: {vehicle2.id: vehicle2},
         );
 
         final copy = puzzle.copyWith(
+          difficulty: puzzle2.difficulty,
           jammedVehicleId: puzzle2.jammedVehicleId,
           vehicles: puzzle2.vehicles,
         );
