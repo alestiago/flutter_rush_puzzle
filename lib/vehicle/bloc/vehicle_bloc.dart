@@ -14,6 +14,7 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
     required GameLayout layout,
   })  : _steering = vehicle.steering,
         _layout = layout,
+        vehicleId = vehicle.id,
         super(
           VehicleState(box: layout.boxForVehicle(vehicle)),
         ) {
@@ -24,6 +25,8 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
   }
 
   final Steering _steering;
+
+  final String vehicleId;
 
   final GameLayout _layout;
 
@@ -54,9 +57,16 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
     } else {
       offset = Offset(0, vector.dot(matrix.up));
     }
+    if (offset.distance <= _precisionErrorTolerance) {
+      offset = Offset.zero;
+    }
     emit(
       state.copyWith(
-        draggingBox: state.box.translate(offset).clampInside(state.boundary!),
+        draggingBox: getTranslatedBox(
+          state.box,
+          boundary: state.boundary!,
+          offset: offset,
+        ),
       ),
     );
   }
@@ -98,9 +108,7 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
     final transformation = matrixFromTransformations(event.transformations);
     if (!previousTransformation.closeTo(transformation)) {
       emit(
-        state.copyWith(
-          transformation: transformation,
-        ),
+        state.copyWith(transformation: transformation),
       );
     }
   }
@@ -124,6 +132,24 @@ extension CloseToDouble on double {
     var diff = this - value;
     if (diff < 0) diff = -diff;
     return diff <= tolerance;
+  }
+}
+
+BoundingBox getTranslatedBox(
+  BoundingBox box, {
+  required BoundingBox boundary,
+  required Offset offset,
+}) {
+  final newBox = box.translate(offset);
+  if (newBox.fitsInside(boundary)) {
+    return newBox.clampInside(boundary);
+  } else {
+    return BoundingBox.fromLTWH(
+      boundary.minPosition.dx,
+      boundary.minPosition.dy,
+      box.width,
+      box.height,
+    );
   }
 }
 

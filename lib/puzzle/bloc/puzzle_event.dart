@@ -12,8 +12,8 @@ class PuzzleRequested extends PuzzleEvent {
   List<Object?> get props => [];
 }
 
-class VehicleMoved extends PuzzleEvent {
-  const VehicleMoved({
+class PuzzleVehicleMoved extends PuzzleEvent {
+  const PuzzleVehicleMoved({
     required this.vehicle,
     required this.newPosition,
   });
@@ -26,23 +26,23 @@ class VehicleMoved extends PuzzleEvent {
 }
 
 // TODO(alestiago): Consider naming PuzzleUndo/PuzzleUndid.
-class UndidMove extends PuzzleEvent {
-  const UndidMove();
+class PuzzleMoveUndid extends PuzzleEvent {
+  const PuzzleMoveUndid();
 
   @override
   List<Object?> get props => [];
 }
 
 // TODO(alestiago): Consider naming PuzzleRedo/PuzzleRedid.
-class RedidMove extends PuzzleEvent {
-  const RedidMove();
+class PuzzleMoveRedid extends PuzzleEvent {
+  const PuzzleMoveRedid();
 
   @override
   List<Object?> get props => [];
 }
 
-class PuzzleReset extends PuzzleEvent {
-  const PuzzleReset();
+class PuzzleReseted extends PuzzleEvent {
+  const PuzzleReseted();
 
   @override
   List<Object?> get props => [];

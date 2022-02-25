@@ -151,6 +151,28 @@ class _BoardBorders extends StatelessWidget {
             bottomColor: theme.boardOutterSideColor,
           ),
         ),
+         ZPositioned(
+          translate: ZVector(quarterLength, halfLength + halfBorder, 0),
+          child: ZBox(
+            width: halfLength,
+            height: layout.boardBorder,
+            depth: layout.boardDepth,
+            color: theme.boardColor!,
+            topColor: theme.boardInnerSideColor,
+            bottomColor: theme.boardOutterSideColor,
+          ),
+        ),
+         ZPositioned(
+          translate: ZVector(quarterLength, halfLength + halfBorder, 0),
+          child: ZBox(
+            width: halfLength,
+            height: layout.boardBorder,
+            depth: layout.boardDepth,
+            color: theme.boardColor!,
+            topColor: theme.boardInnerSideColor,
+            bottomColor: theme.boardOutterSideColor,
+          ),
+        ),
         ZPositioned(
           translate: ZVector(-quarterLength, halfLength + halfBorder, 0),
           child: ZBox(

@@ -51,6 +51,8 @@ class ZCar extends StatelessWidget {
         ZPositioned(
           translate: const ZVector(distanceWheel, size / 2, -distanceZWheel),
           child: ZGroup(
+            sortMode: SortMode.update,
+            sortPoint: const ZVector(0, 0, 20),
             children: const [
               _ZWheel(
                 side: _ZWheelSide.right,
@@ -61,6 +63,8 @@ class ZCar extends StatelessWidget {
         ZPositioned(
           translate: const ZVector(-distanceWheel, size / 2, -distanceZWheel),
           child: ZGroup(
+            sortMode: SortMode.update,
+            sortPoint: const ZVector(0, 0, 20),
             children: const [
               _ZWheel(
                 side: _ZWheelSide.right,
@@ -71,6 +75,8 @@ class ZCar extends StatelessWidget {
         ZPositioned(
           translate: const ZVector(distanceWheel, -size / 2, -distanceZWheel),
           child: ZGroup(
+            sortMode: SortMode.update,
+            sortPoint: const ZVector(0, 0, 20),
             children: const [
               _ZWheel(),
             ],
@@ -79,6 +85,8 @@ class ZCar extends StatelessWidget {
         ZPositioned(
           translate: const ZVector(-distanceWheel, -size / 2, -distanceZWheel),
           child: ZGroup(
+            sortMode: SortMode.update,
+            sortPoint: const ZVector(0, 0, 20),
             children: const [
               _ZWheel(),
             ],
@@ -137,14 +145,14 @@ class ZCar extends StatelessWidget {
                     ),
                     ZGroup(
                       sortMode: SortMode.update,
-                      children: [
+                      children: const [
                         ZPositioned(
-                          translate: const ZVector.only(y: 10),
-                          child: const _Ligth(),
+                          translate: ZVector.only(y: 10),
+                          child: _Ligth(),
                         ),
                         ZPositioned(
-                          translate: const ZVector.only(y: -10),
-                          child: const _Ligth(),
+                          translate: ZVector.only(y: -10),
+                          child: _Ligth(),
                         ),
                       ],
                     ),

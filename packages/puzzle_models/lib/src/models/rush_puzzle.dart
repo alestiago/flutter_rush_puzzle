@@ -15,11 +15,11 @@ class RushPuzzle extends Equatable {
     required this.dimension,
     required this.vehicles,
   })  : assert(
-          vehicles.any((v) => v.id == jammedVehicle.id),
+          vehicles.values.any((v) => v.id == jammedVehicle.id),
           'Jammed vehicle not in state',
         ),
         assert(
-          vehicles.every(
+          vehicles.values.every(
             (vehicle) =>
                 (vehicle.firstPosition <= dimension &&
                     vehicle.lastPosition <= dimension) ||
@@ -31,7 +31,7 @@ class RushPuzzle extends Equatable {
   /// All the [Vehicle]s in the puzzle.
   ///
   /// This includes the [jammedVehicle].
-  final List<Vehicle> vehicles;
+  final Map<String, Vehicle> vehicles;
 
   /// The [Position] that the [jammedVehicle] has to reach in order to solve
   /// the puzzle.
@@ -54,7 +54,7 @@ class RushPuzzle extends Equatable {
 
   // ignore: public_member_api_docs
   RushPuzzle copyWith({
-    List<Vehicle>? vehicles,
+    Map<String, Vehicle>? vehicles,
     Position? exit,
     Position? dimension,
     Vehicle? jammedVehicle,

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puzzle_models/puzzle_models.dart';
+import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
 import 'package:rush_hour_puzzle/vehicle/vehicle.dart';
 
 import 'package:zcomponents/zcomponents.dart';
@@ -24,41 +25,59 @@ class VehicleContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final dragging = context.select((VehicleBloc bloc) => bloc.state.dragging);
     final box = context.select((VehicleBloc bloc) => bloc.state.box);
+    final id = context.select((VehicleBloc bloc) => bloc.vehicleId);
     final draggingBox =
         context.select((VehicleBloc bloc) => bloc.state.draggingBox);
     final isDebug = DebugGame.isDebugMode(context);
 
-    return ZGroup(
-      sortMode: SortMode.update,
-      children: [
-        if (isDebug) ZPositionDebug(box: box),
-        ZPositionTracker(
-          onTransform: (transforms) {
-            context.read<VehicleBloc>().add(
-                  VehicleTransformationUpdated(transforms),
-                );
-          },
-          child: ZAnimatedPositioned(
-            translate: draggingBox?.zCenter ?? box.zCenter,
-            duration: dragging ? Duration.zero : kDefaultDuration,
-            curve: Curves.easeInOut,
-            child: ZPositioned(
-              translate: const ZVector.only(z: 18),
-              child: ZGroup(
-                sortMode: SortMode.update,
-                children: [
-                  ZAnimatedPositioned(
-                    duration: kDefaultDuration,
-                    translate: ZVector.only(z: dragging ? 10 : 0),
-                    child: child,
-                  ),
-                  const VehicleHitBox(),
-                ],
+    return BlocListener<VehicleBloc, VehicleState>(
+      listener: (context, VehicleState state) {
+        final position = layout.positionForOffset(state.box.minPosition);
+
+        final bloc = context.read<PuzzleBloc>();
+        final puzzleState = bloc.state as PuzzleDataState;
+        final vehicle = puzzleState.puzzle.vehicles[id]!;
+        bloc.add(
+          PuzzleVehicleMoved(vehicle: vehicle, newPosition: position),
+        );
+      },
+      listenWhen: (previous, current) {
+        return previous.box != current.box;
+      },
+      child: ZGroup(
+        sortMode: SortMode.update,
+        sortPoint: box.zCenter + const ZVector.only(z: 60),
+        children: [
+          if (isDebug) ZPositionDebug(box: box),
+          ZPositionTracker(
+            onTransform: (transforms) {
+              context.read<VehicleBloc>().add(
+                    VehicleTransformationUpdated(transforms),
+                  );
+            },
+            child: ZAnimatedPositioned(
+              translate: draggingBox?.zCenter ?? box.zCenter,
+              duration: dragging ? Duration.zero : kDefaultDuration,
+              curve: Curves.easeInOut,
+              child: ZPositioned(
+                translate: const ZVector.only(z: 18),
+                child: ZGroup(
+                  sortPoint: ZVector.zero,
+                  sortMode: SortMode.update,
+                  children: [
+                    ZAnimatedPositioned(
+                      duration: kDefaultDuration,
+                      translate: ZVector.only(z: dragging ? 10 : 0),
+                      child: child,
+                    ),
+                    const VehicleHitBox(),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
