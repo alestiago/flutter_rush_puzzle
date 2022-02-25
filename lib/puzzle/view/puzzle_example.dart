@@ -63,14 +63,12 @@ class SimpleRushPuzzle extends RushPuzzle {
   SimpleRushPuzzle({
     required List<Vehicle> vehicles,
   }) : super(
-          exit: const Position(2, 6),
           jammedVehicle: Vehicle(
             id: 'X',
             length: 2,
             steering: Steering.horizonal,
             firstPosition: const Position(0, 0),
           ),
-          dimension: const Position(6, 6),
           vehicles: {
             for (final vehicle in vehicles) vehicle.id: vehicle,
           },
