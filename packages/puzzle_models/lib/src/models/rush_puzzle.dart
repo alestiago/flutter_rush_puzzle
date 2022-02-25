@@ -10,10 +10,10 @@ import 'package:puzzle_models/puzzle_models.dart';
 class RushPuzzle extends Equatable {
   /// {@macro rush_puzzle}
   RushPuzzle({
-    required this.jammedVehicle,
+    required this.jammedVehicleId,
     required this.vehicles,
   })  : assert(
-          vehicles.values.any((v) => v.id == jammedVehicle.id),
+          vehicles.values.any((v) => v.id == jammedVehicleId),
           'Jammed vehicle not in state',
         ),
         assert(
@@ -21,12 +21,13 @@ class RushPuzzle extends Equatable {
             (vehicle) =>
                 (vehicle.firstPosition <= dimension &&
                     vehicle.lastPosition <= dimension) ||
-                (vehicle == jammedVehicle && vehicle.firstPosition == exit),
+                (vehicle.id == jammedVehicleId &&
+                    vehicle.firstPosition == exit),
           ),
           'One or more vehicles are out out of bounds',
         );
 
-  /// The [Position] that the [jammedVehicle] has to reach in order to solve
+  /// The [Position] that the [jammedVehicleId] has to reach in order to solve
   /// the puzzle.
   static const Position exit = Position(6, 2);
 
@@ -37,26 +38,26 @@ class RushPuzzle extends Equatable {
 
   /// All the [Vehicle]s in the puzzle.
   ///
-  /// This includes the [jammedVehicle].
+  /// This includes the [jammedVehicleId].
   final Map<String, Vehicle> vehicles;
 
-  /// The [Vehicle] that is jammed in the puzzle and must reach the [exit].
-  final Vehicle jammedVehicle;
+  /// The id of the [Vehicle] that is jammed (stuck) and must reach the [exit].
+  final String jammedVehicleId;
 
   /// Asess if the puzzle is solved.
   ///
-  /// A puzzle is solved if the [jammedVehicle] reaches the [exit].
+  /// A puzzle is solved if the [jammedVehicleId] reaches the [exit].
   bool get isSolved {
-    return jammedVehicle.firstPosition == exit;
+    return vehicles[jammedVehicleId]!.firstPosition <= exit;
   }
 
   // ignore: public_member_api_docs
   RushPuzzle copyWith({
     Map<String, Vehicle>? vehicles,
-    Vehicle? jammedVehicle,
+    String? jammedVehicleId,
   }) {
     return RushPuzzle(
-      jammedVehicle: jammedVehicle ?? this.jammedVehicle,
+      jammedVehicleId: jammedVehicleId ?? this.jammedVehicleId,
       vehicles: vehicles ?? this.vehicles,
     );
   }
@@ -66,6 +67,6 @@ class RushPuzzle extends Equatable {
         vehicles,
         exit,
         dimension,
-        jammedVehicle,
+        jammedVehicleId,
       ];
 }

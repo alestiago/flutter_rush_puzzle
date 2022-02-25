@@ -80,7 +80,7 @@ class Vehicle extends Equatable {
       }
     }
 
-    if (id == puzzle.jammedVehicle.id && to + movement == RushPuzzle.exit) {
+    if (id == puzzle.jammedVehicleId && to + movement == RushPuzzle.exit) {
       to += movement * length;
     }
 

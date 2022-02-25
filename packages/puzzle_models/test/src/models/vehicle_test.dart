@@ -80,7 +80,7 @@ void main() {
             firstPosition: const Position(0, 0),
           );
           final puzzle = RushPuzzle(
-            jammedVehicle: vehicle,
+            jammedVehicleId: vehicle.id,
             vehicles: {vehicle.id: vehicle},
           );
 
@@ -106,7 +106,7 @@ void main() {
             firstPosition: const Position(2, 3),
           );
           final puzzle = RushPuzzle(
-            jammedVehicle: vehicle,
+            jammedVehicleId: vehicle.id,
             vehicles: {vehicle.id: vehicle},
           );
 
@@ -141,7 +141,7 @@ void main() {
         );
 
         final puzzle = RushPuzzle(
-          jammedVehicle: jammedVehicle,
+          jammedVehicleId: jammedVehicle.id,
           vehicles: {
             jammedVehicle.id: jammedVehicle,
             vehicle2.id: vehicle2,
@@ -178,7 +178,7 @@ void main() {
           firstPosition: const Position(3, 0),
         );
         final puzzle = RushPuzzle(
-          jammedVehicle: jammedVehicle,
+          jammedVehicleId: jammedVehicle.id,
           vehicles: {
             jammedVehicle.id: jammedVehicle,
             vehicle2.id: vehicle2,
@@ -200,7 +200,7 @@ void main() {
 
       test(
         'is correct '
-        'when jammedVehicle can extit',
+        'when jammedVehicle can exit',
         () {
           expect(RushPuzzle.exit, equals(const Position(6, 2)));
           const length = 3;
@@ -211,13 +211,13 @@ void main() {
             firstPosition: RushPuzzle.exit - const Position(length, 0),
           );
           final puzzle = RushPuzzle(
-            jammedVehicle: vehicle,
+            jammedVehicleId: vehicle.id,
             vehicles: {vehicle.id: vehicle},
           );
 
           final drivingBoundaries = vehicle.drivingBoundary(puzzle);
 
-          expect(puzzle.jammedVehicle, vehicle);
+          expect(puzzle.jammedVehicleId, equals(vehicle.id));
           expect(vehicle.steering, equals(Steering.horizonal));
           expect(drivingBoundaries.from, Position(0, RushPuzzle.exit.y));
           expect(
@@ -237,7 +237,7 @@ void main() {
           firstPosition: const Position(0, 0),
         );
         final puzzle = RushPuzzle(
-          jammedVehicle: vehicle,
+          jammedVehicleId: vehicle.id,
           vehicles: {
             vehicle.id: vehicle,
           },
@@ -278,7 +278,7 @@ void main() {
           firstPosition: const Position(3, 0),
         );
         final puzzle = RushPuzzle(
-          jammedVehicle: vehicleA,
+          jammedVehicleId: vehicleA.id,
           vehicles: {
             vehicleA.id: vehicleA,
             vehicleB.id: vehicleB,
