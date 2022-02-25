@@ -76,7 +76,7 @@ class ZCar extends StatelessWidget {
           translate: const ZVector(distanceWheel, -size / 2, -distanceZWheel),
           child: ZGroup(
             sortMode: SortMode.update,
-            sortPoint: const ZVector(0, 0, 20),
+            sortPoint: const ZVector(0, 0, 8),
             children: const [
               _ZWheel(),
             ],
@@ -86,7 +86,7 @@ class ZCar extends StatelessWidget {
           translate: const ZVector(-distanceWheel, -size / 2, -distanceZWheel),
           child: ZGroup(
             sortMode: SortMode.update,
-            sortPoint: const ZVector(0, 0, 20),
+            sortPoint: const ZVector(0, 0, 8),
             children: const [
               _ZWheel(),
             ],

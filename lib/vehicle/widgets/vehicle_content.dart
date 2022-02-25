@@ -30,6 +30,8 @@ class VehicleContent extends StatelessWidget {
         context.select((VehicleBloc bloc) => bloc.state.draggingBox);
     final isDebug = DebugGame.isDebugMode(context);
 
+    final escaped = context.select((VehicleBloc bloc) => bloc.state.escaped);
+
     return BlocListener<VehicleBloc, VehicleState>(
       listener: (context, VehicleState state) {
         final position = layout.positionForOffset(state.box.minPosition);
@@ -58,19 +60,24 @@ class VehicleContent extends StatelessWidget {
               translate: draggingBox?.zCenter ?? box.zCenter,
               duration: dragging ? Duration.zero : kDefaultDuration,
               curve: Curves.easeInOut,
-              child: ZPositioned(
-                translate: const ZVector.only(z: 18),
-                child: ZGroup(
-                  sortPoint: ZVector.zero,
-                  sortMode: SortMode.update,
-                  children: [
-                    ZAnimatedPositioned(
-                      duration: kDefaultDuration,
-                      translate: ZVector.only(z: dragging ? 10 : 0),
-                      child: child,
-                    ),
-                    const VehicleHitBox(),
-                  ],
+              child: ZAnimatedPositioned(
+                translate: ZVector.only(x: escaped ? 1000 : 0),
+                duration: const Duration(seconds: 2),
+                curve: Curves.easeInOut,
+                child: ZPositioned(
+                  translate: const ZVector.only(z: 18),
+                  child: ZGroup(
+                    sortPoint: ZVector.zero,
+                    sortMode: SortMode.update,
+                    children: [
+                      ZAnimatedPositioned(
+                        duration: kDefaultDuration,
+                        translate: ZVector.only(z: dragging ? 10 : 0),
+                        child: child,
+                      ),
+                      const VehicleHitBox(),
+                    ],
+                  ),
                 ),
               ),
             ),

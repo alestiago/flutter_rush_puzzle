@@ -11,6 +11,7 @@ part 'vehicle_state.dart';
 class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
   VehicleBloc({
     required Vehicle vehicle,
+    required this.isMainVehicle,
     required GameLayout layout,
   })  : _steering = vehicle.steering,
         _layout = layout,
@@ -27,6 +28,8 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
   final Steering _steering;
 
   final String vehicleId;
+
+  final bool isMainVehicle;
 
   final GameLayout _layout;
 
@@ -48,6 +51,7 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
     VehicleDragUpdated event,
     Emitter<VehicleState> emit,
   ) async {
+    if (!state.dragging) return;
     final globalOffset = event.dragPosition - state.dragStartPosition;
     final vector = math.Vector3(globalOffset.dx, globalOffset.dy, 0);
     final matrix = state.transformation ?? Matrix4.translationValues(0, 0, 0);
@@ -60,21 +64,35 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
     if (offset.distance <= _precisionErrorTolerance) {
       offset = Offset.zero;
     }
-    emit(
-      state.copyWith(
-        draggingBox: getTranslatedBox(
-          state.box,
-          boundary: state.boundary!,
-          offset: offset,
-        ),
-      ),
+
+    final draggingBox = getTranslatedBox(
+      state.box,
+      boundary: state.boundary!,
+      offset: offset,
     );
+
+    if (isMainVehicle && !layout.boundary.contains(draggingBox)) {
+      emit(
+        state
+            .copyWith(
+              dragging: false,
+              escaped: true,
+              box: layout.boxForDrivingBoundary(
+                DrivingBoundary(const Position(5, 2), const Position(6, 2)),
+              ),
+            )
+            .withoutDraggingBox(),
+      );
+    } else {
+      emit(state.copyWith(draggingBox: draggingBox));
+    }
   }
 
   Future<void> _onDragEnd(
     VehicleDragEnd event,
     Emitter<VehicleState> emit,
   ) async {
+    if (!state.dragging) return;
     final vector = math.Vector3(event.velocity.dx, event.velocity.dy, 0);
     final matrix = state.transformation ?? Matrix4.translationValues(0, 0, 0);
 

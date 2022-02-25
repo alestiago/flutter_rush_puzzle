@@ -1,6 +1,4 @@
-// TODO(alestiago): remove this file.
-
-part of 'puzzle_page.dart';
+import 'package:puzzle_models/puzzle_models.dart';
 
 class GamePuzzles {
   static final games = [

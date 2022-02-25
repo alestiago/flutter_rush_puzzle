@@ -56,7 +56,7 @@ class Vehicle extends Equatable {
           'Vehicle must be horizontal.',
         );
         from = Position(0, firstPosition.y);
-        to = Position(puzzle.dimension.y -1 , firstPosition.y);
+        to = Position(puzzle.dimension.y - 1, firstPosition.y);
         movement = const Position(1, 0);
         break;
       case Steering.vertical:
@@ -78,6 +78,11 @@ class Vehicle extends Equatable {
           to = position - movement;
         }
       }
+    }
+    
+    /// TODO(jaime): Improve
+    if (id == puzzle.jammedVehicle.id && to.x == 5) {
+      to += movement + movement;
     }
 
     return DrivingBoundary(from, to);

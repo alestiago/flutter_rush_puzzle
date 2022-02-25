@@ -25,7 +25,7 @@ class PuzzleGame extends StatelessWidget {
       create: (_) => PuzzleBloc(
         // TODO(alestiago): Instead of passing an already built puzzle,
         // retrieve the puzzle from another Bloc that fetches for a puzzle.
-        puzzle: _puzzle,
+        puzzle: GamePuzzles.games.first,
       ),
       child: const GameView(),
     );

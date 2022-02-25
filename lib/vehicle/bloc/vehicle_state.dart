@@ -5,6 +5,7 @@ class VehicleState extends Equatable {
   const VehicleState({
     required this.box,
     this.dragging = false,
+    this.escaped = false,
     this.dragStartPosition = Offset.zero,
     this.draggingBox,
     this.boundary,
@@ -12,6 +13,8 @@ class VehicleState extends Equatable {
   });
 
   final bool dragging;
+
+  final bool escaped;
 
   final BoundingBox box;
 
@@ -31,6 +34,7 @@ class VehicleState extends Equatable {
         boundary,
         transformation,
         dragStartPosition,
+        escaped,
       ];
 
   VehicleState copyWith({
@@ -40,6 +44,7 @@ class VehicleState extends Equatable {
     BoundingBox? boundary,
     Matrix4? transformation,
     Offset? dragStartPosition,
+    bool? escaped,
   }) {
     return VehicleState(
       dragging: dragging ?? this.dragging,
@@ -48,6 +53,7 @@ class VehicleState extends Equatable {
       boundary: boundary ?? this.boundary,
       transformation: transformation ?? this.transformation,
       dragStartPosition: dragStartPosition ?? this.dragStartPosition,
+      escaped: escaped ?? this.escaped,
     );
   }
 
@@ -58,6 +64,7 @@ class VehicleState extends Equatable {
       boundary: boundary,
       transformation: transformation,
       dragStartPosition: dragStartPosition,
+      escaped: escaped,
     );
   }
 }
