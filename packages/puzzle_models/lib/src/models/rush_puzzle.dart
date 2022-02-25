@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:puzzle_models/puzzle_models.dart';
-import 'package:puzzle_models/src/models/puzzle_difficulty.dart';
 
 /// {@template rush_puzzle}
 /// Represents a Rush Hour puzzle.

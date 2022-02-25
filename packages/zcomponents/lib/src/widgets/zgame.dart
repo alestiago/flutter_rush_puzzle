@@ -1,6 +1,4 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:puzzle_models/puzzle_models.dart';
 
 import 'package:zcomponents/zcomponents.dart';
 
@@ -15,16 +13,16 @@ extension on GameLayoutPerspective {
   ZPosition get position {
     switch (this) {
       case GameLayoutPerspective.p2D:
-        return ZPosition();
+        return const ZPosition();
       case GameLayoutPerspective.p3D:
-        return ZPosition(
-          scale: const ZVector.all(0.75),
-          rotate: const ZVector.only(x: tau / 7, z: -tau / 8 + tau / 4),
+        return const ZPosition(
+          scale: ZVector.all(0.75),
+          rotate: ZVector.only(x: tau / 7, z: -tau / 8 + tau / 4),
         );
       case GameLayoutPerspective.presentation:
-        return ZPosition(
-          scale: const ZVector.all(0.75),
-          rotate: const ZVector.only(x: -0.25, y: -0.75),
+        return const ZPosition(
+          scale: ZVector.all(0.75),
+          rotate: ZVector.only(x: -0.25, y: -0.75),
         );
     }
   }

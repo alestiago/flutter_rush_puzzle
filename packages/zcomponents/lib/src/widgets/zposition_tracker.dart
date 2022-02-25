@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:zcomponents/zcomponents.dart';
 
 class ZPositionTracker extends ZPositioned implements Widget {
-  ZPositionTracker({
+  const ZPositionTracker({
     Key? key,
     this.onTransform,
     required Widget child,
