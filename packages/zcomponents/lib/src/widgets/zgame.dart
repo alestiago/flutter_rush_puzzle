@@ -19,7 +19,7 @@ extension on GameLayoutPerspective {
       case GameLayoutPerspective.p3D:
         return ZPosition(
           scale: const ZVector.all(0.75),
-          rotate: const ZVector.only(x: tau / 6, z: -tau / 8 + tau / 4),
+          rotate: const ZVector.only(x: tau / 7, z: -tau / 8 + tau / 4),
         );
       case GameLayoutPerspective.presentation:
         return ZPosition(

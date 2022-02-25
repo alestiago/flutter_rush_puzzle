@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puzzle_models/puzzle_models.dart';
+import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
 import 'package:rush_hour_puzzle/vehicle/vehicle.dart';
 import 'package:zcomponents/zcomponents.dart';
 
@@ -26,7 +27,14 @@ class VehicleView extends StatelessWidget {
       'In debug mode vehicles are replaced by boxes',
     );
     return BlocProvider(
-      create: (context) => VehicleBloc(vehicle: vehicle, layout: layout),
+      create: (context) {
+        final state = context.read<PuzzleBloc>().state;
+        return VehicleBloc(
+          vehicle: vehicle,
+          layout: layout,
+          isMainVehicle: state.puzzle.jammedVehicle.id == vehicle.id,
+        );
+      },
       child: VehicleContent(
         vehicle: vehicle,
         child: child,
