@@ -5,13 +5,6 @@ abstract class PuzzleEvent extends Equatable {
   const PuzzleEvent();
 }
 
-class PuzzleRequested extends PuzzleEvent {
-  const PuzzleRequested();
-
-  @override
-  List<Object?> get props => [];
-}
-
 class PuzzleVehicleMoved extends PuzzleEvent {
   const PuzzleVehicleMoved({
     required this.vehicle,
@@ -28,14 +21,6 @@ class PuzzleVehicleMoved extends PuzzleEvent {
 // TODO(alestiago): Consider naming PuzzleUndo/PuzzleUndid.
 class PuzzleMoveUndid extends PuzzleEvent {
   const PuzzleMoveUndid();
-
-  @override
-  List<Object?> get props => [];
-}
-
-// TODO(alestiago): Consider naming PuzzleRedo/PuzzleRedid.
-class PuzzleMoveRedid extends PuzzleEvent {
-  const PuzzleMoveRedid();
 
   @override
   List<Object?> get props => [];
