@@ -17,25 +17,11 @@ class Position extends Equatable {
           'y must be greater than or equal to 0.',
         );
 
-  /// Linearly intepolates between two positions.
-  factory Position.lerp(Position from, Position to, int x) {
-    final differenceX = to.x - from.x;
-    final gradient =
-        differenceX != 0 ? (to.y - from.y) / (to.x - from.x) : differenceX;
-    final y = from.y + gradient * (x - from.x);
-    return Position(x, y.round());
-  }
-
   /// The x position.
   final int x;
 
   /// The y position.
   final int y;
-
-  /// Flips the x coordinate with the y coordinate.
-  ///
-  /// For example, (0, 1) becomes (1, 0).
-  Position flip() => Position(y, x);
 
   /// Adds [Position] to this position.
   Position operator +(Position other) {

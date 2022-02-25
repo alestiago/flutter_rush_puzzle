@@ -2,41 +2,63 @@ import 'package:puzzle_models/puzzle_models.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('bounds', () {
+  group('contains', () {
     test(
-      'is correct '
-      'when from and to are vertical',
+      'is true '
+      'when from and to are vertical and position is inside',
       () {
         const from = Position(0, 0);
-        final to = Position(from.x + 2, from.y);
+        const to = Position(0, 3);
+        const position = Position(0, 2);
         final drivingBoundary = DrivingBoundary(from, to);
 
-        final actual = drivingBoundary.bounds();
-        final expected = [
-          from,
-          Position(from.x + 1, from.y),
-          to,
-        ];
+        final actual = drivingBoundary.contains(position);
 
-        expect(actual, equals(expected));
+        expect(actual, isTrue);
       },
     );
     test(
-      'is correct '
-      'when from and to are horizontal',
+      'is false '
+      'when from and to are vertical and position is outside',
       () {
         const from = Position(0, 0);
-        final to = Position(from.x, from.y + 2);
+        const to = Position(0, 3);
+        const position = Position(0, 4);
         final drivingBoundary = DrivingBoundary(from, to);
 
-        final actual = drivingBoundary.bounds();
-        final expected = [
-          from,
-          Position(from.x, from.y + 1),
-          to,
-        ];
+        final actual = drivingBoundary.contains(position);
 
-        expect(actual, equals(expected));
+        expect(actual, isFalse);
+      },
+    );
+
+    test(
+      'is true '
+      'when from and to are horizontal and position is inside',
+      () {
+        const from = Position(0, 0);
+        const to = Position(3, 0);
+        const position = Position(2, 0);
+        final drivingBoundary = DrivingBoundary(from, to);
+
+        final actual = drivingBoundary.contains(position);
+
+        expect(actual, isTrue);
+      },
+    );
+
+    test(
+      'is true '
+      'when from and to are vertical and position is inside',
+      () {
+        const from = Position(0, 0);
+        const to = Position(0, 3);
+        const position = Position(0, 4);
+        final drivingBoundary = DrivingBoundary(from, to);
+
+        final actual = drivingBoundary.contains(position);
+
+        expect(actual, isFalse);
       },
     );
   });

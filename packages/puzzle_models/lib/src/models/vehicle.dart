@@ -87,7 +87,7 @@ class Vehicle extends Equatable {
   RushPuzzle driveTo(RushPuzzle puzzle, Position to) {
     assert(puzzle.vehicles.contains(this), 'Vehicle must be in the puzzle.');
     assert(
-      drivingBoundary(puzzle).bounds().contains(to),
+      drivingBoundary(puzzle).contains(to),
       'Vehicle cannot move to the specified position.',
     );
     if (firstPosition == to) return puzzle;
