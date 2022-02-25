@@ -7,7 +7,7 @@ class GamePuzzles {
         Vehicle(
           id: 'A',
           length: 2,
-          steering: Steering.horizonal,
+          steering: Steering.horizontal,
           firstPosition: const Position(0, 0),
         ),
         Vehicle(
@@ -25,7 +25,7 @@ class GamePuzzles {
         Vehicle(
           id: 'X',
           length: 2,
-          steering: Steering.horizonal,
+          steering: Steering.horizontal,
           firstPosition: const Position(1, 2),
         ),
         Vehicle(
@@ -37,13 +37,13 @@ class GamePuzzles {
         Vehicle(
           id: 'R',
           length: 3,
-          steering: Steering.horizonal,
+          steering: Steering.horizontal,
           firstPosition: const Position(2, 5),
         ),
         Vehicle(
           id: 'C',
           length: 2,
-          steering: Steering.horizonal,
+          steering: Steering.horizontal,
           firstPosition: const Position(4, 4),
         ),
         Vehicle(
@@ -65,7 +65,7 @@ class SimpleRushPuzzle extends RushPuzzle {
           jammedVehicle: Vehicle(
             id: 'X',
             length: 2,
-            steering: Steering.horizonal,
+            steering: Steering.horizontal,
             firstPosition: const Position(0, 0),
           ),
           vehicles: {

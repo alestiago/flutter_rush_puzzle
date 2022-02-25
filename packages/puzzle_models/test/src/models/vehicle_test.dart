@@ -11,7 +11,7 @@ void main() {
             Vehicle(
               id: '1',
               length: 2,
-              steering: Steering.horizonal,
+              steering: Steering.horizontal,
               firstPosition: const Position(0, 0),
             ),
             isA<Vehicle>(),
@@ -27,7 +27,7 @@ void main() {
             () => Vehicle(
               id: '1',
               length: 0,
-              steering: Steering.horizonal,
+              steering: Steering.horizontal,
               firstPosition: const Position(0, 0),
             ),
             throwsA(const TypeMatcher<AssertionError>()),
@@ -36,7 +36,7 @@ void main() {
             () => Vehicle(
               id: '1',
               length: 1,
-              steering: Steering.horizonal,
+              steering: Steering.horizontal,
               firstPosition: const Position(0, 0),
             ),
             returnsNormally,
@@ -50,7 +50,7 @@ void main() {
         final vehicle = Vehicle(
           id: '1',
           length: 2,
-          steering: Steering.horizonal,
+          steering: Steering.horizontal,
           firstPosition: const Position(0, 0),
         );
         expect(vehicle.lastPosition, const Position(1, 0));
@@ -76,7 +76,7 @@ void main() {
           final vehicle = Vehicle(
             id: '1',
             length: 2,
-            steering: Steering.horizonal,
+            steering: Steering.horizontal,
             firstPosition: const Position(0, 0),
           );
           final puzzle = RushPuzzle(
@@ -86,7 +86,7 @@ void main() {
 
           final drivingBoundaries = vehicle.drivingBoundary(puzzle);
 
-          expect(vehicle.steering, equals(Steering.horizonal));
+          expect(vehicle.steering, equals(Steering.horizontal));
           expect(drivingBoundaries.from, vehicle.firstPosition);
           expect(
             drivingBoundaries.to,
@@ -124,13 +124,13 @@ void main() {
         final jammedVehicle = Vehicle(
           id: '1',
           length: 2,
-          steering: Steering.horizonal,
+          steering: Steering.horizontal,
           firstPosition: const Position(2, 3),
         );
         final vehicle2 = Vehicle(
           id: '2',
           length: 1,
-          steering: Steering.horizonal,
+          steering: Steering.horizontal,
           firstPosition: Position(0, jammedVehicle.firstPosition.y),
         );
         final vehicle3 = Vehicle(
@@ -151,7 +151,7 @@ void main() {
 
         final drivingBoundaries = jammedVehicle.drivingBoundary(puzzle);
 
-        expect(jammedVehicle.steering, equals(Steering.horizonal));
+        expect(jammedVehicle.steering, equals(Steering.horizontal));
         expect(
           drivingBoundaries.from,
           Position(1, jammedVehicle.firstPosition.y),
@@ -168,13 +168,13 @@ void main() {
         final jammedVehicle = Vehicle(
           id: '1',
           length: 2,
-          steering: Steering.horizonal,
+          steering: Steering.horizontal,
           firstPosition: const Position(1, 0),
         );
         final vehicle2 = Vehicle(
           id: '2',
           length: 2,
-          steering: Steering.horizonal,
+          steering: Steering.horizontal,
           firstPosition: const Position(3, 0),
         );
         final puzzle = RushPuzzle(
@@ -187,7 +187,7 @@ void main() {
 
         final drivingBoundaries = jammedVehicle.drivingBoundary(puzzle);
 
-        expect(jammedVehicle.steering, equals(Steering.horizonal));
+        expect(jammedVehicle.steering, equals(Steering.horizontal));
         expect(
           drivingBoundaries.from,
           Position(0, jammedVehicle.firstPosition.y),
@@ -207,7 +207,7 @@ void main() {
           final vehicle = Vehicle(
             id: '1',
             length: length,
-            steering: Steering.horizonal,
+            steering: Steering.horizontal,
             firstPosition: RushPuzzle.exit - const Position(length, 0),
           );
           final puzzle = RushPuzzle(
@@ -218,7 +218,7 @@ void main() {
           final drivingBoundaries = vehicle.drivingBoundary(puzzle);
 
           expect(puzzle.jammedVehicleId, equals(vehicle.id));
-          expect(vehicle.steering, equals(Steering.horizonal));
+          expect(vehicle.steering, equals(Steering.horizontal));
           expect(drivingBoundaries.from, Position(0, RushPuzzle.exit.y));
           expect(
             drivingBoundaries.to,
@@ -233,7 +233,7 @@ void main() {
         final vehicle = Vehicle(
           id: '1',
           length: 2,
-          steering: Steering.horizonal,
+          steering: Steering.horizontal,
           firstPosition: const Position(0, 0),
         );
         final puzzle = RushPuzzle(
@@ -268,13 +268,13 @@ void main() {
         final vehicleA = Vehicle(
           id: 'A',
           length: 2,
-          steering: Steering.horizonal,
+          steering: Steering.horizontal,
           firstPosition: const Position(0, 0),
         );
         final vehicleB = Vehicle(
           id: 'B',
           length: 2,
-          steering: Steering.horizonal,
+          steering: Steering.horizontal,
           firstPosition: const Position(3, 0),
         );
         final puzzle = RushPuzzle(
@@ -298,7 +298,7 @@ void main() {
         final vehicle = Vehicle(
           id: '1',
           length: 1,
-          steering: Steering.horizonal,
+          steering: Steering.horizontal,
           firstPosition: const Position(2, 3),
         );
 
@@ -315,7 +315,7 @@ void main() {
         final vehicle = Vehicle(
           id: '1',
           length: 3,
-          steering: Steering.horizonal,
+          steering: Steering.horizontal,
           firstPosition: const Position(2, 3),
         );
 
@@ -358,19 +358,19 @@ void main() {
           final vehicle1 = Vehicle(
             id: '1',
             length: 1,
-            steering: Steering.horizonal,
+            steering: Steering.horizontal,
             firstPosition: const Position(0, 0),
           );
           final vehicle2 = Vehicle(
             id: '1',
             length: 1,
-            steering: Steering.horizonal,
+            steering: Steering.horizontal,
             firstPosition: const Position(0, 0),
           );
           final vehicle3 = Vehicle(
             id: '2',
             length: 2,
-            steering: Steering.horizonal,
+            steering: Steering.horizontal,
             firstPosition: const Position(0, 0),
           );
 

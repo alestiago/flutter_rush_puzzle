@@ -44,7 +44,7 @@ void main() {
 
     test('boxFor returns correct box for horizontal', () async {
       expect(
-        game.boxFor(const Position(1, 2), 2, Steering.horizonal),
+        game.boxFor(const Position(1, 2), 2, Steering.horizontal),
         equals(BoundingBox(const Offset(30, 60), const Offset(80, 80))),
       );
     });
@@ -54,7 +54,7 @@ void main() {
         id: 'id',
         firstPosition: const Position(1, 2),
         length: 2,
-        steering: Steering.horizonal,
+        steering: Steering.horizontal,
       );
       expect(
         game.boxForVehicle(vehicle),

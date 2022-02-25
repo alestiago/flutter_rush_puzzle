@@ -19,7 +19,7 @@ class Vehicle extends Equatable {
           'Vehicle length must be greater than 0.',
         ),
         lastPosition = firstPosition +
-            (steering == Steering.horizonal
+            (steering == Steering.horizontal
                 ? Position(length - 1, 0)
                 : Position(0, length - 1));
 
@@ -50,7 +50,7 @@ class Vehicle extends Equatable {
     late final Position movement;
 
     switch (steering) {
-      case Steering.horizonal:
+      case Steering.horizontal:
         assert(
           firstPosition.y == lastPosition.y,
           'Vehicle must be horizontal.',
@@ -126,7 +126,7 @@ class Vehicle extends Equatable {
     for (var i = 0; i < length; i++) {
       positions.add(
         firstPosition +
-            (steering == Steering.horizonal ? Position(i, 0) : Position(0, i)),
+            (steering == Steering.horizontal ? Position(i, 0) : Position(0, i)),
       );
     }
     return positions;
