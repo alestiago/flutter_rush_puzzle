@@ -80,6 +80,7 @@ void main() {
             firstPosition: const Position(0, 0),
           );
           final puzzle = RushPuzzle(
+            difficulty: PuzzleDifficulty.beginner,
             jammedVehicleId: vehicle.id,
             vehicles: {vehicle.id: vehicle},
           );
@@ -106,6 +107,7 @@ void main() {
             firstPosition: const Position(2, 3),
           );
           final puzzle = RushPuzzle(
+            difficulty: PuzzleDifficulty.beginner,
             jammedVehicleId: vehicle.id,
             vehicles: {vehicle.id: vehicle},
           );
@@ -141,6 +143,7 @@ void main() {
         );
 
         final puzzle = RushPuzzle(
+          difficulty: PuzzleDifficulty.beginner,
           jammedVehicleId: jammedVehicle.id,
           vehicles: {
             jammedVehicle.id: jammedVehicle,
@@ -178,6 +181,7 @@ void main() {
           firstPosition: const Position(3, 0),
         );
         final puzzle = RushPuzzle(
+          difficulty: PuzzleDifficulty.beginner,
           jammedVehicleId: jammedVehicle.id,
           vehicles: {
             jammedVehicle.id: jammedVehicle,
@@ -211,6 +215,7 @@ void main() {
             firstPosition: RushPuzzle.exit - const Position(length, 0),
           );
           final puzzle = RushPuzzle(
+            difficulty: PuzzleDifficulty.beginner,
             jammedVehicleId: vehicle.id,
             vehicles: {vehicle.id: vehicle},
           );
@@ -237,6 +242,7 @@ void main() {
           firstPosition: const Position(0, 0),
         );
         final puzzle = RushPuzzle(
+          difficulty: PuzzleDifficulty.beginner,
           jammedVehicleId: vehicle.id,
           vehicles: {
             vehicle.id: vehicle,
@@ -278,6 +284,7 @@ void main() {
           firstPosition: const Position(3, 0),
         );
         final puzzle = RushPuzzle(
+          difficulty: PuzzleDifficulty.beginner,
           jammedVehicleId: vehicleA.id,
           vehicles: {
             vehicleA.id: vehicleA,
