@@ -473,8 +473,8 @@ packages:
     dependency: transitive
     description:
       path: zflutter
-      ref: null_safety
-      resolved-ref: "7c9fd5eec8064ba5fae3205f4978fcb4bef349ba"
+      ref: "084ebbf65543b01ecc7ce6e5393b89396b39d428"
+      resolved-ref: "084ebbf65543b01ecc7ce6e5393b89396b39d428"
       url: "https://github.com/jamesblasco/zflutter"
     source: git
     version: "0.0.1+3"

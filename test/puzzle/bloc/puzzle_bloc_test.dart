@@ -11,7 +11,7 @@ class MockPuzzleRepository extends Mock implements PuzzleRepository {}
 class FakeRushPuzzle extends Fake implements RushPuzzle {}
 
 void main() {
-  // TODO(alestiago) test for VehicleMoved, RedidMove, UndidMove.
+  // TODO(alestiago) test for PuzzleVehicleMoved, PuzzleMoveRedid, PuzzleMoveUndid.
   final puzzle = FakeRushPuzzle();
 
   group('PuzzleBloc', () {

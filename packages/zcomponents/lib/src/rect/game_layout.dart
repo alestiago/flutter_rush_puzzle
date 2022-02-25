@@ -54,6 +54,11 @@ class GameLayout {
     return Offset(offset.x * tileStride, offset.y * tileStride);
   }
 
+  /// Returns the real offset for a relative position
+  Position positionForOffset(Offset offset) {
+    return Position(offset.dx ~/ tileStride, offset.dy ~/ tileStride);
+  }
+
   /// Returns the size of a tile with a given length
   double tileSizeForLength(int length) {
     return length * tileStride - tileSpace;
@@ -77,17 +82,18 @@ class GameLayout {
   }
 
   /// Generates a boundary box for a given offest, length and steering
-  BoundingBox boxFor(Position offset, int length, Steering steering) {
-    final minPosition = offsetForPosition(offset);
+  BoundingBox boxFor(Position minPosition, int length, Steering steering) {
     final maxPosition = steering == Steering.horizonal
-        ? Offset(
-            minPosition.dx + tileSizeForLength(length),
-            minPosition.dy + tileSize,
-          )
-        : Offset(
-            minPosition.dx + tileSize,
-            minPosition.dy + tileSizeForLength(length),
-          );
+        ? Position(minPosition.x + length - 1, minPosition.y)
+        : Position(minPosition.x, minPosition.y + length - 1);
+    return boxForDrivingBoundary(DrivingBoundary(minPosition, maxPosition));
+  }
+
+  /// Generates a boundary box for a driving boundary
+  BoundingBox boxForDrivingBoundary(DrivingBoundary bounds) {
+    final minPosition = offsetForPosition(bounds.from);
+    final maxPosition =
+        offsetForPosition(bounds.to) + Offset(tileSize, tileSize);
     return BoundingBox(minPosition, maxPosition);
   }
 

@@ -9,6 +9,6 @@ class ZVectorTween extends Tween<ZVector> {
 
   @override
   ZVector lerp(double t) {
-    return ZVector.lerp(begin, end, t);
+    return ZVector.lerp(begin!, end, t);
   }
 }

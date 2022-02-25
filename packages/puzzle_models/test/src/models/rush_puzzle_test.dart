@@ -18,7 +18,7 @@ void main() {
 
           final puzzle = RushPuzzle(
             jammedVehicle: jammedVehicle,
-            vehicles: [jammedVehicle],
+            vehicles: {jammedVehicle.id: jammedVehicle},
             exit: exit,
             dimension: const Position(5, 5),
           );
@@ -40,7 +40,7 @@ void main() {
         );
         final puzzle = RushPuzzle(
           jammedVehicle: vehicle,
-          vehicles: [vehicle],
+          vehicles: {vehicle.id: vehicle},
           exit: const Position(6, 3),
           dimension: const Position(5, 5),
         );
@@ -59,7 +59,7 @@ void main() {
         );
         final puzzle = RushPuzzle(
           jammedVehicle: vehicle,
-          vehicles: [vehicle],
+          vehicles: {vehicle.id: vehicle},
           exit: const Position(6, 3),
           dimension: const Position(5, 5),
         );
@@ -74,7 +74,7 @@ void main() {
           exit: const Position(5, 3),
           jammedVehicle: vehicle2,
           dimension: const Position(4, 4),
-          vehicles: [vehicle2],
+          vehicles: {vehicle2.id: vehicle2},
         );
 
         final copy = puzzle.copyWith(

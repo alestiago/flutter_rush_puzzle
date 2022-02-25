@@ -17,7 +17,9 @@ class ZPositionTracker extends ZPositioned implements Widget {
   ) {
     super.updateParentData(renderObject, oldWidget, transform);
     final parentData = renderObject.parentData as ZParentData;
-    onTransform?.call(parentData.transforms.toList());
+    onTransform?.call(
+      parentData.transforms.takeWhile((value) => value != transform).toList(),
+    );
   }
 
   @override
@@ -30,6 +32,9 @@ class ZPositionTracker extends ZPositioned implements Widget {
       'ZTrackPosition should only be used with ZWidgets',
     );
     final parentData = renderObject.parentData as ZParentData;
-    onTransform?.call(parentData.transforms.toList());
+    onTransform?.call(
+      parentData.transforms.takeWhile((value) => value != transform).toList(),
+    );
+    super.startParentData(renderObject, transform);
   }
 }

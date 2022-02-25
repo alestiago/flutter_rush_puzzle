@@ -83,14 +83,14 @@ void main() {
             exit: const Position(6, 3),
             jammedVehicle: vehicle,
             dimension: const Position(5, 5),
-            vehicles: [vehicle],
+            vehicles: {vehicle.id: vehicle},
           );
 
           final drivingBoundaries = vehicle.drivingBoundary(puzzle);
 
           expect(vehicle.steering, equals(Steering.horizonal));
           expect(drivingBoundaries.from, const Position(0, 3));
-          expect(drivingBoundaries.to, Position(puzzle.dimension.x, 3));
+          expect(drivingBoundaries.to, Position(puzzle.dimension.x - 1, 3));
         },
       );
 
@@ -108,14 +108,14 @@ void main() {
             exit: const Position(6, 3),
             jammedVehicle: vehicle,
             dimension: const Position(5, 5),
-            vehicles: [vehicle],
+            vehicles: {vehicle.id: vehicle},
           );
 
           final drivingBoundaries = vehicle.drivingBoundary(puzzle);
 
           expect(vehicle.steering, equals(Steering.vertical));
           expect(drivingBoundaries.from, const Position(2, 0));
-          expect(drivingBoundaries.to, Position(2, puzzle.dimension.y));
+          expect(drivingBoundaries.to, Position(2, puzzle.dimension.y - 1));
         },
       );
 
@@ -145,7 +145,11 @@ void main() {
           exit: const Position(6, 3),
           jammedVehicle: jammedVehicle,
           dimension: const Position(5, 5),
-          vehicles: [jammedVehicle, vehicle2, vehicle3],
+          vehicles: {
+            jammedVehicle.id: jammedVehicle,
+            vehicle2.id: vehicle2,
+            vehicle3.id: vehicle3,
+          },
         );
 
         final drivingBoundaries = jammedVehicle.drivingBoundary(puzzle);
@@ -180,7 +184,10 @@ void main() {
           exit: const Position(6, 0),
           jammedVehicle: jammedVehicle,
           dimension: const Position(5, 5),
-          vehicles: [jammedVehicle, vehicle2],
+          vehicles: {
+            jammedVehicle.id: jammedVehicle,
+            vehicle2.id: vehicle2,
+          },
         );
 
         final drivingBoundaries = jammedVehicle.drivingBoundary(puzzle);
@@ -209,7 +216,9 @@ void main() {
           exit: const Position(6, 0),
           jammedVehicle: vehicle,
           dimension: const Position(5, 5),
-          vehicles: [vehicle],
+          vehicles: {
+            vehicle.id: vehicle,
+          },
         );
 
         final newPosition = vehicle.firstPosition + const Position(1, 0);
@@ -250,7 +259,10 @@ void main() {
           exit: const Position(6, 3),
           jammedVehicle: vehicleA,
           dimension: const Position(5, 5),
-          vehicles: [vehicleA, vehicleB],
+          vehicles: {
+            vehicleA.id: vehicleA,
+            vehicleB.id: vehicleB,
+          },
         );
         expect(
           () => vehicleA.driveTo(puzzle, vehicleB.firstPosition),
