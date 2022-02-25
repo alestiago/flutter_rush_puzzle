@@ -95,8 +95,7 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
   ) async {
     final previousTransformation =
         state.transformation ?? Matrix4.translationValues(0, 0, 0);
-    final transformation = matrixFromTransformations(event.transformations)
-      ..invert();
+    final transformation = matrixFromTransformations(event.transformations);
     if (!previousTransformation.closeTo(transformation)) {
       emit(
         state.copyWith(
@@ -110,6 +109,7 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
 const double _precisionErrorTolerance = 1e-10;
 
 extension CloseTo on Matrix4 {
+  // Checks a matrix is similar to another one with an allowed threshold
   bool closeTo(Matrix4 value, {double tolerance = _precisionErrorTolerance}) {
     for (var index = 0; index < value.storage.length; index++) {
       if (!storage[index].closeTo(value.storage[index])) return false;
@@ -119,6 +119,7 @@ extension CloseTo on Matrix4 {
 }
 
 extension CloseToDouble on double {
+  // Checks a double is similar to another one with an allowed threshold
   bool closeTo(double value, {double tolerance = _precisionErrorTolerance}) {
     var diff = this - value;
     if (diff < 0) diff = -diff;

@@ -41,15 +41,11 @@ class _VehicleDebugBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final box = context.select((VehicleBloc bloc) => bloc.state.box);
-    return ZGroup(
-      children: [
-        ZBox(
-          width: box.width,
-          height: box.height,
-          depth: size,
-          color: Colors.red.withOpacity(0.2),
-        ),
-      ],
+    return ZBox(
+      width: box.width,
+      height: box.height,
+      depth: size,
+      color: Colors.red.withOpacity(0.2),
     );
   }
 }

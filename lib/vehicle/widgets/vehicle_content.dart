@@ -29,6 +29,7 @@ class VehicleContent extends StatelessWidget {
     final isDebug = DebugGame.isDebugMode(context);
 
     return ZGroup(
+      sortMode: SortMode.update,
       children: [
         if (isDebug) ZPositionDebug(box: box),
         ZPositionTracker(
@@ -44,6 +45,7 @@ class VehicleContent extends StatelessWidget {
             child: ZPositioned(
               translate: const ZVector.only(z: 18),
               child: ZGroup(
+                sortMode: SortMode.update,
                 children: [
                   ZAnimatedPositioned(
                     duration: kDefaultDuration,

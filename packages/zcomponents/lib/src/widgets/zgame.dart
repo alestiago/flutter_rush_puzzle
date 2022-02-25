@@ -5,6 +5,30 @@ import 'package:puzzle_models/puzzle_models.dart';
 import 'package:zcomponents/zcomponents.dart';
 
 final GameLayout layout = GameLayout(tileSize: 30, tileSpace: 10);
+enum GameLayoutPerspective {
+  p2D,
+  p3D,
+  presentation,
+}
+
+extension on GameLayoutPerspective {
+  ZPosition get position {
+    switch (this) {
+      case GameLayoutPerspective.p2D:
+        return ZPosition();
+      case GameLayoutPerspective.p3D:
+        return ZPosition(
+          scale: const ZVector.all(0.75),
+          rotate: const ZVector.only(x: tau / 6, z: -tau / 8 + tau / 4),
+        );
+      case GameLayoutPerspective.presentation:
+        return ZPosition(
+          scale: const ZVector.all(0.75),
+          rotate: const ZVector.only(x: -0.25, y: -0.75),
+        );
+    }
+  }
+}
 
 class ZGame extends StatelessWidget {
   const ZGame({
@@ -12,7 +36,7 @@ class ZGame extends StatelessWidget {
     required this.theme,
     this.vehiclesTheme,
     this.vehicles = const [],
-    this.transform,
+    this.perspective = GameLayoutPerspective.p2D,
   }) : super(key: key);
 
   final List<Widget> vehicles;
@@ -21,7 +45,7 @@ class ZGame extends StatelessWidget {
 
   final VehiclesThemeData? vehiclesTheme;
 
-  final ZPosition? transform;
+  final GameLayoutPerspective perspective;
 
   @override
   Widget build(BuildContext context) {
@@ -35,32 +59,31 @@ class ZGame extends StatelessWidget {
               builder: (context, constraints) {
                 final scale =
                     constraints.biggest.shortestSide / layout.boardSize;
+                final rotation = controller.value.y * scale;
                 return ZIllustration(
+                  zoom: scale,
                   children: [
                     ZPositioned(
-                      scale: ZVector.all(scale),
+                      rotate: ZVector.only(z: rotation),
                       child: ZAnimatedPositioned.position(
-                        position: transform ?? ZPosition(),
+                        position: perspective.position,
                         duration: const Duration(milliseconds: 600),
-                        child: ZPositioned(
-                          rotate: controller.value,
-                          child: ZGroup(
-                            children: [
-                              ZBoard(
-                                layout: layout,
+                        child: ZGroup(
+                          children: [
+                            ZBoard(
+                              layout: layout,
+                            ),
+                            ZPositioned(
+                              translate: layout.boardTopLeft,
+                              child: Builder(
+                                builder: (context) {
+                                  return ZGroup(
+                                    children: vehicles,
+                                  );
+                                },
                               ),
-                              ZPositioned(
-                                translate: layout.boardTopLeft,
-                                child: Builder(
-                                  builder: (context) {
-                                    return ZGroup(
-                                      children: vehicles,
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
