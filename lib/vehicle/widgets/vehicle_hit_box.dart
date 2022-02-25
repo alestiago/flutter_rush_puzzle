@@ -24,7 +24,7 @@ class VehicleHitBox extends StatelessWidget {
       depth: layout.tileSize,
       onPanDown: (details) {
         HapticFeedback.selectionClick();
-        final state = context.read<PuzzleBloc>().state as PuzzleDataState;
+        final state = context.read<PuzzleBloc>().state;
         final boundary =
             state.puzzle.vehicles[id]!.drivingBoundary(state.puzzle);
         context.read<VehicleBloc>().add(
