@@ -1,32 +1,8 @@
 part of 'puzzle_bloc.dart';
 
 @immutable
-abstract class PuzzleState extends Equatable {
-  const PuzzleState();
-}
-
-class PuzzleInitialState extends PuzzleState {
-  @override
-  List<Object?> get props => [];
-}
-
-class PuzzleLoadingState extends PuzzleState {
-  @override
-  List<Object?> get props => [];
-}
-
-class PuzzleErrorState extends PuzzleState {
-  const PuzzleErrorState(this.error);
-
-  final Object error;
-
-  @override
-  List<Object?> get props => [error];
-}
-
-@immutable
-class PuzzleDataState extends PuzzleState {
-  const PuzzleDataState({
+class PuzzleState extends Equatable {
+  const PuzzleState({
     required this.history,
     required this.historyPointer,
   }) : assert(
@@ -43,11 +19,11 @@ class PuzzleDataState extends PuzzleState {
 
   bool get canRedo => historyPointer < history.length - 1;
 
-  PuzzleDataState copyWith({
+  PuzzleState copyWith({
     List<RushPuzzle>? history,
     int? historyPointer,
   }) {
-    return PuzzleDataState(
+    return PuzzleState(
       history: history ?? this.history,
       historyPointer: historyPointer ?? this.historyPointer,
     );

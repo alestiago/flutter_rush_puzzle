@@ -7,10 +7,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:puzzle_models/puzzle_models.dart';
 
 import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
 import 'package:rush_hour_puzzle/vehicle/vehicle.dart';
 import 'package:zcomponents/zcomponents.dart';
+
+// TODO(alestiago): Remove this as soon as _puzzle is not required.
+part 'puzzle_example.dart';
 
 class PuzzleGame extends StatelessWidget {
   const PuzzleGame({Key? key}) : super(key: key);
@@ -19,8 +23,10 @@ class PuzzleGame extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => PuzzleBloc(
-        puzzleRepository: PuzzleRepository(),
-      )..add(const PuzzleRequested()),
+        // TODO(alestiago): Instead of passing an already built puzzle,
+        // retrieve the puzzle from another Bloc that fetches for a puzzle.
+        puzzle: _puzzle,
+      ),
       child: const GameView(),
     );
   }
@@ -66,7 +72,7 @@ class _GameViewState extends State<GameView> {
       ),
     );
     final state = context.select((PuzzleBloc b) => b.state);
-    if (state is PuzzleDataState) {
+    if (state is PuzzleState) {
       return Scaffold(
         backgroundColor: themes.first.backgroundColor,
         body: DebugGame(
