@@ -11,7 +11,7 @@ void main() {
           final jammedVehicle = Vehicle(
             id: 'A',
             length: 3,
-            steering: Steering.horizonal,
+            steering: Steering.horizontal,
             firstPosition: RushPuzzle.exit,
           );
 
@@ -32,7 +32,7 @@ void main() {
         final vehicle = Vehicle(
           id: 'A',
           length: 3,
-          steering: Steering.horizonal,
+          steering: Steering.horizontal,
           firstPosition: const Position(0, 0),
         );
         final puzzle = RushPuzzle(
@@ -49,7 +49,7 @@ void main() {
         final vehicle = Vehicle(
           id: 'A',
           length: 3,
-          steering: Steering.horizonal,
+          steering: Steering.horizontal,
           firstPosition: const Position(0, 0),
         );
         final puzzle = RushPuzzle(
@@ -60,7 +60,7 @@ void main() {
         final vehicle2 = Vehicle(
           id: 'B',
           length: 3,
-          steering: Steering.horizonal,
+          steering: Steering.horizontal,
           firstPosition: const Position(0, 1),
         );
         final puzzle2 = RushPuzzle(

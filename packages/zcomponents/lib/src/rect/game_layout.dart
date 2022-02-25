@@ -83,7 +83,7 @@ class GameLayout {
 
   /// Generates a boundary box for a given offest, length and steering
   BoundingBox boxFor(Position minPosition, int length, Steering steering) {
-    final maxPosition = steering == Steering.horizonal
+    final maxPosition = steering == Steering.horizontal
         ? Position(minPosition.x + length - 1, minPosition.y)
         : Position(minPosition.x, minPosition.y + length - 1);
     return boxForDrivingBoundary(DrivingBoundary(minPosition, maxPosition));

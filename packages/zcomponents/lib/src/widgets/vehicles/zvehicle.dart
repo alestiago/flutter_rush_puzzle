@@ -24,7 +24,7 @@ class ZVehicle extends StatelessWidget {
 
     return ZPositioned(
       rotate: ZVector.only(
-        z: data.steering == Steering.horizonal ? 0 : quarterTurn,
+        z: data.steering == Steering.horizontal ? 0 : quarterTurn,
       ),
       child: child,
     );

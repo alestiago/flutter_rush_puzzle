@@ -116,7 +116,7 @@ class _Board extends StatelessWidget {
   }
 
   ZVector _tileTranslation(Position position, GameLayout rect) {
-    return rect.boxFor(position, 1, Steering.horizonal).zCenter;
+    return rect.boxFor(position, 1, Steering.horizontal).zCenter;
   }
 }
 
@@ -151,7 +151,7 @@ class _BoardBorders extends StatelessWidget {
             bottomColor: theme.boardOutterSideColor,
           ),
         ),
-         ZPositioned(
+        ZPositioned(
           translate: ZVector(quarterLength, halfLength + halfBorder, 0),
           child: ZBox(
             width: halfLength,
@@ -162,7 +162,7 @@ class _BoardBorders extends StatelessWidget {
             bottomColor: theme.boardOutterSideColor,
           ),
         ),
-         ZPositioned(
+        ZPositioned(
           translate: ZVector(quarterLength, halfLength + halfBorder, 0),
           child: ZBox(
             width: halfLength,

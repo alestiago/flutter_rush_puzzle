@@ -56,7 +56,7 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
     final vector = math.Vector3(globalOffset.dx, globalOffset.dy, 0);
     final matrix = state.transformation ?? Matrix4.translationValues(0, 0, 0);
     Offset offset;
-    if (_steering == Steering.horizonal) {
+    if (_steering == Steering.horizontal) {
       offset = Offset(vector.dot(matrix.right), 0);
     } else {
       offset = Offset(0, vector.dot(matrix.up));
@@ -97,7 +97,7 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
     final matrix = state.transformation ?? Matrix4.translationValues(0, 0, 0);
 
     double velocity;
-    if (_steering == Steering.horizonal) {
+    if (_steering == Steering.horizontal) {
       velocity = vector.dot(matrix.right);
     } else {
       velocity = vector.dot(matrix.up);
