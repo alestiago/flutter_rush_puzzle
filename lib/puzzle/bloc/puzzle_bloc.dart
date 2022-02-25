@@ -50,7 +50,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
         state.copyWith(
           history: List.from(state.history)
             ..insert(
-              state.historyPointer,
+              state.historyPointer + 1,
               newPuzzle,
             ),
           historyPointer: state.historyPointer + 1,
