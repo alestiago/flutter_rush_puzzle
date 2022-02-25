@@ -19,25 +19,9 @@ class DrivingBoundary extends Equatable {
   /// The greatest [Position] the vehicle can move.
   final Position to;
 
-  /// [Position]s that are inside the line defined by [from] and [to].
-  List<Position> bounds() {
-    assert(
-      from.x == to.x || from.y == to.y,
-      'From and to must be on the same axis.',
-    );
-
-    final isHorizontal = from.y == to.y;
-    if (!isHorizontal) {
-      final bounds = DrivingBoundary(from.flip(), to.flip()).bounds();
-      return bounds.map((position) => position.flip()).toList();
-    } else {
-      final positions = <Position>[];
-      for (var x = from.x; x <= to.x; x++) {
-        final newPosition = Position.lerp(from, to, x);
-        positions.add(newPosition);
-      }
-      return positions;
-    }
+  /// Checks if a [Position] is within [from] and [to].
+  bool contains(Position position) {
+    return from <= position && position <= to;
   }
 
   @override
