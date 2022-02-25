@@ -10,7 +10,7 @@ void main() {
       test(
           'is false '
           'when historyPointer is not the first', () {
-        final puzzleState = PuzzleDataState(
+        final puzzleState = PuzzleState(
           history: [FakeRushPuzzle(), FakeRushPuzzle()],
           historyPointer: 0,
         );
@@ -21,7 +21,7 @@ void main() {
       test(
           'is true '
           'when historyPointer is not the first', () {
-        final puzzleState = PuzzleDataState(
+        final puzzleState = PuzzleState(
           history: [FakeRushPuzzle(), FakeRushPuzzle()],
           historyPointer: 1,
         );
@@ -33,7 +33,7 @@ void main() {
       test(
           'is true '
           'when historyPointer is not the latest', () {
-        final puzzleState = PuzzleDataState(
+        final puzzleState = PuzzleState(
           history: [FakeRushPuzzle(), FakeRushPuzzle()],
           historyPointer: 0,
         );
@@ -44,7 +44,7 @@ void main() {
       test(
           'is false '
           'when historyPointer is the latest', () {
-        final puzzleState = PuzzleDataState(
+        final puzzleState = PuzzleState(
           history: [FakeRushPuzzle(), FakeRushPuzzle()],
           historyPointer: 1,
         );

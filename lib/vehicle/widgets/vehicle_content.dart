@@ -35,8 +35,7 @@ class VehicleContent extends StatelessWidget {
         final position = layout.positionForOffset(state.box.minPosition);
 
         final bloc = context.read<PuzzleBloc>();
-        final puzzleState = bloc.state as PuzzleDataState;
-        final vehicle = puzzleState.puzzle.vehicles[id]!;
+        final vehicle = bloc.state.puzzle.vehicles[id]!;
         bloc.add(
           PuzzleVehicleMoved(vehicle: vehicle, newPosition: position),
         );
