@@ -32,7 +32,7 @@ class VehicleView extends StatelessWidget {
         return VehicleBloc(
           vehicle: vehicle,
           layout: layout,
-          isMainVehicle: state.puzzle.jammedVehicle.id == vehicle.id,
+          isMainVehicle: state.puzzle.jammedVehicleId == vehicle.id,
         );
       },
       child: VehicleContent(

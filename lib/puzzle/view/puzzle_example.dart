@@ -63,6 +63,7 @@ class SimpleRushPuzzle extends RushPuzzle {
   SimpleRushPuzzle({
     required List<Vehicle> vehicles,
   }) : super(
+          // TODO(jamesblasco): Specify jammedVehicleId instead of jammedVehicle.
           jammedVehicle: Vehicle(
             id: 'X',
             length: 2,
