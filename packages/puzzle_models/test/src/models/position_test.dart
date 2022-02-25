@@ -58,6 +58,18 @@ void main() {
       },
     );
 
+    group('* operator', () {
+      test(
+        'correctly multiplies',
+        () {
+          expect(
+            const Position(3, 3) * 2,
+            equals(const Position(6, 6)),
+          );
+        },
+      );
+    });
+
     group(
       '<= operator',
       () {

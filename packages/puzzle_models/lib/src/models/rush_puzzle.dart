@@ -10,9 +10,7 @@ import 'package:puzzle_models/puzzle_models.dart';
 class RushPuzzle extends Equatable {
   /// {@macro rush_puzzle}
   RushPuzzle({
-    required this.exit,
     required this.jammedVehicle,
-    required this.dimension,
     required this.vehicles,
   })  : assert(
           vehicles.values.any((v) => v.id == jammedVehicle.id),
@@ -28,19 +26,19 @@ class RushPuzzle extends Equatable {
           'One or more vehicles are out out of bounds',
         );
 
-  /// All the [Vehicle]s in the puzzle.
-  ///
-  /// This includes the [jammedVehicle].
-  final Map<String, Vehicle> vehicles;
-
   /// The [Position] that the [jammedVehicle] has to reach in order to solve
   /// the puzzle.
-  final Position exit;
+  static const Position exit = Position(6, 2);
 
   /// The size of the puzzle.
   ///
   /// The [Position] indicates the bottom right corner of the puzzle.
-  final Position dimension;
+  static const Position dimension = Position(5, 5);
+
+  /// All the [Vehicle]s in the puzzle.
+  ///
+  /// This includes the [jammedVehicle].
+  final Map<String, Vehicle> vehicles;
 
   /// The [Vehicle] that is jammed in the puzzle and must reach the [exit].
   final Vehicle jammedVehicle;
@@ -55,14 +53,10 @@ class RushPuzzle extends Equatable {
   // ignore: public_member_api_docs
   RushPuzzle copyWith({
     Map<String, Vehicle>? vehicles,
-    Position? exit,
-    Position? dimension,
     Vehicle? jammedVehicle,
   }) {
     return RushPuzzle(
-      exit: exit ?? this.exit,
       jammedVehicle: jammedVehicle ?? this.jammedVehicle,
-      dimension: dimension ?? this.dimension,
       vehicles: vehicles ?? this.vehicles,
     );
   }

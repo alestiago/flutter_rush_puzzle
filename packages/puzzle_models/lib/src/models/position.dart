@@ -33,6 +33,11 @@ class Position extends Equatable {
     return Position(x - other.x, y - other.y);
   }
 
+  /// Multiplies by [value] the [x] and [y] of this position.
+  Position operator *(int value) {
+    return Position(x * value, y * value);
+  }
+
   /// Returns true if [Position] larger or equal in both directions.
   ///
   /// ```dart

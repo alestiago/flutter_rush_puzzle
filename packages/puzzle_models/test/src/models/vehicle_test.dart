@@ -77,20 +77,21 @@ void main() {
             id: '1',
             length: 2,
             steering: Steering.horizonal,
-            firstPosition: const Position(2, 3),
+            firstPosition: const Position(0, 0),
           );
           final puzzle = RushPuzzle(
-            exit: const Position(6, 3),
             jammedVehicle: vehicle,
-            dimension: const Position(5, 5),
             vehicles: {vehicle.id: vehicle},
           );
 
           final drivingBoundaries = vehicle.drivingBoundary(puzzle);
 
           expect(vehicle.steering, equals(Steering.horizonal));
-          expect(drivingBoundaries.from, const Position(0, 3));
-          expect(drivingBoundaries.to, Position(puzzle.dimension.x - 1, 3));
+          expect(drivingBoundaries.from, vehicle.firstPosition);
+          expect(
+            drivingBoundaries.to,
+            Position(RushPuzzle.dimension.x, vehicle.firstPosition.y),
+          );
         },
       );
 
@@ -105,9 +106,7 @@ void main() {
             firstPosition: const Position(2, 3),
           );
           final puzzle = RushPuzzle(
-            exit: const Position(6, 3),
             jammedVehicle: vehicle,
-            dimension: const Position(5, 5),
             vehicles: {vehicle.id: vehicle},
           );
 
@@ -115,7 +114,7 @@ void main() {
 
           expect(vehicle.steering, equals(Steering.vertical));
           expect(drivingBoundaries.from, const Position(2, 0));
-          expect(drivingBoundaries.to, Position(2, puzzle.dimension.y - 1));
+          expect(drivingBoundaries.to, Position(2, RushPuzzle.dimension.y));
         },
       );
 
@@ -142,9 +141,7 @@ void main() {
         );
 
         final puzzle = RushPuzzle(
-          exit: const Position(6, 3),
           jammedVehicle: jammedVehicle,
-          dimension: const Position(5, 5),
           vehicles: {
             jammedVehicle.id: jammedVehicle,
             vehicle2.id: vehicle2,
@@ -181,9 +178,7 @@ void main() {
           firstPosition: const Position(3, 0),
         );
         final puzzle = RushPuzzle(
-          exit: const Position(6, 0),
           jammedVehicle: jammedVehicle,
-          dimension: const Position(5, 5),
           vehicles: {
             jammedVehicle.id: jammedVehicle,
             vehicle2.id: vehicle2,
@@ -202,6 +197,35 @@ void main() {
           Position(vehicle2.firstPosition.x - 1, jammedVehicle.firstPosition.y),
         );
       });
+
+      test(
+        'is correct '
+        'when jammedVehicle can extit',
+        () {
+          expect(RushPuzzle.exit, equals(const Position(6, 2)));
+          const length = 3;
+          final vehicle = Vehicle(
+            id: '1',
+            length: length,
+            steering: Steering.horizonal,
+            firstPosition: RushPuzzle.exit - const Position(length, 0),
+          );
+          final puzzle = RushPuzzle(
+            jammedVehicle: vehicle,
+            vehicles: {vehicle.id: vehicle},
+          );
+
+          final drivingBoundaries = vehicle.drivingBoundary(puzzle);
+
+          expect(puzzle.jammedVehicle, vehicle);
+          expect(vehicle.steering, equals(Steering.horizonal));
+          expect(drivingBoundaries.from, Position(0, RushPuzzle.exit.y));
+          expect(
+            drivingBoundaries.to,
+            RushPuzzle.exit + const Position(length - 1, 0),
+          );
+        },
+      );
     });
 
     group('driveTo', () {
@@ -213,9 +237,7 @@ void main() {
           firstPosition: const Position(0, 0),
         );
         final puzzle = RushPuzzle(
-          exit: const Position(6, 0),
           jammedVehicle: vehicle,
-          dimension: const Position(5, 5),
           vehicles: {
             vehicle.id: vehicle,
           },
@@ -229,14 +251,14 @@ void main() {
 
         expect(
           newPuzzle.vehicles,
-          equals([
-            Vehicle(
+          equals({
+            vehicle.id: Vehicle(
               id: vehicle.id,
               length: vehicle.length,
               steering: vehicle.steering,
               firstPosition: newPosition,
             )
-          ]),
+          }),
         );
       });
 
@@ -256,9 +278,7 @@ void main() {
           firstPosition: const Position(3, 0),
         );
         final puzzle = RushPuzzle(
-          exit: const Position(6, 3),
           jammedVehicle: vehicleA,
-          dimension: const Position(5, 5),
           vehicles: {
             vehicleA.id: vehicleA,
             vehicleB.id: vehicleB,

@@ -8,19 +8,16 @@ void main() {
         'is true '
         'when jammedCar is in exit',
         () {
-          const exit = Position(6, 3);
           final jammedVehicle = Vehicle(
             id: 'A',
             length: 3,
             steering: Steering.horizonal,
-            firstPosition: exit,
+            firstPosition: RushPuzzle.exit,
           );
 
           final puzzle = RushPuzzle(
             jammedVehicle: jammedVehicle,
             vehicles: {jammedVehicle.id: jammedVehicle},
-            exit: exit,
-            dimension: const Position(5, 5),
           );
 
           expect(puzzle.isSolved, true);
@@ -41,8 +38,6 @@ void main() {
         final puzzle = RushPuzzle(
           jammedVehicle: vehicle,
           vehicles: {vehicle.id: vehicle},
-          exit: const Position(6, 3),
-          dimension: const Position(5, 5),
         );
 
         final copy = puzzle.copyWith();
@@ -60,8 +55,6 @@ void main() {
         final puzzle = RushPuzzle(
           jammedVehicle: vehicle,
           vehicles: {vehicle.id: vehicle},
-          exit: const Position(6, 3),
-          dimension: const Position(5, 5),
         );
 
         final vehicle2 = Vehicle(
@@ -71,17 +64,13 @@ void main() {
           firstPosition: const Position(0, 1),
         );
         final puzzle2 = RushPuzzle(
-          exit: const Position(5, 3),
           jammedVehicle: vehicle2,
-          dimension: const Position(4, 4),
           vehicles: {vehicle2.id: vehicle2},
         );
 
         final copy = puzzle.copyWith(
-          exit: puzzle2.exit,
           jammedVehicle: puzzle2.jammedVehicle,
           vehicles: puzzle2.vehicles,
-          dimension: puzzle2.dimension,
         );
 
         expect(copy, equals(puzzle2));
