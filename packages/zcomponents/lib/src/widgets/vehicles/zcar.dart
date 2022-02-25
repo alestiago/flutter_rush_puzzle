@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zcomponents/zcomponents.dart';
 
-import 'package:zflutter/zflutter.dart';
-
 const trunkDepth = 10.0;
 
 const wheelOutterRadius = 7.0;
@@ -256,13 +254,9 @@ class _ZWheel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ZPositioned(
-      rotate: ZVector(
-        side == _ZWheelSide.left ? -tau / 4 : tau / 4,
-        0,
-        0,
-      ),
+      rotate: ZVector.only(x: side == _ZWheelSide.left ? -tau / 4 : tau / 4),
       child: ZGroup(
-        sortMode: SortMode.update,
+        sortMode: SortMode.stack,
         children: [
           ZCylinder(
             diameter: 12,

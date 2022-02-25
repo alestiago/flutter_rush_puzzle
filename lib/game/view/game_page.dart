@@ -150,14 +150,6 @@ class _GameViewState extends State<GameView> {
   ]);
   @override
   Widget build(BuildContext context) {
-    final chooseState = ZPosition(
-      rotate: ZVector.only(x: -0.25, y: -0.75),
-    );
-    final play2d = ZPosition();
-    final play3d = ZPosition(
-      rotate: ZVector.only(x: 1.2, y: -0.2, z: -0.5),
-    );
-
     final vehicleTheme = VehiclesThemeData(
       car: CarThemeData(
         color: Colors.green[700]!,
@@ -179,8 +171,8 @@ class _GameViewState extends State<GameView> {
           padding: const EdgeInsets.all(20),
           child: ZGame(
             theme: themes.first,
+            perspective: GameLayoutPerspective.p3D,
             vehiclesTheme: vehicleTheme,
-            transform: play2d,
             vehicles: [
               for (final vehicle in vehicles)
                 VehicleView(

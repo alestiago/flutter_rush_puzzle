@@ -32,10 +32,10 @@ class GameLayout {
   final boardBorder = 5.0;
 
   /// Padding between the board border and the tils
-  late final boardPadding = 2 * tileSpace;
+  late final boardPadding = 2.5 * tileSpace;
 
   /// Depth of a tile
-  final boardDepth = 20.0;
+  final boardDepth = 15.0;
 
   /// Total size of the board with tiles and the external borders
   late final boardSize = size + boardPadding * 2 + boardBorder * 2;
