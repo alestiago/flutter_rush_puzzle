@@ -72,29 +72,27 @@ class _GameViewState extends State<GameView> {
       ),
     );
     final state = context.select((PuzzleBloc b) => b.state);
-    if (state is PuzzleState) {
-      return Scaffold(
-        backgroundColor: themes.first.backgroundColor,
-        body: DebugGame(
-          debug: false,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: ZGame(
-              theme: themes.first,
-              perspective: GameLayoutPerspective.p3D,
-              vehiclesTheme: vehicleTheme,
-              vehicles: [
-                for (final vehicle in state.puzzle.vehicles.values)
-                  VehicleView(
-                    key: Key('Vehicle${vehicle.id}'),
-                    vehicle: vehicle,
-                  ),
-              ],
-            ),
+
+    return Scaffold(
+      backgroundColor: themes.first.backgroundColor,
+      body: DebugGame(
+        debug: false,
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: ZGame(
+            theme: themes.first,
+            perspective: GameLayoutPerspective.p3D,
+            vehiclesTheme: vehicleTheme,
+            vehicles: [
+              for (final vehicle in state.puzzle.vehicles.values)
+                VehicleView(
+                  key: Key('Vehicle${vehicle.id}'),
+                  vehicle: vehicle,
+                ),
+            ],
           ),
         ),
-      );
-    }
-    return Container();
+      ),
+    );
   }
 }

@@ -7,7 +7,7 @@ const wheelOutterRadius = 7.0;
 
 const size = 30.0;
 
-final int length = 2;
+const int length = 2;
 
 class ZCar extends StatelessWidget {
   const ZCar({
@@ -28,8 +28,8 @@ class ZCar extends StatelessWidget {
     final topMiddleColor = theme.topMiddleColor ?? topColor;
     final topBoxColor = theme.topBoxColor;
 
-    final width = length * size + space * (length - 1);
-    final halfWidth = width / 2;
+    const width = length * size + space * (length - 1);
+    const halfWidth = width / 2;
     const distanceWheel = size / 1.5;
     const distanceZWheel = size / 2 - 5;
     return ZGroup(
@@ -133,7 +133,7 @@ class ZCar extends StatelessWidget {
             ZPositioned(
               rotate: const ZVector.only(y: tau / 4),
               child: ZPositioned(
-                translate: ZVector.only(x: halfWidth, z: -(size - 8) / 4),
+                translate: const ZVector.only(x: halfWidth, z: -(size - 8) / 4),
                 child: ZGroup(
                   sortMode: SortMode.update,
                   children: [
@@ -165,7 +165,8 @@ class ZCar extends StatelessWidget {
             ZPositioned(
               rotate: const ZVector.only(y: tau / 4),
               child: ZPositioned(
-                translate: ZVector.only(x: -halfWidth, z: -(size - 8) / 4),
+                translate:
+                    const ZVector.only(x: -halfWidth, z: -(size - 8) / 4),
                 child: ZRect(
                   width: (size - 8) / 2,
                   height: size,

@@ -6,7 +6,7 @@ import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
 class FakeRushPuzzle extends Fake implements RushPuzzle {}
 
 void main() {
-  // TODO(alestiago) test for PuzzleVehicleMoved, PuzzleMoveUndid.
+  // TODO(alestiago): test for PuzzleVehicleMoved, PuzzleMoveUndid.
 
   group('PuzzleBloc', () {
     blocTest<PuzzleBloc, PuzzleState>(

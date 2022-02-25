@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:zcomponents/zcomponents.dart';
 
@@ -16,7 +15,7 @@ class ZAnimatedPositioned extends StatelessWidget {
             ZPosition(scale: scale, translate: translate, rotate: rotate),
         super(key: key);
 
-  ZAnimatedPositioned.position({
+  const ZAnimatedPositioned.position({
     Key? key,
     required this.position,
     this.curve,
@@ -42,7 +41,7 @@ class ZAnimatedPositioned extends StatelessWidget {
       duration: duration,
       curve: curve ?? Curves.linear,
       builder: (_, animatedTransform, child) {
-        final transform = animatedTransform ?? ZPosition();
+        final transform = animatedTransform ?? const ZPosition();
         return ZPositioned(
           rotate: transform.rotate,
           scale: transform.scale,
@@ -56,14 +55,15 @@ class ZAnimatedPositioned extends StatelessWidget {
 }
 
 class ZPosition extends Equatable {
+  const ZPosition({
+    this.rotate = ZVector.zero,
+    this.translate = ZVector.zero,
+    this.scale = ZVector.identity,
+  });
+
   final ZVector rotate;
   final ZVector translate;
   final ZVector scale;
-
-  ZPosition(
-      {this.rotate = ZVector.zero,
-      this.translate = ZVector.zero,
-      this.scale = ZVector.identity});
 
   @override
   List<Object?> get props => [rotate, translate, scale];

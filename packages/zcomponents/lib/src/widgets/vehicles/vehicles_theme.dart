@@ -53,7 +53,7 @@ class VehiclesThemeData extends Equatable {
     required this.taxi,
   });
 
-  static final VehiclesThemeData fallback = const VehiclesThemeData(
+  static const VehiclesThemeData fallback = VehiclesThemeData(
     car: CarThemeData(color: Colors.red),
     taxi: CarThemeData(color: Colors.red),
   );
