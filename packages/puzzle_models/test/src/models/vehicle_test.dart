@@ -10,7 +10,7 @@ void main() {
           expect(
             Vehicle(
               id: '1',
-              length: 2,
+              type: VehicleType.taxi,
               steering: Steering.horizontal,
               firstPosition: const Position(0, 0),
             ),
@@ -20,36 +20,11 @@ void main() {
       );
 
       test(
-        'throws AssertionError '
-        'when Vehicle has a length smaller than 0',
-        () {
-          expect(
-            () => Vehicle(
-              id: '1',
-              length: 0,
-              steering: Steering.horizontal,
-              firstPosition: const Position(0, 0),
-            ),
-            throwsA(const TypeMatcher<AssertionError>()),
-          );
-          expect(
-            () => Vehicle(
-              id: '1',
-              length: 1,
-              steering: Steering.horizontal,
-              firstPosition: const Position(0, 0),
-            ),
-            returnsNormally,
-          );
-        },
-      );
-
-      test(
           'correctly sets endPosition '
           'when steering is horizontal', () {
         final vehicle = Vehicle(
           id: '1',
-          length: 2,
+          type: VehicleType.taxi,
           steering: Steering.horizontal,
           firstPosition: const Position(0, 0),
         );
@@ -61,7 +36,7 @@ void main() {
           'when steering is vertical', () {
         final vehicle = Vehicle(
           id: '1',
-          length: 2,
+          type: VehicleType.taxi,
           steering: Steering.vertical,
           firstPosition: const Position(0, 0),
         );
@@ -75,7 +50,7 @@ void main() {
         () {
           final vehicle = Vehicle(
             id: '1',
-            length: 2,
+            type: VehicleType.taxi,
             steering: Steering.horizontal,
             firstPosition: const Position(0, 0),
           );
@@ -98,11 +73,11 @@ void main() {
 
       test(
         'is correct '
-        'when is single vertical car in puzzle',
+        'when is single vertical vehicle in puzzle',
         () {
           final vehicle = Vehicle(
             id: '1',
-            length: 2,
+            type: VehicleType.taxi,
             steering: Steering.vertical,
             firstPosition: const Position(2, 3),
           );
@@ -125,19 +100,19 @@ void main() {
           'when steers horizontal and surrounded', () {
         final jammedVehicle = Vehicle(
           id: '1',
-          length: 2,
+          type: VehicleType.taxi,
           steering: Steering.horizontal,
           firstPosition: const Position(2, 3),
         );
         final vehicle2 = Vehicle(
           id: '2',
-          length: 1,
-          steering: Steering.horizontal,
+          type: VehicleType.taxi,
+          steering: Steering.vertical,
           firstPosition: Position(0, jammedVehicle.firstPosition.y),
         );
         final vehicle3 = Vehicle(
           id: '3',
-          length: 3,
+          type: VehicleType.bus,
           steering: Steering.vertical,
           firstPosition: Position(5, jammedVehicle.firstPosition.y - 1),
         );
@@ -170,13 +145,13 @@ void main() {
           'when steers horizontal and has right neighbour', () {
         final jammedVehicle = Vehicle(
           id: '1',
-          length: 2,
+          type: VehicleType.taxi,
           steering: Steering.horizontal,
           firstPosition: const Position(1, 0),
         );
         final vehicle2 = Vehicle(
           id: '2',
-          length: 2,
+          type: VehicleType.taxi,
           steering: Steering.horizontal,
           firstPosition: const Position(3, 0),
         );
@@ -207,12 +182,12 @@ void main() {
         'when jammedVehicle can exit',
         () {
           expect(RushPuzzle.exit, equals(const Position(6, 2)));
-          const length = 3;
+          const type = VehicleType.bus;
           final vehicle = Vehicle(
             id: '1',
-            length: length,
+            type: type,
             steering: Steering.horizontal,
-            firstPosition: RushPuzzle.exit - const Position(length, 0),
+            firstPosition: RushPuzzle.exit - Position(type.length, 0),
           );
           final puzzle = RushPuzzle(
             difficulty: PuzzleDifficulty.beginner,
@@ -227,7 +202,7 @@ void main() {
           expect(drivingBoundaries.from, Position(0, RushPuzzle.exit.y));
           expect(
             drivingBoundaries.to,
-            RushPuzzle.exit + const Position(length - 1, 0),
+            RushPuzzle.exit + Position(vehicle.length - 1, 0),
           );
         },
       );
@@ -237,7 +212,7 @@ void main() {
       test('moves vehicle', () {
         final vehicle = Vehicle(
           id: '1',
-          length: 2,
+          type: VehicleType.taxi,
           steering: Steering.horizontal,
           firstPosition: const Position(0, 0),
         );
@@ -260,7 +235,7 @@ void main() {
           equals({
             vehicle.id: Vehicle(
               id: vehicle.id,
-              length: vehicle.length,
+              type: vehicle.type,
               steering: vehicle.steering,
               firstPosition: newPosition,
             )
@@ -273,13 +248,13 @@ void main() {
           'when drives to an invalid positon', () {
         final vehicleA = Vehicle(
           id: 'A',
-          length: 2,
+          type: VehicleType.taxi,
           steering: Steering.horizontal,
           firstPosition: const Position(0, 0),
         );
         final vehicleB = Vehicle(
           id: 'B',
-          length: 2,
+          type: VehicleType.taxi,
           steering: Steering.horizontal,
           firstPosition: const Position(3, 0),
         );
@@ -301,27 +276,10 @@ void main() {
     group('positions', () {
       test(
           'correctly '
-          'when length is 1', () {
-        final vehicle = Vehicle(
-          id: '1',
-          length: 1,
-          steering: Steering.horizontal,
-          firstPosition: const Position(2, 3),
-        );
-
-        final expected = [
-          vehicle.firstPosition,
-        ];
-
-        expect(expected.length, equals(vehicle.length));
-        expect(vehicle.positions, expected);
-      });
-      test(
-          'correctly '
           'when steering is horizontal', () {
         final vehicle = Vehicle(
           id: '1',
-          length: 3,
+          type: VehicleType.bus,
           steering: Steering.horizontal,
           firstPosition: const Position(2, 3),
         );
@@ -341,7 +299,7 @@ void main() {
           'when steering is vertical', () {
         final vehicle = Vehicle(
           id: '1',
-          length: 3,
+          type: VehicleType.bus,
           steering: Steering.vertical,
           firstPosition: const Position(2, 3),
         );
@@ -364,19 +322,19 @@ void main() {
         () {
           final vehicle1 = Vehicle(
             id: '1',
-            length: 1,
+            type: VehicleType.taxi,
             steering: Steering.horizontal,
             firstPosition: const Position(0, 0),
           );
           final vehicle2 = Vehicle(
             id: '1',
-            length: 1,
+            type: VehicleType.taxi,
             steering: Steering.horizontal,
             firstPosition: const Position(0, 0),
           );
           final vehicle3 = Vehicle(
             id: '2',
-            length: 2,
+            type: VehicleType.bus,
             steering: Steering.horizontal,
             firstPosition: const Position(0, 0),
           );

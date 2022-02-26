@@ -53,9 +53,11 @@ void main() {
       final vehicle = Vehicle(
         id: 'id',
         firstPosition: const Position(1, 2),
-        length: 2,
+        type: VehicleType.taxi,
         steering: Steering.horizontal,
       );
+
+      expect(vehicle.length, equals(2));
       expect(
         game.boxForVehicle(vehicle),
         equals(BoundingBox(const Offset(30, 60), const Offset(80, 80))),

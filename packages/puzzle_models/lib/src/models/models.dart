@@ -5,3 +5,4 @@ export 'puzzle_difficulty.dart';
 export 'rush_puzzle.dart';
 export 'steering.dart';
 export 'vehicle.dart';
+export 'vehicle_type.dart';
