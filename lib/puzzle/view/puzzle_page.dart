@@ -7,26 +7,30 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:puzzle_models/puzzle_models.dart';
 
 import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
+import 'package:rush_hour_puzzle/timer/timer.dart';
 import 'package:rush_hour_puzzle/vehicle/vehicle.dart';
 import 'package:zcomponents/zcomponents.dart';
-
-// TODO(alestiago): Remove this as soon as _puzzle is not required.
-part 'puzzle_example.dart';
 
 class PuzzleGame extends StatelessWidget {
   const PuzzleGame({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => PuzzleBloc(
-        // TODO(alestiago): Instead of passing an already built puzzle,
-        // retrieve the puzzle from another Bloc that fetches for a puzzle.
-        puzzle: GamePuzzles.games.first,
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => TimerBloc(
+            ticker: const Ticker(),
+          ),
+        ),
+        BlocProvider(
+          create: (_) => PuzzleBloc(
+            puzzleRepository: PuzzleRepository(),
+          )..add(const PuzzleFetched()),
+        ),
+      ],
       child: const GameView(),
     );
   }
@@ -72,23 +76,68 @@ class _GameViewState extends State<GameView> {
       ),
     );
     final state = context.select((PuzzleBloc b) => b.state);
-
-    return Scaffold(
-      backgroundColor: themes.first.backgroundColor,
-      body: DebugGame(
-        debug: false,
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: ZGame(
-            theme: themes.first,
-            perspective: GameLayoutPerspective.p3D,
-            vehiclesTheme: vehicleTheme,
-            vehicles: [
-              for (final vehicle in state.puzzle.vehicles.values)
-                VehicleView(
-                  key: Key('Vehicle${vehicle.id}'),
-                  vehicle: vehicle,
+    final perspective = state.status.isBeforePlaying
+        ? GameLayoutPerspective.p2D
+        : GameLayoutPerspective.p3D;
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<PuzzleBloc, PuzzleState>(
+          listenWhen: (previous, current) {
+            return current.status != previous.status;
+          },
+          listener: (context, state) {
+            // Start the puzzle timer when the countdown finishes.
+            if (state.status == GameStatus.playing) {
+              context.read<TimerBloc>().add(const TimerStarted());
+            }
+            if (state.status == GameStatus.finished) {
+              context.read<TimerBloc>().add(const TimerStopped());
+            }
+            if (state.status == GameStatus.setup) {
+              context.read<TimerBloc>().add(const TimerReset());
+            }
+          },
+        ),
+      ],
+      child: Scaffold(
+        backgroundColor: themes.first.backgroundColor,
+        body: AnimatedVehiclesTheme(
+          data: vehicleTheme,
+          child: Stack(
+            children: [
+              DebugGame(
+                debug: false,
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: ZGame(
+                    theme: themes.first,
+                    perspective: perspective,
+                    vehiclesTheme: vehicleTheme,
+                    vehicles: [
+                      if (!state.status.isBeforePlaying)
+                        for (final vehicle in state.puzzle.vehicles.values)
+                          VehicleView(
+                            key: Key('Vehicle${vehicle.id}'),
+                            vehicle: vehicle,
+                          ),
+                    ],
+                  ),
                 ),
+              ),
+              OverlayBarrier(visible: state.status != GameStatus.playing),
+              if (state.status == GameStatus.finished) ...[
+                const Fireworks(),
+                const Center(child: WinDialog()),
+              ],
+              if (state.status.isBeforePlaying) ...[
+                const Center(child: StartDialog()),
+              ],
+              if (state.status == GameStatus.playing) ...[
+                const Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ScoreBoard(),
+                ),
+              ]
             ],
           ),
         ),

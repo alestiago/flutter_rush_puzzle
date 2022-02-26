@@ -1,7 +1,31 @@
 {
     "@@locale": "es",
-    "counterAppBarTitle": "Contador",
-    "@counterAppBarTitle": {
-        "description": "Texto mostrado en la AppBar de la página del contador"
+    "winMessageTitle": "¡HAS GANADO!",
+    "@winMessageTitle": {
+        "description": "Title shown in the winning dialog"
+    },
+    "winMessageText": "Enhorabuena, has conseguido resolver el juego Flutter Rush Sliding Puzzle",
+    "@winMessageText": {
+        "description": "Text shown in the winning dialog message"
+    },
+    "startMessageTitle": "Bienvenido a Flutter Rush Puzzle",
+    "@startMessageTitle": {
+        "description": "Title shown in the starting dialog"
+    },
+    "startMessageText": "Intenta que la ambulancia salga del trafico en el menor numero de movimientos posibles",
+    "@startMessageText": {
+        "description": "Description message shown in the starting dialog"
+    },
+    "startButtonTitle": "Empieza a jugar",
+    "@startButtonTitle": {
+        "description": "Title text shown in the start game button"
+    },
+    "restartButtonTitle": "Empezar de nuevo",
+    "@restartButtonTitle": {
+        "description": "Title text shown in the restart game button"
+    },
+    "shareButtonTitle": "Compartir",
+    "@shareButtonTitle": {
+        "description": "Title text shown in the share button"
     }
 }

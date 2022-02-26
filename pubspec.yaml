@@ -9,6 +9,8 @@ environment:
 dependencies:
   bloc: ^8.0.2
   equatable: ^2.0.3
+  fireworks:
+    path: packages/fireworks
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1

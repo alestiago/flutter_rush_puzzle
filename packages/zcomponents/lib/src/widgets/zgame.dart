@@ -49,48 +49,44 @@ class ZGame extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedBoardTheme(
       data: theme,
-      child: AnimatedVehiclesTheme(
-        data: vehiclesTheme,
-        child: ZDragDetector(
-          builder: (context, controller) {
-            return LayoutBuilder(
-              builder: (context, constraints) {
-                final scale =
-                    constraints.biggest.shortestSide / layout.boardSize;
-                final rotation = controller.value.y * scale;
-                return ZIllustration(
-                  zoom: scale,
-                  children: [
-                    ZPositioned(
-                      rotate: ZVector.only(z: rotation),
-                      child: ZAnimatedPositioned.position(
-                        position: perspective.position,
-                        duration: const Duration(milliseconds: 600),
-                        child: ZGroup(
-                          children: [
-                            ZBoard(
-                              layout: layout,
+      child: ZDragDetector(
+        builder: (context, controller) {
+          return LayoutBuilder(
+            builder: (context, constraints) {
+              final scale = constraints.biggest.shortestSide / layout.boardSize;
+              final rotation = controller.value.y * scale;
+              return ZIllustration(
+                zoom: scale,
+                children: [
+                  ZPositioned(
+                    rotate: ZVector.only(z: rotation),
+                    child: ZAnimatedPositioned.position(
+                      position: perspective.position,
+                      duration: const Duration(milliseconds: 600),
+                      child: ZGroup(
+                        children: [
+                          ZBoard(
+                            layout: layout,
+                          ),
+                          ZPositioned(
+                            translate: layout.boardTopLeft,
+                            child: Builder(
+                              builder: (context) {
+                                return ZGroup(
+                                  children: vehicles,
+                                );
+                              },
                             ),
-                            ZPositioned(
-                              translate: layout.boardTopLeft,
-                              child: Builder(
-                                builder: (context) {
-                                  return ZGroup(
-                                    children: vehicles,
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                );
-              },
-            );
-          },
-        ),
+                  ),
+                ],
+              );
+            },
+          );
+        },
       ),
     );
   }

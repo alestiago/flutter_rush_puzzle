@@ -5,6 +5,19 @@ abstract class PuzzleEvent extends Equatable {
   const PuzzleEvent();
 }
 
+class PuzzleFetched extends PuzzleEvent {
+  const PuzzleFetched();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class PuzzleStarted extends PuzzleEvent {
+  const PuzzleStarted();
+  @override
+  List<Object?> get props => [];
+}
+
 class PuzzleVehicleMoved extends PuzzleEvent {
   const PuzzleVehicleMoved({
     required this.vehicle,

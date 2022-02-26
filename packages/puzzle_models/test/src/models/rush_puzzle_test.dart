@@ -3,6 +3,81 @@ import 'package:test/test.dart';
 
 void main() {
   group('RushPuzzle', () {
+    group('initialization', () {
+      test(
+        'succeed with correct values',
+        () {
+          final jammedVehicle = Vehicle(
+            id: 'A',
+            type: VehicleType.taxi,
+            steering: Steering.horizontal,
+            firstPosition: const Position(0, 0),
+          );
+
+          expect(
+            RushPuzzle(
+              difficulty: PuzzleDifficulty.beginner,
+              jammedVehicleId: jammedVehicle.id,
+              vehicles: {jammedVehicle.id: jammedVehicle},
+            ),
+            isA<RushPuzzle>(),
+          );
+        },
+      );
+
+      test(
+        'throws assert if jammedVehicle not inside  vehicles',
+        () {
+          expect(
+            () => RushPuzzle(
+              difficulty: PuzzleDifficulty.beginner,
+              jammedVehicleId: 'A',
+              vehicles: const {},
+            ),
+            throwsA(isA<AssertionError>()),
+          );
+        },
+      );
+
+      test(
+        'throws assert if a vehicle is outside puzzle',
+        () {
+          final jammedVehicle = Vehicle(
+            id: 'A',
+            type: VehicleType.taxi,
+            steering: Steering.horizontal,
+            firstPosition: const Position(0, 0),
+          );
+          final outsideVehicle = Vehicle(
+            id: 'A',
+            type: VehicleType.taxi,
+            steering: Steering.horizontal,
+            firstPosition: const Position(10, 0),
+          );
+          expect(
+            () => RushPuzzle(
+              difficulty: PuzzleDifficulty.beginner,
+              jammedVehicleId: jammedVehicle.id,
+              vehicles: {
+                jammedVehicle.id: jammedVehicle,
+                outsideVehicle.id: outsideVehicle,
+              },
+            ),
+            throwsA(isA<AssertionError>()),
+          );
+        },
+      );
+
+      test(
+        '.empty creates an empty puzzle',
+        () {
+          expect(
+            const RushPuzzle.empty().vehicles,
+            isEmpty,
+          );
+        },
+      );
+    });
     group('isSolved', () {
       test(
         'is true '
@@ -22,6 +97,16 @@ void main() {
           );
 
           expect(puzzle.isSolved, true);
+        },
+      );
+
+      test(
+        'is false when is .empty ',
+        () {
+          expect(
+            const RushPuzzle.empty().isSolved,
+            isFalse,
+          );
         },
       );
     });

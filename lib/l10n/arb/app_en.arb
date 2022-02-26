@@ -1,7 +1,31 @@
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
+    "winMessageTitle": "YOU WON!",
+    "@winMessageTitle": {
+        "description": "Title shown in the winning dialog"
+    },
+    "winMessageText": "Congrats you have succesfully resolved the Flutter Rush Sliding Puzzle",
+    "@winMessageText": {
+        "description": "Text shown in the winning dialog message"
+    },
+    "startMessageTitle": "Welcome to Rush Puzzle",
+    "@startMessageTitle": {
+        "description": "Title shown in the starting dialog"
+    },
+    "startMessageText": "Try to take the ambulance out the traffic in as few moves as possible",
+    "@startMessageText": {
+        "description": "Description message shown in the starting dialog"
+    },
+    "startButtonTitle": "Start playing",
+    "@startButtonTitle": {
+        "description": "Title text shown in the start game button"
+    },
+    "restartButtonTitle": "Start again",
+    "@restartButtonTitle": {
+        "description": "Title text shown in the restart game button"
+    },
+    "shareButtonTitle": "Share",
+    "@shareButtonTitle": {
+        "description": "Title text shown in the share button"
     }
 }
