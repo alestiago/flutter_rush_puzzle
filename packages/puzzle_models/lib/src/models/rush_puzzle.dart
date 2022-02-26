@@ -28,6 +28,12 @@ class RushPuzzle extends Equatable {
           'One or more vehicles are out out of bounds',
         );
 
+  /// Builds an empty rush puzzle
+  const RushPuzzle.empty()
+      : vehicles = const {},
+        difficulty = PuzzleDifficulty.beginner,
+        jammedVehicleId = '';
+
   /// The [Position] that the [jammedVehicleId] has to reach in order to solve
   /// the puzzle.
   static const Position exit = Position(6, 2);
@@ -52,7 +58,8 @@ class RushPuzzle extends Equatable {
   ///
   /// A puzzle is solved if the [jammedVehicleId] reaches the [exit].
   bool get isSolved {
-    return vehicles[jammedVehicleId]!.firstPosition <= exit;
+    final jammedVehicle = vehicles[jammedVehicleId];
+    return jammedVehicle != null && jammedVehicle.firstPosition >= exit;
   }
 
   // ignore: public_member_api_docs

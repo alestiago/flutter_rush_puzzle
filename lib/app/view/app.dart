@@ -21,6 +21,12 @@ class App extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(
           accentColor: const Color(0xFF13B9FF),
         ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            textStyle: const TextStyle(fontSize: 20),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+          ),
+        ),
       ),
       localizationsDelegates: const [
         AppLocalizations.delegate,

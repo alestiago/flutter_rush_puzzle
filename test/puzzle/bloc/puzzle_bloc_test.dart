@@ -8,11 +8,5 @@ class FakeRushPuzzle extends Fake implements RushPuzzle {}
 void main() {
   // TODO(alestiago): test for PuzzleVehicleMoved, PuzzleMoveUndid.
 
-  group('PuzzleBloc', () {
-    blocTest<PuzzleBloc, PuzzleState>(
-      'emits [] when nothing is added',
-      build: () => PuzzleBloc(puzzle: FakeRushPuzzle()),
-      expect: () => <PuzzleState>[],
-    );
-  });
+  group('PuzzleBloc', () {});
 }

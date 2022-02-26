@@ -1,10 +1,11 @@
 // TODO(alestiago): remove this file.
 
-part of 'puzzle_page.dart';
+import 'package:puzzle_models/puzzle_models.dart';
 
 class GamePuzzles {
   static final games = [
     SimpleRushPuzzle(
+      difficulty: PuzzleDifficulty.beginner,
       vehicles: [
         Vehicle(
           id: 'A',
@@ -61,12 +62,11 @@ class GamePuzzles {
 
 class SimpleRushPuzzle extends RushPuzzle {
   SimpleRushPuzzle({
+    required PuzzleDifficulty difficulty,
     required List<Vehicle> vehicles,
   }) : super(
-          // TODO(jamesblasco): Specify the difficulty of this puzzle.
-          difficulty: PuzzleDifficulty.beginner,
-          // TODO(jamesblasco): Specify jammedVehicleId instead of jammedVehicle.
-          jammedVehicleId: vehicles.first.id,
+          difficulty: difficulty,
+          jammedVehicleId: 'X',
           vehicles: {
             for (final vehicle in vehicles) vehicle.id: vehicle,
           },

@@ -78,7 +78,7 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
               dragging: false,
               escaped: true,
               box: layout.boxForDrivingBoundary(
-                DrivingBoundary(const Position(5, 2), const Position(6, 2)),
+                DrivingBoundary(const Position(6, 2), const Position(7, 2)),
               ),
             )
             .withoutDraggingBox(),
