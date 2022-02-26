@@ -61,13 +61,10 @@ class SimpleRushPuzzle extends RushPuzzle {
   SimpleRushPuzzle({
     required List<Vehicle> vehicles,
   }) : super(
+          // TODO(jamesblasco): Specify the appropiate difficulty.
+          difficulty: PuzzleDifficulty.beginner,
           // TODO(jamesblasco): Specify jammedVehicleId instead of jammedVehicle.
-          jammedVehicle: Vehicle(
-            id: 'X',
-            type: VehicleType.taxi,
-            steering: Steering.horizontal,
-            firstPosition: const Position(0, 0),
-          ),
+          jammedVehicleId: vehicles.first.id,
           vehicles: {
             for (final vehicle in vehicles) vehicle.id: vehicle,
           },
