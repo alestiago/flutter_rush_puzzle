@@ -10,7 +10,7 @@ void main() {
         () {
           final jammedVehicle = Vehicle(
             id: 'A',
-            length: 3,
+            type: VehicleType.taxi,
             steering: Steering.horizontal,
             firstPosition: RushPuzzle.exit,
           );
@@ -32,7 +32,7 @@ void main() {
           'when empty ', () {
         final vehicle = Vehicle(
           id: 'A',
-          length: 3,
+          type: VehicleType.taxi,
           steering: Steering.horizontal,
           firstPosition: const Position(0, 0),
         );
@@ -50,7 +50,7 @@ void main() {
       test('copies correctly', () {
         final vehicle = Vehicle(
           id: 'A',
-          length: 3,
+          type: VehicleType.taxi,
           steering: Steering.horizontal,
           firstPosition: const Position(0, 0),
         );
@@ -62,7 +62,7 @@ void main() {
 
         final vehicle2 = Vehicle(
           id: 'B',
-          length: 3,
+          type: VehicleType.taxi,
           steering: Steering.horizontal,
           firstPosition: const Position(0, 1),
         );

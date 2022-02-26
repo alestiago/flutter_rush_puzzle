@@ -11,20 +11,24 @@ class Vehicle extends Equatable {
   /// {@macro vehicle}
   Vehicle({
     required this.id,
-    required this.length,
     required this.steering,
     required this.firstPosition,
-  })  : assert(
-          length > 0,
-          'Vehicle length must be greater than 0.',
+    required this.type,
+  })  : length = type.length,
+        assert(
+          type.length > 1,
+          'Vehicle length must be greater than 1.',
         ),
         lastPosition = firstPosition +
             (steering == Steering.horizontal
-                ? Position(length - 1, 0)
-                : Position(0, length - 1));
+                ? Position(type.length - 1, 0)
+                : Position(0, type.length - 1));
 
   /// Unique identifier for this vehicle.
   final String id;
+
+  /// {@macro vehicle_type}
+  final VehicleType type;
 
   /// The length of the vehicle.
   ///
@@ -101,7 +105,7 @@ class Vehicle extends Equatable {
 
     final newVehicle = Vehicle(
       id: id,
-      length: length,
+      type: type,
       steering: steering,
       firstPosition: to,
     );
@@ -135,7 +139,7 @@ class Vehicle extends Equatable {
   @override
   List<Object?> get props => [
         id,
-        length,
+        type,
         steering,
         firstPosition,
         lastPosition,

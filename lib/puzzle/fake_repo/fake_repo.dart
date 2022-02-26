@@ -6,49 +6,49 @@ class GamePuzzles {
       vehicles: [
         Vehicle(
           id: 'A',
-          length: 2,
+          type: VehicleType.taxi,
           steering: Steering.horizontal,
           firstPosition: const Position(0, 0),
         ),
         Vehicle(
           id: 'P',
-          length: 3,
+          type: VehicleType.bus,
           steering: Steering.vertical,
           firstPosition: const Position(0, 1),
         ),
         Vehicle(
           id: 'B',
-          length: 2,
+          type: VehicleType.taxi,
           steering: Steering.vertical,
           firstPosition: const Position(0, 4),
         ),
         Vehicle(
           id: 'X',
-          length: 2,
+          type: VehicleType.taxi,
           steering: Steering.horizontal,
           firstPosition: const Position(1, 2),
         ),
         Vehicle(
           id: 'Q',
-          length: 3,
+          type: VehicleType.bus,
           steering: Steering.vertical,
           firstPosition: const Position(3, 1),
         ),
         Vehicle(
           id: 'R',
-          length: 3,
+          type: VehicleType.bus,
           steering: Steering.horizontal,
           firstPosition: const Position(2, 5),
         ),
         Vehicle(
           id: 'C',
-          length: 2,
+          type: VehicleType.taxi,
           steering: Steering.horizontal,
           firstPosition: const Position(4, 4),
         ),
         Vehicle(
           id: 'O',
-          length: 3,
+          type: VehicleType.bus,
           steering: Steering.vertical,
           firstPosition: const Position(5, 0),
         ),
@@ -61,10 +61,13 @@ class SimpleRushPuzzle extends RushPuzzle {
   SimpleRushPuzzle({
     required List<Vehicle> vehicles,
   }) : super(
-          // TODO(jamesblasco): Specify the difficulty of this puzzle.
-          difficulty: PuzzleDifficulty.beginner,
           // TODO(jamesblasco): Specify jammedVehicleId instead of jammedVehicle.
-          jammedVehicleId: vehicles.first.id,
+          jammedVehicle: Vehicle(
+            id: 'X',
+            type: VehicleType.taxi,
+            steering: Steering.horizontal,
+            firstPosition: const Position(0, 0),
+          ),
           vehicles: {
             for (final vehicle in vehicles) vehicle.id: vehicle,
           },
