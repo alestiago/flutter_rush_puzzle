@@ -47,7 +47,7 @@ class VehicleContent extends StatelessWidget {
       },
       child: ZGroup(
         sortMode: SortMode.update,
-        sortPoint: box.zCenter + const ZVector.only(z: 60),
+        sortPoint: (draggingBox ?? box).zCenter + const ZVector.only(z: 60),
         children: [
           if (isDebug) ZPositionDebug(box: box),
           ZPositionTracker(
