@@ -1,0 +1,22 @@
+name: z_cubic_text
+description: A Very Good Project created by Very Good CLI.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  provider: ^6.0.2
+  zflutter:
+    git:
+      url: https://github.com/jamesblasco/zflutter
+      path: zflutter
+      ref: 084ebbf65543b01ecc7ce6e5393b89396b39d428
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^2.4.0
