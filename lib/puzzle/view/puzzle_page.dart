@@ -67,8 +67,16 @@ class _GameViewState extends State<GameView> {
     final vehicleTheme = VehiclesThemeData.fallback;
     final state = context.select((PuzzleBloc b) => b.state);
     final perspective = state.status.isBeforePlaying
-        ? GameLayoutPerspective.p2D
+        ? GameLayoutPerspective.presentation
         : GameLayoutPerspective.p3D;
+
+    final isNotPlayingDemoVehicle = Vehicle(
+      id: 'isNotPlayingDemoVehicle--vehicle',
+      steering: Steering.horizontal,
+      firstPosition: const Position(2, 1),
+      type: VehicleType.taxi,
+    );
+
     return MultiBlocListener(
       listeners: [
         BlocListener<PuzzleBloc, PuzzleState>(
@@ -109,12 +117,20 @@ class _GameViewState extends State<GameView> {
                           VehicleView(
                             key: Key('Vehicle${vehicle.id}'),
                             vehicle: vehicle,
-                          ),
+                          )
+                      else
+                        VehicleView(
+                          key: Key(isNotPlayingDemoVehicle.id),
+                          vehicle: isNotPlayingDemoVehicle,
+                        )
                     ],
                   ),
                 ),
               ),
-              OverlayBarrier(visible: state.status != GameStatus.playing),
+              OverlayBarrier(
+                visible: state.status != GameStatus.playing &&
+                    !state.status.isBeforePlaying,
+              ),
               if (state.status == GameStatus.finished) ...[
                 const Fireworks(),
                 const Center(child: WinDialog()),
