@@ -37,13 +37,13 @@ class ZCar extends StatelessWidget {
       children: [
         // Left side
         _ZCarSide(
-          side: _ZWheelSide.left,
+          side: ZWheelSide.left,
           sideColor: sideColor,
           doorSideColor: doorSideColor,
         ),
         // Right side
         _ZCarSide(
-          side: _ZWheelSide.right,
+          side: ZWheelSide.right,
           sideColor: sideColor,
           doorSideColor: doorSideColor,
         ),
@@ -54,8 +54,8 @@ class ZCar extends StatelessWidget {
             sortMode: SortMode.update,
             sortPoint: const ZVector(0, 0, 20),
             children: const [
-              _ZWheel(
-                side: _ZWheelSide.right,
+              ZWheel(
+                side: ZWheelSide.right,
               ),
             ],
           ),
@@ -66,8 +66,8 @@ class ZCar extends StatelessWidget {
             sortMode: SortMode.update,
             sortPoint: const ZVector(0, 0, 20),
             children: const [
-              _ZWheel(
-                side: _ZWheelSide.right,
+              ZWheel(
+                side: ZWheelSide.right,
               ),
             ],
           ),
@@ -78,7 +78,7 @@ class ZCar extends StatelessWidget {
             sortMode: SortMode.update,
             sortPoint: const ZVector(0, 0, 8),
             children: const [
-              _ZWheel(),
+              ZWheel(),
             ],
           ),
         ),
@@ -88,7 +88,7 @@ class ZCar extends StatelessWidget {
             sortMode: SortMode.update,
             sortPoint: const ZVector(0, 0, 8),
             children: const [
-              _ZWheel(),
+              ZWheel(),
             ],
           ),
         ),
@@ -225,8 +225,6 @@ class ZCar extends StatelessWidget {
   }
 }
 
-enum _ZWheelSide { left, right }
-
 class _Ligth extends StatelessWidget {
   const _Ligth({Key? key}) : super(key: key);
 
@@ -252,47 +250,6 @@ class _Ligth extends StatelessWidget {
   }
 }
 
-class _ZWheel extends StatelessWidget {
-  const _ZWheel({
-    Key? key,
-    this.side = _ZWheelSide.left,
-  }) : super(key: key);
-
-  final _ZWheelSide side;
-
-  @override
-  Widget build(BuildContext context) {
-    return ZPositioned(
-      rotate: ZVector.only(x: side == _ZWheelSide.left ? -tau / 4 : tau / 4),
-      child: ZGroup(
-        sortMode: SortMode.stack,
-        children: [
-          ZCylinder(
-            diameter: 12,
-            length: 2,
-            color: Colors.black,
-          ),
-          ZPositioned(
-            translate: const ZVector(0, 0, -2.1),
-            child: ZCircle(
-              diameter: 4,
-              fill: true,
-              color: Colors.grey,
-            ),
-          ),
-          ZPositioned(
-            translate: const ZVector(0, 0, -1),
-            child: ZShape(
-              visible: false,
-              color: Colors.grey,
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
 class _ZCarSide extends StatelessWidget {
   const _ZCarSide({
     Key? key,
@@ -301,7 +258,7 @@ class _ZCarSide extends StatelessWidget {
     required this.doorSideColor,
   }) : super(key: key);
 
-  final _ZWheelSide side;
+  final ZWheelSide side;
 
   final Color sideColor;
   final Color doorSideColor;
@@ -313,7 +270,7 @@ class _ZCarSide extends StatelessWidget {
       child: ZPositioned(
         translate: ZVector(
           0,
-          side == _ZWheelSide.left ? -size / 2 : size / 2,
+          side == ZWheelSide.left ? -size / 2 : size / 2,
           0,
         ),
         child: ZGroup(

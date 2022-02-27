@@ -7,10 +7,14 @@ enum VehicleType {
   /// Taxi aesthethic.
   taxi,
 
+  car,
+
   /// Bus aesthethic.
   bus,
 
   truck,
+
+  ambulance,
 }
 
 /// Extension to [VehicleType].
@@ -23,6 +27,12 @@ extension VeehicleTypeX on VehicleType {
 
     switch (this) {
       case VehicleType.taxi:
+        value = 2;
+        break;
+      case VehicleType.ambulance:
+        value = 2;
+        break;
+      case VehicleType.car:
         value = 2;
         break;
       case VehicleType.bus:

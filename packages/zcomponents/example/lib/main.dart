@@ -37,7 +37,9 @@ class VehicleView extends StatelessWidget {
                   // rotate: ZVector.only(x: tau / 7, z: -tau / 8 + tau / 4),
                   child: ZGroup(
                     children: [
-                      ZBus(),
+                      ZBus(
+                        theme: BusThemeData.school,
+                      ),
                       ..._ZArrowAxis.values
                           .map(
                             (axis) => _ZArrow(axis: axis),
