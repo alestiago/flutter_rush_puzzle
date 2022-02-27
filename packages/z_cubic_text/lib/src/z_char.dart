@@ -25,6 +25,7 @@ class ZChar extends StatelessWidget {
   // TODO(alestiago): Take longest sublist length.
   double get height => _def[0].length * style.fontSize;
 
+  // TODO(alestiago): Modify to use center as reference.
   @override
   Widget build(BuildContext context) {
     final children = <Widget>[];
@@ -36,23 +37,27 @@ class ZChar extends StatelessWidget {
       final zrow = _def[row];
       for (var col = 0; col < zrow.length; col++) {
         final zchild = zrow[col];
-        currentPos += horizontalMovement;
-        if (zchild == null) {
-          continue;
-        }
 
-        children.add(
-          ZPositioned(
-            translate: currentPos,
-            child: zchild,
-          ),
-        );
+        if (zchild == null) {
+          currentPos += horizontalMovement;
+          continue;
+        } else {
+          children.add(
+            ZPositioned(
+              translate: currentPos,
+              child: zchild,
+            ),
+          );
+
+          currentPos += horizontalMovement;
+        }
       }
 
-      currentPos += verticalMovement -
-          (horizontalMovement.multiply(
-            ZVector.only(x: zrow.length.toDouble()),
-          ));
+      currentPos = ZVector(
+        0,
+        verticalMovement.y * (row.toDouble() + 1),
+        0,
+      );
     }
 
     return ZGroup(
