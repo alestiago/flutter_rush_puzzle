@@ -5,7 +5,23 @@ typedef ZLetterDef = List<List<Widget?>>;
 
 class ZAlphabetData {
   static const Map<String, ZLetterDef> data = {
-    'A': [[], [], []],
+    'A': [
+      [
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+      ],
+      [
+        ZCube(),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZCube(),
+      ],
+      [
+        ZCube(),
+        null,
+        ZCube(),
+      ],
+    ],
     'B': [[], [], []],
     'C': [[], [], []],
     'D': [[], [], []],
@@ -157,7 +173,23 @@ class ZAlphabetData {
     ],
     'W': [[], [], []],
     'X': [[], [], []],
-    'Y': [[], [], []],
+    'Y': [
+      [
+        ZCube(),
+        null,
+        ZCube(),
+      ],
+      [
+        ZLShape(orientation: ZLShapeOrientation.topRight),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZLShape(orientation: ZLShapeOrientation.topLeft),
+      ],
+      [
+        null,
+        ZCube(),
+        null,
+      ],
+    ],
     'Z': [
       [
         ZSlab(orientation: ZSlabOrientation.top),
