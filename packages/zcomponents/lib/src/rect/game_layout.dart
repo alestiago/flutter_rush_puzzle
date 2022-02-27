@@ -56,7 +56,10 @@ class GameLayout {
 
   /// Returns the real offset for a relative position
   Position positionForOffset(Offset offset) {
-    return Position(offset.dx ~/ tileStride, offset.dy ~/ tileStride);
+    return Position(
+      (offset.dx / tileStride).round(),
+      (offset.dy / tileStride).round(),
+    );
   }
 
   /// Returns the size of a tile with a given length
