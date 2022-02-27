@@ -110,9 +110,9 @@ class ZAlphabetData {
         ZSlab(orientation: ZSlabOrientation.top),
       ],
       [
-        ZLShape(orientation: ZLShapeOrientation.topRight),
-        ZSlab(orientation: ZSlabOrientation.bottom),
-        ZSlab(orientation: ZSlabOrientation.bottom),
+        null,
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
       ],
       [
         ZSlab(orientation: ZSlabOrientation.bottom),
@@ -158,7 +158,23 @@ class ZAlphabetData {
     'W': [[], [], []],
     'X': [[], [], []],
     'Y': [[], [], []],
-    'Z': [[], [], []],
+    'Z': [
+      [
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZCube(),
+      ],
+      [
+        null,
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+        ZLShape(orientation: ZLShapeOrientation.topLeft),
+      ],
+      [
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+        ZCube(),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+      ],
+    ],
     ' ': [
       [null, null],
       [null, null],
