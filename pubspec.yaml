@@ -19,6 +19,8 @@ dependencies:
   intl: ^0.17.0
   puzzle_models:
     path: packages/puzzle_models
+  z_cubic_text:
+    path: packages/z_cubic_text
   zcomponents:
     path: packages/zcomponents
 
