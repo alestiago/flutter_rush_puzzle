@@ -83,8 +83,6 @@ class ZBusDimensionData {
     required this.doorHorizontalPadding,
     required this.fenderHeight,
     required this.fenderPosition,
-    required this.bonnetHeight,
-    required this.bonnetWidth,
   });
 
   factory ZBusDimensionData.school() {
@@ -93,7 +91,8 @@ class ZBusDimensionData {
     const space = 10.0;
 
     const width = length * size + space * (length - 1);
-    const height = width / 2.5;
+    const height = size;
+    //const height = width / 2.5;
 
     const rearWidth = height;
     const smallWindowWidth = height / 4;
@@ -139,8 +138,6 @@ class ZBusDimensionData {
       fenderPosition: const ZVector.only(
         y: -bodyHeight / 2 + fenderHeight / 2,
       ),
-      bonnetHeight: height,
-      bonnetWidth: width - bodyWidth,
     );
   }
 
@@ -175,9 +172,6 @@ class ZBusDimensionData {
   final double doorHeight;
   final double doorWidth;
   final double doorHorizontalPadding;
-
-  final double bonnetWidth;
-  final double bonnetHeight;
 }
 
 class ZBus extends StatelessWidget {
@@ -191,59 +185,60 @@ class ZBus extends StatelessWidget {
   Widget build(BuildContext context) {
     final topFace = ZPositioned(
       translate: ZVector.only(
-        y: theme.dimensionData.bodyHeight / 2,
-        z: -theme.dimensionData.bonnetWidth / 2,
+        z: theme.dimensionData.bodyHeight / 2,
       ),
-      rotate: const ZVector.only(x: -tau / 4),
+      rotate: const ZVector.only(z: -tau / 4),
       child: _ZRoof.fromTheme(theme),
     );
 
     final bottomFace = ZPositioned(
       translate: ZVector.only(
-        y: -theme.dimensionData.bodyHeight / 2,
-        z: -theme.dimensionData.bonnetWidth / 2,
+        z: -theme.dimensionData.bodyHeight / 2,
       ),
-      rotate: const ZVector.only(x: -tau / 4),
+      rotate: const ZVector.only(z: -tau / 4),
       child: _ZFloor.fromTheme(theme),
     );
 
     final backFace = ZPositioned(
       translate: ZVector.only(
-        z: -(theme.dimensionData.bodyWidth / 2) -
-            (theme.dimensionData.bonnetWidth / 2),
+        z: (theme.dimensionData.bodyWidth / 2),
       ),
-      rotate: const ZVector.only(y: tau / 2),
-      child: const _ZBusBackSide(),
+      rotate: const ZVector.only(z: -tau / 4),
+      child: const ZPositioned(
+        rotate: ZVector.only(y: tau / 4),
+        child: _ZBusBackSide(),
+      ),
     );
 
     final frontFace = ZPositioned(
       translate: ZVector.only(
-        z: (theme.dimensionData.bodyWidth / 2) -
-            (theme.dimensionData.bonnetWidth / 2),
+        z: -(theme.dimensionData.bodyWidth / 2),
       ),
-      rotate: const ZVector.only(y: tau / 2),
-      child: const _ZBusFrontSide(),
+      rotate: const ZVector.only(z: -tau / 4),
+      child: const ZPositioned(
+        rotate: ZVector.only(y: tau / 4),
+        child: _ZBusFrontSide(),
+      ),
     );
 
     final leftFace = ZPositioned(
       translate: ZVector.only(
-        x: -theme.dimensionData.rearWidth / 2,
-        z: -theme.dimensionData.bonnetWidth / 2,
+        y: -theme.dimensionData.rearWidth / 2,
       ),
-      rotate: const ZVector.only(y: tau / 4),
+      rotate: const ZVector.only(x: tau / 4),
       child: const _ZBusBodySide(),
     );
 
     final rightFace = ZPositioned(
       translate: ZVector.only(
-        x: theme.dimensionData.rearWidth / 2,
-        z: -theme.dimensionData.bonnetWidth / 2,
+        y: theme.dimensionData.rearWidth / 2,
       ),
-      rotate: const ZVector.only(y: tau / 4),
+      rotate: const ZVector.only(x: tau / 4),
       child: const _ZBusBodySide(),
     );
 
     return ZGroup(
+      sortMode: SortMode.update,
       children: [
         topFace,
         bottomFace,

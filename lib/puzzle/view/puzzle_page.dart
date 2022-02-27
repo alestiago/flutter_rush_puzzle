@@ -7,6 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:puzzle_models/puzzle_models.dart';
 
 import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
 import 'package:rush_hour_puzzle/timer/timer.dart';

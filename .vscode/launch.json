@@ -10,8 +10,8 @@
             "type": "dart",
             "program": "lib/main_development.dart",
             "args": [
-               // "--flavor",
-               // "development",
+                // "--flavor",
+                // "development",
                 "--target",
                 "lib/main_development.dart"
             ]
@@ -24,7 +24,7 @@
             "program": "lib/main_profile.dart",
             "args": [
                 "--flavor",
-                "profile",
+                "production",
                 "--target",
                 "lib/main_profile.dart"
             ]
