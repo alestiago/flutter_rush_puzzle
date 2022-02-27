@@ -21,7 +21,7 @@ class ZCubicText extends StatelessWidget {
     final spaceWidth = style.fontSize;
 
     for (var i = 0; i < text.length; i++) {
-      final char = text[i];
+      final char = text[i].toUpperCase();
       if (char == '\n') {
         currentPos = ZVector.only(y: style.fontSize * 4);
         continue;
@@ -40,10 +40,14 @@ class ZCubicText extends StatelessWidget {
       );
       currentPos += ZVector.only(x: zchar.width + spaceWidth);
     }
+    currentPos -= ZVector.only(x: spaceWidth);
 
     return Provider<ZCubicTextStyle>.value(
       value: style,
-      child: ZGroup(children: children),
+      child: ZPositioned(
+        translate: currentPos.multiplyScalar(-0.5),
+        child: ZGroup(children: children),
+      ),
     );
   }
 }
