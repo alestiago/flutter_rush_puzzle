@@ -1,8 +1,11 @@
 import 'package:fireworks/fireworks.dart' as fireworks;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:puzzle_models/puzzle_models.dart';
 import 'package:rush_hour_puzzle/l10n/l10n.dart';
 import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:zcomponents/zcomponents.dart';
 
 class WinDialog extends StatelessWidget {
@@ -89,7 +92,10 @@ class WinDialog extends StatelessWidget {
               const SizedBox(width: 20),
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    final history = context.read<PuzzleBloc>().state;
+                    sharePuzzle(history);
+                  },
                   child: Text(l10n.shareButtonTitle),
                 ),
               ),
@@ -98,5 +104,66 @@ class WinDialog extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+void sharePuzzle(PuzzleState state) {
+  final introMessage = '''
+https://flutter-rush.web.app/  (#${DateTime.now().difference(DateTime(2022, 2, 27)).inDays})
+''';
+  final buffer = StringBuffer();
+  for (final state in state.history) {
+    if (state.lastVehicleMoved != null) {
+      buffer.write(state.lastVehicleMoved?.type.emoji);
+    }
+  }
+
+  var message = '''
+$introMessage
+
+${state.historyPointer}: ${buffer.toString()}
+''';
+
+  if (message.characters.length > 140) {
+    final map = <VehicleType, int>{};
+    for (final state in state.history) {
+      final vehicle = state.lastVehicleMoved;
+      if (vehicle != null) {
+        map[vehicle.type] ??= 0;
+        map[vehicle.type] = map[vehicle.type]! + 1;
+      }
+    }
+
+    final buffer = StringBuffer();
+    for (final entry in map.entries) {
+      buffer.write('${entry.key.emoji}x${entry.value} ');
+    }
+
+    message = '''
+$introMessage
+
+${state.historyPointer}: ${buffer.toString()}
+''';
+  }
+
+  Share.share(
+    message,
+  );
+}
+
+extension on VehicleType {
+  String get emoji {
+    switch (this) {
+      case VehicleType.taxi:
+        return '🚕';
+      case VehicleType.bus:
+        return '🚌';
+      case VehicleType.truck:
+        return '🚛';
+      case VehicleType.car:
+        return '🚗';
+      case VehicleType.ambulance:
+        return '🚐';
+    }
   }
 }

@@ -64,18 +64,7 @@ class _GameViewState extends State<GameView> {
   ]);
   @override
   Widget build(BuildContext context) {
-    final vehicleTheme = VehiclesThemeData(
-      car: CarThemeData(
-        color: Colors.green[700]!,
-        sideColor: Colors.green[700],
-        topColor: Colors.green[600],
-      ),
-      taxi: CarThemeData(
-        color: Colors.yellow[700]!,
-        sideColor: Colors.yellow[700],
-        topColor: Colors.yellow[600],
-      ),
-    );
+    final vehicleTheme = VehiclesThemeData.fallback;
     final state = context.select((PuzzleBloc b) => b.state);
     final perspective = state.status.isBeforePlaying
         ? GameLayoutPerspective.p2D

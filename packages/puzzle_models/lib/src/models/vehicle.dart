@@ -111,6 +111,7 @@ class Vehicle extends Equatable {
     );
 
     return puzzle.copyWith(
+      lastVehicleMoved: this,
       vehicles: {
         for (final vehicle in puzzle.vehicles.values)
           if (newVehicle.id == vehicle.id)

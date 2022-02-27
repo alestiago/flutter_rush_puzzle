@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:zcomponents/src/widgets/widgets.dart';
 
 /// Animated board theme which automatically transitions the colors,
 /// etc, over a given duration whenever the given theme changes.
@@ -51,18 +52,32 @@ class VehiclesThemeData extends Equatable {
   const VehiclesThemeData({
     required this.car,
     required this.taxi,
+    required this.bus,
   });
 
-  static const VehiclesThemeData fallback = VehiclesThemeData(
-    car: CarThemeData(color: Colors.red),
-    taxi: CarThemeData(color: Colors.red),
+  static final VehiclesThemeData fallback = VehiclesThemeData(
+    car: CarThemeData(
+      color: Colors.green[700]!,
+      sideColor: Colors.green[700],
+      topColor: Colors.green[600],
+    ),
+    taxi: CarThemeData(
+      color: Colors.yellow[700]!,
+      sideColor: Colors.yellow[700],
+      topColor: Colors.yellow[600],
+      topBoxColor: Colors.black,
+    ),
+    bus: BusThemeData.school,
   );
 
-  /// Color of the tile
+  /// Car theme
   final CarThemeData car;
 
-  /// Color of the tile
+  /// Taxi theme
   final CarThemeData taxi;
+
+  /// Bus theme
+  final BusThemeData bus;
 
   /// Linearly interpolate between two board themes.
   ///
@@ -77,6 +92,7 @@ class VehiclesThemeData extends Equatable {
     return VehiclesThemeData(
       car: CarThemeData.lerp(a?.car, b?.car, t)!,
       taxi: CarThemeData.lerp(a?.taxi, b?.taxi, t)!,
+      bus: BusThemeData.lerp(a?.bus, b?.bus, t)!,
     );
   }
 

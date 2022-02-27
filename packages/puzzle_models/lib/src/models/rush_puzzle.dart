@@ -13,6 +13,7 @@ class RushPuzzle extends Equatable {
     required this.difficulty,
     required this.jammedVehicleId,
     required this.vehicles,
+    this.lastVehicleMoved,
   })  : assert(
           vehicles.values.any((v) => v.id == jammedVehicleId),
           'Jammed vehicle not in state',
@@ -32,6 +33,7 @@ class RushPuzzle extends Equatable {
   const RushPuzzle.empty()
       : vehicles = const {},
         difficulty = PuzzleDifficulty.beginner,
+        lastVehicleMoved = null,
         jammedVehicleId = '';
 
   /// The [Position] that the [jammedVehicleId] has to reach in order to solve
@@ -62,16 +64,21 @@ class RushPuzzle extends Equatable {
     return jammedVehicle != null && jammedVehicle.firstPosition >= exit;
   }
 
+  /// Last vehicle moved with its previous position
+  final Vehicle? lastVehicleMoved;
+
   // ignore: public_member_api_docs
   RushPuzzle copyWith({
     Map<String, Vehicle>? vehicles,
     String? jammedVehicleId,
     PuzzleDifficulty? difficulty,
+    Vehicle? lastVehicleMoved,
   }) {
     return RushPuzzle(
       jammedVehicleId: jammedVehicleId ?? this.jammedVehicleId,
       vehicles: vehicles ?? this.vehicles,
       difficulty: difficulty ?? this.difficulty,
+      lastVehicleMoved: lastVehicleMoved ?? this.lastVehicleMoved,
     );
   }
 
@@ -82,5 +89,6 @@ class RushPuzzle extends Equatable {
         dimension,
         jammedVehicleId,
         difficulty,
+        lastVehicleMoved,
       ];
 }
