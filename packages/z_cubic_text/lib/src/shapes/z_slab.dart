@@ -36,6 +36,12 @@ class ZSlab extends StatelessWidget {
       height: height,
       depth: style.fontSize / 2,
       color: style.color,
+      frontColor: style.frontColor,
+      rearColor: style.rearColor,
+      leftColor: style.leftColor,
+      rightColor: style.rightColor,
+      topColor: style.topColor,
+      bottomColor: style.bottomColor,
     );
 
     late final double y;
