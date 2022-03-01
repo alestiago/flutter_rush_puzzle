@@ -1,3 +1,4 @@
+import 'package:example/z_axis.dart';
 import 'package:flutter/material.dart';
 import 'package:zcomponents/zcomponents.dart';
 
@@ -10,97 +11,64 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: VehicleView(),
-    );
-  }
-}
+    final vehicles = [
+      ZBus(theme: BusThemeData.school),
+      ZCar(theme: CarThemeData(color: Colors.red))
+    ];
 
-class VehicleView extends StatelessWidget {
-  const VehicleView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: ZDragDetector(
-        builder: ((context, controller) {
-          return LayoutBuilder(builder: (context, constraints) {
-            final scale = constraints.biggest.shortestSide / layout.boardSize;
-            final rotation = controller.value.y * scale;
-
-            return ZIllustration(
-              children: [
-                ZPositioned(
-                  scale: ZVector.all(3),
-                  rotate: controller.rotate,
-                  // rotate: ZVector.only(x: tau / 7, z: -tau / 8 + tau / 4),
-                  child: ZGroup(
-                    children: [
-                      ZBus(
-                        theme: BusThemeData.school,
-                      ),
-                      ..._ZArrowAxis.values
-                          .map(
-                            (axis) => _ZArrow(axis: axis),
-                          )
-                          .toList(),
-                    ],
-                  ),
-                )
-              ],
-            );
-          });
-        }),
+    return MaterialApp(
+      home: PageView(
+        children: vehicles.map((v) => VehicleView(zchild: v)).toList(),
       ),
     );
   }
 }
 
-enum _ZArrowAxis { z, x, y }
-
-extension on _ZArrowAxis {
-  ZLine get line {
-    const value = 100.0;
-    switch (this) {
-      case _ZArrowAxis.x:
-        return ZLine(value, 0, 0);
-      case _ZArrowAxis.y:
-        return ZLine(0, value, 0);
-      case _ZArrowAxis.z:
-        return ZLine(0, 0, value);
-    }
-  }
-
-  Color get color {
-    switch (this) {
-      case _ZArrowAxis.x:
-        return Colors.red;
-      case _ZArrowAxis.y:
-        return Colors.blue;
-      case _ZArrowAxis.z:
-        return Colors.orange;
-    }
-  }
-}
-
-class _ZArrow extends StatelessWidget {
-  const _ZArrow({
+class VehicleView extends StatelessWidget {
+  const VehicleView({
     Key? key,
-    required this.axis,
+    required this.zchild,
   }) : super(key: key);
 
-  final _ZArrowAxis axis;
+  final Widget zchild;
 
   @override
   Widget build(BuildContext context) {
-    return ZShape(
-      color: axis.color,
-      stroke: 10,
-      path: [
-        ZMove(0, 0, 0),
-        axis.line,
-      ],
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+          ZDragDetector(
+            builder: ((context, controller) {
+              return LayoutBuilder(builder: (context, constraints) {
+                final rotate = controller.rotate;
+
+                return Stack(
+                  children: [
+                    Positioned(
+                      bottom: 50,
+                      left: 50,
+                      child: Text(
+                          'x: ${rotate.x}\ny: ${rotate.y}\nz: ${rotate.z}'),
+                    ),
+                    ZIllustration(
+                      children: [
+                        ZPositioned(
+                          scale: const ZVector.all(3),
+                          rotate: rotate,
+                          child: ZGroup(
+                            children: [zchild, const ZAxis()],
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                );
+              });
+            }),
+          ),
+        ],
+      ),
     );
   }
 }
