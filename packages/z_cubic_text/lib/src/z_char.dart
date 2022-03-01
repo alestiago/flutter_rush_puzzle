@@ -25,43 +25,48 @@ class ZChar extends StatelessWidget {
   // TODO(alestiago): Take longest sublist length.
   double get height => _def[0].length * style.fontSize;
 
-  // TODO(alestiago): Modify to use center as reference.
   @override
   Widget build(BuildContext context) {
     final children = <Widget>[];
-    var currentPos = ZVector.zero;
+    var currentPos = ZVector.only(
+      x: style.fontSize / 2,
+      y: style.fontSize / 2,
+    );
 
     final horizontalMovement = ZVector.only(x: style.fontSize);
     final verticalMovement = ZVector.only(y: style.fontSize);
+
     for (var row = 0; row < _def.length; row++) {
       final zrow = _def[row];
       for (var col = 0; col < zrow.length; col++) {
         final zchild = zrow[col];
 
-        if (zchild == null) {
-          currentPos += horizontalMovement;
-          continue;
-        } else {
+        if (zchild != null) {
           children.add(
             ZPositioned(
               translate: currentPos,
               child: zchild,
             ),
           );
-
-          currentPos += horizontalMovement;
         }
+
+        currentPos += horizontalMovement;
       }
 
-      currentPos = ZVector(
-        0,
-        verticalMovement.y * (row.toDouble() + 1),
-        0,
+      currentPos = ZVector.only(
+        x: style.fontSize / 2,
+        y: verticalMovement.y * (row.toDouble() + 1) + style.fontSize / 2,
       );
     }
 
-    return ZGroup(
-      children: children,
+    return ZPositioned(
+      translate: ZVector.only(
+        x: -width / 2,
+        y: -height / 2,
+      ),
+      child: ZGroup(
+        children: children,
+      ),
     );
   }
 }

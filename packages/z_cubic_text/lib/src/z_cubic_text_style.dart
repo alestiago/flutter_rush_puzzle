@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 class ZCubicTextStyle {
   const ZCubicTextStyle({
     this.fontSize = 10.0,
+    this.letterSpacing = 5,
     this.color = const Color(0xFF000000),
     this.frontColor,
     this.rearColor,
@@ -13,6 +14,7 @@ class ZCubicTextStyle {
   });
 
   final double fontSize;
+  final double letterSpacing;
   final Color color;
   final Color? frontColor;
   final Color? rearColor;
