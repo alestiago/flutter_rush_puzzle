@@ -16,21 +16,18 @@ class ZCubicText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (text.isEmpty) return ZGroup(children: const []);
+
     final children = <Widget>[];
     var currentPos = ZVector.zero;
-    final spaceWidth = style.fontSize;
 
+    late final double initialLetterWidth;
     for (var i = 0; i < text.length; i++) {
-      final char = text[i].toUpperCase();
-      if (char == '\n') {
-        currentPos = ZVector.only(y: style.fontSize * 4);
-        continue;
-      }
-
       final zchar = ZChar(
-        char,
+        text[i].toUpperCase(),
         style: style,
       );
+      if (i == 0) initialLetterWidth = zchar.width;
 
       children.add(
         ZPositioned(
@@ -38,14 +35,16 @@ class ZCubicText extends StatelessWidget {
           child: zchar,
         ),
       );
-      currentPos += ZVector.only(x: zchar.width + spaceWidth);
+      currentPos += ZVector.only(x: zchar.width + style.letterSpacing);
     }
-    currentPos -= ZVector.only(x: spaceWidth);
 
+    currentPos -= ZVector.only(x: style.letterSpacing);
     return Provider<ZCubicTextStyle>.value(
       value: style,
       child: ZPositioned(
-        translate: currentPos.multiplyScalar(-0.5),
+        translate: ZVector.only(
+          x: -currentPos.x / 2 + (initialLetterWidth / 2),
+        ),
         child: ZGroup(children: children),
       ),
     );
