@@ -36,11 +36,39 @@ class ZCar extends StatelessWidget {
       sortMode: SortMode.update,
       children: [
         // Left side
-        _ZCarSide(
-          side: ZWheelSide.left,
-          sideColor: sideColor,
-          doorSideColor: doorSideColor,
+
+        ZGroup(
+          children: [
+            _ZCarSide(
+              side: ZWheelSide.left,
+              sideColor: sideColor,
+              doorSideColor: doorSideColor,
+            ),
+            ZPositioned(
+              translate:
+                  const ZVector(distanceWheel, -size / 2, -distanceZWheel),
+              child: ZGroup(
+                sortMode: SortMode.update,
+                sortPoint: const ZVector(0, 0, 8),
+                children: const [
+                  ZWheel(),
+                ],
+              ),
+            ),
+            ZPositioned(
+              translate:
+                  const ZVector(-distanceWheel, -size / 2, -distanceZWheel),
+              child: ZGroup(
+                sortMode: SortMode.update,
+                sortPoint: const ZVector(0, 0, 8),
+                children: const [
+                  ZWheel(),
+                ],
+              ),
+            ),
+          ],
         ),
+
         // Right side
         _ZCarSide(
           side: ZWheelSide.right,
@@ -69,26 +97,6 @@ class ZCar extends StatelessWidget {
               ZWheel(
                 side: ZWheelSide.right,
               ),
-            ],
-          ),
-        ),
-        ZPositioned(
-          translate: const ZVector(distanceWheel, -size / 2, -distanceZWheel),
-          child: ZGroup(
-            sortMode: SortMode.update,
-            sortPoint: const ZVector(0, 0, 8),
-            children: const [
-              ZWheel(),
-            ],
-          ),
-        ),
-        ZPositioned(
-          translate: const ZVector(-distanceWheel, -size / 2, -distanceZWheel),
-          child: ZGroup(
-            sortMode: SortMode.update,
-            sortPoint: const ZVector(0, 0, 8),
-            children: const [
-              ZWheel(),
             ],
           ),
         ),
