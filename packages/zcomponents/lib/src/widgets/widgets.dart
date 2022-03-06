@@ -1,6 +1,7 @@
 export 'debug_game.dart';
 export 'vehicles/vehicles.dart';
 export 'zboard.dart';
+export 'zbounding_box.dart';
 export 'zgame.dart';
 export 'zgame_theme.dart';
 export 'zhit_box.dart';

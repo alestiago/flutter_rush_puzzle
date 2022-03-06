@@ -76,75 +76,110 @@ class _GameViewState extends State<GameView> {
       firstPosition: const Position(2, 1),
       type: VehicleType.taxi,
     );
-
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<PuzzleBloc, PuzzleState>(
-          listenWhen: (previous, current) {
-            return current.status != previous.status;
-          },
-          listener: (context, state) {
-            // Start the puzzle timer when the countdown finishes.
-            if (state.status == GameStatus.playing) {
-              context.read<TimerBloc>().add(const TimerStarted());
-            }
-            if (state.status == GameStatus.finished) {
-              context.read<TimerBloc>().add(const TimerStopped());
-            }
-            if (state.status == GameStatus.setup) {
-              context.read<TimerBloc>().add(const TimerReset());
-            }
-          },
-        ),
-      ],
-      child: Scaffold(
-        backgroundColor: themes.first.backgroundColor,
-        body: AnimatedVehiclesTheme(
-          data: vehicleTheme,
-          child: Stack(
-            children: [
-              DebugGame(
-                debug: false,
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: ZGame(
-                    theme: themes.first,
-                    perspective: perspective,
-                    vehiclesTheme: vehicleTheme,
-                    vehicles: [
-                      if (!state.status.isBeforePlaying)
-                        for (final vehicle in state.puzzle.vehicles.values)
-                          VehicleView(
-                            key: Key('Vehicle${vehicle.id}'),
-                            vehicle: vehicle,
+    final titleOffset = layout
+        .boxForDrivingBoundary(
+          DrivingBoundary(const Position(2, 2), const Position(3, 3)),
+        )
+        .center;
+    final textOffset = layout
+        .boxForDrivingBoundary(
+          DrivingBoundary(const Position(2, 5), const Position(3, 5)),
+        )
+        .center;
+    return GestureDetector(
+      onTap: () {
+        if (state.status == GameStatus.setup) {
+          context.read<PuzzleBloc>().add(const PuzzleStarted());
+        }
+      },
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<PuzzleBloc, PuzzleState>(
+            listenWhen: (previous, current) {
+              return current.status != previous.status;
+            },
+            listener: (context, state) {
+              // Start the puzzle timer when the countdown finishes.
+              if (state.status == GameStatus.playing) {
+                context.read<TimerBloc>().add(const TimerStarted());
+              }
+              if (state.status == GameStatus.finished) {
+                context.read<TimerBloc>().add(const TimerStopped());
+              }
+              if (state.status == GameStatus.setup) {
+                context.read<TimerBloc>().add(const TimerReset());
+              }
+            },
+          ),
+        ],
+        child: Scaffold(
+          backgroundColor: themes.first.backgroundColor,
+          body: AnimatedVehiclesTheme(
+            data: vehicleTheme,
+            child: Stack(
+              children: [
+                DebugGame(
+                  debug: false,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: ZGame(
+                      theme: themes.first,
+                      perspective: perspective,
+                      vehiclesTheme: vehicleTheme,
+                      vehicles: [
+                        if (!state.status.isBeforePlaying)
+                          for (final vehicle in state.puzzle.vehicles.values)
+                            VehicleView(
+                              key: Key('Vehicle${vehicle.id}'),
+                              vehicle: vehicle,
+                            )
+                        else ...[
+                          ZGroup(
+                            children: [
+                              VehicleView(
+                                key: Key(isNotPlayingDemoVehicle.id),
+                                vehicle: isNotPlayingDemoVehicle,
+                              ),
+                              ZPositioned(
+                                translate:
+                                    ZVector(titleOffset.dx, titleOffset.dy, 0),
+                                child: GameTitle(
+                                  key: Key('Game'),
+                                ),
+                              ),
+                              ZPositioned(
+                                translate:
+                                    ZVector(textOffset.dx, textOffset.dy, 0),
+                                child: PlayText(
+                                  key: Key('Play'),
+                                ),
+                              )
+                            ],
                           )
-                      else
-                        VehicleView(
-                          key: Key(isNotPlayingDemoVehicle.id),
-                          vehicle: isNotPlayingDemoVehicle,
-                        )
-                    ],
+                        ]
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              OverlayBarrier(
-                visible: state.status != GameStatus.playing &&
-                    !state.status.isBeforePlaying,
-              ),
-              if (state.status == GameStatus.finished) ...[
-                const Fireworks(),
-                const Center(child: WinDialog()),
-              ],
-              if (state.status.isBeforePlaying) ...[
-                const Center(child: StartDialog()),
-              ],
-              if (state.status == GameStatus.playing) ...[
-                const Align(
-                  alignment: Alignment.bottomCenter,
-                  child: ScoreBoard(),
+                OverlayBarrier(
+                  visible: state.status != GameStatus.playing &&
+                      !state.status.isBeforePlaying,
                 ),
-              ]
-            ],
+                if (state.status == GameStatus.finished) ...[
+                  const Fireworks(),
+                  const Center(child: WinDialog()),
+                ],
+                if (state.status.isBeforePlaying) ...[
+                  //     const Center(child: StartDialog()),
+                ],
+                if (state.status == GameStatus.playing) ...[
+                  const Align(
+                    alignment: Alignment.bottomCenter,
+                    child: ScoreBoard(),
+                  ),
+                ]
+              ],
+            ),
           ),
         ),
       ),

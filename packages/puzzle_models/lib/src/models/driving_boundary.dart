@@ -7,12 +7,12 @@ import 'package:puzzle_models/puzzle_models.dart';
 class DrivingBoundary extends Equatable {
   /// {@macro driving_boundary}
   DrivingBoundary(this.from, this.to)
-      : assert(from <= to, 'From must be smaller or equal to to.'),
-        assert(
-          from.x == to.x || from.y == to.y,
-          'From and to must be on the same axis.',
-        );
-
+      : assert(from <= to, 'From must be smaller or equal to to.');
+  // assert(
+  //   from.x == to.x || from.y == to.y,
+  //   'From and to must be on the same axis.',
+  // );
+//
   /// The smallest [Position] the vehicle can move.
   final Position from;
 

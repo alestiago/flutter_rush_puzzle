@@ -2,90 +2,74 @@ import 'package:flutter/material.dart';
 import 'package:zcomponents/zcomponents.dart';
 import 'package:zflutter/zflutter.dart';
 
-// TODO(alestiago): Include bus bonnet.
-class BusThemeData {
-  const BusThemeData({
+// TODO(alestiago): Include Truck bonnet.
+class TruckThemeData {
+  TruckThemeData({
     required this.colorScheme,
-    required this.dimensionData,
-  });
+  }) : dimensionData = ZTruckDimensionData.school();
 
-  static final school = BusThemeData(
-    colorScheme: ZBusColorScheme.school,
-    dimensionData: ZBusDimensionData.school(),
-  );
+  final ZTruckColorScheme colorScheme;
+  final ZTruckDimensionData dimensionData;
 
-  final ZBusColorScheme colorScheme;
-  final ZBusDimensionData dimensionData;
-
-  static BusThemeData? lerp(BusThemeData? a, BusThemeData? b, double t) {
-    return BusThemeData(
-      colorScheme: ZBusColorScheme.lerp(a?.colorScheme, b?.colorScheme, t)!,
-      dimensionData: b!.dimensionData,
+  static TruckThemeData? lerp(TruckThemeData? a, TruckThemeData? b, double t) {
+    return TruckThemeData(
+      colorScheme: ZTruckColorScheme.lerp(a?.colorScheme, b?.colorScheme, t)!,
     );
   }
 }
 
-class ZBusColorScheme {
-  const ZBusColorScheme({
-    required this.busColor,
+class ZTruckColorScheme {
+  const ZTruckColorScheme({
+    required this.truckColor,
     required this.roofColor,
     required this.stripesColor,
     required this.windowColor,
-    required this.doorColor,
+    required this.cabinColor,
     required this.fenderColor,
     required this.frontLightColor,
     required this.rearLightColor,
     required this.lightBorderColor,
     required this.bottomColor,
+    required this.backColor,
   });
 
-  static final school = ZBusColorScheme(
-    busColor: Colors.yellow,
-    roofColor: Colors.yellow,
-    stripesColor: Colors.black,
-    windowColor: Colors.blue[300]!,
-    doorColor: Colors.blue[300]!,
-    fenderColor: Colors.yellow[700]!,
-    frontLightColor: Colors.yellow[200]!,
-    rearLightColor: Colors.red[400]!,
-    lightBorderColor: Colors.black,
-    bottomColor: Colors.yellow[700]!,
-  );
+  final Color truckColor;
 
-  final Color busColor;
   final Color roofColor;
   final Color stripesColor;
   final Color windowColor;
-  final Color doorColor;
+  final Color backColor;
+  final Color cabinColor;
   final Color fenderColor;
   final Color frontLightColor;
   final Color rearLightColor;
   final Color lightBorderColor;
   final Color bottomColor;
 
-  static ZBusColorScheme? lerp(
-    ZBusColorScheme? a,
-    ZBusColorScheme? b,
+  static ZTruckColorScheme? lerp(
+    ZTruckColorScheme? a,
+    ZTruckColorScheme? b,
     double t,
   ) {
-    return ZBusColorScheme(
-      busColor: Color.lerp(a?.busColor, b?.busColor, t)!,
+    return ZTruckColorScheme(
+      truckColor: Color.lerp(a?.truckColor, b?.truckColor, t)!,
       roofColor: Color.lerp(a?.roofColor, b?.roofColor, t)!,
       stripesColor: Color.lerp(a?.stripesColor, b?.stripesColor, t)!,
       windowColor: Color.lerp(a?.windowColor, b?.windowColor, t)!,
-      doorColor: Color.lerp(a?.doorColor, b?.doorColor, t)!,
+      cabinColor: Color.lerp(a?.cabinColor, b?.cabinColor, t)!,
       fenderColor: Color.lerp(a?.fenderColor, b?.fenderColor, t)!,
       frontLightColor: Color.lerp(a?.frontLightColor, b?.frontLightColor, t)!,
       rearLightColor: Color.lerp(a?.rearLightColor, b?.rearLightColor, t)!,
       lightBorderColor:
           Color.lerp(a?.lightBorderColor, b?.lightBorderColor, t)!,
       bottomColor: Color.lerp(a?.bottomColor, b?.bottomColor, t)!,
+      backColor: Color.lerp(a?.backColor, b?.backColor, t)!,
     );
   }
 }
 
-class ZBusDimensionData {
-  const ZBusDimensionData({
+class ZTruckDimensionData {
+  const ZTruckDimensionData({
     required this.width,
     required this.height,
     required this.bodyHeight,
@@ -93,23 +77,20 @@ class ZBusDimensionData {
     required this.rearHeight,
     required this.rearWidth,
     required this.bodyTopPadding,
-    required this.smallWindowWidth,
-    required this.smallWindowHeight,
-    required this.smallWindowHorizontalPadding,
     required this.largeWindowWidth,
     required this.largeWindowHeight,
     required this.largeWindowHorizontalPadding,
     required this.stripeHeight,
     required this.upperStripePosition,
     required this.lowerStripePosition,
-    required this.doorHeight,
-    required this.doorWidth,
-    required this.doorHorizontalPadding,
+    required this.cabinHeight,
+    required this.cabinWidth,
+    required this.cabinHorizontalPadding,
     required this.fenderHeight,
     required this.fenderPosition,
   });
 
-  factory ZBusDimensionData.school() {
+  factory ZTruckDimensionData.school() {
     const length = 3;
     const size = 30.0;
     const space = 10.0;
@@ -119,7 +100,7 @@ class ZBusDimensionData {
     //const height = width / 2.5;
 
     const rearWidth = height;
-    const smallWindowWidth = height / 4;
+    const smallWindowWidth = height / 2;
     const windowHorizontalPadding = smallWindowWidth * 0.3;
 
     const stripePadding = height * 0.05;
@@ -136,9 +117,8 @@ class ZBusDimensionData {
     const fenderHeight = height * 0.05;
     const bodyWidth = width * 1;
     const bodyHeight = height;
-    const doorWidth = smallWindowWidth;
 
-    return ZBusDimensionData(
+    return ZTruckDimensionData(
       width: width,
       height: height,
       bodyWidth: bodyWidth,
@@ -146,18 +126,15 @@ class ZBusDimensionData {
       rearHeight: bodyHeight,
       rearWidth: rearWidth,
       bodyTopPadding: bodyHeight * 0.1,
-      smallWindowWidth: smallWindowWidth,
-      smallWindowHeight: bodyHeight / 3.5,
-      smallWindowHorizontalPadding: windowHorizontalPadding,
       largeWindowWidth: rearWidth,
       largeWindowHeight: bodyHeight / 3.5,
-      largeWindowHorizontalPadding: windowHorizontalPadding,
+      largeWindowHorizontalPadding: 0,
       stripeHeight: bodyHeight * 0.02,
       upperStripePosition: upperStripePosition,
       lowerStripePosition: lowerStripePosition,
-      doorWidth: smallWindowWidth,
-      doorHeight: bodyHeight * 0.7,
-      doorHorizontalPadding: doorWidth * 0.5,
+      cabinWidth: width / 5,
+      cabinHeight: bodyHeight,
+      cabinHorizontalPadding: 0,
       fenderHeight: fenderHeight,
       fenderPosition: const ZVector.only(
         y: -bodyHeight / 2 + fenderHeight / 2,
@@ -176,10 +153,6 @@ class ZBusDimensionData {
 
   final double bodyTopPadding;
 
-  final double smallWindowWidth;
-  final double smallWindowHeight;
-  final double smallWindowHorizontalPadding;
-
   final double largeWindowWidth;
   final double largeWindowHeight;
   final double largeWindowHorizontalPadding;
@@ -193,18 +166,18 @@ class ZBusDimensionData {
   // TODO(alestiago): remove positioning form here.
   final ZVector fenderPosition;
 
-  final double doorHeight;
-  final double doorWidth;
-  final double doorHorizontalPadding;
+  final double cabinHeight;
+  final double cabinWidth;
+  final double cabinHorizontalPadding;
 }
 
-class ZBus extends StatelessWidget {
-  const ZBus({
+class ZTruck extends StatelessWidget {
+  const ZTruck({
     Key? key,
     required this.theme,
   }) : super(key: key);
 
-  final BusThemeData theme;
+  final TruckThemeData theme;
 
   @override
   Widget build(BuildContext context) {
@@ -231,7 +204,7 @@ class ZBus extends StatelessWidget {
       rotate: const ZVector.only(z: -tau / 4),
       child: ZPositioned(
         rotate: const ZVector.only(y: tau / 4),
-        child: _ZBusBackSide(theme: theme),
+        child: _ZTruckBackSide(theme: theme),
       ),
     );
 
@@ -242,7 +215,7 @@ class ZBus extends StatelessWidget {
       rotate: const ZVector.only(z: -tau / 4),
       child: ZPositioned(
         rotate: const ZVector.only(y: tau / 4),
-        child: _ZBusFrontSide(theme: theme),
+        child: _ZTruckFrontSide(theme: theme),
       ),
     );
 
@@ -251,7 +224,7 @@ class ZBus extends StatelessWidget {
         y: -theme.dimensionData.rearWidth / 2,
       ),
       rotate: const ZVector.only(x: tau / 4),
-      child: _ZBusBodySide(
+      child: _ZTruckBodySide(
         theme: theme,
         side: ZWheelSide.left,
       ),
@@ -262,7 +235,7 @@ class ZBus extends StatelessWidget {
         y: theme.dimensionData.rearWidth / 2,
       ),
       rotate: const ZVector.only(x: tau / 4),
-      child: _ZBusBodySide(
+      child: _ZTruckBodySide(
         theme: theme,
         side: ZWheelSide.right,
       ),
@@ -290,7 +263,7 @@ class _ZFloor extends StatelessWidget {
     required this.color,
   }) : super(key: key);
 
-  factory _ZFloor.fromTheme(BusThemeData theme) {
+  factory _ZFloor.fromTheme(TruckThemeData theme) {
     return _ZFloor(
       width: theme.dimensionData.rearWidth,
       height: theme.dimensionData.bodyWidth,
@@ -319,13 +292,17 @@ class _ZRoof extends StatelessWidget {
     required this.width,
     required this.height,
     required this.color,
+    required this.cabinColor,
+    required this.cabinWidth,
   }) : super(key: key);
 
-  factory _ZRoof.fromTheme(BusThemeData theme) {
+  factory _ZRoof.fromTheme(TruckThemeData theme) {
     return _ZRoof(
       width: theme.dimensionData.rearWidth,
       height: theme.dimensionData.bodyWidth,
       color: theme.colorScheme.roofColor,
+      cabinColor: theme.colorScheme.cabinColor,
+      cabinWidth: theme.dimensionData.cabinWidth,
     );
   }
 
@@ -333,42 +310,60 @@ class _ZRoof extends StatelessWidget {
   final double height;
   final Color color;
 
+  final Color cabinColor;
+
+  final double cabinWidth;
+
   @override
   Widget build(BuildContext context) {
-    return ZRect(
-      width: width,
-      color: color,
-      height: height,
-      fill: true,
+    return ZGroup(
+      sortMode: SortMode.stack,
+      children: [
+        ZRect(
+          width: width,
+          color: color,
+          height: height,
+          fill: true,
+        ),
+        ZPositioned(
+          translate: ZVector.only(y: height / 2 - cabinWidth / 2),
+          child: ZRect(
+            width: width,
+            color: cabinColor,
+            height: cabinWidth,
+            fill: true,
+          ),
+        )
+      ],
     );
   }
 }
 
-class _ZBusBackSide extends StatelessWidget {
-  const _ZBusBackSide({
+class _ZTruckBackSide extends StatelessWidget {
+  const _ZTruckBackSide({
     Key? key,
-    required BusThemeData theme,
+    required TruckThemeData theme,
   })  : theme = theme,
         super(key: key);
 
-  final BusThemeData theme;
+  final TruckThemeData theme;
 
   @override
   Widget build(BuildContext context) {
     final body = ZRect(
       width: theme.dimensionData.rearWidth,
-      color: theme.colorScheme.busColor,
+      color: theme.colorScheme.truckColor,
       height: theme.dimensionData.rearHeight,
       fill: true,
     );
 
-    final window = _ZWindow.largeFromTheme(theme);
+    final window = _ZWindow.truckBack(theme);
     final fender = _ZFender.rearfromTheme(theme);
     final leftLight = _ZLight.rearFromTheme(theme);
     final rightLight = _ZLight.rearFromTheme(theme);
 
     final lightHeight =
-        theme.dimensionData.fenderPosition.y + leftLight.diameter * 1.5;
+        theme.dimensionData.fenderPosition.y + leftLight.diameter * 1.5 - 5;
 
     return ZGroup(
       sortMode: SortMode.stack,
@@ -381,6 +376,18 @@ class _ZBusBackSide extends StatelessWidget {
                 theme.dimensionData.bodyTopPadding,
           ),
           child: window,
+        ),
+        ZPositioned(
+          translate: theme.dimensionData.upperStripePosition,
+          child: _ZStripe.rearfromTheme(theme),
+        ),
+        ZPositioned(
+          translate: theme.dimensionData.lowerStripePosition,
+          child: _ZStripe.rearfromTheme(theme),
+        ),
+        ZPositioned(
+          translate: theme.dimensionData.fenderPosition,
+          child: fender,
         ),
         ZPositioned(
           translate: ZVector.only(
@@ -396,36 +403,24 @@ class _ZBusBackSide extends StatelessWidget {
           ),
           child: rightLight,
         ),
-        ZPositioned(
-          translate: theme.dimensionData.upperStripePosition,
-          child: _ZStripe.rearfromTheme(theme),
-        ),
-        ZPositioned(
-          translate: theme.dimensionData.lowerStripePosition,
-          child: _ZStripe.rearfromTheme(theme),
-        ),
-        ZPositioned(
-          translate: theme.dimensionData.fenderPosition,
-          child: fender,
-        ),
       ],
     );
   }
 }
 
-class _ZBusFrontSide extends StatelessWidget {
-  const _ZBusFrontSide({
+class _ZTruckFrontSide extends StatelessWidget {
+  const _ZTruckFrontSide({
     Key? key,
     required this.theme,
   }) : super(key: key);
 
-  final BusThemeData theme;
+  final TruckThemeData theme;
 
   @override
   Widget build(BuildContext context) {
     final body = ZRect(
       width: theme.dimensionData.rearWidth,
-      color: theme.colorScheme.busColor,
+      color: theme.colorScheme.cabinColor,
       height: theme.dimensionData.rearHeight,
       fill: true,
     );
@@ -438,7 +433,8 @@ class _ZBusFrontSide extends StatelessWidget {
     final lightHeight = (body.height / 2) -
         (window.height) -
         (theme.dimensionData.bodyTopPadding * 2) -
-        (leftLight.diameter / 2);
+        (leftLight.diameter / 2) -
+        2;
 
     return ZGroup(
       sortMode: SortMode.stack,
@@ -466,14 +462,14 @@ class _ZBusFrontSide extends StatelessWidget {
         ),
         ZPositioned(
           translate: ZVector.only(
-            x: -window.width / 2 + leftLight.diameter / 2,
+            x: -window.width / 2 + leftLight.diameter / 2 + 2,
             y: lightHeight,
           ),
           child: leftLight,
         ),
         ZPositioned(
           translate: ZVector.only(
-            x: window.width / 2 - leftLight.diameter / 2,
+            x: window.width / 2 - leftLight.diameter / 2 - 2,
             y: lightHeight,
           ),
           child: rightLight,
@@ -483,53 +479,74 @@ class _ZBusFrontSide extends StatelessWidget {
   }
 }
 
-class _ZBusBodySide extends StatelessWidget {
-  const _ZBusBodySide({
+class _ZTruckBodySide extends StatelessWidget {
+  const _ZTruckBodySide({
     Key? key,
     required this.theme,
     this.side = ZWheelSide.left,
   }) : super(key: key);
 
-  final BusThemeData theme;
+  final TruckThemeData theme;
 
   final ZWheelSide side;
   @override
   Widget build(BuildContext context) {
     final body = ZRect(
       width: theme.dimensionData.bodyWidth,
-      color: theme.colorScheme.busColor,
+      color: theme.colorScheme.truckColor,
       height: theme.dimensionData.bodyHeight,
       fill: true,
     );
 
-    final windows = _ZWindow.smallFromTheme(theme).fillArea(
-      width: body.width,
-      height: body.height,
-      padding: theme.dimensionData.smallWindowHorizontalPadding,
-      offset: ZVector.only(y: -theme.dimensionData.bodyTopPadding),
-    )..removeLast();
-
-    final door = _ZDoor.fromTheme(theme: theme);
+    final cabin = _Zcabin.fromTheme(theme: theme);
     final fender = _ZFender.sidefromTheme(theme);
-
+  
     return ZGroup(
       sortMode: SortMode.stack,
       children: [
         body,
+        ZPositioned(
+          translate: ZVector.only(
+            y: (body.height / 2) - (cabin.height / 2),
+            x: (body.width / 2) - (cabin.width / 2),
+          ),
+          child: cabin,
+        ),
+        ZPositioned(
+          translate: ZVector.only(
+            y: (body.height / 2) -
+                (theme.dimensionData.largeWindowHeight * 1.5 / 2) -
+                theme.dimensionData.bodyTopPadding,
+            x: (body.width / 2) - (cabin.width / 2 / 1.5),
+          ),
+          child: ZRect(
+            width: theme.dimensionData.cabinWidth / 1.5,
+            height: theme.dimensionData.largeWindowHeight * 1.5,
+            color: theme.colorScheme.windowColor,
+            fill: true,
+          ),
+        ),
         ZPositioned(
           translate: theme.dimensionData.fenderPosition,
           child: fender,
         ),
         ZPositioned(
           translate: ZVector.only(
-            x: -body.width * 0.3,
+            x: -body.width * 0.4,
             y: -body.height / 2,
           ),
           child: _ZWheel(side: side),
         ),
         ZPositioned(
           translate: ZVector.only(
-            x: body.width * 0.3,
+            x: body.width * 0.1,
+            y: -body.height / 2,
+          ),
+          child: _ZWheel(side: side),
+        ),
+        ZPositioned(
+          translate: ZVector.only(
+            x: body.width * 0.35,
             y: -body.height / 2,
           ),
           child: _ZWheel(side: side),
@@ -541,18 +558,6 @@ class _ZBusBodySide extends StatelessWidget {
         ZPositioned(
           translate: theme.dimensionData.lowerStripePosition,
           child: _ZStripe.sidefromTheme(theme),
-        ),
-        ...windows,
-        ZPositioned(
-          translate: ZVector.only(
-            y: (body.height / 2) -
-                (door.height / 2) -
-                theme.dimensionData.bodyTopPadding,
-            x: (body.width / 2) -
-                (door.width / 2) -
-                theme.dimensionData.doorHorizontalPadding,
-          ),
-          child: door,
         ),
       ],
     );
@@ -567,7 +572,7 @@ class _ZStripe extends StatelessWidget {
     required this.color,
   }) : super(key: key);
 
-  factory _ZStripe.sidefromTheme(BusThemeData theme) {
+  factory _ZStripe.sidefromTheme(TruckThemeData theme) {
     return _ZStripe(
       width: theme.dimensionData.bodyWidth,
       height: theme.dimensionData.stripeHeight,
@@ -575,7 +580,7 @@ class _ZStripe extends StatelessWidget {
     );
   }
 
-  factory _ZStripe.rearfromTheme(BusThemeData theme) {
+  factory _ZStripe.rearfromTheme(TruckThemeData theme) {
     return _ZStripe(
       width: theme.dimensionData.rearWidth,
       height: theme.dimensionData.stripeHeight,
@@ -606,7 +611,7 @@ class _ZFender extends StatelessWidget {
     required this.color,
   }) : super(key: key);
 
-  factory _ZFender.sidefromTheme(BusThemeData theme) {
+  factory _ZFender.sidefromTheme(TruckThemeData theme) {
     return _ZFender(
       width: theme.dimensionData.bodyWidth,
       height: theme.dimensionData.fenderHeight,
@@ -614,7 +619,7 @@ class _ZFender extends StatelessWidget {
     );
   }
 
-  factory _ZFender.rearfromTheme(BusThemeData theme) {
+  factory _ZFender.rearfromTheme(TruckThemeData theme) {
     return _ZFender(
       width: theme.dimensionData.rearWidth,
       height: theme.dimensionData.fenderHeight,
@@ -637,21 +642,21 @@ class _ZFender extends StatelessWidget {
   }
 }
 
-class _ZDoor extends StatelessWidget {
-  const _ZDoor({
+class _Zcabin extends StatelessWidget {
+  const _Zcabin({
     Key? key,
     required this.width,
     required this.height,
     required this.color,
   }) : super(key: key);
 
-  factory _ZDoor.fromTheme({
-    required BusThemeData theme,
+  factory _Zcabin.fromTheme({
+    required TruckThemeData theme,
   }) =>
-      _ZDoor(
-        width: theme.dimensionData.doorWidth,
-        height: theme.dimensionData.doorHeight,
-        color: theme.colorScheme.doorColor,
+      _Zcabin(
+        width: theme.dimensionData.cabinWidth,
+        height: theme.dimensionData.cabinHeight,
+        color: theme.colorScheme.cabinColor,
       );
 
   final double width;
@@ -677,23 +682,17 @@ class _ZWindow extends StatelessWidget {
     required this.color,
   }) : super(key: key);
 
-  factory _ZWindow.smallFromTheme(BusThemeData theme) => _ZWindow(
-        width: theme.dimensionData.smallWindowWidth,
-        height: theme.dimensionData.smallWindowHeight,
-        color: theme.colorScheme.windowColor,
-      );
-
-  factory _ZWindow.largeFromTheme(BusThemeData theme) => _ZWindow(
+  factory _ZWindow.truckBack(TruckThemeData theme) => _ZWindow(
         width: theme.dimensionData.largeWindowWidth -
             (theme.dimensionData.largeWindowHorizontalPadding * 2),
-        height: theme.dimensionData.largeWindowHeight,
-        color: theme.colorScheme.windowColor,
+        height: theme.dimensionData.largeWindowHeight * 2.5,
+        color: theme.colorScheme.backColor,
       );
 
-  factory _ZWindow.doubleLargeFromTheme(BusThemeData theme) => _ZWindow(
+  factory _ZWindow.doubleLargeFromTheme(TruckThemeData theme) => _ZWindow(
         width: theme.dimensionData.largeWindowWidth -
             (theme.dimensionData.largeWindowHorizontalPadding * 2),
-        height: theme.dimensionData.largeWindowHeight * 2,
+        height: theme.dimensionData.largeWindowHeight * 1.5,
         color: theme.colorScheme.windowColor,
       );
 
@@ -758,15 +757,15 @@ class _ZLight extends StatelessWidget {
     required this.diameter,
   }) : super(key: key);
 
-  factory _ZLight.frontFromTheme(BusThemeData theme) {
+  factory _ZLight.frontFromTheme(TruckThemeData theme) {
     return _ZLight(
       color: theme.colorScheme.frontLightColor,
       borderColor: theme.colorScheme.lightBorderColor,
-      diameter: 5,
+      diameter: 4,
     );
   }
 
-  factory _ZLight.rearFromTheme(BusThemeData theme) {
+  factory _ZLight.rearFromTheme(TruckThemeData theme) {
     return _ZLight(
       color: theme.colorScheme.rearLightColor,
       borderColor: theme.colorScheme.lightBorderColor,

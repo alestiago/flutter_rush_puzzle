@@ -37,8 +37,8 @@ class ZVehicle extends StatelessWidget {
         );
         break;
       case VehicleType.truck:
-        child = ZBus(
-          theme: context.select((VehiclesThemeData d) => d.bus),
+        child = ZTruck(
+          theme: context.select((VehiclesThemeData d) => d.truck),
         );
         break;
     }
