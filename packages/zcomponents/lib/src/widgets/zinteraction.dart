@@ -77,9 +77,11 @@ class _ZInteractionState extends State<ZInteraction>
               break;
             }
           }
-          if (event.velocity.pixelsPerSecond.dx < 0) {
+          if (event.velocity.pixelsPerSecond.dx > 0) {
             endPosition -= pi / 2;
             assert(startPosition >= endPosition);
+          } else if (event.velocity.pixelsPerSecond.dx < 0) {
+         //   endPosition += pi / 2;
           }
 
           tween
@@ -87,26 +89,15 @@ class _ZInteractionState extends State<ZInteraction>
             ..end = endPosition;
           animationController
             ..value = 0
-            ..animateWith(
-              ScrollSpringSimulation(
-                SpringDescription.withDampingRatio(
-                  mass: 0.5,
-                  stiffness: 100,
-                  ratio: 1.1,
-                ),
-                0,
-                1,
-                event.velocity.pixelsPerSecond.dy / size,
-                tolerance: _kDefaultTolerance,
-              ),
+            ..animateTo(
+              1,
+              curve: Curves.easeOut,
             );
           //..fling(
           //  velocity: event.velocity.pixelsPerSecond.dy,
           //);
         },
-        onPanCancel: () {
-         
-        },
+        onPanCancel: () {},
         child: widget.child,
       ),
     );

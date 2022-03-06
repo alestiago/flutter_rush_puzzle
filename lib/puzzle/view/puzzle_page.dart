@@ -117,6 +117,7 @@ class _GameViewState extends State<GameView> {
           body: AnimatedVehiclesTheme(
             data: vehicleTheme,
             child: Stack(
+              clipBehavior: Clip.none,
               children: [
                 DebugGame(
                   debug: false,

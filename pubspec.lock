@@ -35,14 +35,14 @@ packages:
       name: bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.0.2"
+    version: "8.0.3"
   bloc_test:
     dependency: "direct dev"
     description:
       name: bloc_test
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "9.0.2"
+    version: "9.0.3"
   boolean_selector:
     dependency: transitive
     description:
@@ -695,8 +695,8 @@ packages:
     dependency: transitive
     description:
       path: zflutter
-      ref: "2ce7e68420b4c66bb823fed122672c633ea34be8"
-      resolved-ref: "2ce7e68420b4c66bb823fed122672c633ea34be8"
+      ref: "7e7b4d68b5a791b6f94ed80b361ea49171dbda58"
+      resolved-ref: "7e7b4d68b5a791b6f94ed80b361ea49171dbda58"
       url: "https://github.com/jamesblasco/zflutter"
     source: git
     version: "0.0.1+3"
