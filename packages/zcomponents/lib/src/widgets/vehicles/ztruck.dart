@@ -189,14 +189,6 @@ class ZTruck extends StatelessWidget {
       child: _ZRoof.fromTheme(theme),
     );
 
-    final bottomFace = ZPositioned(
-      translate: ZVector.only(
-        z: -theme.dimensionData.bodyHeight / 2,
-      ),
-      rotate: const ZVector.only(z: -tau / 4),
-      child: _ZFloor.fromTheme(theme),
-    );
-
     final backFace = ZPositioned(
       translate: ZVector.only(
         z: theme.dimensionData.bodyWidth / 2,
@@ -245,7 +237,6 @@ class ZTruck extends StatelessWidget {
       sortMode: SortMode.update,
       children: [
         topFace,
-        bottomFace,
         backFace,
         frontFace,
         leftFace,
@@ -255,36 +246,7 @@ class ZTruck extends StatelessWidget {
   }
 }
 
-class _ZFloor extends StatelessWidget {
-  const _ZFloor({
-    Key? key,
-    required this.width,
-    required this.height,
-    required this.color,
-  }) : super(key: key);
 
-  factory _ZFloor.fromTheme(TruckThemeData theme) {
-    return _ZFloor(
-      width: theme.dimensionData.rearWidth,
-      height: theme.dimensionData.bodyWidth,
-      color: theme.colorScheme.bottomColor,
-    );
-  }
-
-  final double width;
-  final double height;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return ZRect(
-      width: width,
-      color: color,
-      height: height,
-      fill: true,
-    );
-  }
-}
 
 class _ZRoof extends StatelessWidget {
   const _ZRoof({
@@ -500,7 +462,7 @@ class _ZTruckBodySide extends StatelessWidget {
 
     final cabin = _Zcabin.fromTheme(theme: theme);
     final fender = _ZFender.sidefromTheme(theme);
-  
+
     return ZGroup(
       sortMode: SortMode.stack,
       children: [
