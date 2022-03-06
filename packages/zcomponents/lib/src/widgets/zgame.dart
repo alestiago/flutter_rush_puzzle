@@ -72,6 +72,8 @@ class ZGame extends StatelessWidget {
                           child: Builder(
                             builder: (context) {
                               return ZGroup(
+                                sortMode: SortMode.update,
+                                sortPoint: const ZVector.only(z: 2000),
                                 children: vehicles,
                               );
                             },

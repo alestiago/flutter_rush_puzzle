@@ -45,44 +45,42 @@ class VehicleContent extends StatelessWidget {
       listenWhen: (previous, current) {
         return previous.box != current.box;
       },
-      child: ZGroup(
-        sortMode: SortMode.update,
-        sortPoint: (draggingBox ?? box).zCenter + const ZVector.only(z: 60),
-        children: [
-          if (isDebug) ZPositionDebug(box: box),
-          ZPositionTracker(
-            onTransform: (transforms) {
-              context.read<VehicleBloc>().add(
-                    VehicleTransformationUpdated(transforms),
-                  );
-            },
-            child: ZAnimatedPositioned(
-              translate: draggingBox?.zCenter ?? box.zCenter,
-              duration: dragging ? Duration.zero : kDefaultDuration,
-              curve: Curves.easeInOut,
-              child: ZAnimatedPositioned(
-                translate: ZVector.only(x: escaped ? 1000 : 0),
-                duration: const Duration(seconds: 2),
-                curve: Curves.easeInOut,
-                child: ZPositioned(
-                  translate: const ZVector.only(z: 18),
+      child: ZAnimatedPositioned(
+        translate: (draggingBox ?? box).zCenter + const ZVector.only(z: 20),
+        duration: dragging ? Duration.zero : kDefaultDuration,
+        curve: Curves.easeInOut,
+        child: ZAnimatedPositioned(
+          duration: kDefaultDuration,
+          translate: ZVector.only(z: dragging ? 10 : 0),
+          child: ZBoundingBox(
+            width: (draggingBox ?? box).width,
+            height: (draggingBox ?? box).height,
+            depth: layout.tileSize,
+            children: [
+              //   if (isDebug) ZPositionDebug(box: box),
+              ZPositionTracker(
+                onTransform: (transforms) {
+                  context.read<VehicleBloc>().add(
+                        VehicleTransformationUpdated(transforms),
+                      );
+                },
+                child: ZAnimatedPositioned(
+                  translate: ZVector.only(x: escaped ? 1000 : 0),
+                  duration: const Duration(seconds: 2),
+                  curve: Curves.easeInOut,
                   child: ZGroup(
                     sortPoint: ZVector.zero,
                     sortMode: SortMode.update,
                     children: [
-                      ZAnimatedPositioned(
-                        duration: kDefaultDuration,
-                        translate: ZVector.only(z: dragging ? 10 : 0),
-                        child: child,
-                      ),
+                      child,
                       const VehicleHitBox(),
                     ],
                   ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

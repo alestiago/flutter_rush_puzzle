@@ -48,7 +48,7 @@ class _ZInteractionState extends State<ZInteraction>
     return ChangeNotifierProvider.value(
       value: controller,
       child: GestureDetector(
-        behavior: HitTestBehavior.translucent,
+        behavior: HitTestBehavior.deferToChild,
         onPanStart: (event) {
           animationController.stop();
           previousDelta = controller.value;
@@ -105,12 +105,7 @@ class _ZInteractionState extends State<ZInteraction>
           //);
         },
         onPanCancel: () {
-          tween
-            ..begin = controller.value
-            ..end = 0;
-          animationController
-            ..value = 0
-            ..fling(velocity: 0);
+         
         },
         child: widget.child,
       ),

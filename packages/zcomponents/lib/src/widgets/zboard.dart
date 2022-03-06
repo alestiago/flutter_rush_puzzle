@@ -69,6 +69,19 @@ class _Board extends StatelessWidget {
               ],
             ),
           ),
+        ZPositioned(
+          translate: ZVector(0, 0, -layout.boardDepth / 2 - 0.5),
+          child: ZToBoxAdapter(
+            height: size,
+            width: size,
+            child: GestureDetector(
+              behavior: HitTestBehavior.deferToChild,
+              onPanStart: (details) {},
+              onPanDown: (_) {},
+              onPanUpdate: (_) {},
+            ),
+          ),
+        ),
         ZGroup(
           sortMode: SortMode.update,
           children: [

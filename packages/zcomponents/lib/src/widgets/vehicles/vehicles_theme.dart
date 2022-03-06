@@ -53,6 +53,7 @@ class VehiclesThemeData extends Equatable {
     required this.car,
     required this.taxi,
     required this.bus,
+    required this.truck,
   });
 
   static final VehiclesThemeData fallback = VehiclesThemeData(
@@ -68,6 +69,21 @@ class VehiclesThemeData extends Equatable {
       topBoxColor: Colors.black,
     ),
     bus: BusThemeData.school,
+    truck: TruckThemeData(
+      colorScheme: ZTruckColorScheme(
+        truckColor: Colors.red,
+        roofColor: Colors.red[600]!,
+        stripesColor: Colors.transparent,
+        windowColor: Colors.blue[300]!,
+        backColor: Colors.red[700]!,
+        cabinColor: Colors.white,
+        fenderColor: Colors.black,
+        frontLightColor: Colors.yellow[200]!,
+        rearLightColor: Colors.red[400]!,
+        lightBorderColor: Colors.black,
+        bottomColor: Colors.black,
+      ),
+    ),
   );
 
   /// Car theme
@@ -78,6 +94,9 @@ class VehiclesThemeData extends Equatable {
 
   /// Bus theme
   final BusThemeData bus;
+
+  /// Bus theme
+  final TruckThemeData truck;
 
   /// Linearly interpolate between two board themes.
   ///
@@ -93,6 +112,7 @@ class VehiclesThemeData extends Equatable {
       car: CarThemeData.lerp(a?.car, b?.car, t)!,
       taxi: CarThemeData.lerp(a?.taxi, b?.taxi, t)!,
       bus: BusThemeData.lerp(a?.bus, b?.bus, t)!,
+      truck: TruckThemeData.lerp(a?.truck, b?.truck, t)!,
     );
   }
 

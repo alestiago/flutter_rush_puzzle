@@ -16,31 +16,70 @@ class RushPuzzleIllustration extends StatelessWidget {
 
       return ZIllustration(
         zoom: scale,
+        children: [GameTitle()],
+      );
+    });
+  }
+}
+
+class GameTitle extends StatelessWidget {
+  const GameTitle({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    const style = ZCubicTextStyle(
+      fontSize: 10,
+    );
+    return ZPositioned(
+      translate: ZVector.only(
+        x: style.fontSize / 2,
+        y: style.fontSize - layout.tileSize - layout.tileSpace,
+        z: layout.tileDepth,
+      ),
+      child: ZGroup(
         children: [
+          const ZCubicText(
+            'Rush',
+            style: style,
+          ),
           ZPositioned(
-            translate: ZVector.only(x: style.fontSize, y: -15),
-            // TODO (alestiago): Same as GameLayoutPerspective.presentation.
-            rotate: const ZVector.only(x: -0.25, y: -0.75),
-            child: ZGroup(
-              children: [
-                const ZCubicText(
-                  'Rush',
-                  style: style,
-                ),
-                ZPositioned(
-                  translate: ZVector.only(
-                    y: style.fontSize * 4,
-                  ),
-                  child: const ZCubicText(
-                    'Puzzle',
-                    style: style,
-                  ),
-                ),
-              ],
+            translate: ZVector.only(
+              y: style.fontSize * 4,
+            ),
+            child: const ZCubicText(
+              'Puzzle',
+              style: style,
             ),
           ),
         ],
-      );
-    });
+      ),
+    );
+  }
+}
+
+class PlayText extends StatelessWidget {
+  const PlayText({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final style = ZCubicTextStyle(
+      fontSize: 10,
+      color: Colors.yellow[600]!,
+    );
+    return ZPositioned(
+      translate: ZVector.only(
+        x: style.fontSize / 2,
+        y: -style.fontSize,
+        z: layout.tileDepth,
+      ),
+      child: ZGroup(
+        children: [
+          ZCubicText(
+            'Play',
+            style: style,
+          ),
+        ],
+      ),
+    );
   }
 }

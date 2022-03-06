@@ -21,7 +21,7 @@ class GamePuzzles {
         ),
         Vehicle(
           id: 'B',
-          type: VehicleType.taxi,
+          type: VehicleType.car,
           steering: Steering.vertical,
           firstPosition: const Position(0, 4),
         ),
@@ -33,7 +33,7 @@ class GamePuzzles {
         ),
         Vehicle(
           id: 'Q',
-          type: VehicleType.bus,
+          type: VehicleType.truck,
           steering: Steering.vertical,
           firstPosition: const Position(3, 1),
         ),
@@ -45,13 +45,13 @@ class GamePuzzles {
         ),
         Vehicle(
           id: 'C',
-          type: VehicleType.taxi,
+          type: VehicleType.car,
           steering: Steering.horizontal,
           firstPosition: const Position(4, 4),
         ),
         Vehicle(
           id: 'O',
-          type: VehicleType.bus,
+          type: VehicleType.truck,
           steering: Steering.vertical,
           firstPosition: const Position(5, 0),
         ),
