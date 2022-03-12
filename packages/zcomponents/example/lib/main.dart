@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vehicles = [
+      ZAmbulance(theme: AmbulanceThemeData.white),
       ZBus(theme: BusThemeData.school),
       const ZCar(theme: CarThemeData(color: Colors.red))
     ];
@@ -35,7 +36,7 @@ class VehicleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.blue[200]!,
       body: Stack(
         children: [
           ZDragDetector(
