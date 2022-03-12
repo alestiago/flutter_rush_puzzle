@@ -452,5 +452,175 @@ class ZAlphabetData {
       [null, null],
       [null, null],
     ],
+    '0': [
+      [
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+      ],
+      [
+        ZCube(),
+        null,
+        ZCube(),
+      ],
+      [
+        ZLShape(orientation: ZLShapeOrientation.topRight),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZLShape(orientation: ZLShapeOrientation.topLeft),
+      ],
+    ],
+    '1': [
+      [
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZCube(),
+        null,
+      ],
+      [
+        null,
+        ZCube(),
+        null,
+      ],
+      [
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZCube(),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+      ],
+    ],
+    '2': [
+      [
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+      ],
+      [
+        null,
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZLShape(orientation: ZLShapeOrientation.topLeft),
+      ],
+      [
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+      ],
+    ],
+    '3': [
+      [
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+      ],
+      [
+        null,
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+      ],
+      [
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZLShape(orientation: ZLShapeOrientation.topLeft),
+      ],
+    ],
+    '4': [
+      [
+        ZCube(),
+        null,
+        ZCube(),
+      ],
+      [
+        ZCube(),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZCube(),
+      ],
+      [
+        null,
+        null,
+        ZCube(),
+      ],
+    ],
+    '5': [
+      [
+        ZCube(),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZSlab(orientation: ZSlabOrientation.top),
+      ],
+      [
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+      ],
+      [
+        ZLShape(orientation: ZLShapeOrientation.topRight),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZLShape(orientation: ZLShapeOrientation.topLeft),
+      ],
+    ],
+    '6': [
+      [
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZSlab(orientation: ZSlabOrientation.top),
+      ],
+      [
+        ZCube(),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+      ],
+      [
+        ZLShape(orientation: ZLShapeOrientation.topRight),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZLShape(orientation: ZLShapeOrientation.topLeft),
+      ],
+    ],
+    '7': [
+      [
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZCube(),
+      ],
+      [
+        null,
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+        ZLShape(orientation: ZLShapeOrientation.topLeft),
+      ],
+      [
+        null,
+        ZCube(),
+        null,
+      ],
+    ],
+    '8': [
+      [
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+      ],
+      [
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+      ],
+      [
+        ZLShape(orientation: ZLShapeOrientation.topRight),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZLShape(orientation: ZLShapeOrientation.topLeft),
+      ],
+    ],
+    '9': [
+      [
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+      ],
+      [
+        ZLShape(orientation: ZLShapeOrientation.topRight),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZCube(),
+      ],
+      [
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZLShape(orientation: ZLShapeOrientation.topLeft),
+      ],
+    ],
   };
 }
