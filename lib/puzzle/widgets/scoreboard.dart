@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:puzzle_models/puzzle_models.dart';
 import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
 
 class ScoreBoard extends StatelessWidget {
@@ -14,6 +15,7 @@ class ScoreBoard extends StatelessWidget {
     final dificulty = context.select((PuzzleBloc bloc) {
       return bloc.state.puzzle.difficulty;
     });
+
     return Container(
       margin: const EdgeInsets.all(12),
       padding: const EdgeInsets.all(12),
@@ -28,7 +30,7 @@ class ScoreBoard extends StatelessWidget {
           Flexible(
             child: ScoreBoardItem(
               title: const Text('Difficulty'),
-              text: Text(describeEnum(dificulty)),
+              text: Text(dificulty.stringify),
             ),
           ),
           Flexible(
@@ -74,5 +76,20 @@ class ScoreBoardItem extends StatelessWidget {
         )
       ],
     );
+  }
+}
+
+extension on PuzzleDifficulty {
+  String get stringify {
+    switch (this) {
+      case PuzzleDifficulty.beginner:
+        return 'Beginner';
+      case PuzzleDifficulty.intermediate:
+        return 'Intermediate';
+      case PuzzleDifficulty.advanced:
+        return 'Advanced';
+      case PuzzleDifficulty.expert:
+        return 'Expert';
+    }
   }
 }
