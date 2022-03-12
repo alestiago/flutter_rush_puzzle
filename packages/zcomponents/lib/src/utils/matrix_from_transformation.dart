@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:zcomponents/zcomponents.dart';
 
 Matrix4 matrixFromTransformations(List<ZTransform> transforms) {
-  final matrix = Matrix4.translationValues(0, 0, 0);
+  final matrix = Matrix4.identity();
   for (final transform in transforms) {
     final matrix4 = Matrix4.translationValues(
       transform.translate.x,

@@ -48,6 +48,17 @@ class _Board extends StatelessWidget {
     return ZGroup(
       sortMode: SortMode.update,
       children: [
+        // Hit box to prevent interacting with layers behind the game
+        ZToBoxAdapter(
+          height: size,
+          width: size,
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onPanDown: (_) {},
+            onPanUpdate: (_) {},
+          ),
+        ),
+
         // Moves z-index very far
         ZPositioned(
           translate: const ZVector.only(z: -10000),
