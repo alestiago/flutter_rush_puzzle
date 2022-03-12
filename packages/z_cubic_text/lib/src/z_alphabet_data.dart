@@ -622,5 +622,124 @@ class ZAlphabetData {
         ZLShape(orientation: ZLShapeOrientation.topLeft),
       ],
     ],
+    '!': [
+      [
+        null,
+        ZCube(),
+        null,
+      ],
+      [
+        null,
+        ZCube(),
+        null,
+      ],
+      [
+        null,
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        null,
+      ],
+    ],
+    '?': [
+      [
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+      ],
+      [
+        null,
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZLShape(orientation: ZLShapeOrientation.topLeft),
+      ],
+      [
+        null,
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        null,
+      ],
+    ],
+    ':': [
+      [
+        null,
+        ZCube(),
+        null,
+      ],
+      [
+        null,
+        null,
+        null,
+      ],
+      [
+        null,
+        ZCube(),
+        null,
+      ],
+    ],
+    ';': [
+      [
+        null,
+        ZCube(),
+        null,
+      ],
+      [
+        null,
+        null,
+        null,
+      ],
+      [
+        null,
+        ZLShape(orientation: ZLShapeOrientation.topRight),
+        null,
+      ],
+    ],
+    '.': [
+      [
+        null,
+        null,
+        null,
+      ],
+      [
+        null,
+        null,
+        null,
+      ],
+      [
+        null,
+        ZCube(),
+        null,
+      ],
+    ],
+    ',': [
+      [
+        null,
+        null,
+        null,
+      ],
+      [
+        null,
+        null,
+        null,
+      ],
+      [
+        null,
+        ZLShape(orientation: ZLShapeOrientation.topRight),
+        null,
+      ],
+    ],
+    '-': [
+      [
+        null,
+        null,
+        null,
+      ],
+      [
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+      ],
+      [
+        null,
+        null,
+        null,
+      ]
+    ],
   };
 }
