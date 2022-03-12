@@ -83,6 +83,7 @@ class ScoreBoardItem extends StatelessWidget {
 }
 
 extension on PuzzleDifficulty {
+  // TODO(alestiago): Translate this instead.
   String get stringify {
     switch (this) {
       case PuzzleDifficulty.beginner:
