@@ -53,6 +53,7 @@ class VehiclesThemeData extends Equatable {
     required this.car,
     required this.taxi,
     required this.bus,
+    required this.ambulance,
     required this.truck,
   });
 
@@ -69,6 +70,7 @@ class VehiclesThemeData extends Equatable {
       topBoxColor: Colors.black,
     ),
     bus: BusThemeData.school,
+    ambulance: AmbulanceThemeData.white,
     truck: TruckThemeData(
       colorScheme: ZTruckColorScheme(
         truckColor: Colors.red,
@@ -95,11 +97,13 @@ class VehiclesThemeData extends Equatable {
   /// Bus theme
   final BusThemeData bus;
 
-  /// Bus theme
+  // Ambulance theme
+  final AmbulanceThemeData ambulance;
+
+  /// Truck theme
   final TruckThemeData truck;
 
   /// Linearly interpolate between two board themes.
-  ///
   /// The arguments must not be null.
   ///
   /// {@macro dart.ui.shadow.lerp}
@@ -112,6 +116,7 @@ class VehiclesThemeData extends Equatable {
       car: CarThemeData.lerp(a?.car, b?.car, t)!,
       taxi: CarThemeData.lerp(a?.taxi, b?.taxi, t)!,
       bus: BusThemeData.lerp(a?.bus, b?.bus, t)!,
+      ambulance: AmbulanceThemeData.lerp(a?.ambulance, b?.ambulance, t)!,
       truck: TruckThemeData.lerp(a?.truck, b?.truck, t)!,
     );
   }

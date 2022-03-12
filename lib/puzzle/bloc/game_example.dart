@@ -27,7 +27,7 @@ class GamePuzzles {
         ),
         Vehicle(
           id: 'X',
-          type: VehicleType.taxi,
+          type: VehicleType.ambulance,
           steering: Steering.horizontal,
           firstPosition: const Position(1, 2),
         ),
