@@ -18,6 +18,7 @@ extension on GameLayoutPerspective {
       case GameLayoutPerspective.p3D:
         return const ZPosition(
           scale: ZVector.all(0.75),
+          translate: ZVector.only(y: 32),
           rotate: ZVector.only(x: tau / 7, z: -tau / 8 + tau / 4),
         );
       case GameLayoutPerspective.presentation:
@@ -48,13 +49,14 @@ class ZGame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBoardTheme(
-      data: theme,
-      child: ZInteraction(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final scale = constraints.biggest.shortestSide / layout.boardSize;
-            return ZIllustration(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final scale = constraints.biggest.shortestSide / layout.boardSize;
+        return AnimatedBoardTheme(
+          data: theme,
+          child: ZInteraction(
+            enabled: perspective == GameLayoutPerspective.p3D,
+            child: ZIllustration(
               clipBehavior: Clip.none,
               zoom: scale,
               children: [
@@ -84,10 +86,10 @@ class ZGame extends StatelessWidget {
                   ),
                 ),
               ],
-            );
-          },
-        ),
-      ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

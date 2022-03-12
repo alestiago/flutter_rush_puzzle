@@ -20,43 +20,32 @@ class WinDialog extends StatelessWidget {
     });
     final l10n = context.l10n;
     return Container(
-      margin: const EdgeInsets.all(4),
+      margin: const EdgeInsets.fromLTRB(8, 200, 8, 8),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
       ),
-      constraints: BoxConstraints.loose(const Size(400, 400)),
+      constraints: BoxConstraints.loose(const Size(400, 300)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Spacer(),
-          SizedBox(
-            height: 120,
-            width: 120,
-            child: ZIllustration(
-              children: [
-                ZPositioned(
-                  scale: const ZVector.all(2),
-                  rotate: const ZVector(tau / 6, 0, tau / 8),
-                  child: ZVehicle(
-                    data: vehicle,
-                  ),
-                )
-              ],
-            ),
-          ),
-          const SizedBox(height: 40),
           Text(
             l10n.winMessageTitle,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleLarge,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 40,
+            ),
           ),
           const SizedBox(height: 12),
           Text(
             l10n.winMessageText,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: TextStyle(
+              fontWeight: FontWeight.w200,
+              fontSize: 16,
+            ),
           ),
           const Spacer(),
           Row(

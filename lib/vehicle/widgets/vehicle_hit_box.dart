@@ -23,10 +23,12 @@ class VehicleHitBox extends StatelessWidget {
       height: box.height,
       depth: layout.tileSize,
       onPanDown: (details) {
-        HapticFeedback.selectionClick();
         final state = context.read<PuzzleBloc>().state;
-        final boundary =
-            state.puzzle.vehicles[id]!.drivingBoundary(state.puzzle);
+        final vehicle = state.puzzle.vehicles[id];
+        if (vehicle == null) return;
+        HapticFeedback.selectionClick();
+
+        final boundary = vehicle.drivingBoundary(state.puzzle);
         context.read<VehicleBloc>().add(
               VehicleDragStarted(
                 dragPosition: details.globalPosition,
@@ -35,11 +37,17 @@ class VehicleHitBox extends StatelessWidget {
             );
       },
       onPanUpdate: (details) {
+        final state = context.read<PuzzleBloc>().state;
+        final vehicle = state.puzzle.vehicles[id];
+        if (vehicle == null) return;
         context.read<VehicleBloc>().add(
               VehicleDragUpdated(details.globalPosition),
             );
       },
       onPanEnd: (details) {
+        final state = context.read<PuzzleBloc>().state;
+        final vehicle = state.puzzle.vehicles[id];
+        if (vehicle == null) return;
         context.read<VehicleBloc>().add(
               VehicleDragEnd(
                 velocity: details.velocity.pixelsPerSecond,
@@ -47,6 +55,9 @@ class VehicleHitBox extends StatelessWidget {
             );
       },
       onPanCancel: () {
+        final state = context.read<PuzzleBloc>().state;
+        final vehicle = state.puzzle.vehicles[id];
+        if (vehicle == null) return;
         context.read<VehicleBloc>().add(
               VehicleDragEnd(),
             );
