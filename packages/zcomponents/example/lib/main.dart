@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final vehicles = [
       ZBus(theme: BusThemeData.school),
-      ZCar(theme: CarThemeData(color: Colors.red))
+      const ZCar(theme: CarThemeData(color: Colors.red))
     ];
 
     return MaterialApp(

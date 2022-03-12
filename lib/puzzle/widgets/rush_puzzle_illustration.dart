@@ -16,9 +16,9 @@ class RushPuzzleIllustration extends StatelessWidget {
 
       return ZIllustration(
         zoom: scale,
-        children: [GameTitle()],
+        children: const [GameTitle()],
       );
-    });
+    },);
   }
 }
 
@@ -28,7 +28,7 @@ class GameTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const style = ZCubicTextStyle(
-      fontSize: 10,
+      
     );
     return ZPositioned(
       translate: ZVector.only(
@@ -40,7 +40,6 @@ class GameTitle extends StatelessWidget {
         children: [
           const ZCubicText(
             'Rush',
-            style: style,
           ),
           ZPositioned(
             translate: ZVector.only(
@@ -48,7 +47,6 @@ class GameTitle extends StatelessWidget {
             ),
             child: const ZCubicText(
               'Puzzle',
-              style: style,
             ),
           ),
         ],
@@ -63,7 +61,6 @@ class PlayText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = ZCubicTextStyle(
-      fontSize: 10,
       color: Colors.yellow[600]!,
     );
     return ZPositioned(

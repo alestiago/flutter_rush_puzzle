@@ -12,7 +12,6 @@ void main() {
           'when historyPointer is not the first', () {
         final puzzleState = PuzzleState(
           history: [FakeRushPuzzle(), FakeRushPuzzle()],
-          historyPointer: 0,
         );
 
         expect(puzzleState.canUndo, isFalse);
@@ -35,7 +34,6 @@ void main() {
           'when historyPointer is not the latest', () {
         final puzzleState = PuzzleState(
           history: [FakeRushPuzzle(), FakeRushPuzzle()],
-          historyPointer: 0,
         );
 
         expect(puzzleState.canRedo, isTrue);

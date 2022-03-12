@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:z_cubic_text/src/shapes/shapes.dart';
 import 'package:zflutter/zflutter.dart';
 

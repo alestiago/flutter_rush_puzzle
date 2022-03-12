@@ -6,7 +6,7 @@ import 'package:puzzle_models/puzzle_models.dart';
 /// {@endtemplate}
 class DrivingBoundary extends Equatable {
   /// {@macro driving_boundary}
-  DrivingBoundary(this.from, this.to)
+  const DrivingBoundary(this.from, this.to)
       : assert(from <= to, 'From must be smaller or equal to to.');
   // assert(
   //   from.x == to.x || from.y == to.y,
