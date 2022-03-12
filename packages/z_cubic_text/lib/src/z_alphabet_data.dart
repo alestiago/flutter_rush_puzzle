@@ -22,9 +22,57 @@ class ZAlphabetData {
         ZCube(),
       ],
     ],
-    'B': [[], [], []],
-    'C': [[], [], []],
-    'D': [[], [], []],
+    'B': [
+      [
+        ZCube(),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+      ],
+      [
+        ZCube(),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+      ],
+      [
+        ZCube(),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZLShape(orientation: ZLShapeOrientation.topLeft),
+      ],
+    ],
+    'C': [
+      [
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+      ],
+      [
+        ZCube(),
+        null,
+        null,
+      ],
+      [
+        ZLShape(orientation: ZLShapeOrientation.topRight),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZLShape(orientation: ZLShapeOrientation.topLeft),
+      ],
+    ],
+    'D': [
+      [
+        ZCube(),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+      ],
+      [
+        ZCube(),
+        null,
+        ZCube(),
+      ],
+      [
+        ZCube(),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZLShape(orientation: ZLShapeOrientation.topLeft),
+      ],
+    ],
     'E': [
       [
         ZCube(),
@@ -42,8 +90,40 @@ class ZAlphabetData {
         ZSlab(orientation: ZSlabOrientation.bottom),
       ],
     ],
-    'F': [[], [], []],
-    'G': [[], [], []],
+    'F': [
+      [
+        ZCube(),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZSlab(orientation: ZSlabOrientation.top),
+      ],
+      [
+        ZCube(),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        null,
+      ],
+      [
+        ZCube(),
+        null,
+        null,
+      ],
+    ],
+    'G': [
+      [
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+      ],
+      [
+        ZCube(),
+        null,
+        ZSlab(orientation: ZSlabOrientation.bottom),
+      ],
+      [
+        ZLShape(orientation: ZLShapeOrientation.topRight),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZCube(),
+      ],
+    ],
     'H': [
       [
         ZCube(),
@@ -61,9 +141,57 @@ class ZAlphabetData {
         ZCube(),
       ]
     ],
-    'I': [[], [], []],
-    'J': [[], [], []],
-    'K': [[], [], []],
+    'I': [
+      [
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZCube(),
+        ZSlab(orientation: ZSlabOrientation.top),
+      ],
+      [
+        null,
+        ZCube(),
+        null,
+      ],
+      [
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZCube(),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+      ],
+    ],
+    'J': [
+      [
+        null,
+        null,
+        ZCube(),
+      ],
+      [
+        null,
+        null,
+        ZCube(),
+      ],
+      [
+        ZLShape(orientation: ZLShapeOrientation.topRight),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZLShape(orientation: ZLShapeOrientation.topLeft),
+      ],
+    ],
+    'K': [
+      [
+        ZCube(),
+        null,
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+      ],
+      [
+        ZCube(),
+        ZCube(),
+        ZLShape(orientation: ZLShapeOrientation.topLeft),
+      ],
+      [
+        ZCube(),
+        null,
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+      ],
+    ],
     'L': [
       [
         ZCube(),
@@ -81,9 +209,57 @@ class ZAlphabetData {
         ZSlab(orientation: ZSlabOrientation.bottom),
       ],
     ],
-    'M': [[], [], []],
-    'N': [[], [], []],
-    'O': [[], [], []],
+    'M': [
+      [
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+        null,
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+      ],
+      [
+        ZCube(),
+        ZCube(),
+        ZCube(),
+      ],
+      [
+        ZCube(),
+        null,
+        ZCube(),
+      ],
+    ],
+    'N': [
+      [
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+        null,
+        ZCube(),
+      ],
+      [
+        ZCube(),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+        ZCube(),
+      ],
+      [
+        ZCube(),
+        null,
+        ZLShape(orientation: ZLShapeOrientation.topRight),
+      ],
+    ],
+    'O': [
+      [
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+      ],
+      [
+        ZCube(),
+        null,
+        ZCube(),
+      ],
+      [
+        ZLShape(orientation: ZLShapeOrientation.topRight),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZLShape(orientation: ZLShapeOrientation.topLeft),
+      ],
+    ],
     'P': [
       [
         ZCube(),
@@ -101,7 +277,23 @@ class ZAlphabetData {
         null,
       ],
     ],
-    'Q': [[], [], []],
+    'Q': [
+      [
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+      ],
+      [
+        ZCube(),
+        null,
+        ZCube(),
+      ],
+      [
+        ZLShape(orientation: ZLShapeOrientation.topRight),
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+        ZCube(),
+      ],
+    ],
     'R': [
       [
         ZCube(),
@@ -136,7 +328,23 @@ class ZAlphabetData {
         ZLShape(orientation: ZLShapeOrientation.topLeft),
       ],
     ],
-    'T': [[], [], []],
+    'T': [
+      [
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZCube(),
+        ZSlab(orientation: ZSlabOrientation.top),
+      ],
+      [
+        null,
+        ZCube(),
+        null,
+      ],
+      [
+        null,
+        ZCube(),
+        null,
+      ],
+    ],
     'U': [
       [
         ZCube(),
@@ -171,8 +379,40 @@ class ZAlphabetData {
         ZSlab(orientation: ZSlabOrientation.top),
       ],
     ],
-    'W': [[], [], []],
-    'X': [[], [], []],
+    'W': [
+      [
+        ZCube(),
+        null,
+        ZCube(),
+      ],
+      [
+        ZCube(),
+        ZCube(),
+        ZCube(),
+      ],
+      [
+        ZLShape(orientation: ZLShapeOrientation.topRight),
+        null,
+        ZLShape(orientation: ZLShapeOrientation.topLeft)
+      ],
+    ],
+    'X': [
+      [
+        ZLShape(orientation: ZLShapeOrientation.topRight),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZLShape(orientation: ZLShapeOrientation.topLeft),
+      ],
+      [
+        null,
+        ZCube(),
+        null,
+      ],
+      [
+        ZLShape(orientation: ZLShapeOrientation.bottomRight),
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZLShape(orientation: ZLShapeOrientation.bottomLeft),
+      ],
+    ],
     'Y': [
       [
         ZCube(),
