@@ -1,7 +1,5 @@
-import 'package:fireworks/fireworks.dart' as fireworks;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:puzzle_models/puzzle_models.dart';
 import 'package:rush_hour_puzzle/l10n/l10n.dart';
 import 'package:rush_hour_puzzle/puzzle/puzzle.dart';

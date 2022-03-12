@@ -5,10 +5,8 @@ import 'dart:async';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:rush_hour_puzzle/timer/model/ticker.dart';
 import 'package:rush_hour_puzzle/timer/timer.dart';
 
-import '../../helpers/helpers.dart';
 
 class MockTicker extends Mock implements Ticker {}
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:zcomponents/zcomponents.dart';
-import 'package:zflutter/zflutter.dart';
 
 // TODO(alestiago): Include Truck bonnet.
 class TruckThemeData {
@@ -218,7 +217,6 @@ class ZTruck extends StatelessWidget {
       rotate: const ZVector.only(x: tau / 4),
       child: _ZTruckBodySide(
         theme: theme,
-        side: ZWheelSide.left,
       ),
     );
 

@@ -3,10 +3,8 @@
 import 'dart:math';
 
 import 'package:fireworks/src/foundation/controller.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class RenderFireworks extends RenderBox {
   RenderFireworks({

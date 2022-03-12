@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:flutter/physics.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:zcomponents/zcomponents.dart';
@@ -60,7 +59,7 @@ class _ZInteractionState extends State<ZInteraction>
           controller.value = previousDelta - moveRY;
         },
         onPanEnd: (event) {
-          double startPosition = controller.value % tau;
+          var startPosition = controller.value % tau;
           if (startPosition < 0) startPosition += tau;
           final snaps = <double>[
             0,
@@ -70,7 +69,7 @@ class _ZInteractionState extends State<ZInteraction>
             2 * pi,
           ];
 
-          double endPosition = snaps.first;
+          var endPosition = snaps.first;
           for (final snap in snaps) {
             if (snap >= startPosition) {
               endPosition = snap;

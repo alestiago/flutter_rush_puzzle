@@ -144,14 +144,14 @@ class _GameViewState extends State<GameView> {
                               ZPositioned(
                                 translate:
                                     ZVector(titleOffset.dx, titleOffset.dy, 0),
-                                child: GameTitle(
+                                child: const GameTitle(
                                   key: Key('Game'),
                                 ),
                               ),
                               ZPositioned(
                                 translate:
                                     ZVector(textOffset.dx, textOffset.dy, 0),
-                                child: PlayText(
+                                child: const PlayText(
                                   key: Key('Play'),
                                 ),
                               )

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:zcomponents/zcomponents.dart';
-import 'package:zflutter/zflutter.dart';
 
 // TODO(alestiago): Include bus bonnet.
 class BusThemeData {
@@ -253,7 +252,6 @@ class ZBus extends StatelessWidget {
       rotate: const ZVector.only(x: tau / 4),
       child: _ZBusBodySide(
         theme: theme,
-        side: ZWheelSide.left,
       ),
     );
 
