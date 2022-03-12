@@ -12,8 +12,13 @@ class ZInterationController extends ValueNotifier<double> {
 }
 
 class ZInteraction extends StatefulWidget {
-  const ZInteraction({Key? key, required this.child}) : super(key: key);
+  const ZInteraction({
+    Key? key,
+    required this.child,
+    this.enabled = true,
+  }) : super(key: key);
 
+  final bool enabled;
   final Widget child;
 
   @override
@@ -41,24 +46,41 @@ class _ZInteractionState extends State<ZInteraction>
   }
 
   @override
+  void didUpdateWidget(covariant ZInteraction oldWidget) {
+    if (widget.enabled != oldWidget.enabled) {
+      tween
+        ..begin = controller.value
+        ..end = 0;
+      animationController
+        ..value = 0
+        ..animateTo(1, curve: Curves.easeOut);
+      previousDelta = 0;
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size.shortestSide;
-    final width = MediaQuery.of(context).size.width;
+
     return ChangeNotifierProvider.value(
       value: controller,
       child: GestureDetector(
         behavior: HitTestBehavior.deferToChild,
         onPanStart: (event) {
+          if (!widget.enabled) return;
           animationController.stop();
           previousDelta = controller.value;
           dragStart = Offset(event.localPosition.dx, event.localPosition.dy);
         },
         onPanUpdate: (event) {
+          if (!widget.enabled) return;
           final delta = event.localPosition - dragStart;
           final moveRY = delta.dx / size * tau;
           controller.value = previousDelta - moveRY;
         },
         onPanEnd: (event) {
+          if (!widget.enabled) return;
           var startPosition = controller.value % tau;
           if (startPosition < 0) startPosition += tau;
           final snaps = <double>[
@@ -80,7 +102,7 @@ class _ZInteractionState extends State<ZInteraction>
             endPosition -= pi / 2;
             assert(startPosition >= endPosition);
           } else if (event.velocity.pixelsPerSecond.dx < 0) {
-         //   endPosition += pi / 2;
+            //   endPosition += pi / 2;
           }
 
           tween
@@ -88,10 +110,7 @@ class _ZInteractionState extends State<ZInteraction>
             ..end = endPosition;
           animationController
             ..value = 0
-            ..animateTo(
-              1,
-              curve: Curves.easeOut,
-            );
+            ..animateTo(1, curve: Curves.easeOut);
           //..fling(
           //  velocity: event.velocity.pixelsPerSecond.dy,
           //);
@@ -128,14 +147,3 @@ class ZInterationPositioned extends StatelessWidget {
     );
   }
 }
-
-late final Tolerance _kDefaultTolerance = Tolerance(
-  // TODO(ianh): Handle the case of the device pixel ratio changing.
-  // TODO(ianh): Get this from the local MediaQuery not dart:ui's window object.
-  velocity: 1.0 /
-      (0.050 *
-          WidgetsBinding
-              .instance!.window.devicePixelRatio), // logical pixels per second
-  distance:
-      1.0 / WidgetsBinding.instance!.window.devicePixelRatio, // logical pixels
-);

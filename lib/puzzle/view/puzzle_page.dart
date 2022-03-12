@@ -66,9 +66,20 @@ class _GameViewState extends State<GameView> {
   Widget build(BuildContext context) {
     final vehicleTheme = VehiclesThemeData.fallback;
     final state = context.select((PuzzleBloc b) => b.state);
-    final perspective = state.status.isBeforePlaying
-        ? GameLayoutPerspective.presentation
-        : GameLayoutPerspective.p3D;
+    final perspective = () {
+      switch (state.status) {
+        case GameStatus.initial:
+        case GameStatus.loading:
+        case GameStatus.setup:
+          return GameLayoutPerspective.presentation;
+
+        case GameStatus.playing:
+          return GameLayoutPerspective.p3D;
+
+        case GameStatus.finished:
+          return GameLayoutPerspective.presentation;
+      }
+    }();
 
     final isNotPlayingDemoVehicle = Vehicle(
       id: 'isNotPlayingDemoVehicle--vehicle',
@@ -81,6 +92,7 @@ class _GameViewState extends State<GameView> {
           DrivingBoundary(const Position(2, 2), const Position(3, 3)),
         )
         .center;
+
     final textOffset = layout
         .boxForDrivingBoundary(
           DrivingBoundary(const Position(2, 5), const Position(3, 5)),
@@ -119,21 +131,42 @@ class _GameViewState extends State<GameView> {
             child: Stack(
               clipBehavior: Clip.none,
               children: [
+                if (state.status == GameStatus.finished) const Fireworks(),
                 DebugGame(
+                  key: const Key('puzzleGame'),
                   debug: false,
                   child: Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.symmetric(vertical: 20),
                     child: ZGame(
                       theme: themes.first,
                       perspective: perspective,
                       vehiclesTheme: vehicleTheme,
                       vehicles: [
-                        if (!state.status.isBeforePlaying)
-                          for (final vehicle in state.puzzle.vehicles.values)
-                            VehicleView(
-                              key: Key('Vehicle${vehicle.id}'),
-                              vehicle: vehicle,
-                            )
+                        if (state.status == GameStatus.finished)
+                          ZGroup(
+                            children: [
+                              for (final vehicle
+                                  in state.puzzle.vehicles.values.where(
+                                (element) =>
+                                    element.id == state.puzzle.jammedVehicleId,
+                              ))
+                                VehicleView(
+                                  key: Key('Vehicle${vehicle.id}'),
+                                  vehicle: vehicle,
+                                )
+                            ],
+                          )
+                        else if (!state.status.isBeforePlaying)
+                          ZGroup(
+                            children: [
+                              for (final vehicle
+                                  in state.puzzle.vehicles.values)
+                                VehicleView(
+                                  key: Key('Vehicle${vehicle.id}'),
+                                  vehicle: vehicle,
+                                )
+                            ],
+                          )
                         else ...[
                           ZGroup(
                             children: [
@@ -157,21 +190,13 @@ class _GameViewState extends State<GameView> {
                               )
                             ],
                           )
-                        ]
+                        ],
                       ],
                     ),
                   ),
                 ),
-                OverlayBarrier(
-                  visible: state.status != GameStatus.playing &&
-                      !state.status.isBeforePlaying,
-                ),
                 if (state.status == GameStatus.finished) ...[
-                  const Fireworks(),
                   const Center(child: WinDialog()),
-                ],
-                if (state.status.isBeforePlaying) ...[
-                  //     const Center(child: StartDialog()),
                 ],
                 if (state.status == GameStatus.playing) ...[
                   const Align(
