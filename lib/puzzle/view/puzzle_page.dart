@@ -175,8 +175,10 @@ class _GameViewState extends State<GameView> {
                 ],
                 if (state.status == GameStatus.playing) ...[
                   const Align(
-                    alignment: Alignment.bottomCenter,
-                    child: ScoreBoard(),
+                    alignment: Alignment.topCenter,
+                    child: SafeArea(
+                      child: ScoreBoard(),
+                    ),
                   ),
                 ]
               ],
