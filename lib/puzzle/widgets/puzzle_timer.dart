@@ -13,12 +13,12 @@ class PuzzleTimerText extends StatelessWidget {
     final timeElapsed = Duration(seconds: secondsElapsed);
 
     return Text(
-      _formatDuration(timeElapsed),
+      formatDuration(timeElapsed),
     );
   }
 }
 
-String _formatDuration(Duration duration) {
+String formatDuration(Duration duration) {
   String twoDigits(int n) => n.toString().padLeft(2, '0');
   final twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
   final twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));

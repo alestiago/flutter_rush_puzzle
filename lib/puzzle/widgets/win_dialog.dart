@@ -79,8 +79,7 @@ class WinDialog extends StatelessWidget {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {
-                    final history = context.read<PuzzleBloc>().state;
-                    sharePuzzle(history);
+                    context.read<PuzzleBloc>().add(PuzzleShared());
                   },
                   child: Text(l10n.shareButtonTitle),
                 ),
@@ -90,68 +89,5 @@ class WinDialog extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-void sharePuzzle(PuzzleState state) {
-  final introMessage = '''
-https://flutter-rush.web.app/  (#${DateTime.now().difference(DateTime(2022, 2, 27)).inDays})
-''';
-  final buffer = StringBuffer();
-  for (final state in state.history) {
-    if (state.lastVehicleMoved != null) {
-      buffer.write(state.lastVehicleMoved?.type.emoji);
-    }
-  }
-
-  var message = '''
-$introMessage
-
-${state.historyPointer}: ${buffer.toString()}
-''';
-
-  if (message.characters.length > 140) {
-    final map = <VehicleType, int>{};
-    for (final state in state.history) {
-      final vehicle = state.lastVehicleMoved;
-      if (vehicle != null) {
-        map[vehicle.type] ??= 0;
-        map[vehicle.type] = map[vehicle.type]! + 1;
-      }
-    }
-
-    final buffer = StringBuffer();
-    for (final entry in map.entries) {
-      buffer.write('${entry.key.emoji}x${entry.value} ');
-    }
-
-    message = '''
-$introMessage
-
-${state.historyPointer}: ${buffer.toString()}
-''';
-  }
-
-  Share.share(
-    message,
-  );
-}
-
-extension on VehicleType {
-  String get emoji {
-    switch (this) {
-      case VehicleType.taxi:
-        return '🚕';
-      case VehicleType.police:
-        return '🚓';
-      case VehicleType.bus:
-        return '🚌';
-      case VehicleType.truck:
-        return '🚛';
-      case VehicleType.car:
-        return '🚗';
-      case VehicleType.ambulance:
-        return '🚐';
-    }
   }
 }
