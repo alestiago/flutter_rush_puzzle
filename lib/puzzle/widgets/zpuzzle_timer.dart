@@ -17,10 +17,10 @@ class ZPuzzleTimerText extends StatelessWidget {
     return ZCubicText(
       'Time: ${formatDuration(timeElapsed)}',
       style: ZCubicTextStyle(
-        frontColor: Colors.black,
         color: Colors.grey[900]!,
+        frontColor: Colors.grey[800],
         fontSize: 4,
-        letterSpacing: 3,
+        letterSpacing: 5,
       ),
     );
   }

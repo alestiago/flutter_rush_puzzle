@@ -121,15 +121,19 @@ class _ZFront extends StatelessWidget {
         ),
         ZPositioned(
           translate: ZVector.only(
-            x: theme.layout.rearWidth / 2 - theme.layout.lightDiameter,
-            y: -theme.layout.lightDiameter / 2,
+            x: theme.layout.rearWidth / 2 - theme.layout.lightDiameter * 1.5,
+            y: -theme.layout.lightDiameter / 2 -
+                theme.layout.stripeBottomPadding -
+                theme.layout.stripeHeight,
           ),
           child: const _ZLight(),
         ),
         ZPositioned(
           translate: ZVector.only(
-            x: -theme.layout.rearWidth / 2 + theme.layout.lightDiameter,
-            y: -theme.layout.lightDiameter / 2,
+            x: -theme.layout.rearWidth / 2 + theme.layout.lightDiameter * 1.5,
+            y: -theme.layout.lightDiameter / 2 -
+                theme.layout.stripeBottomPadding -
+                theme.layout.stripeHeight,
           ),
           child: const _ZLight(),
         ),
@@ -169,16 +173,16 @@ class _ZSide extends StatelessWidget {
         ),
         ZPositioned(
           translate: ZVector.only(
-            y: -theme.layout.cabinHeight / 2,
-          ),
-          child: _ZWheel(side: _side),
-        ),
-        ZPositioned(
-          translate: ZVector.only(
             y: theme.layout.cabinHeight / 2 - theme.layout.windowTopPadding,
             x: theme.layout.sideWindowLeftPadding / 2,
           ),
           child: _ZWindow(side: _side),
+        ),
+        ZPositioned(
+          translate: ZVector.only(
+            y: -theme.layout.cabinHeight / 2,
+          ),
+          child: _ZWheel(side: _side),
         ),
       ],
     );
