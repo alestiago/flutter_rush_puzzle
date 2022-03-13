@@ -5,9 +5,8 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-import 'package:rush_hour_puzzle/app/app.dart';
 import 'package:rush_hour_puzzle/bootstrap.dart';
 
 void main() {
-  bootstrap(() => const App());
+  bootstrap();
 }

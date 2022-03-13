@@ -247,7 +247,7 @@ class _ZLight extends StatelessWidget {
           child: ZCylinder(
               diameter: theme.dimensionData.lightDiameter,
               length: 0.5,
-              color: theme.colorScheme.lightBorderColor),
+              color: theme.colorScheme.lightBorderColor,),
         ),
         ZCircle(
           diameter: theme.dimensionData.lightDiameter - 1,

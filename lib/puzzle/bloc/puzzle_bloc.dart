@@ -2,23 +2,17 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:puzzle_models/puzzle_models.dart';
+import 'package:puzzles_repository/puzzles_repository.dart';
 
 // ignore: always_use_package_imports
-import 'game_example.dart';
 
 part 'puzzle_event.dart';
 part 'puzzle_state.dart';
 
-class PuzzleRepository {
-  Future<RushPuzzle> getPuzzle() async {
-    return GamePuzzles.games.first;
-  }
-}
-
 class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   PuzzleBloc({
-    required PuzzleRepository puzzleRepository,
-  })  : _puzzleRepository = puzzleRepository,
+    required PuzzlesRepository puzzlesRepository,
+  })  : _puzzlesRepository = puzzlesRepository,
         super(PuzzleState(history: const [RushPuzzle.empty()])) {
     on<PuzzleFetched>(_onPuzzleFetched);
     on<PuzzleStarted>(_onPuzzleStarted);
@@ -27,14 +21,14 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     on<PuzzleMoveUndid>(_onPuzzleMoveUndid);
   }
 
-  final PuzzleRepository _puzzleRepository;
+  final PuzzlesRepository _puzzlesRepository;
 
   Future<void> _onPuzzleFetched(
     PuzzleFetched event,
     Emitter<PuzzleState> emit,
   ) async {
     emit(state.copyWith(status: GameStatus.loading));
-    final game = await _puzzleRepository.getPuzzle();
+    final game = await _puzzlesRepository.getPuzzle();
     emit(state.copyWith(status: GameStatus.setup, history: [game]));
   }
 

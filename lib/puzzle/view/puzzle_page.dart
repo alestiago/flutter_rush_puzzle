@@ -8,6 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puzzle_models/puzzle_models.dart';
+import 'package:puzzles_repository/puzzles_repository.dart';
 
 import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
 import 'package:rush_hour_puzzle/timer/timer.dart';
@@ -28,7 +29,7 @@ class PuzzleGame extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => PuzzleBloc(
-            puzzleRepository: PuzzleRepository(),
+            puzzlesRepository: context.read<PuzzlesRepository>(),
           )..add(const PuzzleFetched()),
         ),
       ],

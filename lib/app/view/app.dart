@@ -6,12 +6,31 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:puzzles_repository/puzzles_repository.dart';
 import 'package:rush_hour_puzzle/l10n/l10n.dart';
 import 'package:rush_hour_puzzle/puzzle/view/puzzle_page.dart';
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  const App({
+    Key? key,
+    required this.puzzlesRepository,
+  }) : super(key: key);
+
+  final PuzzlesRepository puzzlesRepository;
+
+  @override
+  Widget build(BuildContext context) {
+    return RepositoryProvider.value(
+      value: puzzlesRepository,
+      child: const AppView(),
+    );
+  }
+}
+
+class AppView extends StatelessWidget {
+  const AppView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

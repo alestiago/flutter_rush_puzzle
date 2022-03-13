@@ -406,6 +406,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0+1"
+  puzzles_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/puzzles_repository"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   share_plus:
     dependency: "direct main"
     description:
