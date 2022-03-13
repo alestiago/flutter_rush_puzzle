@@ -4,23 +4,23 @@ import 'package:zflutter/zflutter.dart' show ZVector;
 class AmbulanceThemeData {
   const AmbulanceThemeData({
     required this.colorScheme,
-    required this.dimensionData,
+    required this.layout,
   });
 
   static final white = AmbulanceThemeData(
     colorScheme: ZAmbulanceColorScheme.white,
-    dimensionData: ZAmbulanceDimensionData.white(),
+    layout: ZAmbulanceLayout.white(),
   );
 
   final ZAmbulanceColorScheme colorScheme;
-  final ZAmbulanceDimensionData dimensionData;
+  final ZAmbulanceLayout layout;
 
   static AmbulanceThemeData? lerp(
       AmbulanceThemeData? a, AmbulanceThemeData? b, double t) {
     return AmbulanceThemeData(
       colorScheme:
           ZAmbulanceColorScheme.lerp(a?.colorScheme, b?.colorScheme, t)!,
-      dimensionData: b!.dimensionData,
+      layout: b!.layout,
     );
   }
 }
@@ -31,45 +31,42 @@ class ZAmbulanceColorScheme {
     required this.roofColor,
     required this.stripesColor,
     required this.windowColor,
-    required this.doorColor,
     required this.fenderColor,
     required this.frontLightColor,
     required this.rearLightColor,
     required this.lightBorderColor,
     required this.bottomColor,
     required this.crossColor,
-    required this.rearDoorColor,
     required this.floorColor,
+    required this.shadowColor,
   });
 
   static final white = ZAmbulanceColorScheme(
     bodyColor: Colors.white,
+    shadowColor: Colors.grey[100]!,
     roofColor: Colors.white,
-    floorColor: Colors.grey[200]!,
+    floorColor: Colors.grey[300]!,
     stripesColor: Colors.red,
     windowColor: Colors.blue[300]!,
-    doorColor: Colors.blue[300]!,
-    fenderColor: Colors.grey[200]!,
+    fenderColor: Colors.grey[300]!,
     frontLightColor: Colors.yellow[200]!,
     rearLightColor: Colors.red[400]!,
     lightBorderColor: Colors.black,
     bottomColor: Colors.grey[300]!,
     crossColor: Colors.red,
-    rearDoorColor: Colors.grey[400]!,
   );
 
   final Color bodyColor;
+  final Color shadowColor;
   final Color roofColor;
   final Color stripesColor;
   final Color windowColor;
-  final Color doorColor;
   final Color fenderColor;
   final Color frontLightColor;
   final Color rearLightColor;
   final Color lightBorderColor;
   final Color bottomColor;
   final Color crossColor;
-  final Color rearDoorColor;
   final Color floorColor;
 
   static ZAmbulanceColorScheme? lerp(
@@ -79,10 +76,10 @@ class ZAmbulanceColorScheme {
   ) {
     return ZAmbulanceColorScheme(
       bodyColor: Color.lerp(a?.bodyColor, b?.bodyColor, t)!,
+      shadowColor: Color.lerp(a?.shadowColor, b?.shadowColor, t)!,
       roofColor: Color.lerp(a?.roofColor, b?.roofColor, t)!,
       stripesColor: Color.lerp(a?.stripesColor, b?.stripesColor, t)!,
       windowColor: Color.lerp(a?.windowColor, b?.windowColor, t)!,
-      doorColor: Color.lerp(a?.doorColor, b?.doorColor, t)!,
       fenderColor: Color.lerp(a?.fenderColor, b?.fenderColor, t)!,
       frontLightColor: Color.lerp(a?.frontLightColor, b?.frontLightColor, t)!,
       rearLightColor: Color.lerp(a?.rearLightColor, b?.rearLightColor, t)!,
@@ -90,20 +87,19 @@ class ZAmbulanceColorScheme {
           Color.lerp(a?.lightBorderColor, b?.lightBorderColor, t)!,
       bottomColor: Color.lerp(a?.bottomColor, b?.bottomColor, t)!,
       crossColor: Color.lerp(a?.crossColor, b?.crossColor, t)!,
-      rearDoorColor: Color.lerp(a?.rearDoorColor, b?.rearDoorColor, t)!,
       floorColor: Color.lerp(a?.floorColor, b?.floorColor, t)!,
     );
   }
 }
 
-class ZAmbulanceDimensionData {
-  const ZAmbulanceDimensionData({
+class ZAmbulanceLayout {
+  const ZAmbulanceLayout({
     required this.width,
     required this.height,
     required this.bodyHeight,
     required this.bodyWidth,
-    required this.driverHeight,
-    required this.driverWidth,
+    required this.cabinHeight,
+    required this.cabinWidth,
     required this.rearHeight,
     required this.rearWidth,
     required this.bodyTopPadding,
@@ -114,11 +110,12 @@ class ZAmbulanceDimensionData {
     required this.crossHeight,
     required this.crossWidth,
     required this.windowHeight,
-    required this.windowPadding,
+    required this.windowTopPadding,
+    required this.sideWindowLeftPadding,
     required this.lightDiameter,
   });
 
-  factory ZAmbulanceDimensionData.white() {
+  factory ZAmbulanceLayout.white() {
     const length = 2;
     const size = 30.0;
     const space = 10.0;
@@ -132,20 +129,20 @@ class ZAmbulanceDimensionData {
     const bodyWidth = width * 0.8;
     const bodyHeight = height;
     const driverWidth = width - bodyWidth;
-    const driverHeight = height * 0.8;
+    const driverHeight = height * 0.85;
 
-    return const ZAmbulanceDimensionData(
+    return const ZAmbulanceLayout(
       width: width,
       height: height,
       bodyWidth: bodyWidth,
       bodyHeight: bodyHeight,
-      driverHeight: driverHeight,
-      driverWidth: driverWidth,
+      cabinHeight: driverHeight,
+      cabinWidth: driverWidth,
       rearHeight: bodyHeight,
       rearWidth: rearWidth,
       bodyTopPadding: bodyHeight * 0.1,
-      stripeHeight: bodyHeight * 0.02,
-      stripeBottomPadding: bodyHeight * 0.2,
+      stripeHeight: bodyHeight * 0.05,
+      stripeBottomPadding: bodyHeight * 0.25,
       fenderHeight: fenderHeight,
       fenderPosition: ZVector.only(
         y: -bodyHeight / 2 + fenderHeight / 2,
@@ -153,7 +150,8 @@ class ZAmbulanceDimensionData {
       crossHeight: 10,
       crossWidth: 2,
       windowHeight: driverHeight * 0.35,
-      windowPadding: driverHeight * 0.2,
+      windowTopPadding: driverHeight * 0.3,
+      sideWindowLeftPadding: 5,
       lightDiameter: 5,
     );
   }
@@ -167,8 +165,8 @@ class ZAmbulanceDimensionData {
   final double rearWidth;
   final double rearHeight;
 
-  final double driverWidth;
-  final double driverHeight;
+  final double cabinWidth;
+  final double cabinHeight;
 
   final double bodyTopPadding;
 
@@ -183,7 +181,8 @@ class ZAmbulanceDimensionData {
   final double crossWidth;
 
   final double windowHeight;
-  final double windowPadding;
+  final double windowTopPadding;
+  final double sideWindowLeftPadding;
 
   final double lightDiameter;
 }
