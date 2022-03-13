@@ -12,7 +12,7 @@ enum GameLayoutPerspective {
   presentation,
 }
 
-extension on GameLayoutPerspective {
+extension GameLayoutPerspectivePosition on GameLayoutPerspective {
   ZPosition get position {
     switch (this) {
       case GameLayoutPerspective.p2D:
