@@ -10,6 +10,8 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:puzzles_repository/puzzles_repository.dart';
+import 'package:rush_hour_puzzle/app/view/app.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override
@@ -25,15 +27,21 @@ class AppBlocObserver extends BlocObserver {
   }
 }
 
-Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
+Future<void> bootstrap() async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
+  const puzzlesRepository = PuzzlesRepository();
+
   await runZonedGuarded(
     () async {
       await BlocOverrides.runZoned(
-        () async => runApp(await builder()),
+        () async => runApp(
+          const App(
+            puzzlesRepository: puzzlesRepository,
+          ),
+        ),
         blocObserver: AppBlocObserver(),
       );
     },

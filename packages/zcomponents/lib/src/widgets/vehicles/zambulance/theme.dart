@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zflutter/zflutter.dart' show ZVector;
 
-// ignore: always_use_package_imports
-import '_.dart';
-
 class AmbulanceThemeData {
   const AmbulanceThemeData({
     required this.colorScheme,

@@ -4,7 +4,6 @@ import 'package:puzzle_models/puzzle_models.dart';
 import 'package:rush_hour_puzzle/l10n/l10n.dart';
 import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:zcomponents/zcomponents.dart';
 
 class WinDialog extends StatelessWidget {
   const WinDialog({Key? key}) : super(key: key);
@@ -33,7 +32,7 @@ class WinDialog extends StatelessWidget {
           Text(
             l10n.winMessageTitle,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 40,
             ),
@@ -42,7 +41,7 @@ class WinDialog extends StatelessWidget {
           Text(
             l10n.winMessageText,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.w200,
               fontSize: 16,
             ),
