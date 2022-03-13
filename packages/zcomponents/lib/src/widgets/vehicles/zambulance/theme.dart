@@ -39,6 +39,10 @@ class ZAmbulanceColorScheme {
     required this.crossColor,
     required this.floorColor,
     required this.shadowColor,
+    required this.primarySirenColor,
+    required this.primarySirenShadowColor,
+    required this.secondarySirenColor,
+    required this.secondarySirenShadowColor,
   });
 
   static final white = ZAmbulanceColorScheme(
@@ -54,6 +58,10 @@ class ZAmbulanceColorScheme {
     lightBorderColor: Colors.black,
     bottomColor: Colors.grey[300]!,
     crossColor: Colors.red,
+    primarySirenColor: Colors.red[400]!,
+    secondarySirenColor: Colors.blue[400]!,
+    primarySirenShadowColor: Colors.red[200]!,
+    secondarySirenShadowColor: Colors.blue[200]!,
   );
 
   final Color bodyColor;
@@ -68,6 +76,10 @@ class ZAmbulanceColorScheme {
   final Color bottomColor;
   final Color crossColor;
   final Color floorColor;
+  final Color primarySirenColor;
+  final Color primarySirenShadowColor;
+  final Color secondarySirenColor;
+  final Color secondarySirenShadowColor;
 
   static ZAmbulanceColorScheme? lerp(
     ZAmbulanceColorScheme? a,
@@ -88,6 +100,14 @@ class ZAmbulanceColorScheme {
       bottomColor: Color.lerp(a?.bottomColor, b?.bottomColor, t)!,
       crossColor: Color.lerp(a?.crossColor, b?.crossColor, t)!,
       floorColor: Color.lerp(a?.floorColor, b?.floorColor, t)!,
+      primarySirenColor:
+          Color.lerp(a?.primarySirenColor, b?.primarySirenColor, t)!,
+      secondarySirenColor:
+          Color.lerp(a?.secondarySirenColor, b?.secondarySirenColor, t)!,
+      primarySirenShadowColor: Color.lerp(
+          a?.primarySirenShadowColor, b?.primarySirenShadowColor, t)!,
+      secondarySirenShadowColor: Color.lerp(
+          a?.secondarySirenShadowColor, b?.secondarySirenShadowColor, t)!,
     );
   }
 }
@@ -113,6 +133,7 @@ class ZAmbulanceLayout {
     required this.windowTopPadding,
     required this.sideWindowLeftPadding,
     required this.lightDiameter,
+    required this.sirenSize,
   });
 
   factory ZAmbulanceLayout.white() {
@@ -153,6 +174,7 @@ class ZAmbulanceLayout {
       windowTopPadding: driverHeight * 0.3,
       sideWindowLeftPadding: 5,
       lightDiameter: 5,
+      sirenSize: 4,
     );
   }
 
@@ -185,4 +207,5 @@ class ZAmbulanceLayout {
   final double sideWindowLeftPadding;
 
   final double lightDiameter;
+  final double sirenSize;
 }
