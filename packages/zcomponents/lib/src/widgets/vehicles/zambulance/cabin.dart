@@ -262,10 +262,41 @@ class _ZSiren extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.read<AmbulanceThemeData>();
-
-    // TODO(alestiago): design siren.
+    
     return ZGroup(
-      children: const [],
+      sortMode: SortMode.update,
+      children: [
+        ZPositioned(
+          translate: ZVector.only(
+            x: -theme.layout.sirenSize / 4,
+          ),
+          child: ZBox(
+            width: theme.layout.sirenSize / 2,
+            height: theme.layout.sirenSize / 2,
+            depth: theme.layout.sirenSize / 2,
+            color: theme.colorScheme.primarySirenColor,
+            rearColor: theme.colorScheme.primarySirenShadowColor,
+            rightColor: theme.colorScheme.primarySirenShadowColor,
+            topColor: theme.colorScheme.primarySirenShadowColor,
+            leftColor: theme.colorScheme.primarySirenShadowColor,
+          ),
+        ),
+        ZPositioned(
+          translate: ZVector.only(
+            x: theme.layout.sirenSize / 4,
+          ),
+          child: ZBox(
+            width: theme.layout.sirenSize / 2,
+            height: theme.layout.sirenSize / 2,
+            depth: theme.layout.sirenSize / 2,
+            color: theme.colorScheme.secondarySirenColor,
+            rearColor: theme.colorScheme.secondarySirenShadowColor,
+            leftColor: theme.colorScheme.secondarySirenShadowColor,
+            topColor: theme.colorScheme.secondarySirenShadowColor,
+            rightColor: theme.colorScheme.secondarySirenShadowColor,
+          ),
+        ),
+      ],
     );
   }
 }
