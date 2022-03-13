@@ -1,0 +1,15 @@
+name: puzzles_api
+description: API interface that provides access to Rush Puzzles.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.14.0 <3.0.0"
+
+dependencies:
+  puzzle_models:
+    path: ../puzzle_models
+
+dev_dependencies:
+  test: ^1.19.2
+  very_good_analysis: ^2.4.0
