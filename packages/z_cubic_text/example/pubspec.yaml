@@ -17,7 +17,7 @@ dependencies:
     git: 
       url: https://github.com/jamesblasco/zflutter
       path: zflutter
-      ref: 7e7b4d68b5a791b6f94ed80b361ea49171dbda58
+      ref: bde6f320d6d278a82f40420df68a1ab4c466ba4c
 
 dev_dependencies:
   flutter_test:
