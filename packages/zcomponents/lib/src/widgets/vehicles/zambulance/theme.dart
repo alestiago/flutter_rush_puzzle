@@ -134,6 +134,7 @@ class ZAmbulanceLayout {
     required this.sideWindowLeftPadding,
     required this.lightDiameter,
     required this.sirenSize,
+    required this.wheelDiameter,
   });
 
   factory ZAmbulanceLayout.white() {
@@ -175,6 +176,7 @@ class ZAmbulanceLayout {
       sideWindowLeftPadding: 5,
       lightDiameter: 3,
       sirenSize: 4,
+      wheelDiameter: 10,
     );
   }
 
@@ -208,4 +210,6 @@ class ZAmbulanceLayout {
 
   final double lightDiameter;
   final double sirenSize;
+
+  final double wheelDiameter;
 }

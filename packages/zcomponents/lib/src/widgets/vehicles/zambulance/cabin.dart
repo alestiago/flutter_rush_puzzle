@@ -314,6 +314,8 @@ class _ZWheel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.read<AmbulanceThemeData>();
+
     return ZGroup(
       sortMode: SortMode.stack,
       children: [
@@ -323,14 +325,14 @@ class _ZWheel extends StatelessWidget {
             sortMode: SortMode.stack,
             children: [
               ZCylinder(
-                diameter: 12,
+                diameter: theme.layout.wheelDiameter,
                 length: 2,
                 color: Colors.black,
               ),
               ZPositioned(
                 translate: const ZVector(0, 0, -2.1),
                 child: ZCircle(
-                  diameter: 4,
+                  diameter: theme.layout.wheelDiameter / 2.3,
                   fill: true,
                   color: Colors.grey,
                 ),
