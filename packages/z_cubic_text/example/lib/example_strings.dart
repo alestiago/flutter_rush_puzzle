@@ -42,4 +42,6 @@ const exampleString = [
   '.',
   ',',
   '-',
+  '>',
+  '<',
 ];

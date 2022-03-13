@@ -741,5 +741,39 @@ class ZAlphabetData {
         null,
       ]
     ],
+    '>': [
+      [
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        null,
+        null,
+      ],
+      [
+        null,
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+      ],
+      [
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZSlab(orientation: ZSlabOrientation.top),
+        null
+      ],
+    ],
+    '<': [
+      [
+        null,
+        null,
+        ZSlab(orientation: ZSlabOrientation.bottom),
+      ],
+      [
+        ZSlab(orientation: ZSlabOrientation.bottom),
+        ZSlab(orientation: ZSlabOrientation.top),
+        null,
+      ],
+      [
+        null,
+        ZSlab(orientation: ZSlabOrientation.top),
+        ZSlab(orientation: ZSlabOrientation.bottom),
+      ],
+    ],
   };
 }
