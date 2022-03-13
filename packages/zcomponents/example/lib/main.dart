@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     final vehicles = [
       ZAmbulance(theme: AmbulanceThemeData.white),
       ZBus(theme: BusThemeData.school),
-      const ZCar(theme: CarThemeData(color: Colors.red))
+      const ZSquaredCar(theme: CarThemeData(color: Colors.red))
     ];
 
     return MaterialApp(

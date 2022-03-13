@@ -52,6 +52,7 @@ class VehiclesThemeData extends Equatable {
   const VehiclesThemeData({
     required this.car,
     required this.taxi,
+    required this.police,
     required this.bus,
     required this.ambulance,
     required this.truck,
@@ -59,9 +60,18 @@ class VehiclesThemeData extends Equatable {
 
   static final VehiclesThemeData fallback = VehiclesThemeData(
     car: CarThemeData(
-      color: Colors.green[700]!,
-      sideColor: Colors.green[700],
-      topColor: Colors.green[600],
+      color: Colors.blueAccent[700]!,
+      sideColor: Colors.blueAccent[700],
+      topColor: Colors.blueAccent[400],
+      windowColor: Colors.blueAccent[100],
+    ),
+    police: CarThemeData(
+      color: Colors.black,
+      sideColor: Colors.grey[900],
+      topMiddleColor: Colors.white,
+      doorSideColor: Colors.grey[900],
+      topColor: Colors.grey[800],
+      topBoxColor: Colors.blue,
     ),
     taxi: CarThemeData(
       color: Colors.yellow[700]!,
@@ -73,15 +83,16 @@ class VehiclesThemeData extends Equatable {
     ambulance: AmbulanceThemeData.white,
     truck: TruckThemeData(
       colorScheme: ZTruckColorScheme(
-        truckColor: Colors.red,
-        roofColor: Colors.red[600]!,
+        truckColor: Colors.green,
+        roofColor: Colors.green[600]!,
         stripesColor: Colors.transparent,
         windowColor: Colors.blue[300]!,
-        backColor: Colors.red[700]!,
+        backColor: Colors.green[700]!,
         cabinColor: Colors.white,
+        backCabinColor: Colors.grey[400],
         fenderColor: Colors.black,
-        frontLightColor: Colors.yellow[200]!,
-        rearLightColor: Colors.red[400]!,
+        frontLightColor: Colors.amber[200]!,
+        rearLightColor: Colors.green[400]!,
         lightBorderColor: Colors.black,
         bottomColor: Colors.black,
       ),
@@ -93,6 +104,9 @@ class VehiclesThemeData extends Equatable {
 
   /// Taxi theme
   final CarThemeData taxi;
+
+  /// Police theme
+  final CarThemeData police;
 
   /// Bus theme
   final BusThemeData bus;
@@ -113,6 +127,7 @@ class VehiclesThemeData extends Equatable {
     double t,
   ) {
     return VehiclesThemeData(
+      police: CarThemeData.lerp(a?.car, b?.car, t)!,
       car: CarThemeData.lerp(a?.car, b?.car, t)!,
       taxi: CarThemeData.lerp(a?.taxi, b?.taxi, t)!,
       bus: BusThemeData.lerp(a?.bus, b?.bus, t)!,
@@ -149,6 +164,7 @@ class CarThemeData extends Equatable {
     this.topMiddleColor,
     this.doorSideColor,
     this.topBoxColor,
+    this.windowColor,
   });
 
   /// Default color of the car
@@ -170,6 +186,10 @@ class CarThemeData extends Equatable {
   /// Used for police and taxi cars
   final Color? topBoxColor;
 
+  /// Color of box above the car
+  /// Used for police and taxi cars
+  final Color? windowColor;
+
   /// Linearly interpolate between two board themes.
   ///
   /// The arguments must not be null.
@@ -183,6 +203,7 @@ class CarThemeData extends Equatable {
       topMiddleColor: Color.lerp(a?.topMiddleColor, b?.topMiddleColor, t),
       doorSideColor: Color.lerp(a?.doorSideColor, b?.doorSideColor, t),
       topBoxColor: Color.lerp(a?.topBoxColor, b?.topBoxColor, t),
+      windowColor: Color.lerp(a?.windowColor, b?.windowColor, t),
     );
   }
 
@@ -194,5 +215,6 @@ class CarThemeData extends Equatable {
         topMiddleColor,
         doorSideColor,
         topBoxColor,
+        windowColor,
       ];
 }

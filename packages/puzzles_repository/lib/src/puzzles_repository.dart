@@ -24,7 +24,7 @@ class _GamePuzzles {
       vehicles: [
         Vehicle(
           id: 'A',
-          type: VehicleType.taxi,
+          type: VehicleType.police,
           steering: Steering.horizontal,
           firstPosition: const Position(0, 0),
         ),
@@ -60,7 +60,7 @@ class _GamePuzzles {
         ),
         Vehicle(
           id: 'C',
-          type: VehicleType.car,
+          type: VehicleType.taxi,
           steering: Steering.horizontal,
           firstPosition: const Position(4, 4),
         ),

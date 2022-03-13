@@ -6,6 +6,7 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puzzle_models/puzzle_models.dart';
 import 'package:puzzles_repository/puzzles_repository.dart';
@@ -13,6 +14,7 @@ import 'package:puzzles_repository/puzzles_repository.dart';
 import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
 import 'package:rush_hour_puzzle/timer/timer.dart';
 import 'package:rush_hour_puzzle/vehicle/vehicle.dart';
+import 'package:z_cubic_text/z_cubic_text.dart';
 import 'package:zcomponents/zcomponents.dart';
 
 class PuzzleGame extends StatelessWidget {
@@ -94,6 +96,12 @@ class _GameViewState extends State<GameView> {
         )
         .center;
 
+    final dialogOffset = layout
+        .boxForDrivingBoundary(
+          DrivingBoundary(const Position(0, 0), const Position(5, 5)),
+        )
+        .center;
+
     final textOffset = layout
         .boxForDrivingBoundary(
           DrivingBoundary(const Position(2, 5), const Position(3, 5)),
@@ -154,12 +162,106 @@ class _GameViewState extends State<GameView> {
                                 VehicleView(
                                   key: Key('Vehicle${vehicle.id}'),
                                   vehicle: vehicle,
-                                )
+                                ),
+                              ZPositioned(
+                                translate: ZVector(
+                                  dialogOffset.dx,
+                                  dialogOffset.dy,
+                                  -2,
+                                ),
+                                child: ZBox(
+                                  depth: layout.tileDepth,
+                                  color: themes.first.tileSideColor!,
+                                  frontColor: themes.first.tileColor,
+                                  width: layout.tileSizeForLength(6),
+                                  height: layout.tileSizeForLength(6),
+                                ),
+                              ),
+                              ZPositioned(
+                                translate: ZVector(
+                                  dialogOffset.dx,
+                                  dialogOffset.dy,
+                                  10,
+                                ),
+                                child: ZGroup(
+                                  sortMode: SortMode.update,
+                                  children: [
+                                    ZPositioned(
+                                      translate: ZVector.only(y: -60),
+                                      child: const WonText(
+                                        key: Key('Won'),
+                                      ),
+                                    ),
+                                    ZPositioned(
+                                      translate: ZVector.only(y: 15),
+                                      child: ZCubicText(
+                                        'Moves: ${state.historyPointer}',
+                                        style: ZCubicTextStyle(
+                                          frontColor: Colors.white,
+                                          color: Colors.grey[300]!,
+                                          fontSize: 4,
+                                          letterSpacing: 3,
+                                        ),
+                                      ),
+                                    ),
+                                    ZPositioned(
+                                      translate: ZVector.only(y: 35),
+                                      child: ZCubicText(
+                                        'Time: 00:00',
+                                        style: ZCubicTextStyle(
+                                          frontColor: Colors.black,
+                                          color: Colors.grey[300]!,
+                                          fontSize: 4,
+                                          letterSpacing: 3,
+                                        ),
+                                      ),
+                                    ),
+                                    ZPositioned(
+                                      translate: ZVector.only(y: 75),
+                                      child: const ShareText(
+                                        key: Key('Play'),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           )
                         else if (!state.status.isBeforePlaying)
                           ZGroup(
                             children: [
+                              ZPositioned(
+                                translate: ZVector(
+                                  -layout.boundary.center.dx,
+                                  -80,
+                                  -layout.boardBorder - layout.boardPadding,
+                                ),
+                                child: ZPositioned(
+                                    rotate:
+                                        ZVector.only(x: -tau / 4, y: -tau / 4),
+                                    child: ZGroup(
+                                      children: [
+                                        ZPositioned(
+                                          translate: ZVector(
+                                              0, 0, -layout.boardBorder / 2),
+                                          child: ZBox(
+                                            height: 54,
+                                            width: 180,
+                                            depth: layout.boardBorder,
+                                            color: Colors.grey[200]!,
+                                            frontColor: Colors.white,
+                                            topColor: Colors.grey[100]!,
+                                            rearColor: Colors.grey[300]!,
+                                          ),
+                                        ),
+                                        ZToBoxAdapter(
+                                          height: 60,
+                                          width: 200,
+                                          child: ScoreBoard(),
+                                        ),
+                                      ],
+                                    )),
+                              ),
                               for (final vehicle
                                   in state.puzzle.vehicles.values)
                                 VehicleView(
@@ -197,15 +299,15 @@ class _GameViewState extends State<GameView> {
                   ),
                 ),
                 if (state.status == GameStatus.finished) ...[
-                  const Center(child: WinDialog()),
+                  // const Center(child: WinDialog()),
                 ],
                 if (state.status == GameStatus.playing) ...[
-                  const Align(
-                    alignment: Alignment.topCenter,
-                    child: SafeArea(
-                      child: ScoreBoard(),
-                    ),
-                  ),
+                  //const Align(
+                  //  alignment: Alignment.topCenter,
+                  //  child: SafeArea(
+                  //    child: ScoreBoard(),
+                  //  ),
+                  //),
                 ]
               ],
             ),

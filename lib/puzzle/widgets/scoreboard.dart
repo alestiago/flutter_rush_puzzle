@@ -20,32 +20,27 @@ class ScoreBoard extends StatelessWidget {
     });
 
     return Container(
-      margin: const EdgeInsets.all(12),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      constraints: BoxConstraints.loose(const Size(400, 64)),
+      padding: const EdgeInsets.all(8),
+      constraints: BoxConstraints.loose(const Size(200, 60)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Flexible(
             child: ScoreBoardItem(
-              title: const Text('Difficulty'),
+              title: Text('Difficulty'.toUpperCase()),
               text: Text(dificulty.stringify),
             ),
           ),
           Flexible(
             child: ScoreBoardItem(
-              title: const Text('Moves'),
+              title: Text('Moves'.toUpperCase()),
               text: Text('$moves'),
             ),
           ),
-          const Flexible(
+          Flexible(
             child: ScoreBoardItem(
-              title: Text('Time'),
-              text: PuzzleTimerText(),
+              title: Text('Time'.toUpperCase()),
+              text: const PuzzleTimerText(),
             ),
           ),
         ],
@@ -70,11 +65,19 @@ class ScoreBoardItem extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         DefaultTextStyle(
-          style: Theme.of(context).textTheme.caption!,
+          style: const TextStyle(
+            fontSize: 6,
+            color: Colors.grey,
+          ),
           child: title,
         ),
+        const SizedBox(height: 2),
         DefaultTextStyle(
-          style: Theme.of(context).textTheme.bodyLarge!,
+          style: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
           child: text,
         )
       ],

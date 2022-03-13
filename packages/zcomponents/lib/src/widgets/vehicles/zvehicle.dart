@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:puzzle_models/puzzle_models.dart';
 import 'package:zcomponents/zcomponents.dart';
 
+
 class ZVehicle extends StatelessWidget {
   const ZVehicle({
     Key? key,
@@ -17,13 +18,18 @@ class ZVehicle extends StatelessWidget {
 
     switch (data.type) {
       case VehicleType.car:
-        child = ZCar(
+        child = ZSquaredCar(
           theme: context.select((VehiclesThemeData d) => d.car),
         );
         break;
       case VehicleType.taxi:
-        child = ZCar(
+        child = ZSquaredCar(
           theme: context.select((VehiclesThemeData d) => d.taxi),
+        );
+        break;
+      case VehicleType.police:
+        child = ZSquaredCar(
+          theme: context.select((VehiclesThemeData d) => d.police),
         );
         break;
       case VehicleType.ambulance:

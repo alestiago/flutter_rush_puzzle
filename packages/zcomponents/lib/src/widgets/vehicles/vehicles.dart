@@ -1,6 +1,7 @@
 export 'vehicles_theme.dart';
 export 'zambulance/zambulance.dart';
 export 'zbus.dart';
+export 'zsquared_car.dart';
 export 'zcar.dart';
 export 'zrect_net.dart';
 export 'ztruck.dart';

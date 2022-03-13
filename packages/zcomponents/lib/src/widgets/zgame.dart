@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:zcomponents/src/widgets/zinteraction.dart';
 
 import 'package:zcomponents/zcomponents.dart';
 
-final GameLayout layout = GameLayout(tileSize: 30, tileSpace: 10);
+const zTileSize = 30.0;
+final GameLayout layout = GameLayout(tileSize: zTileSize, tileSpace: 10);
 enum GameLayoutPerspective {
   p2D,
   p3D,
@@ -36,10 +38,12 @@ class ZGame extends StatelessWidget {
     required this.theme,
     this.vehiclesTheme,
     this.vehicles = const [],
+    this.children = const [],
     this.perspective = GameLayoutPerspective.p2D,
   }) : super(key: key);
 
   final List<Widget> vehicles;
+  final List<Widget> children;
 
   final BoardThemeData theme;
 
@@ -81,6 +85,7 @@ class ZGame extends StatelessWidget {
                             },
                           ),
                         ),
+                        ...children,
                       ],
                     ),
                   ),

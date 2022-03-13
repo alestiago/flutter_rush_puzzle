@@ -262,7 +262,7 @@ class ZBus extends StatelessWidget {
       rotate: const ZVector.only(x: tau / 4),
       child: _ZBusBodySide(
         theme: theme,
-        side: ZWheelSide.right,
+        side: ZCarSide.right,
       ),
     );
 
@@ -485,12 +485,12 @@ class _ZBusBodySide extends StatelessWidget {
   const _ZBusBodySide({
     Key? key,
     required this.theme,
-    this.side = ZWheelSide.left,
+    this.side = ZCarSide.left,
   }) : super(key: key);
 
   final BusThemeData theme;
 
-  final ZWheelSide side;
+  final ZCarSide side;
   @override
   Widget build(BuildContext context) {
     final body = ZRect(
@@ -523,14 +523,14 @@ class _ZBusBodySide extends StatelessWidget {
             x: -body.width * 0.3,
             y: -body.height / 2,
           ),
-          child: _ZWheel(side: side),
+          child: ZWheel(side: side),
         ),
         ZPositioned(
           translate: ZVector.only(
             x: body.width * 0.3,
             y: -body.height / 2,
           ),
-          child: _ZWheel(side: side),
+          child: ZWheel(side: side),
         ),
         ZPositioned(
           translate: theme.dimensionData.upperStripePosition,
@@ -792,52 +792,6 @@ class _ZLight extends StatelessWidget {
           diameter: diameter - 1,
           color: color,
           fill: true,
-        ),
-      ],
-    );
-  }
-}
-
-class _ZWheel extends StatelessWidget {
-  const _ZWheel({
-    Key? key,
-    this.side = ZWheelSide.left,
-  }) : super(key: key);
-
-  final ZWheelSide side;
-
-  @override
-  Widget build(BuildContext context) {
-    return ZGroup(
-      sortMode: SortMode.stack,
-      children: [
-        ZPositioned(
-          rotate: ZVector.only(x: side == ZWheelSide.left ? tau / 2 : 0),
-          child: ZGroup(
-            sortMode: SortMode.stack,
-            children: [
-              ZCylinder(
-                diameter: 12,
-                length: 2,
-                color: Colors.black,
-              ),
-              ZPositioned(
-                translate: const ZVector(0, 0, -2.1),
-                child: ZCircle(
-                  diameter: 4,
-                  fill: true,
-                  color: Colors.grey,
-                ),
-              ),
-              ZPositioned(
-                translate: const ZVector(0, 0, -1),
-                child: ZShape(
-                  visible: false,
-                  color: Colors.grey,
-                ),
-              )
-            ],
-          ),
         ),
       ],
     );
