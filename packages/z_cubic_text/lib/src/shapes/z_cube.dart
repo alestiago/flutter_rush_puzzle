@@ -23,6 +23,7 @@ class ZCube extends StatelessWidget {
       rightColor: style.rightColor,
       topColor: style.topColor,
       bottomColor: style.bottomColor,
+      stroke: 0,
     );
   }
 }

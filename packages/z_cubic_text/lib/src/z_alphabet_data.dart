@@ -387,12 +387,12 @@ class ZAlphabetData {
       ],
       [
         ZCube(),
-        ZCube(),
+        ZSlab(orientation: ZSlabOrientation.bottom),
         ZCube(),
       ],
       [
         ZLShape(orientation: ZLShapeOrientation.topRight),
-        null,
+        ZSlab(orientation: ZSlabOrientation.top),
         ZLShape(orientation: ZLShapeOrientation.topLeft)
       ],
     ],

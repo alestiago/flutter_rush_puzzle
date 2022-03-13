@@ -42,6 +42,7 @@ class ZSlab extends StatelessWidget {
       rightColor: style.rightColor,
       topColor: style.topColor,
       bottomColor: style.bottomColor,
+      stroke: 0,
     );
 
     late final double y;
@@ -71,10 +72,7 @@ class ZSlab extends StatelessWidget {
     }
 
     return ZPositioned(
-      translate: ZVector.only(
-        y: y,
-        x: x,
-      ),
+      translate: ZVector.only(y: y, x: x),
       child: box,
     );
   }

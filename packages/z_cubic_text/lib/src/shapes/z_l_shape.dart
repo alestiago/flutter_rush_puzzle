@@ -35,7 +35,7 @@ class ZLShape extends StatelessWidget {
     }
 
     return ZGroup(
-      sortMode: SortMode.stack,
+      sortMode: SortMode.update,
       children: [
         ZSlab(
           orientation: orientation1,
