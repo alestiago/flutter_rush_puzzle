@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:zflutter/zflutter.dart';
+import 'package:zcomponents/zcomponents.dart';
 
-// ignore: always_use_package_imports
-import '_.dart';
+import 'body.dart';
+import 'cabin.dart';
 
 export 'theme.dart';
 
@@ -22,16 +22,16 @@ class ZAmbulance extends StatelessWidget {
       child: ZGroup(
         sortMode: SortMode.update,
         children: [
-          const ZBody(),
+          ZPositioned(
+            translate: ZVector.only(x: -theme.layout.cabinWidth / 2),
+            child: const ZBody(),
+          ),
           ZPositioned(
             translate: ZVector.only(
-              x: theme.dimensionData.bodyWidth / 2 +
-                  theme.dimensionData.driverWidth / 2,
-              z: -(theme.dimensionData.bodyHeight -
-                      theme.dimensionData.driverHeight) /
-                  2,
+              x: theme.layout.bodyWidth / 2,
+              z: -(theme.layout.bodyHeight - theme.layout.cabinHeight) / 2,
             ),
-            child: const ZDriver(),
+            child: const ZCabin(),
           ),
         ],
       ),

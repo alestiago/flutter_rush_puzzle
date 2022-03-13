@@ -5,4 +5,5 @@ export 'zcar.dart';
 export 'zrect_net.dart';
 export 'ztruck.dart';
 export 'zvehicle.dart';
+export 'zvehicle_side.dart';
 export 'zwheel.dart';

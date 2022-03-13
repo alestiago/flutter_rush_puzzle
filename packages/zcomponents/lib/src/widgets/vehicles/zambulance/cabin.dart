@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:zcomponents/zcomponents.dart';
 
-// ignore: always_use_package_imports
-import '_.dart';
-
-class ZDriver extends ZRectNet {
-  const ZDriver({Key? key}) : super(key: key);
+class ZCabin extends ZRectNet {
+  const ZCabin({Key? key}) : super(key: key);
 
   @override
   Widget get back => const _ZRear();
@@ -18,10 +15,10 @@ class ZDriver extends ZRectNet {
   Widget get front => const _ZFront();
 
   @override
-  Widget get left => const _ZSide(side: ZAmbulanceSide.left);
+  Widget get left => const _ZSide(side: ZVehicleSide.left);
 
   @override
-  Widget get right => const _ZSide(side: ZAmbulanceSide.right);
+  Widget get right => const _ZSide(side: ZVehicleSide.right);
 
   @override
   Widget get top => const _ZRoof();
@@ -31,9 +28,9 @@ class ZDriver extends ZRectNet {
     final theme = context.read<AmbulanceThemeData>();
 
     return ZRectNetSize(
-      height: theme.dimensionData.driverHeight,
-      width: theme.dimensionData.driverWidth,
-      depth: theme.dimensionData.rearWidth,
+      height: theme.layout.cabinHeight,
+      width: theme.layout.cabinWidth,
+      depth: theme.layout.rearWidth,
     );
   }
 }
@@ -46,9 +43,9 @@ class _ZRear extends StatelessWidget {
     final theme = context.read<AmbulanceThemeData>();
 
     return ZRect(
-      width: theme.dimensionData.rearWidth,
+      width: theme.layout.rearWidth,
       color: theme.colorScheme.bodyColor,
-      height: theme.dimensionData.driverHeight,
+      height: theme.layout.cabinHeight,
       fill: true,
     );
   }
@@ -61,11 +58,16 @@ class _ZRoof extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.read<AmbulanceThemeData>();
 
-    return ZRect(
-      width: theme.dimensionData.rearWidth,
-      color: theme.colorScheme.roofColor,
-      height: theme.dimensionData.driverWidth,
-      fill: true,
+    return ZGroup(
+      children: [
+        ZRect(
+          width: theme.layout.rearWidth,
+          color: theme.colorScheme.roofColor,
+          height: theme.layout.cabinWidth,
+          fill: true,
+        ),
+        _ZSiren(),
+      ],
     );
   }
 }
@@ -78,9 +80,9 @@ class _ZFloor extends StatelessWidget {
     final theme = context.read<AmbulanceThemeData>();
 
     return ZRect(
-      width: theme.dimensionData.rearWidth,
+      width: theme.layout.rearWidth,
       color: theme.colorScheme.floorColor,
-      height: theme.dimensionData.driverWidth,
+      height: theme.layout.cabinWidth,
       fill: true,
     );
   }
@@ -89,7 +91,7 @@ class _ZFloor extends StatelessWidget {
 class _ZFront extends StatelessWidget {
   const _ZFront({Key? key}) : super(key: key);
 
-  static const _side = ZAmbulanceSide.front;
+  static const _side = ZVehicleSide.front;
 
   @override
   Widget build(BuildContext context) {
@@ -98,40 +100,35 @@ class _ZFront extends StatelessWidget {
       sortMode: SortMode.stack,
       children: [
         ZRect(
-          width: theme.dimensionData.rearWidth,
+          width: theme.layout.rearWidth,
           color: theme.colorScheme.bodyColor,
-          height: theme.dimensionData.driverHeight,
+          height: theme.layout.cabinHeight,
           fill: true,
         ),
         ZPositioned(
           translate: ZVector.only(
-            y: -theme.dimensionData.stripeBottomPadding +
-                (theme.dimensionData.bodyHeight -
-                        theme.dimensionData.driverHeight) /
-                    2,
+            y: -theme.layout.stripeBottomPadding +
+                (theme.layout.bodyHeight - theme.layout.cabinHeight) / 2,
           ),
           child: const _ZStripe(side: _side),
         ),
         ZPositioned(
           translate: ZVector.only(
-            y: (theme.dimensionData.driverHeight / 2) -
-                theme.dimensionData.windowPadding,
+            y: (theme.layout.cabinHeight / 2) - theme.layout.windowTopPadding,
           ),
           child: const _ZWindow(side: _side),
         ),
         ZPositioned(
           translate: ZVector.only(
-            x: theme.dimensionData.rearWidth / 2 -
-                theme.dimensionData.lightDiameter,
-            y: -theme.dimensionData.lightDiameter / 2,
+            x: theme.layout.rearWidth / 2 - theme.layout.lightDiameter,
+            y: -theme.layout.lightDiameter / 2,
           ),
           child: const _ZLight(),
         ),
         ZPositioned(
           translate: ZVector.only(
-            x: -theme.dimensionData.rearWidth / 2 +
-                theme.dimensionData.lightDiameter,
-            y: -theme.dimensionData.lightDiameter / 2,
+            x: -theme.layout.rearWidth / 2 + theme.layout.lightDiameter,
+            y: -theme.layout.lightDiameter / 2,
           ),
           child: const _ZLight(),
         ),
@@ -143,11 +140,11 @@ class _ZFront extends StatelessWidget {
 class _ZSide extends StatelessWidget {
   const _ZSide({
     Key? key,
-    required ZAmbulanceSide side,
+    required ZVehicleSide side,
   })  : _side = side,
         super(key: key);
 
-  final ZAmbulanceSide _side;
+  final ZVehicleSide _side;
 
   @override
   Widget build(BuildContext context) {
@@ -157,30 +154,28 @@ class _ZSide extends StatelessWidget {
       sortMode: SortMode.stack,
       children: [
         ZRect(
-          width: theme.dimensionData.driverWidth,
-          color: theme.colorScheme.bodyColor,
-          height: theme.dimensionData.driverHeight,
+          width: theme.layout.cabinWidth,
+          color: theme.colorScheme.shadowColor,
+          height: theme.layout.cabinHeight,
           fill: true,
         ),
         ZPositioned(
           translate: ZVector.only(
-            y: -theme.dimensionData.stripeBottomPadding +
-                (theme.dimensionData.bodyHeight -
-                        theme.dimensionData.driverHeight) /
-                    2,
+            y: -theme.layout.stripeBottomPadding +
+                (theme.layout.bodyHeight - theme.layout.cabinHeight) / 2,
           ),
           child: _ZStripe(side: _side),
         ),
         ZPositioned(
           translate: ZVector.only(
-            y: -theme.dimensionData.driverHeight / 2,
+            y: -theme.layout.cabinHeight / 2,
           ),
           child: _ZWheel(side: _side),
         ),
         ZPositioned(
           translate: ZVector.only(
-            y: theme.dimensionData.driverHeight / 2 -
-                theme.dimensionData.windowPadding,
+            y: theme.layout.cabinHeight / 2 - theme.layout.windowTopPadding,
+            x: theme.layout.sideWindowLeftPadding / 2,
           ),
           child: _ZWindow(side: _side),
         ),
@@ -192,11 +187,11 @@ class _ZSide extends StatelessWidget {
 class _ZStripe extends StatelessWidget {
   const _ZStripe({
     Key? key,
-    required ZAmbulanceSide side,
+    required ZVehicleSide side,
   })  : _side = side,
         super(key: key);
 
-  final ZAmbulanceSide _side;
+  final ZVehicleSide _side;
 
   @override
   Widget build(BuildContext context) {
@@ -205,7 +200,7 @@ class _ZStripe extends StatelessWidget {
     return ZRect(
       width: _side.width(theme),
       color: theme.colorScheme.stripesColor,
-      height: theme.dimensionData.stripeHeight,
+      height: theme.layout.stripeHeight,
       fill: true,
     );
   }
@@ -214,20 +209,21 @@ class _ZStripe extends StatelessWidget {
 class _ZWindow extends StatelessWidget {
   const _ZWindow({
     Key? key,
-    required ZAmbulanceSide side,
+    required ZVehicleSide side,
   })  : _side = side,
         super(key: key);
 
-  final ZAmbulanceSide _side;
+  final ZVehicleSide _side;
 
   @override
   Widget build(BuildContext context) {
     final theme = context.read<AmbulanceThemeData>();
 
     return ZRect(
-      width: _side.width(theme) - (theme.dimensionData.windowPadding / 2),
+      width: _side.width(theme) -
+          (_side.isSide ? theme.layout.sideWindowLeftPadding : 0),
       color: theme.colorScheme.windowColor,
-      height: theme.dimensionData.windowHeight,
+      height: theme.layout.windowHeight,
       fill: true,
     );
   }
@@ -245,12 +241,13 @@ class _ZLight extends StatelessWidget {
       children: [
         ZPositioned(
           child: ZCylinder(
-              diameter: theme.dimensionData.lightDiameter,
-              length: 0.5,
-              color: theme.colorScheme.lightBorderColor,),
+            diameter: theme.layout.lightDiameter,
+            length: 0.5,
+            color: theme.colorScheme.lightBorderColor,
+          ),
         ),
         ZCircle(
-          diameter: theme.dimensionData.lightDiameter - 1,
+          diameter: theme.layout.lightDiameter - 1,
           color: theme.colorScheme.frontLightColor,
           fill: true,
         ),
@@ -259,15 +256,29 @@ class _ZLight extends StatelessWidget {
   }
 }
 
+class _ZSiren extends StatelessWidget {
+  const _ZSiren({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.read<AmbulanceThemeData>();
+
+    // TODO(alestiago): design siren.
+    return ZGroup(
+      children: const [],
+    );
+  }
+}
+
 // TODO(jamesblasco): Replace with [ZWheel].
 class _ZWheel extends StatelessWidget {
   const _ZWheel({
     Key? key,
-    required ZAmbulanceSide side,
+    required ZVehicleSide side,
   })  : _side = side,
         super(key: key);
 
-  final ZAmbulanceSide _side;
+  final ZVehicleSide _side;
 
   @override
   Widget build(BuildContext context) {
@@ -307,15 +318,15 @@ class _ZWheel extends StatelessWidget {
   }
 }
 
-extension on ZAmbulanceSide {
+extension on ZVehicleSide {
   double width(AmbulanceThemeData theme) {
     switch (this) {
-      case ZAmbulanceSide.front:
-      case ZAmbulanceSide.rear:
-        return theme.dimensionData.rearWidth;
-      case ZAmbulanceSide.right:
-      case ZAmbulanceSide.left:
-        return theme.dimensionData.driverWidth;
+      case ZVehicleSide.front:
+      case ZVehicleSide.rear:
+        return theme.layout.rearWidth;
+      case ZVehicleSide.right:
+      case ZVehicleSide.left:
+        return theme.layout.cabinWidth;
     }
   }
 }
