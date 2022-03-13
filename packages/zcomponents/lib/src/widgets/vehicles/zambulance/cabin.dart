@@ -265,7 +265,7 @@ class _ZSiren extends StatelessWidget {
     final theme = context.read<AmbulanceThemeData>();
 
     return ZGroup(
-      sortMode: SortMode.update,
+      sortMode: SortMode.stack,
       children: [
         ZPositioned(
           translate: ZVector.only(
