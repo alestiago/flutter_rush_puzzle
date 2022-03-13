@@ -172,13 +172,6 @@ class _ZSide extends StatelessWidget {
         ),
         ZPositioned(
           translate: ZVector.only(
-            x: -body.width * 0.3,
-            y: -body.height / 2,
-          ),
-          child: _ZWheel(side: _side),
-        ),
-        ZPositioned(
-          translate: ZVector.only(
             y: -theme.layout.stripeBottomPadding + theme.layout.crossHeight,
           ),
           child: const _ZCross(),
@@ -186,6 +179,13 @@ class _ZSide extends StatelessWidget {
         ZPositioned(
           translate: ZVector.only(y: -theme.layout.stripeBottomPadding),
           child: _ZStripe(side: _side),
+        ),
+        ZPositioned(
+          translate: ZVector.only(
+            x: -body.width * 0.3,
+            y: -body.height / 2,
+          ),
+          child: _ZWheel(side: _side),
         ),
       ],
     );

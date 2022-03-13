@@ -26,6 +26,7 @@ class BusThemeData {
 class ZBusColorScheme {
   const ZBusColorScheme({
     required this.busColor,
+    required this.bodyShadowColor,
     required this.roofColor,
     required this.stripesColor,
     required this.windowColor,
@@ -39,6 +40,7 @@ class ZBusColorScheme {
 
   static final school = ZBusColorScheme(
     busColor: Colors.yellow,
+    bodyShadowColor: Colors.yellow[600]!,
     roofColor: Colors.yellow,
     stripesColor: Colors.black,
     windowColor: Colors.blue[300]!,
@@ -51,6 +53,7 @@ class ZBusColorScheme {
   );
 
   final Color busColor;
+  final Color bodyShadowColor;
   final Color roofColor;
   final Color stripesColor;
   final Color windowColor;
@@ -68,6 +71,7 @@ class ZBusColorScheme {
   ) {
     return ZBusColorScheme(
       busColor: Color.lerp(a?.busColor, b?.busColor, t)!,
+      bodyShadowColor: Color.lerp(a?.bodyShadowColor, b?.bodyShadowColor, t)!,
       roofColor: Color.lerp(a?.roofColor, b?.roofColor, t)!,
       stripesColor: Color.lerp(a?.stripesColor, b?.stripesColor, t)!,
       windowColor: Color.lerp(a?.windowColor, b?.windowColor, t)!,

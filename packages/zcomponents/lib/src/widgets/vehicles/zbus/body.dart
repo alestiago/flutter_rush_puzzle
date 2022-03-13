@@ -88,7 +88,7 @@ class _ZRear extends StatelessWidget {
       children: [
         ZRect(
           width: theme.layout.rearWidth,
-          color: theme.colorScheme.busColor,
+          color: theme.colorScheme.bodyShadowColor,
           height: theme.layout.rearHeight,
           fill: true,
         ),
@@ -153,7 +153,7 @@ class _ZFront extends StatelessWidget {
       children: [
         ZRect(
           width: theme.layout.rearWidth,
-          color: theme.colorScheme.busColor,
+          color: theme.colorScheme.bodyShadowColor,
           height: theme.layout.rearHeight,
           fill: true,
         ),
@@ -227,7 +227,7 @@ class _ZSide extends StatelessWidget {
       children: [
         ZRect(
           width: theme.layout.bodyWidth,
-          color: theme.colorScheme.busColor,
+          color: theme.colorScheme.bodyShadowColor,
           height: theme.layout.bodyHeight,
           fill: true,
         ),
