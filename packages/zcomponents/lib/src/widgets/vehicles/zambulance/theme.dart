@@ -60,8 +60,8 @@ class ZAmbulanceColorScheme {
     crossColor: Colors.red,
     primarySirenColor: Colors.red[400]!,
     secondarySirenColor: Colors.blue[400]!,
-    primarySirenShadowColor: Colors.red[200]!,
-    secondarySirenShadowColor: Colors.blue[200]!,
+    primarySirenShadowColor: Colors.red[700]!,
+    secondarySirenShadowColor: Colors.blue[700]!,
   );
 
   final Color bodyColor;

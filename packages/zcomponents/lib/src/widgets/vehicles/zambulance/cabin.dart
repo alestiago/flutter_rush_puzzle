@@ -59,6 +59,7 @@ class _ZRoof extends StatelessWidget {
     final theme = context.read<AmbulanceThemeData>();
 
     return ZGroup(
+      sortMode: SortMode.stack,
       children: [
         ZRect(
           width: theme.layout.rearWidth,
@@ -66,7 +67,7 @@ class _ZRoof extends StatelessWidget {
           height: theme.layout.cabinWidth,
           fill: true,
         ),
-        _ZSiren(),
+        const _ZSiren(),
       ],
     );
   }
@@ -265,36 +266,32 @@ class _ZSiren extends StatelessWidget {
     final theme = context.read<AmbulanceThemeData>();
 
     return ZGroup(
-      sortMode: SortMode.stack,
+      sortMode: SortMode.update,
       children: [
         ZPositioned(
           translate: ZVector.only(
-            x: -theme.layout.sirenSize / 4,
+            x: -theme.layout.sirenSize,
           ),
           child: ZBox(
-            width: theme.layout.sirenSize / 2,
+            width: theme.layout.sirenSize * 2,
             height: theme.layout.sirenSize / 2,
             depth: theme.layout.sirenSize / 2,
-            color: theme.colorScheme.primarySirenColor,
-            rearColor: theme.colorScheme.primarySirenShadowColor,
-            rightColor: theme.colorScheme.primarySirenShadowColor,
-            topColor: theme.colorScheme.primarySirenShadowColor,
-            leftColor: theme.colorScheme.primarySirenShadowColor,
+            color: theme.colorScheme.primarySirenShadowColor,
+            frontColor: theme.colorScheme.primarySirenColor,
+            stroke: 0,
           ),
         ),
         ZPositioned(
           translate: ZVector.only(
-            x: theme.layout.sirenSize / 4,
+            x: theme.layout.sirenSize,
           ),
           child: ZBox(
-            width: theme.layout.sirenSize / 2,
+            width: theme.layout.sirenSize * 2,
             height: theme.layout.sirenSize / 2,
             depth: theme.layout.sirenSize / 2,
-            color: theme.colorScheme.secondarySirenColor,
-            rearColor: theme.colorScheme.secondarySirenShadowColor,
-            leftColor: theme.colorScheme.secondarySirenShadowColor,
-            topColor: theme.colorScheme.secondarySirenShadowColor,
-            rightColor: theme.colorScheme.secondarySirenShadowColor,
+            color: theme.colorScheme.secondarySirenShadowColor,
+            frontColor: theme.colorScheme.secondarySirenColor,
+            stroke: 0,
           ),
         ),
       ],
