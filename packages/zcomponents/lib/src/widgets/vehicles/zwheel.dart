@@ -12,7 +12,7 @@ class ZWheel extends StatelessWidget {
     this.rimDiameter = 4,
   }) : super(key: key);
 
-  final ZCarSide side;
+  final ZCarSide side; // TODO(alestiago): Refactor to use ZVehicleSide
 
   final double tyreDiameter;
   final double tyreDepth;

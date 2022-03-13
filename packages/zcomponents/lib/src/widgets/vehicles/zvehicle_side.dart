@@ -11,4 +11,5 @@ extension ZVehicleSideX on ZVehicleSide {
   bool get isRight => this == ZVehicleSide.right;
   bool get isLeft => this == ZVehicleSide.left;
   bool get isRear => this == ZVehicleSide.rear;
+  bool get isFront => this == ZVehicleSide.front;
 }
