@@ -12,6 +12,8 @@ import 'package:puzzle_models/puzzle_models.dart';
 import 'package:puzzles_repository/puzzles_repository.dart';
 
 import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
+import 'package:rush_hour_puzzle/puzzle/widgets/perspective_segmented_control.dart';
+import 'package:rush_hour_puzzle/puzzle/widgets/zpuzzle_timer.dart';
 import 'package:rush_hour_puzzle/timer/timer.dart';
 import 'package:rush_hour_puzzle/vehicle/vehicle.dart';
 import 'package:z_cubic_text/z_cubic_text.dart';
@@ -77,7 +79,7 @@ class _GameViewState extends State<GameView> {
           return GameLayoutPerspective.presentation;
 
         case GameStatus.playing:
-          return GameLayoutPerspective.p3D;
+          return state.perspective;
 
         case GameStatus.finished:
           return GameLayoutPerspective.presentation;
@@ -111,6 +113,8 @@ class _GameViewState extends State<GameView> {
       onTap: () {
         if (state.status == GameStatus.setup) {
           context.read<PuzzleBloc>().add(const PuzzleStarted());
+        } else if (state.status == GameStatus.finished) {
+          context.read<PuzzleBloc>().add(const PuzzleShared());
         }
       },
       child: MultiBlocListener(
@@ -197,8 +201,8 @@ class _GameViewState extends State<GameView> {
                                       child: ZCubicText(
                                         'Moves: ${state.historyPointer}',
                                         style: ZCubicTextStyle(
-                                          frontColor: Colors.white,
-                                          color: Colors.grey[300]!,
+                                          frontColor: Colors.black,
+                                          color: Colors.grey[900]!,
                                           fontSize: 4,
                                           letterSpacing: 3,
                                         ),
@@ -206,15 +210,7 @@ class _GameViewState extends State<GameView> {
                                     ),
                                     ZPositioned(
                                       translate: ZVector.only(y: 35),
-                                      child: ZCubicText(
-                                        'Time: 00:00',
-                                        style: ZCubicTextStyle(
-                                          frontColor: Colors.black,
-                                          color: Colors.grey[300]!,
-                                          fontSize: 4,
-                                          letterSpacing: 3,
-                                        ),
-                                      ),
+                                      child: ZPuzzleTimerText(),
                                     ),
                                     ZPositioned(
                                       translate: ZVector.only(y: 75),
@@ -308,6 +304,15 @@ class _GameViewState extends State<GameView> {
                   //    child: ScoreBoard(),
                   //  ),
                   //),
+                  const Align(
+                    alignment: Alignment.bottomRight,
+                    child: SafeArea(
+                      child: Padding(
+                        padding: EdgeInsets.all(16),
+                        child: PerspectiveSegmentedControl(),
+                      ),
+                    ),
+                  )
                 ]
               ],
             ),

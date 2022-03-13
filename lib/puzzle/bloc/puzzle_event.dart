@@ -45,3 +45,19 @@ class PuzzleReseted extends PuzzleEvent {
   @override
   List<Object?> get props => [];
 }
+
+class PuzzleShared extends PuzzleEvent {
+  const PuzzleShared();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class PuzzlePerspectiveChanged extends PuzzleEvent {
+  const PuzzlePerspectiveChanged(this.perspective);
+
+  final GameLayoutPerspective perspective;
+
+  @override
+  List<Object?> get props => [perspective];
+}

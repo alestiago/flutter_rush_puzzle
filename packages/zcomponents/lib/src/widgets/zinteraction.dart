@@ -48,8 +48,10 @@ class _ZInteractionState extends State<ZInteraction>
   @override
   void didUpdateWidget(covariant ZInteraction oldWidget) {
     if (widget.enabled != oldWidget.enabled) {
+      var startPosition = controller.value % tau;
+      if (startPosition < 0) startPosition += tau;
       tween
-        ..begin = controller.value
+        ..begin = startPosition
         ..end = 0;
       animationController
         ..value = 0
