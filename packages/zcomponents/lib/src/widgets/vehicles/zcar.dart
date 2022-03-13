@@ -5,7 +5,8 @@ const trunkDepth = 10.0;
 
 const wheelOutterRadius = 7.0;
 
-const size = 30.0;
+const _size = 30.0;
+const half_size = _size / 2;
 
 const int length = 2;
 
@@ -28,10 +29,9 @@ class ZCar extends StatelessWidget {
     final topMiddleColor = theme.topMiddleColor ?? topColor;
     final topBoxColor = theme.topBoxColor;
 
-    const width = length * size + space * (length - 1);
+    const width = length * _size + space * (length - 1);
     const halfWidth = width / 2;
-    const distanceWheel = size / 1.5;
-    const distanceZWheel = size / 2 - 5;
+
     return ZGroup(
       sortMode: SortMode.update,
       children: [
@@ -40,65 +40,40 @@ class ZCar extends StatelessWidget {
         ZGroup(
           children: [
             _ZCarSide(
-              side: ZWheelSide.left,
+              side: ZCarSide.left,
               sideColor: sideColor,
               doorSideColor: doorSideColor,
             ),
-            ZPositioned(
-              translate:
-                  const ZVector(distanceWheel, -size / 2, -distanceZWheel),
-              child: ZGroup(
-                sortMode: SortMode.update,
-                sortPoint: const ZVector(0, 0, 8),
-                children: const [
-                  ZWheel(),
-                ],
-              ),
-            ),
-            ZPositioned(
-              translate:
-                  const ZVector(-distanceWheel, -size / 2, -distanceZWheel),
-              child: ZGroup(
-                sortMode: SortMode.update,
-                sortPoint: const ZVector(0, 0, 8),
-                children: const [
-                  ZWheel(),
-                ],
-              ),
-            ),
+            //ZPositioned(
+            //  translate:
+            //      const ZVector(distanceWheel, -half_size, -distanceZWheel),
+            //  child: ZGroup(
+            //    sortMode: SortMode.update,
+            //    sortPoint: const ZVector(0, 0, 8),
+            //    children: const [
+            //      ZWheel(),
+            //    ],
+            //  ),
+            //),
+            //ZPositioned(
+            //  translate:
+            //      const ZVector(-distanceWheel, -half_size, -distanceZWheel),
+            //  child: ZGroup(
+            //    sortMode: SortMode.update,
+            //    sortPoint: const ZVector(0, 0, 8),
+            //    children: const [
+            //      ZWheel(),
+            //    ],
+            //  ),
+            //),
           ],
         ),
 
         // Right side
         _ZCarSide(
-          side: ZWheelSide.right,
+          side: ZCarSide.right,
           sideColor: sideColor,
           doorSideColor: doorSideColor,
-        ),
-        // Wheels
-        ZPositioned(
-          translate: const ZVector(distanceWheel, size / 2, -distanceZWheel),
-          child: ZGroup(
-            sortMode: SortMode.update,
-            sortPoint: const ZVector(0, 0, 20),
-            children: const [
-              ZWheel(
-                side: ZWheelSide.right,
-              ),
-            ],
-          ),
-        ),
-        ZPositioned(
-          translate: const ZVector(-distanceWheel, size / 2, -distanceZWheel),
-          child: ZGroup(
-            sortMode: SortMode.update,
-            sortPoint: const ZVector(0, 0, 20),
-            children: const [
-              ZWheel(
-                side: ZWheelSide.right,
-              ),
-            ],
-          ),
         ),
 
         /// Top of the car
@@ -106,10 +81,10 @@ class ZCar extends StatelessWidget {
           children: [
             // top
             ZPositioned(
-              translate: const ZVector.only(z: size / 2 - 4),
+              translate: const ZVector.only(z: half_size - 4),
               child: ZRect(
-                width: size - 8,
-                height: size,
+                width: _size - 8,
+                height: _size,
                 color: topMiddleColor,
                 fill: true,
               ),
@@ -117,10 +92,10 @@ class ZCar extends StatelessWidget {
 
             // top front
             ZPositioned(
-              translate: const ZVector.only(x: size + space / 2 - 10 / 2),
+              translate: const ZVector.only(x: _size + space / 2 - 10 / 2),
               child: ZRect(
                 width: 10,
-                height: size,
+                height: _size,
                 color: topColor,
                 fill: true,
               ),
@@ -128,10 +103,10 @@ class ZCar extends StatelessWidget {
             // top back (trunk door)
             ZPositioned(
               translate:
-                  const ZVector.only(x: -size - space / 2 + trunkDepth / 2),
+                  const ZVector.only(x: -_size - space / 2 + trunkDepth / 2),
               child: ZRect(
                 width: trunkDepth,
-                height: size,
+                height: _size,
                 color: topColor,
                 fill: true,
               ),
@@ -141,13 +116,13 @@ class ZCar extends StatelessWidget {
             ZPositioned(
               rotate: const ZVector.only(y: tau / 4),
               child: ZPositioned(
-                translate: const ZVector.only(x: halfWidth, z: -(size - 8) / 4),
+                translate: const ZVector.only(x: halfWidth, z: -(_size - 8) / 4),
                 child: ZGroup(
                   sortMode: SortMode.update,
                   children: [
                     ZRect(
-                      width: (size - 8) / 2,
-                      height: size,
+                      width: half_size - 4,
+                      height: _size,
                       color: sideColor,
                       fill: true,
                     ),
@@ -174,10 +149,10 @@ class ZCar extends StatelessWidget {
               rotate: const ZVector.only(y: tau / 4),
               child: ZPositioned(
                 translate:
-                    const ZVector.only(x: -halfWidth, z: -(size - 8) / 4),
+                    const ZVector.only(x: -halfWidth, z: -(_size - 8) / 4),
                 child: ZRect(
-                  width: (size - 8) / 2,
-                  height: size,
+                  width: half_size - 4,
+                  height: _size,
                   color: sideColor,
                   fill: true,
                 ),
@@ -189,10 +164,10 @@ class ZCar extends StatelessWidget {
               child: ZPositioned(
                 child: ZShape(
                   path: [
-                    ZMove((size - 8) / 2, -size / 2, (size - 8) / 2),
-                    ZLine((size - 8) / 2, size / 2, (size - 8) / 2),
-                    ZLine(width / 2 - trunkDepth, size / 2, 0),
-                    ZLine(width / 2 - trunkDepth, -size / 2, 0),
+                    ZMove(half_size - 4, -half_size, half_size - 4),
+                    ZLine(half_size - 4, half_size, half_size - 4),
+                    ZLine(width / 2 - trunkDepth, half_size, 0),
+                    ZLine(width / 2 - trunkDepth, -half_size, 0),
                   ],
                   color: Colors.blue,
                   fill: true,
@@ -204,10 +179,10 @@ class ZCar extends StatelessWidget {
               child: ZPositioned(
                 child: ZShape(
                   path: [
-                    ZMove(-(size - 8) / 2, -size / 2, (size - 8) / 2),
-                    ZLine(-(size - 8) / 2, size / 2, (size - 8) / 2),
-                    ZLine(-width / 2 + trunkDepth, size / 2, 0),
-                    ZLine(-width / 2 + trunkDepth, -size / 2, 0),
+                    ZMove(-half_size + 4, -half_size, half_size - 4),
+                    ZLine(-half_size + 4, half_size, half_size - 4),
+                    ZLine(-width / 2 + trunkDepth, half_size, 0),
+                    ZLine(-width / 2 + trunkDepth, -half_size, 0),
                   ],
                   color: Colors.blue,
                   fill: true,
@@ -218,7 +193,7 @@ class ZCar extends StatelessWidget {
             if (topBoxColor != null)
               ZPositioned(
                 key: const Key('topBoxColor'),
-                translate: const ZVector.only(z: size / 2 - 4 + 2),
+                translate: const ZVector.only(z: half_size - 4 + 2),
                 child: ZBox(
                   width: 2,
                   height: 10,
@@ -266,64 +241,66 @@ class _ZCarSide extends StatelessWidget {
     required this.doorSideColor,
   }) : super(key: key);
 
-  final ZWheelSide side;
+  final ZCarSide side;
 
   final Color sideColor;
   final Color doorSideColor;
 
   @override
   Widget build(BuildContext context) {
+    const distanceWheel = _size / 1.5;
     return ZPositioned(
-      rotate: const ZVector(-tau / 4, 0, 0),
+      rotate: const ZVector.only(x: -tau / 4),
       child: ZPositioned(
-        translate: ZVector(
-          0,
-          side == ZWheelSide.left ? -size / 2 : size / 2,
-          0,
+        translate: ZVector.only(
+          y: side == ZCarSide.left ? half_size : -half_size,
         ),
         child: ZGroup(
+          sortMode: SortMode.update,
+          sortPoint:  ZVector.only(
+            y: side == ZCarSide.left ? half_size : -half_size,
+          ),
           children: [
-            ZPositioned(
-              child: ZRect(
-                width: size - 8,
-                height: size - 8,
-                color: doorSideColor,
-                fill: true,
-              ),
-            ),
-            ZShape(
-              path: [
-                ZMove(size / 2 - 4, (size - 8) / 2, 0),
-                ZLine(size / 2 - 3, (size - 8) / 2, 0),
-                ZBezier(const [
-                  ZVector(size / 2 - 3, (size - 8) / 2 - 12, 0),
-                  ZVector(size / 2 + 13, (size - 8) / 2 - 12, 0),
-                  ZVector(size / 2 + 13, (size - 8) / 2, 0),
-                ]),
-                ZLine(size / 2 + 20, (size - 8) / 2, 0),
-                ZLine(size / 2 + 20, 0, 0),
-                ZLine(size / 2 + 20 - trunkDepth, 0, 0),
-                ZLine(size / 2 - 4, -(size - 8) / 2, 0),
+            ZGroup(
+              sortMode: SortMode.stack,
+              children: [
+                ZRect(
+                  width: _size - 8,
+                  height: _size - 8,
+                  color: doorSideColor,
+                  fill: true,
+                ),
+                ZShape(
+                  path: [
+                    ZMove(half_size - 4, half_size - 4, 0),
+                    ZLine(half_size + 20, half_size - 4, 0),
+                    ZLine(half_size + 20, 0, 0),
+                    ZLine(half_size + 20 - trunkDepth, 0, 0),
+                    ZLine(half_size - 4, -half_size + 4, 0),
+                  ],
+                  color: sideColor,
+                  fill: true,
+                ),
+                ZShape(
+                  path: [
+                    ZMove(-half_size + 4, half_size - 4, 0),
+                    ZLine(-half_size - 20, half_size - 4, 0),
+                    ZLine(-half_size - 20, 0, 0),
+                    ZLine(-half_size - 20 + trunkDepth, 0, 0),
+                    ZLine(-half_size + 4, -half_size + 4, 0),
+                  ],
+                  color: sideColor,
+                  fill: true,
+                ),
+                ZPositioned(
+                  translate: const ZVector(distanceWheel, half_size - 4, 0),
+                  child: ZWheel(side: side, tyreDiameter: 10),
+                ),
+                ZPositioned(
+                  translate: const ZVector(-distanceWheel, half_size - 4, 0),
+                  child: ZWheel(side: side, tyreDiameter: 10),
+                ),
               ],
-              color: sideColor,
-              fill: true,
-            ),
-            ZShape(
-              path: [
-                ZMove(-size / 2 + 4, (size - 8) / 2, 0),
-                ZLine(-size / 2 + 3, (size - 8) / 2, 0),
-                ZBezier(const [
-                  ZVector(-size / 2 + 3, (size - 8) / 2 - 12, 0),
-                  ZVector(-size / 2 - 13, (size - 8) / 2 - 12, 0),
-                  ZVector(-size / 2 - 13, (size - 8) / 2, 0),
-                ]),
-                ZLine(-size / 2 - 20, (size - 8) / 2, 0),
-                ZLine(-size / 2 - 20, 0, 0),
-                ZLine(-size / 2 - 20 + trunkDepth, 0, 0),
-                ZLine(-size / 2 + 4, -(size - 8) / 2, 0),
-              ],
-              color: sideColor,
-              fill: true,
             ),
           ],
         ),

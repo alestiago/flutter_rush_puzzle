@@ -398,7 +398,7 @@ packages:
       name: pub_semver
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   puzzle_models:
     dependency: "direct main"
     description:
@@ -702,8 +702,8 @@ packages:
     dependency: transitive
     description:
       path: zflutter
-      ref: "7e7b4d68b5a791b6f94ed80b361ea49171dbda58"
-      resolved-ref: "7e7b4d68b5a791b6f94ed80b361ea49171dbda58"
+      ref: bde6f320d6d278a82f40420df68a1ab4c466ba4c
+      resolved-ref: bde6f320d6d278a82f40420df68a1ab4c466ba4c
       url: "https://github.com/jamesblasco/zflutter"
     source: git
     version: "0.0.1+3"

@@ -52,7 +52,7 @@ class _VehicleDebugBox extends StatelessWidget {
     return ZBox(
       width: box.width,
       height: box.height,
-      depth: size,
+      depth: zTileSize,
       color: Colors.red.withOpacity(0.2),
     );
   }

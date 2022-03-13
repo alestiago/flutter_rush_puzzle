@@ -142,6 +142,8 @@ extension on VehicleType {
     switch (this) {
       case VehicleType.taxi:
         return '🚕';
+      case VehicleType.police:
+        return '🚓';
       case VehicleType.bus:
         return '🚌';
       case VehicleType.truck:

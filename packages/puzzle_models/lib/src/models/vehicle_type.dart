@@ -9,6 +9,8 @@ enum VehicleType {
 
   car,
 
+  police,
+
   /// Bus aesthethic.
   bus,
 
@@ -27,6 +29,9 @@ extension VeehicleTypeX on VehicleType {
 
     switch (this) {
       case VehicleType.taxi:
+        value = 2;
+        break;
+      case VehicleType.police:
         value = 2;
         break;
       case VehicleType.ambulance:
