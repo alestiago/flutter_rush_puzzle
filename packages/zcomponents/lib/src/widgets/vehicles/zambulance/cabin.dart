@@ -240,14 +240,15 @@ class _ZLight extends StatelessWidget {
       sortMode: SortMode.stack,
       children: [
         ZPositioned(
-          child: ZCylinder(
-            diameter: theme.layout.lightDiameter,
-            length: 0.5,
+          child: ZRect(
+            width: theme.layout.lightDiameter,
+            height: theme.layout.lightDiameter * 0.75,
             color: theme.colorScheme.lightBorderColor,
           ),
         ),
-        ZCircle(
-          diameter: theme.layout.lightDiameter - 1,
+        ZRect(
+          width: theme.layout.lightDiameter - 1,
+          height: theme.layout.lightDiameter * 0.75 - 0.5,
           color: theme.colorScheme.frontLightColor,
           fill: true,
         ),
@@ -262,7 +263,7 @@ class _ZSiren extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.read<AmbulanceThemeData>();
-    
+
     return ZGroup(
       sortMode: SortMode.update,
       children: [

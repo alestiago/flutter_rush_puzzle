@@ -173,7 +173,7 @@ class ZAmbulanceLayout {
       windowHeight: driverHeight * 0.35,
       windowTopPadding: driverHeight * 0.3,
       sideWindowLeftPadding: 5,
-      lightDiameter: 5,
+      lightDiameter: 3,
       sirenSize: 4,
     );
   }
