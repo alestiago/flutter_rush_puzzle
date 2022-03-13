@@ -6,7 +6,6 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puzzle_models/puzzle_models.dart';
 import 'package:puzzles_repository/puzzles_repository.dart';
@@ -144,6 +143,7 @@ class _GameViewState extends State<GameView> {
             child: Stack(
               clipBehavior: Clip.none,
               children: [
+                const ZClouds(),
                 if (state.status == GameStatus.finished) const Fireworks(),
                 DebugGame(
                   key: const Key('puzzleGame'),
@@ -294,16 +294,7 @@ class _GameViewState extends State<GameView> {
                     ),
                   ),
                 ),
-                if (state.status == GameStatus.finished) ...[
-                  // const Center(child: WinDialog()),
-                ],
                 if (state.status == GameStatus.playing) ...[
-                  //const Align(
-                  //  alignment: Alignment.topCenter,
-                  //  child: SafeArea(
-                  //    child: ScoreBoard(),
-                  //  ),
-                  //),
                   const Align(
                     alignment: Alignment.bottomRight,
                     child: SafeArea(
@@ -312,7 +303,7 @@ class _GameViewState extends State<GameView> {
                         child: PerspectiveSegmentedControl(),
                       ),
                     ),
-                  )
+                  ),
                 ]
               ],
             ),

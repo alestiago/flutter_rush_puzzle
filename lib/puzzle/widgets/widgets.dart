@@ -5,3 +5,4 @@ export 'rush_puzzle_illustration.dart';
 export 'scoreboard.dart';
 
 export 'win_dialog.dart';
+export 'clouds.dart';
