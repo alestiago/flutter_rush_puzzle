@@ -112,7 +112,7 @@ workflows:
     publishing:
       email:
         recipients:
-          - $JAIME_EMAIL
+          - git@jaimeblasco.com
       google_play:
         credentials: $GOOGLE_PLAY_CREDENTIALS
         track: beta
