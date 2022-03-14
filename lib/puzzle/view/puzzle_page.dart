@@ -232,30 +232,36 @@ class _GameViewState extends State<GameView> {
                                   -layout.boardBorder - layout.boardPadding,
                                 ),
                                 child: ZPositioned(
-                                    rotate:
-                                        const ZVector.only(x: -tau / 4, y: -tau / 4),
-                                    child: ZGroup(
-                                      children: [
-                                        ZPositioned(
-                                          translate: ZVector(
-                                              0, 0, -layout.boardBorder / 2,),
-                                          child: ZBox(
-                                            height: 54,
-                                            width: 180,
-                                            depth: layout.boardBorder,
-                                            color: Colors.grey[200]!,
-                                            frontColor: Colors.white,
-                                            topColor: Colors.grey[100]!,
-                                            rearColor: Colors.grey[300]!,
-                                          ),
+                                  rotate: const ZVector.only(
+                                    x: -tau / 4,
+                                    y: -tau / 4,
+                                  ),
+                                  child: ZGroup(
+                                    children: [
+                                      ZPositioned(
+                                        translate: ZVector(
+                                          0,
+                                          0,
+                                          -layout.boardBorder / 2,
                                         ),
-                                        const ZToBoxAdapter(
-                                          height: 60,
-                                          width: 200,
-                                          child: ScoreBoard(),
+                                        child: ZBox(
+                                          height: 54,
+                                          width: 180,
+                                          depth: layout.boardBorder,
+                                          color: Colors.grey[200]!,
+                                          frontColor: Colors.white,
+                                          topColor: Colors.grey[100],
+                                          rearColor: Colors.grey[300],
                                         ),
-                                      ],
-                                    ),),
+                                      ),
+                                      const ZToBoxAdapter(
+                                        height: 60,
+                                        width: 200,
+                                        child: ScoreBoard(),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                               for (final vehicle
                                   in state.puzzle.vehicles.values)
