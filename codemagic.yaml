@@ -51,8 +51,8 @@ workflows:
         --create
       - keychain add-certificates
       - xcode-project use-profiles
-      - flutter build ipa --export-options-plist=~/export_options.plist  --flavor
-        production   --target lib/main_profile.dart
+      - flutter build ipa --export-options-plist=/Users/builder/export_options.plist  --flavor
+        production  --target lib/main_profile.dart
       - |
         # build web
         flutter build web --release  --flavor production  --target lib/main_profile.dart
