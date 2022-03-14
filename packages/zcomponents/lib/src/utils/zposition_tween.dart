@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:zcomponents/zcomponents.dart';
 
 class ZAnimatedPositioned extends StatelessWidget {
