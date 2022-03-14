@@ -8,15 +8,19 @@ import 'package:zcomponents/zcomponents.dart';
 class ZCloud extends StatelessWidget {
   ZCloud({
     Key? key,
+    this.opacity = 1,
   }) : super(key: key);
 
-  final Color color = Colors.white;
-  final Color frontColor = Colors.grey[200]!;
-  final Color sideColor = Colors.grey[100]!;
+  late final Color color = Colors.white.withOpacity(opacity);
+  late final Color frontColor = Colors.grey[200]!.withOpacity(opacity);
+  late final Color sideColor = Colors.grey[100]!.withOpacity(opacity);
+  final double opacity;
 
   @override
   Widget build(BuildContext context) {
     return ZGroup(
+      sortMode: SortMode.update,
+      sortPoint: ZVector.zero,
       children: [
         ZBox(
           width: 80,
@@ -26,6 +30,7 @@ class ZCloud extends StatelessWidget {
           frontColor: frontColor,
           leftColor: sideColor,
           rightColor: sideColor,
+          stroke: 0,
         ),
         ZPositioned(
           translate: ZVector.only(x: -40 - 12, y: 10, z: -10),
@@ -37,6 +42,7 @@ class ZCloud extends StatelessWidget {
             frontColor: frontColor,
             leftColor: sideColor,
             rightColor: sideColor,
+            stroke: 0,
           ),
         ),
         ZPositioned(
@@ -49,6 +55,7 @@ class ZCloud extends StatelessWidget {
             frontColor: frontColor,
             leftColor: sideColor,
             rightColor: sideColor,
+            stroke: 0,
           ),
         ),
         ZPositioned(
@@ -61,6 +68,7 @@ class ZCloud extends StatelessWidget {
             frontColor: frontColor,
             leftColor: sideColor,
             rightColor: sideColor,
+            stroke: 0,
           ),
         ),
         ZPositioned(
@@ -73,6 +81,7 @@ class ZCloud extends StatelessWidget {
             frontColor: frontColor,
             leftColor: sideColor,
             rightColor: sideColor,
+            stroke: 0,
           ),
         ),
         ZPositioned(
@@ -85,6 +94,7 @@ class ZCloud extends StatelessWidget {
             frontColor: frontColor,
             leftColor: sideColor,
             rightColor: sideColor,
+            stroke: 0,
           ),
         ),
         ZPositioned(
@@ -97,6 +107,7 @@ class ZCloud extends StatelessWidget {
             frontColor: frontColor,
             leftColor: sideColor,
             rightColor: sideColor,
+            stroke: 0,
           ),
         ),
         ZPositioned(
@@ -109,6 +120,7 @@ class ZCloud extends StatelessWidget {
             frontColor: frontColor,
             leftColor: sideColor,
             rightColor: sideColor,
+            stroke: 0,
           ),
         ),
         ZPositioned(
@@ -121,6 +133,7 @@ class ZCloud extends StatelessWidget {
             frontColor: frontColor,
             leftColor: sideColor,
             rightColor: sideColor,
+            stroke: 0,
           ),
         ),
         ZPositioned(
@@ -133,6 +146,7 @@ class ZCloud extends StatelessWidget {
             frontColor: frontColor,
             leftColor: sideColor,
             rightColor: sideColor,
+            stroke: 0,
           ),
         ),
         ZPositioned(
@@ -145,10 +159,11 @@ class ZCloud extends StatelessWidget {
             frontColor: frontColor,
             leftColor: sideColor,
             rightColor: sideColor,
+            stroke: 0,
           ),
         ),
         ZPositioned(
-          translate: ZVector.only(x: 10, y: -20 -10, z: 10),
+          translate: ZVector.only(x: 10, y: -20 - 10, z: 10),
           child: ZBox(
             width: 6,
             height: 10,
@@ -157,6 +172,7 @@ class ZCloud extends StatelessWidget {
             frontColor: frontColor,
             leftColor: sideColor,
             rightColor: sideColor,
+            stroke: 0,
           ),
         ),
       ],

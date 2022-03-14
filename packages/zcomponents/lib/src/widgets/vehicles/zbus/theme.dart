@@ -12,6 +12,11 @@ class BusThemeData {
     layout: ZBusLayout.school(),
   );
 
+  static final publicBus = BusThemeData(
+    colorScheme: ZBusColorScheme.publicBus,
+    layout: ZBusLayout.publicBus(),
+  );
+
   final ZBusColorScheme colorScheme;
   final ZBusLayout layout;
 
@@ -50,6 +55,20 @@ class ZBusColorScheme {
     rearLightColor: Colors.red[400]!,
     lightBorderColor: Colors.black,
     bottomColor: Colors.yellow[700]!,
+  );
+
+  static final publicBus = ZBusColorScheme(
+    busColor: Colors.blueAccent,
+    bodyShadowColor: Colors.blueAccent[700]!,
+    roofColor: Colors.blueAccent[400]!,
+    stripesColor: const Color.fromARGB(255, 11, 64, 211),
+    windowColor: Colors.blueAccent[100]!,
+    doorColor: Colors.blueAccent[100]!,
+    fenderColor: Colors.blueAccent[700]!,
+    frontLightColor: Colors.yellow[200]!,
+    rearLightColor: Colors.red[400]!,
+    lightBorderColor: Colors.black,
+    bottomColor: Colors.blueAccent,
   );
 
   final Color busColor;
@@ -156,6 +175,61 @@ class ZBusLayout {
       largeWindowHeight: bodyHeight / 3.5,
       largeWindowHorizontalPadding: windowHorizontalPadding,
       stripeHeight: bodyHeight * 0.02,
+      upperStripePosition: upperStripePosition,
+      lowerStripePosition: lowerStripePosition,
+      doorWidth: smallWindowWidth,
+      doorHeight: bodyHeight * 0.7,
+      doorHorizontalPadding: doorWidth * 0.5,
+      fenderHeight: fenderHeight,
+      fenderPosition: const ZVector.only(
+        y: -bodyHeight / 2 + fenderHeight / 2,
+      ),
+      lightDiameter: 3,
+    );
+  }
+
+  factory ZBusLayout.publicBus() {
+    const length = 3;
+    const size = 30.0;
+    const space = 10.0;
+
+    const width = length * size + space * (length - 1);
+    const height = size;
+    //const height = width / 2.5;
+
+    const rearWidth = height;
+    const smallWindowWidth = height / 2.5;
+    const windowHorizontalPadding = height / 4 * 0.4;
+    const smallHorizontalPadding = height / 4 * 0.35;
+
+    const stripePadding = height * 0.15;
+    const stripeHeight = height * 0.1;
+    const upperStripePosition = ZVector.only(
+      y: -stripeHeight / 2 - stripePadding,
+    );
+
+    final lowerStripePosition = upperStripePosition;
+
+    const fenderHeight = height * 0.05;
+    const bodyWidth = width * 1;
+    const bodyHeight = height;
+    const doorWidth = smallWindowWidth;
+
+    return ZBusLayout(
+      width: width,
+      height: height,
+      bodyWidth: bodyWidth,
+      bodyHeight: bodyHeight,
+      rearHeight: bodyHeight,
+      rearWidth: rearWidth,
+      bodyTopPadding: bodyHeight * 0.1,
+      smallWindowWidth: smallWindowWidth,
+      smallWindowHeight: bodyHeight / 3,
+      smallWindowHorizontalPadding: smallHorizontalPadding,
+      largeWindowWidth: rearWidth,
+      largeWindowHeight: bodyHeight / 3.5,
+      largeWindowHorizontalPadding: windowHorizontalPadding,
+      stripeHeight: stripeHeight,
       upperStripePosition: upperStripePosition,
       lowerStripePosition: lowerStripePosition,
       doorWidth: smallWindowWidth,

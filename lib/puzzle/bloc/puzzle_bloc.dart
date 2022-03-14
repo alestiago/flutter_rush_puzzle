@@ -146,8 +146,12 @@ extension on VehicleType {
         return '🚓';
       case VehicleType.bus:
         return '🚌';
+      case VehicleType.secondaryBus:
+        return '🚎';
       case VehicleType.truck:
         return '🚛';
+      case VehicleType.secondaryTruck:
+        return '🚚';
       case VehicleType.car:
         return '🚗';
       case VehicleType.ambulance:

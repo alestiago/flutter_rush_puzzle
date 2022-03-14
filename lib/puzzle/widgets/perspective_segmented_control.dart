@@ -23,8 +23,18 @@ class PerspectiveSegmentedControl extends StatelessWidget {
             .add(PuzzlePerspectiveChanged(value ?? GameLayoutPerspective.p3D));
       },
       children: {
-        GameLayoutPerspective.p2D: Text('2D'),
-        GameLayoutPerspective.p3D: Text('3D'),
+        GameLayoutPerspective.p2D: Text(
+          '2D',
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 14,
+          ),
+        ),
+        GameLayoutPerspective.p3D: Text('3D',
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 14,
+            )),
       },
     );
   }
