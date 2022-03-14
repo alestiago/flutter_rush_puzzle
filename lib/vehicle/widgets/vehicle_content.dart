@@ -28,7 +28,6 @@ class VehicleContent extends StatelessWidget {
     final id = context.select((VehicleBloc bloc) => bloc.vehicleId);
     final draggingBox =
         context.select((VehicleBloc bloc) => bloc.state.draggingBox);
-    final isDebug = DebugGame.isDebugMode(context);
 
     final escaped = context.select((VehicleBloc bloc) => bloc.state.escaped);
 
