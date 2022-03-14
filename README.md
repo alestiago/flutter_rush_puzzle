@@ -1,5 +1,5 @@
-![Frame 8](https://user-images.githubusercontent.com/19904063/158263872-2568afe3-fba3-4d6d-aaad-17eefe04822b.png)
 
+<a href="https://flutter-rush.web.app/"><img src="https://user-images.githubusercontent.com/19904063/158263872-2568afe3-fba3-4d6d-aaad-17eefe04822b.png"/></a>
 
 ## Inspiration
 As kids, we loved puzzles, all kinds of puzzles. Our favourite one was [Rush Hour](https://en.wikipedia.org/wiki/Rush_Hour_(puzzle)), a slide puzzle that consisted of displacing cars to let a jammed vehicle drive through the exit. This was our inspiration. Our goal was to bring our favourite puzzle to Flutter; and we wanted this to be in three dimensions, just as how we played it.
