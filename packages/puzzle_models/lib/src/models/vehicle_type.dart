@@ -1,25 +1,18 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:puzzle_models/puzzle_models.dart';
 
 /// {@template vehicle_type}
 /// The aesthethic associated to a [Vehicle].
 /// {@endtemplate vehicle_type}
 enum VehicleType {
-  /// Taxi aesthethic.
   taxi,
-
   car,
-
   police,
-
-  /// Bus aesthethic.
   bus,
-
-  /// Bus aesthethic.
   secondaryBus,
-
   truck,
   secondaryTruck,
-
   ambulance,
 }
 
