@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
 set(BINARY_NAME "rush_hour_puzzle")
-set(APPLICATION_ID "com.example.verygoodcore.rush_hour_puzzle")
+set(APPLICATION_ID "app.flutter.rushpuzzle")
 
 cmake_policy(SET CMP0063 NEW)
 

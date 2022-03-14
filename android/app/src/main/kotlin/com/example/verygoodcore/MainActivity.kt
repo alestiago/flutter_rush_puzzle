@@ -1,4 +1,4 @@
-package com.example.verygoodcore.rush_hour_puzzle
+package app.flutter.rushpuzzle
 
 import io.flutter.embedding.android.FlutterActivity
 
