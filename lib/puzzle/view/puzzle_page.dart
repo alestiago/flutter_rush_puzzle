@@ -190,31 +190,30 @@ class _GameViewState extends State<GameView> {
                                 child: ZGroup(
                                   sortMode: SortMode.update,
                                   children: [
-                                    ZPositioned(
+                                    const ZPositioned(
                                       translate: ZVector.only(y: -60),
-                                      child: const WonText(
+                                      child: WonText(
                                         key: Key('Won'),
                                       ),
                                     ),
                                     ZPositioned(
-                                      translate: ZVector.only(y: 15),
+                                      translate: const ZVector.only(y: 15),
                                       child: ZCubicText(
                                         'Moves: ${state.historyPointer}',
                                         style: ZCubicTextStyle(
                                           color: Colors.grey[900]!,
                                           frontColor: Colors.grey[800],
                                           fontSize: 4,
-                                          letterSpacing: 5,
                                         ),
                                       ),
                                     ),
-                                    ZPositioned(
+                                    const ZPositioned(
                                       translate: ZVector.only(y: 35),
                                       child: ZPuzzleTimerText(),
                                     ),
-                                    ZPositioned(
+                                    const ZPositioned(
                                       translate: ZVector.only(y: 75),
-                                      child: const ShareText(
+                                      child: ShareText(
                                         key: Key('Play'),
                                       ),
                                     ),
@@ -234,12 +233,12 @@ class _GameViewState extends State<GameView> {
                                 ),
                                 child: ZPositioned(
                                     rotate:
-                                        ZVector.only(x: -tau / 4, y: -tau / 4),
+                                        const ZVector.only(x: -tau / 4, y: -tau / 4),
                                     child: ZGroup(
                                       children: [
                                         ZPositioned(
                                           translate: ZVector(
-                                              0, 0, -layout.boardBorder / 2),
+                                              0, 0, -layout.boardBorder / 2,),
                                           child: ZBox(
                                             height: 54,
                                             width: 180,
@@ -250,13 +249,13 @@ class _GameViewState extends State<GameView> {
                                             rearColor: Colors.grey[300]!,
                                           ),
                                         ),
-                                        ZToBoxAdapter(
+                                        const ZToBoxAdapter(
                                           height: 60,
                                           width: 200,
                                           child: ScoreBoard(),
                                         ),
                                       ],
-                                    )),
+                                    ),),
                               ),
                               for (final vehicle
                                   in state.puzzle.vehicles.values)

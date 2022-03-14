@@ -20,7 +20,6 @@ class ZPuzzleTimerText extends StatelessWidget {
         color: Colors.grey[900]!,
         frontColor: Colors.grey[800],
         fontSize: 4,
-        letterSpacing: 5,
       ),
     );
   }

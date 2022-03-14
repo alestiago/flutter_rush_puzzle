@@ -105,9 +105,9 @@ class ZAmbulanceColorScheme {
       secondarySirenColor:
           Color.lerp(a?.secondarySirenColor, b?.secondarySirenColor, t)!,
       primarySirenShadowColor: Color.lerp(
-          a?.primarySirenShadowColor, b?.primarySirenShadowColor, t)!,
+          a?.primarySirenShadowColor, b?.primarySirenShadowColor, t,)!,
       secondarySirenShadowColor: Color.lerp(
-          a?.secondarySirenShadowColor, b?.secondarySirenShadowColor, t)!,
+          a?.secondarySirenShadowColor, b?.secondarySirenShadowColor, t,)!,
     );
   }
 }

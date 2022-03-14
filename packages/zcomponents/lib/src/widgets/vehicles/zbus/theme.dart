@@ -208,14 +208,14 @@ class ZBusLayout {
       y: -stripeHeight / 2 - stripePadding,
     );
 
-    final lowerStripePosition = upperStripePosition;
+    const lowerStripePosition = upperStripePosition;
 
     const fenderHeight = height * 0.05;
     const bodyWidth = width * 1;
     const bodyHeight = height;
     const doorWidth = smallWindowWidth;
 
-    return ZBusLayout(
+    return const ZBusLayout(
       width: width,
       height: height,
       bodyWidth: bodyWidth,
@@ -236,7 +236,7 @@ class ZBusLayout {
       doorHeight: bodyHeight * 0.7,
       doorHorizontalPadding: doorWidth * 0.5,
       fenderHeight: fenderHeight,
-      fenderPosition: const ZVector.only(
+      fenderPosition: ZVector.only(
         y: -bodyHeight / 2 + fenderHeight / 2,
       ),
       lightDiameter: 3,

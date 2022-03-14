@@ -50,7 +50,7 @@ class _ZRoof extends StatelessWidget {
           height: theme.layout.bodyWidth,
           fill: true,
         ),
-        _ZCross(),
+        const _ZCross(),
       ],
     );
   }

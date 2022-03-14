@@ -1,11 +1,8 @@
 // ignore_for_file: public_member_api_docs, cast_nullable_to_non_nullable
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
-import 'package:rush_hour_puzzle/vehicle/vehicle.dart';
 
 import 'package:zcomponents/zcomponents.dart';
 
@@ -22,19 +19,19 @@ class PerspectiveSegmentedControl extends StatelessWidget {
             .read<PuzzleBloc>()
             .add(PuzzlePerspectiveChanged(value ?? GameLayoutPerspective.p3D));
       },
-      children: {
+      children: const {
         GameLayoutPerspective.p2D: Text(
           '2D',
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 14,
           ),
         ),
         GameLayoutPerspective.p3D: Text('3D',
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 14,
-            )),
+            ),),
       },
     );
   }

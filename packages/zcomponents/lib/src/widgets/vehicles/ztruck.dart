@@ -117,9 +117,9 @@ class ZTrucklayout {
       y: -bodyHeight / 2 + stripeHeight,
     );
 
-    final lowerStripePosition = upperStripePosition;
+    const lowerStripePosition = upperStripePosition;
 
-    return ZTrucklayout(
+    return const ZTrucklayout(
       width: width,
       height: height,
       bodyWidth: bodyWidth,
@@ -138,7 +138,7 @@ class ZTrucklayout {
       cabinHeight: bodyHeight - 5,
       cabinHorizontalPadding: 0,
       fenderHeight: fenderHeight,
-      fenderPosition: const ZVector.only(
+      fenderPosition: ZVector.only(
         y: -bodyHeight / 2 + fenderHeight / 2,
       ),
     );
@@ -185,7 +185,7 @@ class ZTruck extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider.value(
       value: theme,
-      child: ZTruckBody(),
+      child: const ZTruckBody(),
     );
   }
 }
@@ -493,7 +493,7 @@ class _ZTruckBodySide extends StatelessWidget {
       fill: true,
     );
 
-    final cabin = _Zcabin();
+    const cabin = _Zcabin();
     final fender =
         _ZFender(width: theme.layout.bodyWidth - theme.layout.cabinStride);
 
@@ -919,9 +919,8 @@ class _ZCabinBodySide extends StatelessWidget {
       fill: true,
     );
 
-    final cabin = _Zcabin();
+    const cabin = _Zcabin();
     final fender = _ZFender(width: theme.layout.cabinStride);
-    ;
 
     return ZGroup(
       sortMode: SortMode.stack,
