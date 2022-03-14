@@ -11,29 +11,35 @@ class ZClouds extends StatelessWidget {
       children: [
         ZPositioned(
           scale: ZVector.all(2),
-          translate: ZVector(-300, -300, -100),
+          translate: ZVector(-400, -250, -100),
           child: ZAnimatedPositioned.position(
             position: GameLayoutPerspective.presentation.position,
             duration: Duration(milliseconds: 400),
-            child: ZCloud(),
+            child: ZCloud(
+               opacity: 0.6,
+            ),
           ),
         ),
         ZPositioned(
-          scale: ZVector.all(2),
-          translate: ZVector(500, -100, -100),
+          scale: ZVector.all(2.5),
+          translate: ZVector(600, -50, -100),
           child: ZAnimatedPositioned.position(
             position: GameLayoutPerspective.presentation.position,
             duration: Duration(milliseconds: 400),
-            child: ZCloud(),
+            child: ZCloud(
+              opacity: 0.8,
+            ),
           ),
         ),
         ZPositioned(
-          scale: ZVector.all(2),
-          translate: ZVector(200, -400, -100),
+          scale: ZVector.all(1.75),
+          translate: ZVector(300, -350, -100),
           child: ZAnimatedPositioned.position(
             position: GameLayoutPerspective.presentation.position,
             duration: Duration(milliseconds: 400),
-            child: ZCloud(),
+            child: ZCloud(
+              opacity: 0.5,
+            ),
           ),
         ),
       ],

@@ -23,6 +23,7 @@ class ZSquaredCar extends StatelessWidget {
     final sideColor = theme.sideColor ?? theme.color;
 
     final doorSideColor = theme.doorSideColor ?? sideColor;
+    final windowSideColor = theme.windowSideColor ?? doorSideColor;
     final topColor = theme.topColor ?? theme.color;
     final topMiddleColor = theme.topMiddleColor ?? topColor;
     final topBoxColor = theme.topBoxColor;
@@ -41,6 +42,7 @@ class ZSquaredCar extends StatelessWidget {
               side: ZCarSide.left,
               sideColor: sideColor,
               doorSideColor: doorSideColor,
+              windowSideColor: windowSideColor,
             ),
           ],
         ),
@@ -50,6 +52,7 @@ class ZSquaredCar extends StatelessWidget {
           side: ZCarSide.right,
           sideColor: sideColor,
           doorSideColor: doorSideColor,
+          windowSideColor: windowSideColor,
         ),
 
         /// Top of the car
@@ -225,12 +228,14 @@ class _ZCarSide extends StatelessWidget {
     required this.side,
     required this.sideColor,
     required this.doorSideColor,
+    required this.windowSideColor,
   }) : super(key: key);
 
   final ZCarSide side;
 
   final Color sideColor;
   final Color doorSideColor;
+  final Color windowSideColor;
 
   @override
   Widget build(BuildContext context) {
@@ -285,11 +290,23 @@ class _ZCarSide extends StatelessWidget {
                 ),
               ],
             ),
-            ZRect(
-              width: _width - _trunkDepth * 2 - 2,
-              height: _tileSize - 8,
-              color: doorSideColor,
-              fill: true,
+            ZPositioned(
+              translate: const ZVector(0, -_halfSize / 4 - 2, 0),
+              child: ZRect(
+                width: _width - _trunkDepth * 2 - 2,
+                height: _tileSize / 2 - 4,
+                color: windowSideColor,
+                fill: true,
+              ),
+            ),
+            ZPositioned(
+              translate: const ZVector(-0, _halfSize / 4 + 2, 0),
+              child: ZRect(
+                width: _width - _trunkDepth * 2 - 2,
+                height: _tileSize / 2 - 4,
+                color: doorSideColor,
+                fill: true,
+              ),
             ),
           ],
         ),

@@ -236,20 +236,6 @@ class _ZSide extends StatelessWidget {
           child: fender,
         ),
         ZPositioned(
-          translate: ZVector.only(
-            x: -theme.layout.bodyWidth * 0.3,
-            y: -theme.layout.bodyHeight / 2,
-          ),
-          child: ZWheel(side: _side.isLeft ? ZCarSide.left : ZCarSide.right),
-        ),
-        ZPositioned(
-          translate: ZVector.only(
-            x: theme.layout.bodyWidth * 0.3,
-            y: -theme.layout.bodyHeight / 2,
-          ),
-          child: ZWheel(side: _side.isLeft ? ZCarSide.left : ZCarSide.right),
-        ),
-        ZPositioned(
           translate: theme.layout.upperStripePosition,
           child: _ZStripe(side: _side),
         ),
@@ -268,6 +254,20 @@ class _ZSide extends StatelessWidget {
                 theme.layout.doorHorizontalPadding,
           ),
           child: door,
+        ),
+        ZPositioned(
+          translate: ZVector.only(
+            x: -theme.layout.bodyWidth * 0.3,
+            y: -theme.layout.bodyHeight / 2,
+          ),
+          child: ZWheel(side: _side.isLeft ? ZCarSide.left : ZCarSide.right),
+        ),
+        ZPositioned(
+          translate: ZVector.only(
+            x: theme.layout.bodyWidth * 0.3,
+            y: -theme.layout.bodyHeight / 2,
+          ),
+          child: ZWheel(side: _side.isLeft ? ZCarSide.left : ZCarSide.right),
         ),
       ],
     );

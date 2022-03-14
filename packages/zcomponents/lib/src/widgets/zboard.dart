@@ -107,6 +107,26 @@ class _Board extends StatelessWidget {
               ),
             ),
             ZPositioned(
+              translate: ZVector(0, 0, -layout.boardDepth / 2 - 100),
+              child: ZToBoxAdapter(
+                height: size,
+                width: size,
+                child: Container(
+                  height: size / 0.5,
+                  width: size / 0.5,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: theme.boardBackColor!.withOpacity(0.15),
+                        blurRadius: 20,
+                        spreadRadius: 20,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            ZPositioned(
               translate: const ZVector(0, 0, -10000),
               child: ZShape(
                 color: Colors.transparent,

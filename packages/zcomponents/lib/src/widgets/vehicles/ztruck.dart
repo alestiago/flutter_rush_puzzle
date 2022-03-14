@@ -107,20 +107,17 @@ class ZTrucklayout {
     const smallWindowWidth = height / 2;
     const windowHorizontalPadding = smallWindowWidth * 0.3;
 
-    const stripePadding = height * 0.05;
-    const stripeHeight = height * 0.02;
-    const upperStripePosition = ZVector.only(
-      y: -stripeHeight / 2 - stripePadding,
-    );
-
-    final lowerStripePosition = upperStripePosition +
-        const ZVector.only(
-          y: -stripeHeight - stripePadding,
-        );
-
     const fenderHeight = height * 0.05;
     const bodyWidth = width * 1;
     const bodyHeight = height;
+
+    const stripePadding = height * 0.05;
+    const stripeHeight = height * 0.2;
+    const upperStripePosition = ZVector.only(
+      y: -bodyHeight / 2 + stripeHeight,
+    );
+
+    final lowerStripePosition = upperStripePosition;
 
     return ZTrucklayout(
       width: width,
@@ -133,7 +130,7 @@ class ZTrucklayout {
       largeWindowWidth: rearWidth,
       largeWindowHeight: bodyHeight / 3.5,
       largeWindowHorizontalPadding: 0,
-      stripeHeight: bodyHeight * 0.02,
+      stripeHeight: stripeHeight,
       upperStripePosition: upperStripePosition,
       lowerStripePosition: lowerStripePosition,
       cabinStride: width / 5 + 3,
@@ -505,6 +502,18 @@ class _ZTruckBodySide extends StatelessWidget {
       children: [
         body,
         ZPositioned(
+          translate: theme.layout.upperStripePosition,
+          child: _ZStripe(
+            width: theme.layout.bodyWidth - theme.layout.cabinStride,
+          ),
+        ),
+        ZPositioned(
+          translate: theme.layout.lowerStripePosition,
+          child: _ZStripe(
+            width: theme.layout.bodyWidth - theme.layout.cabinStride,
+          ),
+        ),
+        ZPositioned(
           translate: theme.layout.fenderPosition,
           child: fender,
         ),
@@ -521,18 +530,6 @@ class _ZTruckBodySide extends StatelessWidget {
             y: -body.height / 2,
           ),
           child: _ZWheel(side: side),
-        ),
-        ZPositioned(
-          translate: theme.layout.upperStripePosition,
-          child: _ZStripe(
-            width: theme.layout.bodyWidth - theme.layout.cabinStride,
-          ),
-        ),
-        ZPositioned(
-          translate: theme.layout.lowerStripePosition,
-          child: _ZStripe(
-            width: theme.layout.bodyWidth - theme.layout.cabinStride,
-          ),
         ),
       ],
     );
@@ -875,14 +872,6 @@ class _ZCabinFrontSide extends StatelessWidget {
         ZPositioned(
           translate: theme.layout.fenderPosition,
           child: fender,
-        ),
-        ZPositioned(
-          translate: theme.layout.upperStripePosition,
-          child: _ZStripe(width: theme.layout.rearWidth),
-        ),
-        ZPositioned(
-          translate: theme.layout.lowerStripePosition,
-          child: _ZStripe(width: theme.layout.rearWidth),
         ),
         ZPositioned(
           translate: ZVector.only(
