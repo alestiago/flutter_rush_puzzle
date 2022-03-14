@@ -21,7 +21,7 @@ extension GameLayoutPerspectivePosition on GameLayoutPerspective {
         return const ZPosition(
           scale: ZVector.all(0.8),
           translate: ZVector.only(y: 32),
-          rotate: ZVector.only(x: tau / 7, z: -tau / 8 + tau / 4),
+          rotate: ZVector.only(x: tau / 7, z: -tau / 8 + tau / 4 - 0.04),
         );
       case GameLayoutPerspective.presentation:
         return const ZPosition(
