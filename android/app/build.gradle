@@ -63,28 +63,14 @@ android {
     }
 
     signingConfigs {
-        if (System.getenv()["CI"]) { // CI=true is exported by Codemagic
-            release {
-                storeFile file(System.getenv()["CM_KEYSTORE_PATH"])
-                storePassword System.getenv()["CM_KEYSTORE_PASSWORD"]
-                keyAlias System.getenv()["CM_KEY_ALIAS"]
-                keyPassword System.getenv()["CM_KEY_PASSWORD"]
-            }
-        } else if (System.getenv("ANDROID_KEYSTORE_PATH")) {
-            release {
-                storeFile file(System.getenv("ANDROID_KEYSTORE_PATH"))
-                keyAlias System.getenv("ANDROID_KEYSTORE_ALIAS")
-                keyPassword System.getenv("ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
-                storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
-            }
-        } else {
-            release {
-                keyAlias keystoreProperties['keyAlias']
-                keyPassword keystoreProperties['keyPassword']
-                storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-                storePassword keystoreProperties['storePassword']
-            }
+
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties['storePassword']
         }
+      
     }
 
     flavorDimensions "default"
