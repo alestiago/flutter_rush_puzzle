@@ -29,5 +29,15 @@
                 "lib/main_profile.dart"
             ]
         },
+        {
+            "name": "rush_hour_puzzle (mac)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_development.dart",
+            "args": [
+                "--target",
+                "lib/main_development.dart"
+            ]
+        },
     ]
 }
