@@ -1,5 +1,8 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:puzzle_models/puzzle_models.dart';
+
+part 'rush_puzzle.g.dart';
 
 /// {@template rush_puzzle}
 /// Represents a Rush Hour puzzle.
@@ -7,6 +10,7 @@ import 'package:puzzle_models/puzzle_models.dart';
 /// For more information see:
 /// - https://en.wikipedia.org/wiki/Rush_Hour_(puzzle)
 /// {@endtemplate}
+@JsonSerializable()
 class RushPuzzle extends Equatable {
   /// {@macro rush_puzzle}
   RushPuzzle({
@@ -35,6 +39,13 @@ class RushPuzzle extends Equatable {
         difficulty = PuzzleDifficulty.beginner,
         lastVehicleMoved = null,
         jammedVehicleId = '';
+
+  /// Converts a JSON [Map] into a [Position] instance
+  factory RushPuzzle.fromJson(Map<String, dynamic> json) =>
+      _$RushPuzzleFromJson(json);
+
+  /// Converts this [Position] instance into a JSON [Map]
+  Map<String, dynamic> toJson() => _$RushPuzzleToJson(this);
 
   /// The [Position] that the [jammedVehicleId] has to reach in order to solve
   /// the puzzle.

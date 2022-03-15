@@ -27,12 +27,14 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
 
   final PuzzlesRepository _puzzlesRepository;
 
+  final puzzleVersion = DateTime.now().difference(DateTime(2022, 3, 14)).inDays;
+
   Future<void> _onPuzzleFetched(
     PuzzleFetched event,
     Emitter<PuzzleState> emit,
   ) async {
     emit(state.copyWith(status: GameStatus.loading));
-    final game = await _puzzlesRepository.getPuzzle();
+    final game = await _puzzlesRepository.getPuzzle(puzzleVersion);
     emit(state.copyWith(status: GameStatus.setup, history: [game]));
   }
 
@@ -88,13 +90,13 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   void _onPuzzleShared(PuzzleShared event, Emitter emit) {
     if (!state.puzzle.isSolved) return;
 
-    sharePuzzle(state);
+    sharePuzzle(state, puzzleVersion);
   }
 }
 
-void sharePuzzle(PuzzleState state) {
+void sharePuzzle(PuzzleState state, int version) {
   final introMessage = '''
-https://flutter-rush.web.app/  (#${DateTime.now().difference(DateTime(2022, 2, 27)).inDays})
+https://flutter-rush.web.app/  (#$version)
 ''';
   final buffer = StringBuffer();
   for (final state in state.history) {

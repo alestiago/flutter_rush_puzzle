@@ -1,0 +1,61 @@
+{
+    "jammedVehicleId": "X",
+    "difficulty": "beginner",
+    "minMoves": "14",
+    "vehicles": {
+        "A": {
+            "id": "A",
+            "type": "taxi",
+            "steering": "vertic",
+            "firstPosition": {
+                "x": 1,
+                "y": 3
+            }
+        },
+        "B": {
+            "id": "B",
+            "type": "car",
+            "steering": "vertical",
+            "firstPosition": {
+                "x": 1,
+                "y": 4
+            }
+        },
+        "C": {
+            "id": "C",
+            "type": "police",
+            "steering": "horizontal",
+            "firstPosition": {
+                "x": 2,
+                "y": 5
+            }
+        },
+        "O": {
+            "id": "O",
+            "type": "truck",
+            "steering": "vertical",
+            "firstPosition": {
+                "x": 3,
+                "y": 2
+            }
+        },
+        "P": {
+            "id": "P",
+            "type": "bus",
+            "steering": "vertical",
+            "firstPosition": {
+                "x": 5,
+                "y": 3
+            }
+        },
+        "X": {
+            "id": "X",
+            "type": "ambulance",
+            "steering": "horizontal",
+            "firstPosition": {
+                "x": 1,
+                "y": 2
+            }
+        }
+    }
+}

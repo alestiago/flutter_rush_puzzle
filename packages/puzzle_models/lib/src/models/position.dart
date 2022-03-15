@@ -1,10 +1,14 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'position.g.dart';
 
 /// {@template position}
 /// 2-dimensional position model.
 ///
 /// (0, 0) is the top left corner of the board.
 /// {@endtemplate}
+@JsonSerializable()
 class Position extends Equatable {
   /// {@macro position}
   const Position(this.x, this.y)
@@ -18,13 +22,17 @@ class Position extends Equatable {
         );
 
   /// A position with the same [value] offset for both axis
-  const Position.all(int value) 
+  const Position.all(int value)
       : assert(
           value >= 0,
           'value must be greater than or equal to 0.',
         ),
         x = value,
         y = value;
+
+  /// Converts a JSON [Map] into a [Position] instance
+  factory Position.fromJson(Map<String, dynamic> json) =>
+      _$PositionFromJson(json);
 
   /// A position with a zero offset in both axis
   static const Position zero = Position(0, 0);
@@ -72,4 +80,7 @@ class Position extends Equatable {
 
   @override
   List<Object> get props => [x, y];
+
+  /// Converts this [Position] instance into a JSON [Map]
+  Map<String, dynamic> toJson() => _$PositionToJson(this);
 }

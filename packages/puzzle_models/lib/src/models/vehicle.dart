@@ -1,5 +1,8 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:puzzle_models/puzzle_models.dart';
+
+part 'vehicle.g.dart';
 
 /// {@template vehicle}
 /// Representation of a [RushPuzzle] vehicle.
@@ -7,6 +10,7 @@ import 'package:puzzle_models/puzzle_models.dart';
 /// [Vehicle] can have variable length, but the width is assumed to be one.
 /// The orientation of the vehicle is fixed and determined by [Steering].
 /// {@endtemplate}
+@JsonSerializable()
 class Vehicle extends Equatable {
   /// {@macro vehicle}
   Vehicle({
@@ -23,6 +27,13 @@ class Vehicle extends Equatable {
             (steering == Steering.horizontal
                 ? Position(type.length - 1, 0)
                 : Position(0, type.length - 1));
+
+  /// Converts a JSON [Map] into a [Position] instance
+  factory Vehicle.fromJson(Map<String, dynamic> json) =>
+      _$VehicleFromJson(json);
+
+  /// Converts this [Position] instance into a JSON [Map]
+  Map<String, dynamic> toJson() => _$VehicleToJson(this);
 
   /// Unique identifier for this vehicle.
   final String id;
