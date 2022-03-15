@@ -1,6 +1,6 @@
 name: rush_hour_puzzle
 description: Play a daily Rush Puzzle game
-version: 0.0.5+5
+version: 0.0.7+7
 publish_to: none
 
 environment:
@@ -35,8 +35,17 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mocktail: ^0.2.0
+  msix: ^3.3.2
   very_good_analysis: ^2.4.0
+
 
 flutter:
   uses-material-design: true
   generate: true
+
+msix_config:
+  display_name: Rush App
+  publisher_display_name: Jaime Blasco Andrés
+  logo_path: .\windows\logo.png
+  capabilities: internetClient
+  store: true

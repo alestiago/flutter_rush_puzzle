@@ -86,8 +86,9 @@ workflows:
         issuer_id: $APP_STORE_CONNECT_ISSUER_ID
         submit_to_testflight: true
         submit_to_app_store: false
-  desktop:
-    name: macos
+
+  macos-workflow:
+    name: MacOS Release
     max_build_duration: 30
     environment:
       groups:
@@ -119,6 +120,8 @@ workflows:
           app-store-connect list-certificates --type MAC_INSTALLER_DISTRIBUTION --save   
       - keychain add-certificates
       - xcode-project use-profiles
+      - |
+        find . -name "Podfile" -execdir pod install \;
       - |
         # build macos
         flutter build macos --release --target lib/main_profile.dart
@@ -199,7 +202,7 @@ workflows:
       - flutter packages pub get
       - flutter config --enable-windows-desktop
       - flutter build windows
-      - flutter pub run msix:create
+      - flutter pub run msix:create --store --publisher="$M_PUBLISHER_ID" --identity-name="$M_IDENTITY_NAME"
       - |
         # Publish only for tag builds
         if [ -z ${CM_TAG} ]; then
