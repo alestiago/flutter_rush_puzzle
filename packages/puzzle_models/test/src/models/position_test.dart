@@ -1,3 +1,5 @@
+// ignore_for_file: use_named_constants
+
 import 'package:puzzle_models/puzzle_models.dart';
 import 'package:test/test.dart';
 
@@ -14,6 +16,20 @@ void main() {
         );
 
         test(
+          '.zero is zero',
+          () {
+            expect(Position.zero, const Position(0, 0));
+          },
+        );
+
+        test(
+          '.all have same value for box axis',
+          () {
+            expect(const Position.all(1), const Position(1, 1));
+          },
+        );
+
+        test(
           'throws an AssertionError '
           'when x is smaller than 0',
           () {
@@ -26,6 +42,14 @@ void main() {
           'when y is smaller than 0',
           () {
             expect(() => Position(-1, 0), throwsA(isA<AssertionError>()));
+          },
+        );
+
+         test(
+          '.all throws an AssertionError '
+          'when value is smaller than 0',
+          () {
+            expect(() => Position.all(-1), throwsA(isA<AssertionError>()));
           },
         );
       },

@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puzzle_models/puzzle_models.dart';
 import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
 
+
 /// {@template score_board}
-/// Overaly widget that shows details about the [PuzzleGame].
+/// Overaly widget that shows details about the [PuzzlePage].
 /// {@endtemplate}
 class ScoreBoard extends StatelessWidget {
   /// {@macro score_board}

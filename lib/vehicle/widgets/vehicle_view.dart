@@ -6,8 +6,8 @@ import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
 import 'package:rush_hour_puzzle/vehicle/vehicle.dart';
 import 'package:zcomponents/zcomponents.dart';
 
-class VehicleView extends StatelessWidget {
-  const VehicleView({
+class ZVehicleView extends StatelessWidget {
+  const ZVehicleView({
     Key? key,
     required this.vehicle,
   }) : super(key: key);
@@ -35,10 +35,7 @@ class VehicleView extends StatelessWidget {
           isMainVehicle: state.puzzle.jammedVehicleId == vehicle.id,
         );
       },
-      child: VehicleContent(
-        vehicle: vehicle,
-        child: child,
-      ),
+      child: ZVehicleContent(child: child),
     );
   }
 }

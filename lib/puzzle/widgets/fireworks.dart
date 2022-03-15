@@ -29,8 +29,10 @@ class _FireworksState extends State<Fireworks>
 
   @override
   Widget build(BuildContext context) {
-    return fireworks.Fireworks(
-      controller: controller,
+    return RepaintBoundary(
+      child: fireworks.Fireworks(
+        controller: controller,
+      ),
     );
   }
 }

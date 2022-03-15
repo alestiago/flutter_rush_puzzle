@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:zcomponents/src/widgets/vehicles/zbus/body.dart';
 import 'package:zcomponents/zcomponents.dart';
-
-import 'body.dart';
 
 export 'theme.dart';
 

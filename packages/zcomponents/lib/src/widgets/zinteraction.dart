@@ -102,7 +102,10 @@ class _ZInteractionState extends State<ZInteraction>
           }
           if (event.velocity.pixelsPerSecond.dx > 0) {
             endPosition -= pi / 2;
-            assert(startPosition >= endPosition);
+            assert(
+              startPosition >= endPosition,
+              'Start position needs to be before or same as endPosition',
+            );
           } else if (event.velocity.pixelsPerSecond.dx < 0) {
             //   endPosition += pi / 2;
           }

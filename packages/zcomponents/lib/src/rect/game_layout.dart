@@ -89,15 +89,20 @@ class GameLayout {
     final maxPosition = steering == Steering.horizontal
         ? Position(minPosition.x + length - 1, minPosition.y)
         : Position(minPosition.x, minPosition.y + length - 1);
-    return boxForDrivingBoundary(DrivingBoundary(minPosition, maxPosition));
+    return boxForMinMax(minPosition, maxPosition);
+  }
+
+  /// Generates a boundary box for a given offest, length and steering
+  BoundingBox boxForMinMax(Position minPosition, Position maxPosition) {
+    final minOffset = offsetForPosition(minPosition);
+    final maxOffset =
+        offsetForPosition(maxPosition) + Offset(tileSize, tileSize);
+    return BoundingBox(minOffset, maxOffset);
   }
 
   /// Generates a boundary box for a driving boundary
   BoundingBox boxForDrivingBoundary(DrivingBoundary bounds) {
-    final minPosition = offsetForPosition(bounds.from);
-    final maxPosition =
-        offsetForPosition(bounds.to) + Offset(tileSize, tileSize);
-    return BoundingBox(minPosition, maxPosition);
+    return boxForMinMax(bounds.from, bounds.to);
   }
 
   /// Tolerance while drag and drop

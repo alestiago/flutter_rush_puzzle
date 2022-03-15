@@ -54,7 +54,7 @@ class RenderZBoundingBox extends RenderMultiChildZBox {
     double height,
     double depth,
   ) {
-    assert(width == depth || height == depth);
+    assert(width == depth || height == depth, 'One side should be a square');
     return math.Aabb3.centerAndHalfExtents(
       math.Vector3.zero(),
       math.Vector3(width / 2, height / 2, depth / 2),

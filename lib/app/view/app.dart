@@ -53,7 +53,7 @@ class AppView extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const PuzzleGame(),
+      home: const PuzzlePage(),
     );
   }
 }

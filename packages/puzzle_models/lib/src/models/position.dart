@@ -17,6 +17,18 @@ class Position extends Equatable {
           'y must be greater than or equal to 0.',
         );
 
+  /// A position with the same [value] offset for both axis
+  const Position.all(int value) 
+      : assert(
+          value >= 0,
+          'value must be greater than or equal to 0.',
+        ),
+        x = value,
+        y = value;
+
+  /// A position with a zero offset in both axis
+  static const Position zero = Position(0, 0);
+
   /// The x position.
   final int x;
 

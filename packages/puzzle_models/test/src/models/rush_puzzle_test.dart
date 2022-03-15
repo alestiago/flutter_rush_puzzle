@@ -11,7 +11,7 @@ void main() {
             id: 'A',
             type: VehicleType.taxi,
             steering: Steering.horizontal,
-            firstPosition: const Position(0, 0),
+            firstPosition: Position.zero,
           );
 
           expect(
@@ -46,7 +46,7 @@ void main() {
             id: 'A',
             type: VehicleType.taxi,
             steering: Steering.horizontal,
-            firstPosition: const Position(0, 0),
+            firstPosition: Position.zero,
           );
           final outsideVehicle = Vehicle(
             id: 'A',
@@ -119,7 +119,7 @@ void main() {
           id: 'A',
           type: VehicleType.taxi,
           steering: Steering.horizontal,
-          firstPosition: const Position(0, 0),
+          firstPosition: Position.zero,
         );
         final puzzle = RushPuzzle(
           difficulty: PuzzleDifficulty.beginner,
@@ -137,7 +137,7 @@ void main() {
           id: 'A',
           type: VehicleType.taxi,
           steering: Steering.horizontal,
-          firstPosition: const Position(0, 0),
+          firstPosition: Position.zero,
         );
         final puzzle = RushPuzzle(
           difficulty: PuzzleDifficulty.beginner,
