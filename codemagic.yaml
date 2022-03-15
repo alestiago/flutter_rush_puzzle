@@ -117,6 +117,8 @@ workflows:
       - find . -name "Podfile" -execdir pod install \;
       - keychain initialize
       - app-store-connect fetch-signing-files "app.flutter.rushpuzzle"  --type MAC_APP_STORE --platform MAC_OS  --create
+      - app-store-connect create-certificate --type MAC_INSTALLER_DISTRIBUTION --save || \
+          app-store-connect list-certificates --type MAC_INSTALLER_DISTRIBUTION --save   
       - keychain add-certificates
       - xcode-project use-profiles
       - |
