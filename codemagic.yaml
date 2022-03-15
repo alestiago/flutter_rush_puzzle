@@ -89,6 +89,8 @@ workflows:
       flutter: stable
       xcode: latest
       cocoapods: default
+      vars:
+        CERTIFICATE_PRIVATE_KEY: $MAC_CERTIFICATE_PRIVATE_KEY
     triggering:
       events:
         - tag
@@ -106,7 +108,7 @@ workflows:
       - flutter config --enable-macos-desktop
       - find . -name "Podfile" -execdir pod install \;
       - keychain initialize
-      - app-store-connect fetch-signing-files "app.flutter.rushpuzzle"  --type MAC_APP_STORE --platform MAC_OS  --create
+      - app-store-connect fetch-signing-files "app.flutter.rushpuzzle"  --type MAC_APP_STORE --platform MAC_OS  --create --
       - app-store-connect list-certificates --type MAC_INSTALLER_DISTRIBUTION --save   
       - keychain add-certificates
       - xcode-project use-profiles
@@ -192,7 +194,7 @@ workflows:
       - flutter packages pub get
       - flutter config --enable-windows-desktop
       - flutter build windows
-      - flutter pub run msix:create --store --publisher=$M_PUBLISHER_ID --identity-name=53278JaimeBlascoAndrs.RushApp
+      - flutter pub run msix:create --store --publisher=CN=3A6E7B55-DB95-449E-9605-3397E2C34CAC --identity-name=53278JaimeBlascoAndrs.RushApp
       - |
         # Publish only for tag builds
         if [ -z ${CM_TAG} ]; then
