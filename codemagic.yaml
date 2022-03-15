@@ -56,12 +56,12 @@ workflows:
            echo "Not a tag build will not publish GitHub release"
         exit 0
         fi
-        gh auth login
+        gh auth login --with-token <<<"${GITHUB_TOKEN}"
         gh release create "${CM_TAG}" \
             --title "Rush Puzzle ${CM_TAG}" \
             build/**/outputs/bundle/**/*.aab  \
             build/ios/ipa/*.ipa \
-            /web.zip
+            build/web.zip
     artifacts:
       - build/**/outputs/apk/**/*.apk
       - build/**/outputs/bundle/**/*.aab
@@ -81,7 +81,7 @@ workflows:
       google_play:
         credentials: $GOOGLE_PLAY_CREDENTIALS
         track: beta
-        in_app_update_priority: 0
+        submit_as_draft: true
       app_store_connect:
         api_key: $APPLE_STORE_CONNECT_API_KEY
         key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
@@ -151,7 +151,7 @@ workflows:
         exit 0
         fi
 
-        gh auth login
+        gh auth login --with-token <<<"${GITHUB_TOKEN}"
         gh release create "${CM_TAG}" \
             build/macos/**/*.pkg
     artifacts:
@@ -224,7 +224,7 @@ workflows:
            echo "Not a tag build will not publish GitHub release"
         exit 0
         fi
-        gh auth login
+        gh auth login --with-token <<<"${GITHUB_TOKEN}"
         gh release create "${CM_TAG}" \
             --title "Rush Puzzle ${CM_TAG}" \
             build/windows/**/*.msix
