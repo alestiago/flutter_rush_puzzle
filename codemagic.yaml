@@ -1,6 +1,6 @@
 workflows:
   default-workflow:
-    name: Default Workflow
+    name: iOS and Android release
     max_build_duration: 30
     environment:
       groups:
@@ -34,9 +34,6 @@ workflows:
         # set up local properties
         echo "flutter.sdk=$HOME/programs/flutter" > "$FCI_BUILD_DIR/android/local.properties"
       - flutter packages pub get
-      - flutter config --enable-web
-      - flutter config --enable-linux-desktop
-      - flutter config --enable-macos-desktop
       - flutter build appbundle --release  --flavor production   --target lib/main_profile.dart
       - find . -name "Podfile" -execdir pod install \;
       - keychain initialize
@@ -45,11 +42,6 @@ workflows:
       - xcode-project use-profiles
       - flutter build ipa --export-options-plist=/Users/builder/export_options.plist  --flavor
         production  --target lib/main_profile.dart
-      - |
-        # build web
-        flutter build web --release --web-renderer html --flavor production  --target lib/main_profile.dart
-        cd build/web
-        7z a -r ../web.zip ./*
       - |
         # Publish only for tag builds
         if [ -z ${CM_TAG} ]; then
@@ -60,15 +52,13 @@ workflows:
         gh release create "${CM_TAG}" \
             --title "Rush Puzzle ${CM_TAG}" \
             build/**/outputs/bundle/**/*.aab  \
-            build/ios/ipa/*.ipa \
-            build/web.zip
+            build/ios/ipa/*.ipa
     artifacts:
       - build/**/outputs/apk/**/*.apk
       - build/**/outputs/bundle/**/*.aab
       - build/**/outputs/**/mapping.txt
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
-      - build/web.zip
       - '*.snap'
       - build/windows/**/*.msix
       - build/windows/**/*.exe
@@ -178,10 +168,15 @@ workflows:
         issuer_id: $APP_STORE_CONNECT_ISSUER_ID
         submit_to_testflight: true
         submit_to_app_store: false
+
   windows-release-workflow:
     name: Windows release workflow
     instance_type: windows_x2
     max_build_duration: 60
+    environment:
+      groups:
+        - windows-signing 
+      flutter: stable
     triggering:
       events:
         - tag
@@ -192,10 +187,6 @@ workflows:
       tag_patterns:
         - pattern: '*'
           include: true
-    environment:
-      groups:
-        - windows-signing 
-      flutter: stable
     cache:
       cache_paths:
         - ~/.pub-cache
@@ -206,20 +197,8 @@ workflows:
         script: flutter config --enable-windows-desktop
       - name: Build Windows
         script: flutter build windows
-      # 1. You should have `msix` dependency under `dev_dependencies` section in pubspec.yaml.
-      # 2. If you have defined the MSIX build configurations inside the pubspec.yaml, 
-      #    then you can just use "msix:create" without passing any parameters.
-      #    [NOTE: This project has the configurations defined in the pubspec.yaml file]
       - name: Package Windows
         script: flutter pub run msix:create
-      # If you don't have the configurations created inside pubspec.yaml, then you need 
-      # to pass the configurations as parameters. Use the following script in that case:
-      # ----------------------------------------------------------------------------------
-      # - name: Package Windows
-      #   script: |
-      #     flutter pub add msix
-      #     flutter pub run msix:create --display-name='<AppName>' --publisher-display-name='<PublisherName>' --publisher='<PublisherID>' --identity-name='<PublisherName.AppName>' --version=1.0.0.0 --logo-path='./logo/<file_name.png>' --store=true
-      # ----------------------------------------------------------------------------------
       - |
         # Publish only for tag builds
         if [ -z ${CM_TAG} ]; then
@@ -240,4 +219,51 @@ workflows:
         client_secret: $PARTNER_CLIENT_SECRET # <-- `client_secret` is retrieved from the application environment variable
       email:
         recipients:
-          - email@example.com
+          - git@jaimeblasco.com
+
+  web-workflow:
+    name: Deploy web
+    max_build_duration: 30
+    environment:
+      groups:
+        - play_store
+        - apple_store
+        - personal_data
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    triggering:
+      events:
+        - tag
+      branch_patterns:
+        - pattern: '*'
+          include: true
+          source: true
+      tag_patterns:
+        - pattern: '*'
+          include: true
+    scripts:
+      - flutter packages pub get
+      - flutter config --enable-web
+      - find . -name "Podfile" -execdir pod install \;
+      - |
+        # build web
+        flutter build web --release --web-renderer html --flavor production  --target lib/main_profile.dart
+        cd build/web
+        7z a -r ../web.zip ./*
+        cd ../../
+      - |
+        # Publish only for tag builds
+        if [ -z ${CM_TAG} ]; then
+           echo "Not a tag build will not publish GitHub release"
+        exit 0
+        fi
+        gh auth login --with-token <<<"${GITHUB_TOKEN}"
+        gh release create "${CM_TAG}" \
+            build/web.zip
+    artifacts:
+      - build/web.zip
+    publishing:
+      email:
+        recipients:
+          - git@jaimeblasco.com
