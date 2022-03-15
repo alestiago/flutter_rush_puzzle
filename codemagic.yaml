@@ -1,6 +1,6 @@
 workflows:
   default-workflow:
-    name: iOS and Android release
+    name: iOS and Android Release
     max_build_duration: 30
     environment:
       groups:
@@ -21,6 +21,15 @@ workflows:
         - pattern: '*'
           include: true
     scripts:
+      - | 
+        # Create github release
+        # Publish only for tag builds
+        if [ -z ${CM_TAG} ]; then
+           echo "Not a tag build will not publish GitHub release"
+        exit 0
+        fi
+        gh release create "${CM_TAG}" \
+            --title "Rush Puzzle ${CM_TAG}" \
       - |
         # set up key.properties
         echo $FCI_KEYSTORE | base64 --decode > $FCI_KEYSTORE_PATH
@@ -49,8 +58,7 @@ workflows:
         exit 0
         fi
 
-        gh release create "${CM_TAG}" \
-            --title "Rush Puzzle ${CM_TAG}" \
+        gh release upload "${CM_TAG}" \
             build/**/outputs/bundle/**/*.aab  \
             build/ios/ipa/*.ipa
     artifacts:
@@ -143,8 +151,7 @@ workflows:
         exit 0
         fi
 
-
-        gh release create "${CM_TAG}" \
+        gh release upload "${CM_TAG}" \
             build/macos/**/*.pkg
     artifacts:
       - build/**/outputs/apk/**/*.apk
@@ -169,13 +176,14 @@ workflows:
         submit_to_testflight: true
         submit_to_app_store: false
 
-  windows-release-workflow:
-    name: Windows release workflow
+  windows-workflow:
+    name: Windows release
     instance_type: windows_x2
-    max_build_duration: 60
+    max_build_duration: 30
     environment:
       groups:
         - windows-signing 
+        - personal_data
       flutter: stable
     triggering:
       events:
@@ -187,18 +195,11 @@ workflows:
       tag_patterns:
         - pattern: '*'
           include: true
-    cache:
-      cache_paths:
-        - ~/.pub-cache
     scripts:
-      - name: Get Flutter packages
-        script: flutter packages pub get
-      - name: Configure for Windows
-        script: flutter config --enable-windows-desktop
-      - name: Build Windows
-        script: flutter build windows
-      - name: Package Windows
-        script: flutter pub run msix:create
+      - flutter packages pub get
+      - flutter config --enable-windows-desktop
+      - flutter build windows
+      - flutter pub run msix:create
       - |
         # Publish only for tag builds
         if [ -z ${CM_TAG} ]; then
@@ -206,8 +207,7 @@ workflows:
         exit 0
         fi
 
-        gh release create "${CM_TAG}" \
-            --title "Rush Puzzle ${CM_TAG}" \
+        gh release upload "${CM_TAG}" \
             build/windows/**/*.msix
     artifacts:
       - build/windows/**/*.msix
@@ -219,7 +219,7 @@ workflows:
         client_secret: $PARTNER_CLIENT_SECRET # <-- `client_secret` is retrieved from the application environment variable
       email:
         recipients:
-          - git@jaimeblasco.com
+          - git@jaimeblasco.com 
 
   web-workflow:
     name: Deploy web
@@ -258,7 +258,7 @@ workflows:
         exit 0
         fi
 
-        gh release create "${CM_TAG}" \
+        gh release upload "${CM_TAG}" \
             build/web.zip
     artifacts:
       - build/web.zip
