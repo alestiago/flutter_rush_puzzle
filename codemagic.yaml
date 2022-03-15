@@ -34,7 +34,7 @@ workflows:
         # set up local properties
         echo "flutter.sdk=$HOME/programs/flutter" > "$FCI_BUILD_DIR/android/local.properties"
       - flutter packages pub get
-      - flutter build appbundle --release  --flavor production   --target lib/main_profile.dart
+      - flutter build appbundle --release  --flavor production --target lib/main_profile.dart
       - find . -name "Podfile" -execdir pod install \;
       - keychain initialize
       - app-store-connect fetch-signing-files "app.flutter.rushpuzzle" --type IOS_APP_STORE --platform=IOS --create
@@ -107,8 +107,7 @@ workflows:
       - find . -name "Podfile" -execdir pod install \;
       - keychain initialize
       - app-store-connect fetch-signing-files "app.flutter.rushpuzzle"  --type MAC_APP_STORE --platform MAC_OS  --create
-      - app-store-connect create-certificate --type MAC_INSTALLER_DISTRIBUTION --save || \
-          app-store-connect list-certificates --type MAC_INSTALLER_DISTRIBUTION --save   
+      - app-store-connect list-certificates --type MAC_INSTALLER_DISTRIBUTION --save   
       - keychain add-certificates
       - xcode-project use-profiles
       - |
@@ -193,7 +192,7 @@ workflows:
       - flutter packages pub get
       - flutter config --enable-windows-desktop
       - flutter build windows
-      - flutter pub run msix:create --store --identity-name='$M_IDENTITY_NAME' --publisher='$M_PUBLISHER_ID' 
+      - flutter pub run msix:create --store --publisher=$M_PUBLISHER_ID --identity-name=53278JaimeBlascoAndrs.RushApp
       - |
         # Publish only for tag builds
         if [ -z ${CM_TAG} ]; then
