@@ -1,20 +1,24 @@
-
 import 'package:flutter/material.dart';
-import 'package:zcomponents/zcomponents.dart';
+import 'package:meta/meta.dart';
+import 'package:provider/provider.dart';
+import 'package:zclouds/zclouds.dart';
+import 'package:zflutter/zflutter.dart';
 
-class ZCloud extends StatelessWidget {
-  ZCloud({
-    Key? key,
-    this.opacity = 1,
-  }) : super(key: key);
-
-  late final Color color = Colors.white.withOpacity(opacity);
-  late final Color frontColor = Colors.grey[200]!.withOpacity(opacity);
-  late final Color sideColor = Colors.grey[100]!.withOpacity(opacity);
-  final double opacity;
+/// {@template zclouds.zcumulus}
+/// Represents a [ZCloudType.cumulus] cloud.
+/// {@endtemplate}
+@internal
+class ZCumulus extends StatelessWidget {
+  /// {@macro zclouds.zcumulus}
+  const ZCumulus({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.read<ZCloudStyle>();
+    final color = theme.color.withOpacity(theme.opacity);
+    final frontColor = theme.frontColor?.withOpacity(theme.opacity) ?? color;
+    final sideColor = theme.sideColor?.withOpacity(theme.opacity) ?? color;
+
     return ZGroup(
       sortMode: SortMode.update,
       sortPoint: ZVector.zero,

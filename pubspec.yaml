@@ -24,6 +24,8 @@ dependencies:
   share_plus: ^3.1.0
   z_cubic_text:
     path: packages/z_cubic_text
+  zclouds:
+    path: packages/zclouds
   zcomponents:
     path: packages/zcomponents
 

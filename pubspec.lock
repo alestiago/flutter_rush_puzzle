@@ -691,6 +691,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0+1"
+  zclouds:
+    dependency: "direct main"
+    description:
+      path: "packages/zclouds"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   zcomponents:
     dependency: "direct main"
     description:

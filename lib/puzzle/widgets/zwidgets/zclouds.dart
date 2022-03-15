@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zclouds/zclouds.dart';
 
 import 'package:zcomponents/zcomponents.dart';
 
@@ -7,6 +8,12 @@ class ZClouds extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cloudStyle = ZCloudStyle(
+      frontColor: Colors.grey[200],
+      sideColor: Colors.grey[100],
+    );
+    const cloudType = ZCloudType.cumulus;
+
     return ZIllustration(
       children: [
         ZPositioned(
@@ -16,7 +23,8 @@ class ZClouds extends StatelessWidget {
             position: GameLayoutPerspective.presentation.position,
             duration: const Duration(milliseconds: 400),
             child: ZCloud(
-               opacity: 0.6,
+              style: cloudStyle.copyWith(opacity: 0.6),
+              type: cloudType,
             ),
           ),
         ),
@@ -27,7 +35,8 @@ class ZClouds extends StatelessWidget {
             position: GameLayoutPerspective.presentation.position,
             duration: const Duration(milliseconds: 400),
             child: ZCloud(
-              opacity: 0.8,
+              style: cloudStyle.copyWith(opacity: 0.8),
+              type: cloudType,
             ),
           ),
         ),
@@ -38,7 +47,8 @@ class ZClouds extends StatelessWidget {
             position: GameLayoutPerspective.presentation.position,
             duration: const Duration(milliseconds: 400),
             child: ZCloud(
-              opacity: 0.5,
+              style: cloudStyle.copyWith(opacity: 0.5),
+              type: cloudType,
             ),
           ),
         ),
