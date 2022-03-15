@@ -48,7 +48,7 @@ workflows:
            echo "Not a tag build will not publish GitHub release"
         exit 0
         fi
-        gh auth login --with-token <<<"${GITHUB_TOKEN}"
+
         gh release create "${CM_TAG}" \
             --title "Rush Puzzle ${CM_TAG}" \
             build/**/outputs/bundle/**/*.aab  \
@@ -143,7 +143,7 @@ workflows:
         exit 0
         fi
 
-        gh auth login --with-token <<<"${GITHUB_TOKEN}"
+
         gh release create "${CM_TAG}" \
             build/macos/**/*.pkg
     artifacts:
@@ -205,7 +205,7 @@ workflows:
            echo "Not a tag build will not publish GitHub release"
         exit 0
         fi
-        gh auth login --with-token <<<"${GITHUB_TOKEN}"
+
         gh release create "${CM_TAG}" \
             --title "Rush Puzzle ${CM_TAG}" \
             build/windows/**/*.msix
@@ -258,7 +258,7 @@ workflows:
            echo "Not a tag build will not publish GitHub release"
         exit 0
         fi
-        gh auth login --with-token <<<"${GITHUB_TOKEN}"
+
         gh release create "${CM_TAG}" \
             build/web.zip
     artifacts:
