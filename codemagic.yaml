@@ -245,10 +245,9 @@ workflows:
     scripts:
       - flutter packages pub get
       - flutter config --enable-web
-      - find . -name "Podfile" -execdir pod install \;
       - |
         # build web
-        flutter build web --release --web-renderer html --flavor production  --target lib/main_profile.dart
+        flutter build web --release --web-renderer html --target lib/main_profile.dart
         cd build/web
         7z a -r ../web.zip ./*
         cd ../../
