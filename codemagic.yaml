@@ -54,35 +54,6 @@ workflows:
         cd build/web
         7z a -r ../web.zip ./*
       - |
-        # build macos
-        flutter build macos --release --target lib/main_profile.dart
-      - |    
-        # create macos package
-        set -x
-
-          # Command to find the path to your generated app
-          APP_NAME=$(find $(pwd) -name "*.app")
-          cd $(dirname "$APP_NAME")
-          PACKAGE_NAME=$(basename "$APP_NAME" .app).pkg
-
-          # Create an unsigned package
-          xcrun productbuild --component "$APP_NAME" /Applications/ unsigned.pkg
-
-          # Find the installer certificate commmon name in keychain
-          INSTALLER_CERT_NAME=$(keychain list-certificates \
-            | jq '.[]
-              | select(.common_name
-              | contains("Mac Developer Installer"))
-              | .common_name' \
-            | xargs)
-
-          # Sign the package
-          xcrun productsign --sign "$INSTALLER_CERT_NAME" unsigned.pkg "$PACKAGE_NAME"          
-      - |
-        # build windows
-        flutter pub add msix
-        flutter pub run msix:create 
-      - |
         # Publish only for tag builds
         if [ -z ${CM_TAG} ]; then
            echo "Not a tag build will not publish GitHub release"
@@ -121,6 +92,105 @@ workflows:
         credentials: $GOOGLE_PLAY_CREDENTIALS
         track: beta
         in_app_update_priority: 0
+      app_store_connect:
+        api_key: $APPLE_STORE_CONNECT_API_KEY
+        key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+        issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+        submit_to_testflight: true
+        submit_to_app_store: false
+  desktop:
+    name: macos
+    max_build_duration: 30
+    environment:
+      groups:
+        - play_store
+        - apple_store
+        - personal_data
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    triggering:
+      events:
+        - tag
+      branch_patterns:
+        - pattern: '*'
+          include: true
+          source: true
+      tag_patterns:
+        - pattern: '*'
+          include: true
+    scripts:
+      - flutter packages pub get
+      - flutter config --enable-web
+      - flutter config --enable-linux-desktop
+      - flutter config --enable-macos-desktop
+      - find . -name "Podfile" -execdir pod install \;
+      - keychain initialize
+      - app-store-connect fetch-signing-files "app.flutter.rushpuzzle"  --type MAC_APP_STORE --platform MAC_OS  --create
+      - app-store-connect create-certificate --type MAC_INSTALLER_DISTRIBUTION --save || \
+        app-store-connect list-certificates --type MAC_INSTALLER_DISTRIBUTION --save  
+      - keychain add-certificates
+      - xcode-project use-profiles
+      - |
+        # build macos
+        flutter build macos --release --target lib/main_profile.dart
+      - |    
+        # create macos package
+        set -x
+
+          # Command to find the path to your generated app
+          APP_NAME=$(find $(pwd) -name "*.app")
+          cd $(dirname "$APP_NAME")
+          PACKAGE_NAME=$(basename "$APP_NAME" .app).pkg
+
+          # Create an unsigned package
+          xcrun productbuild --component "$APP_NAME" /Applications/ unsigned.pkg
+
+          # Find the installer certificate commmon name in keychain
+          INSTALLER_CERT_NAME=$(keychain list-certificates \
+            | jq '.[]
+              | select(.common_name
+              | contains("Mac Developer Installer"))
+              | .common_name' \
+            | xargs)
+
+          # Sign the package
+          xcrun productsign --sign "$INSTALLER_CERT_NAME" unsigned.pkg "$PACKAGE_NAME"          
+      - |
+        # Publish only for tag builds
+        if [ -z ${CM_TAG} ]; then
+           echo "Not a tag build will not publish GitHub release"
+        exit 0
+        fi
+
+        gh release create "${CM_TAG}" \
+            --title "Rush Puzzle ${CM_TAG}" \
+            build/**/outputs/apk/**/*.apk  \
+            build/**/outputs/bundle/**/*.aab  \
+            build/**/outputs/**/mapping.txt \
+            build/ios/ipa/*.ipa \
+            /tmp/xcodebuild_logs/*.log \
+            build/web.zip \
+            '*.snap' \
+            build/windows/**/*.msix \
+            build/macos/**/*.pkg
+            flutter_drive.log 
+    artifacts:
+      - build/**/outputs/apk/**/*.apk
+      - build/**/outputs/bundle/**/*.aab
+      - build/**/outputs/**/mapping.txt
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - build/web.zip
+      - '*.snap'
+      - build/windows/**/*.msix
+      - build/windows/**/*.exe
+      - build/macos/**/*.pkg
+      - flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - git@jaimeblasco.com
       app_store_connect:
         api_key: $APPLE_STORE_CONNECT_API_KEY
         key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
