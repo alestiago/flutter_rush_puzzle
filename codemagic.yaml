@@ -56,18 +56,12 @@ workflows:
            echo "Not a tag build will not publish GitHub release"
         exit 0
         fi
-        gh auth login --with-token <<<"${GITHUB_TOKEN}"
+        gh auth login
         gh release create "${CM_TAG}" \
             --title "Rush Puzzle ${CM_TAG}" \
-            build/**/outputs/apk/**/*.apk  \
             build/**/outputs/bundle/**/*.aab  \
-            build/**/outputs/**/mapping.txt \
             build/ios/ipa/*.ipa \
-            /tmp/xcodebuild_logs/*.log \
-            build/web.zip \
-            '*.snap' \
-            build/windows/**/*.msix \
-            flutter_drive.log 
+            /web.zip
     artifacts:
       - build/**/outputs/apk/**/*.apk
       - build/**/outputs/bundle/**/*.aab
@@ -157,10 +151,9 @@ workflows:
         exit 0
         fi
 
-        gh auth login --with-token <<<"${GITHUB_TOKEN}"
+        gh auth login
         gh release create "${CM_TAG}" \
-            build/macos/**/*.pkg \
-            flutter_drive.log 
+            build/macos/**/*.pkg
     artifacts:
       - build/**/outputs/apk/**/*.apk
       - build/**/outputs/bundle/**/*.aab
@@ -187,6 +180,16 @@ workflows:
     name: Windows release workflow
     instance_type: windows_x2
     max_build_duration: 60
+    triggering:
+      events:
+        - tag
+      branch_patterns:
+        - pattern: '*'
+          include: true
+          source: true
+      tag_patterns:
+        - pattern: '*'
+          include: true
     environment:
       groups:
         - windows-signing 
@@ -221,7 +224,7 @@ workflows:
            echo "Not a tag build will not publish GitHub release"
         exit 0
         fi
-        gh auth login --with-token <<<"${GITHUB_TOKEN}"
+        gh auth login
         gh release create "${CM_TAG}" \
             --title "Rush Puzzle ${CM_TAG}" \
             build/windows/**/*.msix
