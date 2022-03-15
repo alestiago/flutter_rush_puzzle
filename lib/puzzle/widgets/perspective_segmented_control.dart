@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs, cast_nullable_to_non_nullable
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rush_hour_puzzle/puzzle/puzzle.dart';

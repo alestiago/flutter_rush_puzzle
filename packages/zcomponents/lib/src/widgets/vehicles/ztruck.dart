@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:zcomponents/zcomponents.dart';
 
-// TODO(alestiago): Include Truck bonnet.
 class TruckThemeData {
   TruckThemeData({
     required this.colorScheme,
@@ -104,14 +103,11 @@ class ZTrucklayout {
     //const height = width / 2.5;
 
     const rearWidth = height;
-    const smallWindowWidth = height / 2;
-    const windowHorizontalPadding = smallWindowWidth * 0.3;
 
     const fenderHeight = height * 0.05;
     const bodyWidth = width * 1;
     const bodyHeight = height;
 
-    const stripePadding = height * 0.05;
     const stripeHeight = height * 0.2;
     const upperStripePosition = ZVector.only(
       y: -bodyHeight / 2 + stripeHeight,
@@ -160,12 +156,12 @@ class ZTrucklayout {
   final double largeWindowHorizontalPadding;
 
   final double stripeHeight;
-  // TODO(alestiago): remove positioning form here.
+
   final ZVector upperStripePosition;
   final ZVector lowerStripePosition;
 
   final double fenderHeight;
-  // TODO(alestiago): remove positioning form here.
+
   final ZVector fenderPosition;
 
   final double cabinHeight;
@@ -384,9 +380,8 @@ class _ZRoof extends StatelessWidget {
 class _ZTruckBackSide extends StatelessWidget {
   const _ZTruckBackSide({
     Key? key,
-    required TruckThemeData theme,
-  })  : theme = theme,
-        super(key: key);
+    required this.theme,
+  }) : super(key: key);
 
   final TruckThemeData theme;
 
@@ -493,7 +488,6 @@ class _ZTruckBodySide extends StatelessWidget {
       fill: true,
     );
 
-    const cabin = _Zcabin();
     final fender =
         _ZFender(width: theme.layout.bodyWidth - theme.layout.cabinStride);
 
@@ -785,11 +779,9 @@ class _ZCabinRoof extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = theme.layout.rearWidth;
     final height = theme.layout.bodyWidth;
-    final color = theme.colorScheme.roofColor;
     final cabinColor = theme.colorScheme.cabinColor;
-
     final cabinWidth = theme.layout.cabinWidth;
-    final cabinHeight = theme.layout.cabinHeight;
+
     return ZGroup(
       sortMode: SortMode.stack,
       children: [
@@ -810,9 +802,8 @@ class _ZCabinRoof extends StatelessWidget {
 class _ZCabinBackSide extends StatelessWidget {
   const _ZCabinBackSide({
     Key? key,
-    required TruckThemeData theme,
-  })  : theme = theme,
-        super(key: key);
+    required this.theme,
+  }) : super(key: key);
 
   final TruckThemeData theme;
 

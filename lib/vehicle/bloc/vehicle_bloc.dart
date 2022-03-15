@@ -77,8 +77,9 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
             .copyWith(
               dragging: false,
               escaped: true,
-              box: layout.boxForDrivingBoundary(
-                DrivingBoundary(const Position(6, 2), const Position(7, 2)),
+              box: layout.boxForMinMax(
+                const Position(6, 2),
+                const Position(7, 2),
               ),
             )
             .withoutDraggingBox(),

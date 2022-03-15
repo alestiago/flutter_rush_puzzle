@@ -22,6 +22,8 @@ extension GameStatusExtension on GameStatus {
       this == GameStatus.initial ||
       this == GameStatus.loading ||
       this == GameStatus.setup;
+
+  bool get isPlaying => this == GameStatus.playing;
 }
 
 @immutable

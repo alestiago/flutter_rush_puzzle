@@ -29,7 +29,6 @@ class ZSquaredCar extends StatelessWidget {
     final topBoxColor = theme.topBoxColor;
 
     const halfWidth = _width / 2;
-    const distanceWheel = _tileSize / 1.5;
 
     return ZGroup(
       sortMode: SortMode.update,

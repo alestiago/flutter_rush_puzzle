@@ -1,3 +1,5 @@
+// ignore_for_file: use_named_constants
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:puzzle_models/puzzle_models.dart';
 import 'package:zcomponents/zcomponents.dart';
@@ -19,7 +21,7 @@ void main() {
 
     test('offsetForPosition is correct', () async {
       expect(
-        game.offsetForPosition(const Position(0, 0)),
+        game.offsetForPosition(Position.zero),
         equals(Offset.zero),
       );
       expect(

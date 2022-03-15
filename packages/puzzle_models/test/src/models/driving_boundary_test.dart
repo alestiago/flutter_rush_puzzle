@@ -7,7 +7,7 @@ void main() {
       'is true '
       'when from and to are vertical and position is inside',
       () {
-        const from = Position(0, 0);
+        const from = Position.zero;
         const to = Position(0, 3);
         const position = Position(0, 2);
         final drivingBoundary = DrivingBoundary(from, to);
@@ -21,7 +21,7 @@ void main() {
       'is false '
       'when from and to are vertical and position is outside',
       () {
-        const from = Position(0, 0);
+        const from = Position.zero;
         const to = Position(0, 3);
         const position = Position(0, 4);
         final drivingBoundary = DrivingBoundary(from, to);
@@ -36,7 +36,7 @@ void main() {
       'is true '
       'when from and to are horizontal and position is inside',
       () {
-        const from = Position(0, 0);
+        const from = Position.zero;
         const to = Position(3, 0);
         const position = Position(2, 0);
         final drivingBoundary = DrivingBoundary(from, to);
@@ -51,7 +51,7 @@ void main() {
       'is true '
       'when from and to are vertical and position is inside',
       () {
-        const from = Position(0, 0);
+        const from = Position.zero;
         const to = Position(0, 3);
         const position = Position(0, 4);
         final drivingBoundary = DrivingBoundary(from, to);

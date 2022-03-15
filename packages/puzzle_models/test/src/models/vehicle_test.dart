@@ -12,7 +12,7 @@ void main() {
               id: '1',
               type: VehicleType.taxi,
               steering: Steering.horizontal,
-              firstPosition: const Position(0, 0),
+              firstPosition: Position.zero,
             ),
             isA<Vehicle>(),
           );
@@ -26,7 +26,7 @@ void main() {
           id: '1',
           type: VehicleType.taxi,
           steering: Steering.horizontal,
-          firstPosition: const Position(0, 0),
+          firstPosition: Position.zero,
         );
         expect(vehicle.lastPosition, const Position(1, 0));
       });
@@ -38,7 +38,7 @@ void main() {
           id: '1',
           type: VehicleType.taxi,
           steering: Steering.vertical,
-          firstPosition: const Position(0, 0),
+          firstPosition: Position.zero,
         );
         expect(vehicle.lastPosition, const Position(0, 1));
       });
@@ -52,7 +52,7 @@ void main() {
             id: '1',
             type: VehicleType.taxi,
             steering: Steering.horizontal,
-            firstPosition: const Position(0, 0),
+            firstPosition: Position.zero,
           );
           final puzzle = RushPuzzle(
             difficulty: PuzzleDifficulty.beginner,
@@ -214,7 +214,7 @@ void main() {
           id: '1',
           type: VehicleType.taxi,
           steering: Steering.horizontal,
-          firstPosition: const Position(0, 0),
+          firstPosition: Position.zero,
         );
         final puzzle = RushPuzzle(
           difficulty: PuzzleDifficulty.beginner,
@@ -250,7 +250,7 @@ void main() {
           id: 'A',
           type: VehicleType.taxi,
           steering: Steering.horizontal,
-          firstPosition: const Position(0, 0),
+          firstPosition: Position.zero,
         );
         final vehicleB = Vehicle(
           id: 'B',
@@ -324,19 +324,19 @@ void main() {
             id: '1',
             type: VehicleType.taxi,
             steering: Steering.horizontal,
-            firstPosition: const Position(0, 0),
+            firstPosition: Position.zero,
           );
           final vehicle2 = Vehicle(
             id: '1',
             type: VehicleType.taxi,
             steering: Steering.horizontal,
-            firstPosition: const Position(0, 0),
+            firstPosition: Position.zero,
           );
           final vehicle3 = Vehicle(
             id: '2',
             type: VehicleType.bus,
             steering: Steering.horizontal,
-            firstPosition: const Position(0, 0),
+            firstPosition: Position.zero,
           );
 
           expect(vehicle1, equals(vehicle2));
