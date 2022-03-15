@@ -21,15 +21,6 @@ workflows:
         - pattern: '*'
           include: true
     scripts:
-      - | 
-        # Create github release
-        # Publish only for tag builds
-        if [ -z ${CM_TAG} ]; then
-           echo "Not a tag build will not publish GitHub release"
-        exit 0
-        fi
-        gh release create "${CM_TAG}" \
-            --title "Rush Puzzle ${CM_TAG}" \
       - |
         # set up key.properties
         echo $FCI_KEYSTORE | base64 --decode > $FCI_KEYSTORE_PATH
@@ -155,7 +146,7 @@ workflows:
         fi
 
         gh release upload "${CM_TAG}" \
-            build/macos/**/*.pkg
+            build/macos/**/*.app
     artifacts:
       - build/**/outputs/apk/**/*.apk
       - build/**/outputs/bundle/**/*.aab
@@ -202,7 +193,7 @@ workflows:
       - flutter packages pub get
       - flutter config --enable-windows-desktop
       - flutter build windows
-      - flutter pub run msix:create --store --publisher="$M_PUBLISHER_ID" --identity-name="$M_IDENTITY_NAME"
+      - flutter pub run msix:create --store --identity-name='$M_IDENTITY_NAME' --publisher='$M_PUBLISHER_ID' 
       - |
         # Publish only for tag builds
         if [ -z ${CM_TAG} ]; then
@@ -210,8 +201,8 @@ workflows:
         exit 0
         fi
 
-        gh release upload "${CM_TAG}" \
-            build/windows/**/*.msix
+        gh release upload '${CM_TAG}' \
+          build/windows/**/*.msix
     artifacts:
       - build/windows/**/*.msix
     publishing:
