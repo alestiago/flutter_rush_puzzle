@@ -196,13 +196,7 @@ workflows:
       - flutter build windows
       - flutter pub run msix:create --store --publisher=CN=3A6E7B55-DB95-449E-9605-3397E2C34CAC --identity-name=53278JaimeBlascoAndrs.RushApp
       - |
-        # Publish only for tag builds
-        if [ -z ${CM_TAG} ]; then
-           echo "Not a tag build will not publish GitHub release"
-        exit 0
-        fi
-
-        gh release upload '${CM_TAG}' \
+        gh release upload $env:CM_TAG \
           build/windows/**/*.msix
     artifacts:
       - build/windows/**/*.msix
