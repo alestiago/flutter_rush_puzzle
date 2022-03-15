@@ -89,8 +89,6 @@ workflows:
       flutter: stable
       xcode: latest
       cocoapods: default
-      vars:
-        CERTIFICATE_PRIVATE_KEY: $MAC_CERTIFICATE_PRIVATE_KEY
     triggering:
       events:
         - tag
@@ -108,8 +106,8 @@ workflows:
       - flutter config --enable-macos-desktop
       - find . -name "Podfile" -execdir pod install \;
       - keychain initialize
-      - app-store-connect fetch-signing-files "app.flutter.rushpuzzle"  --type MAC_APP_STORE --platform MAC_OS  --create
-      - app-store-connect list-certificates --type MAC_INSTALLER_DISTRIBUTION --save   
+      - app-store-connect fetch-signing-files "app.flutter.rushpuzzle"  --type MAC_APP_STORE --platform MAC_OS  --create --certificate-key "$MAC_CERTIFICATE_PRIVATE_KEY"
+      - app-store-connect list-certificates --type MAC_INSTALLER_DISTRIBUTION --save --certificate-key "$MAC_CERTIFICATE_PRIVATE_KEY"
       - keychain add-certificates
       - xcode-project use-profiles
       - |
