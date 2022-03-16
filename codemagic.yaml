@@ -107,7 +107,8 @@ workflows:
       - find . -name "Podfile" -execdir pod install \;
       - keychain initialize
       - app-store-connect fetch-signing-files "app.flutter.rushpuzzle"  --type MAC_APP_STORE --platform MAC_OS  --create --certificate-key "$MAC_CERTIFICATE_PRIVATE_KEY"
-      - app-store-connect list-certificates --type MAC_INSTALLER_DISTRIBUTION --save --certificate-key "$MAC_CERTIFICATE_PRIVATE_KEY"
+      - app-store-connect create-certificate --type MAC_INSTALLER_DISTRIBUTION --certificate-key "$MAC_CERTIFICATE_PRIVATE_KEY" --save || \
+          app-store-connect list-certificates --type MAC_INSTALLER_DISTRIBUTION --certificate-key "$MAC_CERTIFICATE_PRIVATE_KEY" --save                
       - keychain add-certificates
       - xcode-project use-profiles
       - |
@@ -157,6 +158,7 @@ workflows:
       - build/windows/**/*.msix
       - build/windows/**/*.exe
       - build/macos/**/*.pkg
+      - build/macos/**/*.app
       - flutter_drive.log
     publishing:
       email:
@@ -189,6 +191,7 @@ workflows:
         - pattern: '*'
           include: true
     scripts:
+      - choco install gh
       - flutter packages pub get
       - flutter config --enable-windows-desktop
       - flutter build windows
