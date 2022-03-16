@@ -252,7 +252,7 @@ class _ZCarSide extends StatelessWidget {
               children: [
                 ZPositioned(
                   translate: const ZVector.only(
-                    x: _width / 2 - _trunkDepth,
+                    x: _width / 2 - _trunkDepth / 2,
                     y: (_halfSize - 4) / 2,
                   ),
                   child: ZRect(
@@ -273,7 +273,7 @@ class _ZCarSide extends StatelessWidget {
               children: [
                 ZPositioned(
                   translate: const ZVector.only(
-                    x: -_width / 2 + _trunkDepth,
+                    x: -_width / 2 + _trunkDepth / 2,
                     y: (_halfSize - 4) / 2,
                   ),
                   child: ZRect(
