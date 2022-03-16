@@ -1,6 +1,6 @@
 name: rush_hour_puzzle
 description: Play a daily Rush Puzzle game
-version: 0.0.13+13
+version: 1.0.1+14
 publish_to: none
 
 environment:

@@ -194,8 +194,7 @@ workflows:
       - flutter build windows
       - flutter pub run msix:create --store --publisher=CN=3A6E7B55-DB95-449E-9605-3397E2C34CAC --identity-name=53278JaimeBlascoAndrs.RushApp
       - |
-        gh release upload $env:CM_TAG \
-          build/windows/**/*.msix
+        gh release upload $env:CM_TAG build\windows\runner\Release\rush_hour_puzzle.msix build\windows\runner\Release\rush_hour_puzzle.exe
     artifacts:
       - build/windows/**/*.msix
     publishing:

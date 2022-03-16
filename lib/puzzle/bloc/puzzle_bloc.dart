@@ -27,7 +27,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
 
   final PuzzlesRepository _puzzlesRepository;
 
-  final puzzleVersion = DateTime.now().difference(DateTime(2022, 3, 14)).inDays;
+  final puzzleVersion = DateTime.now().difference(DateTime(2022, 3, 15)).inDays;
 
   Future<void> _onPuzzleFetched(
     PuzzleFetched event,
