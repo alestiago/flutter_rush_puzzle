@@ -148,9 +148,7 @@ workflows:
           exit 0
           fi
           pwd
-          gh release upload "${CM_TAG}" \
-              build/macos/**/*.app.zip
-              build/macos/**/*.pkg
+          gh release upload "${CM_TAG}" build/macos/**/*.app.zip build/macos/**/*.pkg
     artifacts:
       - build/**/outputs/apk/**/*.apk
       - build/**/outputs/bundle/**/*.aab
@@ -162,7 +160,6 @@ workflows:
       - build/windows/**/*.msix
       - build/windows/**/*.exe
       - build/macos/**/*.pkg
-      - build/macos/**/*.app
       - flutter_drive.log
     publishing:
       email:
@@ -199,6 +196,7 @@ workflows:
         ignore_failure: true
         script: |
           choco install gh -y
+      - refreshenv
       - flutter packages pub get
       - flutter config --enable-windows-desktop
       - flutter build windows
@@ -213,7 +211,7 @@ workflows:
       partner_center:
         store_id: 9MT8HV3GSGL3 
         tenant_id: 58f73d80-51d5-4a8a-bd01-a1ea8b4be15f
-        client_id: 2b731704-a942-4766-9048-384161111dff
+        client_id: e590ae5e-fbac-45b2-854f-90f10f3efdb1
         client_secret: $MP_CLIENT_SECRET 
       email:
         recipients:
