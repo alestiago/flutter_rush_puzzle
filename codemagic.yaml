@@ -42,16 +42,18 @@ workflows:
       - xcode-project use-profiles
       - flutter build ipa --export-options-plist=/Users/builder/export_options.plist  --flavor
         production  --target lib/main_profile.dart
-      - |
-        # Publish only for tag builds
-        if [ -z ${CM_TAG} ]; then
-           echo "Not a tag build will not publish GitHub release"
-        exit 0
-        fi
+      - name: Publish github
+        ignore_failure: true
+        script: |
+          # Publish only for tag builds
+          if [ -z ${CM_TAG} ]; then
+            echo "Not a tag build will not publish GitHub release"
+          exit 0
+          fi
 
-        gh release upload "${CM_TAG}" \
-            build/**/outputs/bundle/**/*.aab  \
-            build/ios/ipa/*.ipa
+          gh release upload "${CM_TAG}" \
+              build/**/outputs/bundle/**/*.aab  \
+              build/ios/ipa/*.ipa
     artifacts:
       - build/**/outputs/apk/**/*.apk
       - build/**/outputs/bundle/**/*.aab
@@ -107,8 +109,7 @@ workflows:
       - find . -name "Podfile" -execdir pod install \;
       - keychain initialize
       - app-store-connect fetch-signing-files "app.flutter.rushpuzzle"  --type MAC_APP_STORE --platform MAC_OS  --create --certificate-key "$MAC_CERTIFICATE_PRIVATE_KEY"
-      - app-store-connect create-certificate --type MAC_INSTALLER_DISTRIBUTION --certificate-key "$MAC_CERTIFICATE_PRIVATE_KEY" --save || \
-          app-store-connect list-certificates --type MAC_INSTALLER_DISTRIBUTION --certificate-key "$MAC_CERTIFICATE_PRIVATE_KEY" --save                
+      - app-store-connect list-certificates --type MAC_INSTALLER_DISTRIBUTION --certificate-key "$MAC_CERTIFICATE_PRIVATE_KEY" --save                
       - keychain add-certificates
       - xcode-project use-profiles
       - |
@@ -138,16 +139,18 @@ workflows:
 
           # Sign the package
           xcrun productsign --sign "$INSTALLER_CERT_NAME" unsigned.pkg "$PACKAGE_NAME"          
-      - |
-        # Publish only for tag builds
-        if [ -z ${CM_TAG} ]; then
-           echo "Not a tag build will not publish GitHub release"
-        exit 0
-        fi
-
-        gh release upload "${CM_TAG}" \
-            build/macos/**/*.app.zip
-            build/macos/**/*.pkg
+      - name: Publish github
+        ignore_failure: true
+        script: |
+          # Publish only for tag builds
+          if [ -z ${CM_TAG} ]; then
+            echo "Not a tag build will not publish GitHub release"
+          exit 0
+          fi
+          pwd
+          gh release upload "${CM_TAG}" \
+              build/macos/**/*.app.zip
+              build/macos/**/*.pkg
     artifacts:
       - build/**/outputs/apk/**/*.apk
       - build/**/outputs/bundle/**/*.aab
@@ -192,21 +195,26 @@ workflows:
         - pattern: '*'
           include: true
     scripts:
-      - choco install gh -y
+      - name: Install gh
+        ignore_failure: true
+        script: |
+          choco install gh -y
       - flutter packages pub get
       - flutter config --enable-windows-desktop
       - flutter build windows
       - flutter pub run msix:create --store --publisher=CN=3A6E7B55-DB95-449E-9605-3397E2C34CAC --identity-name=53278JaimeBlascoAndrs.RushApp
-      - |
-        gh release upload $env:CM_TAG build\windows\runner\Release\rush_hour_puzzle.msix build\windows\runner\Release\rush_hour_puzzle.exe
+      - name: Publish github
+        ignore_failure: true
+        script: |
+          gh release upload $env:CM_TAG build\windows\runner\Release\rush_hour_puzzle.msix build\windows\runner\Release\rush_hour_puzzle.exe
     artifacts:
       - build/windows/**/*.msix
     publishing:
       partner_center:
-        store_id: $AZ_STORE_ID # <-- You can find the `store_id` inside your Partner Center app by going to [Product management > Product Identity].
-        tenant_id: $AZ_TENANT_ID # <-- You will get `tenant_id` from the Azure AD Overview page.
-        client_id: $AZ_CLIENT_ID # <-- You will also get `client_id` from the Azure AD Overview page.
-        client_secret: $PARTNER_CLIENT_SECRET # <-- `client_secret` is retrieved from the application environment variable
+        store_id: 9MT8HV3GSGL3 
+        tenant_id: 58f73d80-51d5-4a8a-bd01-a1ea8b4be15f
+        client_id: 2b731704-a942-4766-9048-384161111dff
+        client_secret: $MP_CLIENT_SECRET 
       email:
         recipients:
           - git@jaimeblasco.com 
