@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:zcomponents/zcomponents.dart';
 
-class ZBody extends ZRectNet {
-  const ZBody({Key? key}) : super(key: key);
+class ZAmbulanceBody extends ZRectNet {
+  const ZAmbulanceBody({Key? key}) : super(key: key);
 
   @override
   Widget get back => const _ZRear();

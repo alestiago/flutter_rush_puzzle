@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:zcomponents/src/widgets/vehicles/zambulance/body.dart';
-import 'package:zcomponents/src/widgets/vehicles/zambulance/cabin.dart';
+import 'package:zcomponents/src/widgets/vehicles/zambulance/zambulance_body.dart';
+import 'package:zcomponents/src/widgets/vehicles/zambulance/zambulance_cabin.dart';
 import 'package:zcomponents/zcomponents.dart';
 
-export 'theme.dart';
+export 'zambulance_theme.dart';
 
 class ZAmbulance extends StatelessWidget {
   const ZAmbulance({
@@ -23,14 +23,14 @@ class ZAmbulance extends StatelessWidget {
         children: [
           ZPositioned(
             translate: ZVector.only(x: -theme.layout.cabinWidth / 2),
-            child: const ZBody(),
+            child: const ZAmbulanceBody(),
           ),
           ZPositioned(
             translate: ZVector.only(
               x: theme.layout.bodyWidth / 2,
               z: -(theme.layout.bodyHeight - theme.layout.cabinHeight) / 2,
             ),
-            child: const ZCabin(),
+            child: const ZAmbulanceCabin(),
           ),
         ],
       ),

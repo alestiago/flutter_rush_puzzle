@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:zcomponents/src/widgets/vehicles/zbus/body.dart';
+import 'package:zcomponents/src/widgets/vehicles/zbus/zbus_body.dart';
 import 'package:zcomponents/zcomponents.dart';
 
-export 'theme.dart';
+export 'zbus_theme.dart';
 
 class ZBus extends StatelessWidget {
   const ZBus({
@@ -20,7 +20,7 @@ class ZBus extends StatelessWidget {
       child: ZGroup(
         sortMode: SortMode.stack,
         children: const [
-          ZBody(),
+          ZBusBody(),
         ],
       ),
     );

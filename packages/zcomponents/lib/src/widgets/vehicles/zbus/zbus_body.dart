@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:zcomponents/zcomponents.dart';
 
-class ZBody extends ZRectNet {
-  const ZBody({Key? key}) : super(key: key);
+class ZBusBody extends ZRectNet {
+  const ZBusBody({Key? key}) : super(key: key);
 
   @override
   Widget get back => const _ZRear();
@@ -275,8 +275,10 @@ class _ZSide extends StatelessWidget {
 }
 
 class _ZStripe extends StatelessWidget {
-  const _ZStripe({Key? key, required ZVehicleSide side})
-      : _side = side,
+  const _ZStripe({
+    Key? key,
+    required ZVehicleSide side,
+  })  : _side = side,
         super(key: key);
 
   final ZVehicleSide _side;
