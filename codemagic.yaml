@@ -146,7 +146,8 @@ workflows:
         fi
 
         gh release upload "${CM_TAG}" \
-            build/macos/**/*.app
+            build/macos/**/*.app.zip
+            build/macos/**/*.pkg
     artifacts:
       - build/**/outputs/apk/**/*.apk
       - build/**/outputs/bundle/**/*.aab
@@ -191,7 +192,7 @@ workflows:
         - pattern: '*'
           include: true
     scripts:
-      - choco install gh
+      - choco install gh -y
       - flutter packages pub get
       - flutter config --enable-windows-desktop
       - flutter build windows
