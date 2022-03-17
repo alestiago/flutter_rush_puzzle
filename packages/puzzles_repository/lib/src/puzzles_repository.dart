@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:puzzle_models/puzzle_models.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:puzzle_models/puzzle_models.dart';
 
 /// {@template puzzles_repository}
 /// A repository that handles [RushPuzzle]s related requests.

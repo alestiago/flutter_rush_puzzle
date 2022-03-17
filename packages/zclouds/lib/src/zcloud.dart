@@ -14,7 +14,10 @@ class ZCloud extends StatelessWidget {
     required this.style,
   }) : super(key: key);
 
+  /// {@macro zclouds.zcloudtype}
   final ZCloudType type;
+
+  /// {@macro zclouds.zcloudstyle}
   final ZCloudStyle style;
 
   @override
@@ -22,7 +25,7 @@ class ZCloud extends StatelessWidget {
     late final Widget child;
     switch (type) {
       case ZCloudType.cumulus:
-        child = ZCumulus();
+        child = const ZCumulus();
         break;
       case ZCloudType.cirrostratus:
       case ZCloudType.cirrocumulus:
