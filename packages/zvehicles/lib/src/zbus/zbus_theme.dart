@@ -1,5 +1,7 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/material.dart';
-import 'package:zcomponents/zcomponents.dart';
+import 'package:zvehicles/zvehicles.dart';
 
 class BusThemeData {
   const BusThemeData({
@@ -41,6 +43,8 @@ class ZBusColorScheme {
     required this.rearLightColor,
     required this.lightBorderColor,
     required this.bottomColor,
+    required this.tyreColor,
+    required this.rimColor,
   });
 
   static final school = ZBusColorScheme(
@@ -55,6 +59,8 @@ class ZBusColorScheme {
     rearLightColor: Colors.red[400]!,
     lightBorderColor: Colors.black,
     bottomColor: Colors.yellow[700]!,
+    tyreColor: Colors.black,
+    rimColor: Colors.grey,
   );
 
   static final publicBus = ZBusColorScheme(
@@ -69,6 +75,8 @@ class ZBusColorScheme {
     rearLightColor: Colors.red[400]!,
     lightBorderColor: Colors.black,
     bottomColor: Colors.blueAccent,
+    tyreColor: Colors.black,
+    rimColor: Colors.grey,
   );
 
   final Color busColor;
@@ -82,6 +90,8 @@ class ZBusColorScheme {
   final Color rearLightColor;
   final Color lightBorderColor;
   final Color bottomColor;
+  final Color tyreColor;
+  final Color rimColor;
 
   static ZBusColorScheme? lerp(
     ZBusColorScheme? a,
@@ -101,6 +111,8 @@ class ZBusColorScheme {
       lightBorderColor:
           Color.lerp(a?.lightBorderColor, b?.lightBorderColor, t)!,
       bottomColor: Color.lerp(a?.bottomColor, b?.bottomColor, t)!,
+      tyreColor: Color.lerp(a?.tyreColor, b?.tyreColor, t)!,
+      rimColor: Color.lerp(a?.rimColor, b?.rimColor, t)!,
     );
   }
 }
@@ -129,6 +141,9 @@ class ZBusLayout {
     required this.fenderHeight,
     required this.fenderPosition,
     required this.lightDiameter,
+    required this.tyreDiameter,
+    required this.tyreDepth,
+    required this.rimDiameter,
   });
 
   factory ZBusLayout.school() {
@@ -185,6 +200,9 @@ class ZBusLayout {
         y: -bodyHeight / 2 + fenderHeight / 2,
       ),
       lightDiameter: 3,
+      tyreDiameter: 12,
+      tyreDepth: 2,
+      rimDiameter: 4,
     );
   }
 
@@ -195,7 +213,6 @@ class ZBusLayout {
 
     const width = length * size + space * (length - 1);
     const height = size;
-    //const height = width / 2.5;
 
     const rearWidth = height;
     const smallWindowWidth = height / 2.5;
@@ -240,6 +257,9 @@ class ZBusLayout {
         y: -bodyHeight / 2 + fenderHeight / 2,
       ),
       lightDiameter: 3,
+      tyreDiameter: 12,
+      tyreDepth: 2,
+      rimDiameter: 4,
     );
   }
 
@@ -263,12 +283,12 @@ class ZBusLayout {
   final double largeWindowHorizontalPadding;
 
   final double stripeHeight;
-  // TODO(alestiago): remove positioning form here.
+  // TODO(alestiago): remove positioning from here.
   final ZVector upperStripePosition;
   final ZVector lowerStripePosition;
 
   final double fenderHeight;
-  // TODO(alestiago): remove positioning form here.
+  // TODO(alestiago): remove positioning from here.
   final ZVector fenderPosition;
 
   final double doorHeight;
@@ -276,4 +296,8 @@ class ZBusLayout {
   final double doorHorizontalPadding;
 
   final double lightDiameter;
+
+  final double tyreDiameter;
+  final double tyreDepth;
+  final double rimDiameter;
 }

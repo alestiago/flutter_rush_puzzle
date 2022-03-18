@@ -1,7 +1,13 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/material.dart';
 import 'package:zflutter/zflutter.dart';
 
+/// {@template zvehicles.helpers.z_rect_net_size}
+///
+/// {@endtemplate}
 class ZRectNetSize {
+  /// {@macro zvehicles.helpers.z_rect_net_size}
   ZRectNetSize({
     required this.height,
     required this.width,
@@ -13,7 +19,11 @@ class ZRectNetSize {
   final double depth;
 }
 
+/// {@template zvehicles.helpers.z_rect_net}
+/// Specifies a rectangular net.
+/// {@endtemplate}
 abstract class ZRectNet extends StatelessWidget {
+  /// {@macro zvehicles.helpers.z_rect_net}
   const ZRectNet({
     Key? key,
   }) : super(key: key);
