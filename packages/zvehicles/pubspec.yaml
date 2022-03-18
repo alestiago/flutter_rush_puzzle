@@ -1,0 +1,26 @@
+name: zvehicles
+description: Collection of vehicles made with ZFlutter.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  equatable:
+  flutter:
+    sdk: flutter
+  provider:
+  puzzle_models:
+    path: ../puzzle_models
+  vector_math: 
+  zflutter:
+    git: 
+      url: https://github.com/jamesblasco/zflutter
+      path: zflutter
+      ref: bde6f320d6d278a82f40420df68a1ab4c466ba4c
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^2.4.0
