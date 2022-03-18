@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puzzle_models/puzzle_models.dart';
 import 'package:puzzles_repository/puzzles_repository.dart';
@@ -33,9 +34,24 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     PuzzleFetched event,
     Emitter<PuzzleState> emit,
   ) async {
-    emit(state.copyWith(status: GameStatus.loading));
-    final game = await _puzzlesRepository.getPuzzle(puzzleVersion);
-    emit(state.copyWith(status: GameStatus.setup, history: [game]));
+    try {
+      emit(state.copyWith(status: GameStatus.loading));
+      final game = await _puzzlesRepository.getPuzzle(puzzleVersion);
+      emit(state.copyWith(status: GameStatus.setup, history: [game]));
+      await FirebaseAnalytics.instance.logEvent(
+        name: 'game_loaded',
+        parameters: {
+          'version': puzzleVersion,
+        },
+      );
+    } catch (e) {
+      await FirebaseAnalytics.instance.logEvent(
+        name: 'game_failed',
+        parameters: {
+          'version': puzzleVersion,
+        },
+      );
+    }
   }
 
   Future<void> _onPuzzleStarted(
@@ -43,9 +59,18 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     Emitter<PuzzleState> emit,
   ) async {
     emit(state.copyWith(status: GameStatus.playing));
+    await FirebaseAnalytics.instance.logEvent(
+      name: 'game_started',
+      parameters: {
+        'version': puzzleVersion,
+      },
+    );
   }
 
-  void _onPuzzleVehicleMoved(PuzzleVehicleMoved event, Emitter emit) {
+  Future<void> _onPuzzleVehicleMoved(
+    PuzzleVehicleMoved event,
+    Emitter emit,
+  ) async {
     assert(
       state.status == GameStatus.playing,
       'Vehicle should move only when playing',
@@ -59,14 +84,30 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
         status: newPuzzle.isSolved ? GameStatus.finished : null,
       ),
     );
+    await FirebaseAnalytics.instance.logEvent(
+      name: 'game_vehicle_moved',
+      parameters: {
+        'version': puzzleVersion,
+        'vehicle': event.vehicle.id,
+        'newPositionX': event.newPosition.x,
+        'newPositionY': event.newPosition.y,
+        'historyMove': newPointer,
+      },
+    );
   }
 
-  void _onPuzzleReseted(PuzzleReseted event, Emitter emit) {
+  Future<void> _onPuzzleReseted(PuzzleReseted event, Emitter emit) async {
     emit(
       PuzzleState(
         status: GameStatus.setup,
         history: [state.history[0]],
       ),
+    );
+    await FirebaseAnalytics.instance.logEvent(
+      name: 'game_rested',
+      parameters: {
+        'version': puzzleVersion,
+      },
     );
   }
 
@@ -85,12 +126,26 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     Emitter<PuzzleState> emit,
   ) async {
     emit(state.copyWith(perspective: event.perspective));
+    await FirebaseAnalytics.instance.logEvent(
+      name: 'game_perspective_changed',
+      parameters: {
+        'version': puzzleVersion,
+        'vehicle': event.perspective,
+      },
+    );
   }
 
-  void _onPuzzleShared(PuzzleShared event, Emitter emit) {
+  Future<void> _onPuzzleShared(PuzzleShared event, Emitter emit) async {
     if (!state.puzzle.isSolved) return;
 
     sharePuzzle(state, puzzleVersion);
+    await FirebaseAnalytics.instance.logEvent(
+      name: 'game_shared',
+      parameters: {
+        'version': puzzleVersion,
+        'historyMove': state.historyPointer,
+      },
+    );
   }
 }
 

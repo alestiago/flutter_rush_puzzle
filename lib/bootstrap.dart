@@ -9,9 +9,11 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:puzzles_repository/puzzles_repository.dart';
 import 'package:rush_hour_puzzle/app/view/app.dart';
+import 'package:rush_hour_puzzle/firebase_options.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override
@@ -33,6 +35,11 @@ Future<void> bootstrap() async {
   };
 
   const puzzlesRepository = PuzzlesRepository();
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   await runZonedGuarded(
     () async {

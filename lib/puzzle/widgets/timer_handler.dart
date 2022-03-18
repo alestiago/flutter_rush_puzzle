@@ -1,11 +1,11 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
 import 'package:rush_hour_puzzle/timer/timer.dart';
 
-
 class TimerHandler extends StatelessWidget {
-  const TimerHandler({Key? key,  this.child}) : super(key: key);
+  const TimerHandler({Key? key, this.child}) : super(key: key);
   final Widget? child;
   @override
   Widget build(BuildContext context) {
@@ -20,6 +20,14 @@ class TimerHandler extends StatelessWidget {
         }
         if (state.status == GameStatus.finished) {
           context.read<TimerBloc>().add(const TimerStopped());
+          FirebaseAnalytics.instance.logEvent(
+            name: 'game_finished',
+            parameters: {
+              'version': context.read<PuzzleBloc>().puzzleVersion,
+              'historyMove': state.historyPointer,
+              'timer': context.read<TimerBloc>().state.secondsElapsed,
+            },
+          );
         }
         if (state.status == GameStatus.setup) {
           context.read<TimerBloc>().add(const TimerReset());

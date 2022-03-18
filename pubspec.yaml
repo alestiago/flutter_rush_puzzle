@@ -1,6 +1,6 @@
 name: rush_hour_puzzle
 description: Play a daily Rush Puzzle game
-version: 1.0.6+19
+version: 1.0.7+20
 publish_to: none
 
 environment:
@@ -9,6 +9,9 @@ environment:
 dependencies:
   bloc: ^8.0.2
   equatable: ^2.0.3
+  firebase_analytics: ^9.1.2
+  firebase_core: ^1.13.1
+  firebase_crashlytics: ^2.5.3
   fireworks:
     path: packages/fireworks
   flutter:
