@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:zcomponents/src/widgets/vehicles/zambulance/zambulance_body.dart';
-import 'package:zcomponents/src/widgets/vehicles/zambulance/zambulance_cabin.dart';
-import 'package:zcomponents/zcomponents.dart';
+import 'package:zvehicles/src/zambulance/zambulance_body.dart';
+import 'package:zvehicles/src/zambulance/zambulance_cabin.dart';
+import 'package:zvehicles/zvehicles.dart';
 
 export 'zambulance_theme.dart';
 

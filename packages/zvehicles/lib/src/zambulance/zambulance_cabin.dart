@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:zcomponents/zcomponents.dart';
+import 'package:zvehicles/src/helpers/helpers.dart';
+import 'package:zvehicles/src/zvehicle_side.dart';
+import 'package:zvehicles/zvehicles.dart';
 
+/// {@template zvehicles.zambulance.zambulance_cabin}
+/// The cabin of the [ZAmbulance].
+///
+/// This cabin is where the driver is sitting.
+/// {@endtemplate}
 class ZAmbulanceCabin extends ZRectNet {
+  /// {@macro zvehicles.zambulance.zambulance_cabin}
   const ZAmbulanceCabin({Key? key}) : super(key: key);
 
   @override
