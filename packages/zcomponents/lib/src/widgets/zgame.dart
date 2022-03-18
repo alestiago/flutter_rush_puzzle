@@ -35,7 +35,6 @@ class ZGame extends StatelessWidget {
   const ZGame({
     Key? key,
     required this.theme,
-    this.vehiclesTheme,
     this.vehicles = const [],
     this.perspective = GameLayoutPerspective.p2D,
     this.padding = EdgeInsets.zero,
@@ -45,8 +44,6 @@ class ZGame extends StatelessWidget {
   final List<Widget> vehicles;
 
   final BoardThemeData theme;
-
-  final VehiclesThemeData? vehiclesTheme;
 
   final GameLayoutPerspective perspective;
 

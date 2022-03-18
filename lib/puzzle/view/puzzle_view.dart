@@ -38,7 +38,6 @@ class PuzzleView extends StatelessWidget {
           key: const Key('puzzlePage_game'),
           theme: boardTheme,
           perspective: perspective,
-          vehiclesTheme: vehicleTheme,
           padding: const EdgeInsets.symmetric(vertical: 20),
           vehicles: [
             if (state.status == GameStatus.finished)
