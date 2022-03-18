@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:zcomponents/zcomponents.dart';
+import 'package:zvehicles/src/zvehicle_side.dart';
+import 'package:zvehicles/zvehicles.dart';
 
 extension on BuildContext {
   TruckThemeData get theme => watch<TruckThemeData>();
@@ -49,7 +50,9 @@ class ZTruckBody extends StatelessWidget {
         x: -theme.layout.cabinStride / 2,
       ),
       rotate: const ZVector.only(x: tau / 4),
-      child: const _ZTruckBodySide(),
+      child: const _ZTruckBodySide(
+        side: ZVehicleSide.left,
+      ),
     );
 
     final rightFace = ZPositioned(
@@ -59,7 +62,7 @@ class ZTruckBody extends StatelessWidget {
       ),
       rotate: const ZVector.only(x: tau / 4),
       child: const _ZTruckBodySide(
-        side: ZCarSide.right,
+        side: ZVehicleSide.right,
       ),
     );
 
@@ -100,7 +103,9 @@ class ZTruckBody extends StatelessWidget {
         y: -theme.layout.rearWidth / 2,
       ),
       rotate: const ZVector.only(x: tau / 4),
-      child: const _ZCabinBodySide(),
+      child: const _ZCabinBodySide(
+        side: ZVehicleSide.left,
+      ),
     );
 
     final rightCabinFace = ZPositioned(
@@ -109,7 +114,7 @@ class ZTruckBody extends StatelessWidget {
       ),
       rotate: const ZVector.only(x: tau / 4),
       child: const _ZCabinBodySide(
-        side: ZCarSide.right,
+        side: ZVehicleSide.right,
       ),
     );
 
@@ -254,10 +259,12 @@ class _ZBodyFront extends StatelessWidget {
 class _ZTruckBodySide extends StatelessWidget {
   const _ZTruckBodySide({
     Key? key,
-    this.side = ZCarSide.left,
-  }) : super(key: key);
+    required ZVehicleSide side,
+  })  : _side = side,
+        super(key: key);
 
-  final ZCarSide side;
+  final ZVehicleSide _side;
+
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
@@ -294,14 +301,14 @@ class _ZTruckBodySide extends StatelessWidget {
             x: -(theme.layout.bodyWidth - theme.layout.cabinStride) * 0.35,
             y: -theme.layout.bodyHeight / 2,
           ),
-          child: _ZWheel(side: side),
+          child: _ZWheel(side: _side),
         ),
         ZPositioned(
           translate: ZVector.only(
             x: (theme.layout.bodyWidth - theme.layout.cabinStride) * 0.3,
             y: -theme.layout.bodyHeight / 2,
           ),
-          child: _ZWheel(side: side),
+          child: _ZWheel(side: _side),
         ),
       ],
     );
@@ -472,10 +479,10 @@ class _ZLight extends StatelessWidget {
 class _ZWheel extends StatelessWidget {
   const _ZWheel({
     Key? key,
-    this.side = ZCarSide.left,
+    required this.side,
   }) : super(key: key);
 
-  final ZCarSide side;
+  final ZVehicleSide side;
 
   @override
   Widget build(BuildContext context) {
@@ -483,7 +490,7 @@ class _ZWheel extends StatelessWidget {
       sortMode: SortMode.stack,
       children: [
         ZPositioned(
-          rotate: ZVector.only(x: side == ZCarSide.left ? tau / 2 : 0),
+          rotate: ZVector.only(x: side.isLeft ? tau / 2 : 0),
           child: ZGroup(
             sortMode: SortMode.stack,
             children: [
@@ -630,10 +637,11 @@ class _ZCabinFrontSide extends StatelessWidget {
 class _ZCabinBodySide extends StatelessWidget {
   const _ZCabinBodySide({
     Key? key,
-    this.side = ZCarSide.left,
-  }) : super(key: key);
+    required ZVehicleSide side,
+  })  : _side = side,
+        super(key: key);
 
-  final ZCarSide side;
+  final ZVehicleSide _side;
 
   @override
   Widget build(BuildContext context) {
@@ -685,7 +693,7 @@ class _ZCabinBodySide extends StatelessWidget {
             x: body.width * 0.36,
             y: -body.height / 2,
           ),
-          child: _ZWheel(side: side),
+          child: _ZWheel(side: _side),
         ),
       ],
     );

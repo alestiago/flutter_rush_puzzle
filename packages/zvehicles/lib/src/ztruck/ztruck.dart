@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:zcomponents/src/widgets/vehicles/ztruck/ztruck_body.dart';
-import 'package:zcomponents/zcomponents.dart';
+import 'package:zvehicles/src/ztruck/ztruck_body.dart';
+import 'package:zvehicles/zvehicles.dart';
 
 export 'ztruck_theme.dart';
 
