@@ -20,16 +20,20 @@ class ZVehicleContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final id = context.select((VehicleBloc bloc) => bloc.vehicleId);
+    final isJammedVehicle =
+        context.select((VehicleBloc bloc) => bloc.isMainVehicle);
 
     final dragging = context.select((VehicleBloc bloc) => bloc.state.dragging);
     final escaped = context.select((VehicleBloc bloc) => bloc.state.escaped);
+    final shouldElevate = isJammedVehicle &&
+        context.select((PuzzleBloc bloc) => bloc.state.status.isTutorial);
 
     final box = context.select((VehicleBloc bloc) {
       return bloc.state.draggingBox ?? bloc.state.box;
     });
 
     return BlocListener<VehicleBloc, VehicleState>(
-      listener: (context, VehicleState state) {
+      listener: (context, state) {
         final position = layout.positionForOffset(state.box.minPosition);
 
         final bloc = context.read<PuzzleBloc>();
@@ -40,38 +44,42 @@ class ZVehicleContent extends StatelessWidget {
       },
       listenWhen: (previous, current) => previous.box != current.box,
       child: ZAnimatedPositioned(
-        translate: box.zCenter + const ZVector.only(z: 20),
-        duration: dragging ? Duration.zero : kDefaultDuration,
-        curve: Curves.easeInOut,
+        translate: ZVector.only(z: shouldElevate ? 30 : 0),
+        duration: kDefaultDuration,
         child: ZAnimatedPositioned(
-          duration: kDefaultDuration,
-          translate: ZVector.only(z: dragging ? 10 : 0),
-          child: ZBoundingBox(
-            width: box.width,
-            height: box.height,
-            depth: layout.tileSize,
-            children: [
-              ZPositionTracker(
-                onTransform: (transforms) {
-                  context.read<VehicleBloc>().add(
-                        VehicleTransformationUpdated(transforms),
-                      );
-                },
-                child: ZAnimatedPositioned(
-                  translate: ZVector.only(x: escaped ? 1000 : 0),
-                  duration: const Duration(seconds: 2),
-                  curve: Curves.easeInOut,
-                  child: ZGroup(
-                    sortPoint: ZVector.zero,
-                    sortMode: SortMode.update,
-                    children: [
-                      child,
-                      const VehicleHitBox(),
-                    ],
+          translate: box.zCenter + const ZVector.only(z: 20),
+          duration: dragging ? Duration.zero : kDefaultDuration,
+          curve: Curves.easeInOut,
+          child: ZAnimatedPositioned(
+            duration: kDefaultDuration,
+            translate: ZVector.only(z: dragging ? 10 : 0),
+            child: ZBoundingBox(
+              width: box.width,
+              height: box.height,
+              depth: layout.tileSize,
+              children: [
+                ZPositionTracker(
+                  onTransform: (transforms) {
+                    context.read<VehicleBloc>().add(
+                          VehicleTransformationUpdated(transforms),
+                        );
+                  },
+                  child: ZAnimatedPositioned(
+                    translate: ZVector.only(x: escaped ? 1000 : 0),
+                    duration: const Duration(seconds: 2),
+                    curve: Curves.easeInOut,
+                    child: ZGroup(
+                      sortPoint: ZVector.zero,
+                      sortMode: SortMode.update,
+                      children: [
+                        child,
+                        const VehicleHitBox(),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
