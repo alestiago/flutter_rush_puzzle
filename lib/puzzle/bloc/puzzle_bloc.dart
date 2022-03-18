@@ -24,6 +24,8 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     on<PuzzleMoveUndid>(_onPuzzleMoveUndid);
     on<PuzzleShared>(_onPuzzleShared);
     on<PuzzlePerspectiveChanged>(_onPuzzlePerspectiveChanged);
+    on<PuzzleTutorialStarted>(_onPuzzleTutorialStarted);
+    on<_PuzzleTutorialFinished>(_onPuzzleTutorialFinished);
   }
 
   final PuzzlesRepository _puzzlesRepository;
@@ -145,6 +147,29 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
         'version': puzzleVersion,
         'historyMove': state.historyPointer,
       },
+    );
+  }
+
+  Future<void> _onPuzzleTutorialStarted(
+    PuzzleTutorialStarted _,
+    Emitter emit,
+  ) async {
+    emit(
+      state.copyWith(status: GameStatus.tutorial),
+    );
+
+    Future<void>.delayed(
+      const Duration(seconds: 4),
+      () => add(const _PuzzleTutorialFinished()),
+    );
+  }
+
+  Future<void> _onPuzzleTutorialFinished(
+    _PuzzleTutorialFinished _,
+    Emitter emit,
+  ) async {
+    emit(
+      state.copyWith(status: GameStatus.playing),
     );
   }
 }

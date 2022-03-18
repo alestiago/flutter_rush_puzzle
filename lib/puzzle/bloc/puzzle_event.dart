@@ -61,3 +61,17 @@ class PuzzlePerspectiveChanged extends PuzzleEvent {
   @override
   List<Object?> get props => [perspective];
 }
+
+class PuzzleTutorialStarted extends PuzzleEvent {
+  const PuzzleTutorialStarted();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class _PuzzleTutorialFinished extends PuzzleEvent {
+  const _PuzzleTutorialFinished();
+
+  @override
+  List<Object?> get props => [];
+}

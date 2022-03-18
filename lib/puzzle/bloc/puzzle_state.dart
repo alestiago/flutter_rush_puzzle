@@ -15,6 +15,9 @@ enum GameStatus {
 
   /// Game has been won
   finished,
+
+  /// Showing how to play the game
+  tutorial,
 }
 
 extension GameStatusExtension on GameStatus {
@@ -23,7 +26,10 @@ extension GameStatusExtension on GameStatus {
       this == GameStatus.loading ||
       this == GameStatus.setup;
 
-  bool get isPlaying => this == GameStatus.playing;
+  bool get isPlaying =>
+      this == GameStatus.playing || this == GameStatus.tutorial;
+
+  bool get isTutorial => this == GameStatus.tutorial;
 }
 
 @immutable
