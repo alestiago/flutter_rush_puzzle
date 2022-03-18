@@ -6,7 +6,7 @@
         "A": {
             "id": "A",
             "type": "taxi",
-            "steering": "vertic",
+            "steering": "vertical",
             "firstPosition": {
                 "x": 1,
                 "y": 3

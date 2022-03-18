@@ -147,8 +147,9 @@ workflows:
             echo "Not a tag build will not publish GitHub release"
           exit 0
           fi
+
           pwd
-          gh release upload "${CM_TAG}" build/macos/**/*.app.zip build/macos/**/*.pkg
+          gh release upload "${CM_TAG}" build/macos/**/**/**/*.pkg build/macos/**/**/**/*.app.zip
     artifacts:
       - build/**/outputs/apk/**/*.apk
       - build/**/outputs/bundle/**/*.aab
@@ -160,6 +161,7 @@ workflows:
       - build/windows/**/*.msix
       - build/windows/**/*.exe
       - build/macos/**/*.pkg
+      - build/macos/**/*.app
       - flutter_drive.log
     publishing:
       email:
