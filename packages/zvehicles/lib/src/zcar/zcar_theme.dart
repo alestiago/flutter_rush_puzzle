@@ -3,10 +3,21 @@
 import 'package:flutter/material.dart';
 
 class CarThemeData {
-  const CarThemeData._({
+  CarThemeData._({
     required this.colorScheme,
-    required this.layout,
-  });
+  }) : layout = ZCarLayout();
+
+  static final red = CarThemeData._(
+    colorScheme: ZCarColorScheme.red,
+  );
+
+  static final police = CarThemeData._(
+    colorScheme: ZCarColorScheme.police,
+  );
+
+  static final taxi = CarThemeData._(
+    colorScheme: ZCarColorScheme.taxi,
+  );
 
   final ZCarColorScheme colorScheme;
   final ZCarLayout layout;
@@ -14,24 +25,23 @@ class CarThemeData {
   static CarThemeData? lerp(CarThemeData? a, CarThemeData? b, double t) {
     return CarThemeData._(
       colorScheme: ZCarColorScheme.lerp(a?.colorScheme, b?.colorScheme, t)!,
-      layout: b!.layout,
     );
   }
 }
 
 class ZCarColorScheme {
   const ZCarColorScheme._({
-    required this.color,
+    required this.bodyColor,
     required this.sideColor,
     required this.topColor,
     required this.topMiddleColor,
     required this.doorSideColor,
-    required this.topBoxColor,
     required this.windowColor,
     required this.windowSideColor,
+    this.topBoxColor,
   });
 
-  final Color color;
+  final Color bodyColor;
   final Color sideColor;
   final Color topColor;
   final Color topMiddleColor;
@@ -44,13 +54,45 @@ class ZCarColorScheme {
   /// Used for police and taxi cars.
   final Color? topBoxColor;
 
+  static final red = ZCarColorScheme._(
+    bodyColor: Colors.red[700]!,
+    sideColor: Colors.red[700]!,
+    topMiddleColor: Colors.red[700]!,
+    topColor: Colors.red[400]!,
+    windowColor: Colors.blue[100]!,
+    doorSideColor: Colors.red[700]!,
+    windowSideColor: Colors.blue[100]!,
+  );
+
+  static final police = ZCarColorScheme._(
+    bodyColor: Colors.black,
+    sideColor: Colors.grey[900]!,
+    topMiddleColor: Colors.white,
+    doorSideColor: Colors.grey[900]!,
+    topColor: Colors.grey[800]!,
+    topBoxColor: Colors.blue,
+    windowColor: Colors.grey[100]!,
+    windowSideColor: Colors.grey[100]!,
+  );
+
+  static final taxi = ZCarColorScheme._(
+    bodyColor: Colors.yellow[700]!,
+    sideColor: Colors.yellow[700]!,
+    topColor: Colors.yellow[600]!,
+    topBoxColor: Colors.black,
+    doorSideColor: Colors.yellow[700]!,
+    topMiddleColor: Colors.yellow[700]!,
+    windowColor: Colors.yellow[700]!,
+    windowSideColor: Colors.yellow[700]!,
+  );
+
   static ZCarColorScheme? lerp(
     ZCarColorScheme? a,
     ZCarColorScheme? b,
     double t,
   ) {
     return ZCarColorScheme._(
-      color: Color.lerp(a?.color, b?.color, t)!,
+      bodyColor: Color.lerp(a?.bodyColor, b?.bodyColor, t)!,
       sideColor: Color.lerp(a?.sideColor, b?.sideColor, t)!,
       topColor: Color.lerp(a?.topColor, b?.topColor, t)!,
       topMiddleColor: Color.lerp(a?.topMiddleColor, b?.topMiddleColor, t)!,

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:zcomponents/src/widgets/widgets.dart';
+import 'package:zvehicles/zvehicles.dart';
 
 /// Animated board theme which automatically transitions the colors,
 /// etc, over a given duration whenever the given theme changes.
@@ -15,7 +15,7 @@ class AnimatedVehiclesTheme extends StatelessWidget {
   }) : super(key: key);
 
   /// Specifies the color values for descendant widgets.
-  final VehiclesThemeData? data;
+  final ZVehiclesThemeData? data;
 
   /// The widget below this widget in the tree.
   ///
@@ -26,15 +26,15 @@ class AnimatedVehiclesTheme extends StatelessWidget {
   final Duration duration;
   @override
   Widget build(BuildContext context) {
-    final theme = data ?? VehiclesThemeData.fallback;
-    return TweenAnimationBuilder<VehiclesThemeData?>(
+    final theme = data ?? ZVehiclesThemeData.fallback;
+    return TweenAnimationBuilder<ZVehiclesThemeData?>(
       tween: VehiclesThemeTween(
         begin: theme,
         end: theme,
       ),
       duration: duration,
       builder: (context, value, child) {
-        return Provider<VehiclesThemeData>.value(
+        return Provider<ZVehiclesThemeData>.value(
           value: value!,
           child: child,
         );
@@ -46,10 +46,10 @@ class AnimatedVehiclesTheme extends StatelessWidget {
 
 /// Defines the configuration of the overall visual [AnimatedVehiclesTheme] for
 /// a widget subtree within the app.
-class VehiclesThemeData extends Equatable {
-  /// Create a [VehiclesThemeData] that's used to configure a
+class ZVehiclesThemeData extends Equatable {
+  /// Create a [ZVehiclesThemeData] that's used to configure a
   /// [AnimatedVehiclesTheme].
-  const VehiclesThemeData({
+  const ZVehiclesThemeData({
     required this.car,
     required this.taxi,
     required this.police,
@@ -60,98 +60,36 @@ class VehiclesThemeData extends Equatable {
     required this.secondaryBus,
   });
 
-  static final VehiclesThemeData fallback = VehiclesThemeData(
-    car: CarThemeData(
-      color: Colors.red[700]!,
-      sideColor: Colors.red[700],
-      topColor: Colors.red[400],
-      windowColor: Colors.blue[100],
-    ),
-    police: CarThemeData(
-      color: Colors.black,
-      sideColor: Colors.grey[900],
-      topMiddleColor: Colors.white,
-      doorSideColor: Colors.grey[900],
-      topColor: Colors.grey[800],
-      topBoxColor: Colors.blue,
-      windowSideColor: Colors.grey[100],
-    ),
-    taxi: CarThemeData(
-      color: Colors.yellow[700]!,
-      sideColor: Colors.yellow[700],
-      topColor: Colors.yellow[600],
-      topBoxColor: Colors.black,
-    ),
+  static final ZVehiclesThemeData fallback = ZVehiclesThemeData(
+    car: CarThemeData.red,
+    police: CarThemeData.police,
+    taxi: CarThemeData.taxi,
     bus: BusThemeData.school,
     secondaryBus: BusThemeData.publicBus,
     ambulance: AmbulanceThemeData.white,
-    truck: TruckThemeData(
-      colorScheme: ZTruckColorScheme(
-        truckColor: Colors.green,
-        roofColor: Colors.green[600]!,
-        stripesColor: Colors.transparent,
-        windowColor: Colors.blue[300]!,
-        backColor: Colors.green[700]!,
-        cabinColor: Colors.white,
-        backCabinColor: Colors.grey[400],
-        fenderColor: Colors.black,
-        frontLightColor: Colors.amber[200]!,
-        rearLightColor: Colors.green[400]!,
-        lightBorderColor: Colors.black,
-        bottomColor: Colors.black,
-      ),
-    ),
-    secondaryTruck: TruckThemeData(
-      colorScheme: ZTruckColorScheme(
-        truckColor: Colors.orange,
-        roofColor: Colors.orange[600]!,
-        stripesColor: Colors.orange[700]!,
-        windowColor: Colors.blue[300]!,
-        backColor: Colors.orange[700]!,
-        cabinColor: Colors.white,
-        backCabinColor: Colors.grey[400],
-        fenderColor: Colors.black,
-        frontLightColor: Colors.amber[200]!,
-        rearLightColor: Colors.orange[400]!,
-        lightBorderColor: Colors.black,
-        bottomColor: Colors.black,
-      ),
-    ),
+    truck: TruckThemeData.green,
+    secondaryTruck: TruckThemeData.orange,
   );
 
-  /// Car theme
   final CarThemeData car;
-
-  /// Taxi theme
   final CarThemeData taxi;
-
-  /// Police theme
   final CarThemeData police;
-
-  /// Bus theme
   final BusThemeData bus;
-
-  /// Bus theme
   final BusThemeData secondaryBus;
-  // Ambulance theme
   final AmbulanceThemeData ambulance;
-
-  /// Truck theme
   final TruckThemeData truck;
-
-  /// Truck theme
   final TruckThemeData secondaryTruck;
 
   /// Linearly interpolate between two board themes.
   /// The arguments must not be null.
   ///
   /// {@macro dart.ui.shadow.lerp}
-  static VehiclesThemeData? lerp(
-    VehiclesThemeData? a,
-    VehiclesThemeData? b,
+  static ZVehiclesThemeData? lerp(
+    ZVehiclesThemeData? a,
+    ZVehiclesThemeData? b,
     double t,
   ) {
-    return VehiclesThemeData(
+    return ZVehiclesThemeData(
       police: CarThemeData.lerp(a?.car, b?.car, t)!,
       car: CarThemeData.lerp(a?.car, b?.car, t)!,
       taxi: CarThemeData.lerp(a?.taxi, b?.taxi, t)!,
@@ -177,14 +115,15 @@ class VehiclesThemeData extends Equatable {
       ];
 }
 
-/// A [VehiclesThemeData] tween.
-
-class VehiclesThemeTween extends Tween<VehiclesThemeData?> {
-  /// Creates a [VehiclesThemeData] tween.
-  VehiclesThemeTween({VehiclesThemeData? begin, VehiclesThemeData? end})
+/// {@template zvehicles.zvehicles_theme_tween}
+/// A [ZVehiclesThemeData] tween.
+/// {@endtemplate}
+class VehiclesThemeTween extends Tween<ZVehiclesThemeData?> {
+  /// {@macro zvehicles.zvehicles_theme_tween}
+  VehiclesThemeTween({ZVehiclesThemeData? begin, ZVehiclesThemeData? end})
       : super(begin: begin, end: end);
 
   /// Returns the value this variable has at the given animation clock value.
   @override
-  VehiclesThemeData? lerp(double t) => VehiclesThemeData.lerp(begin, end, t);
+  ZVehiclesThemeData? lerp(double t) => ZVehiclesThemeData.lerp(begin, end, t);
 }
