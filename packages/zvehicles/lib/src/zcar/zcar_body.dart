@@ -8,14 +8,13 @@ extension on BuildContext {
 }
 
 const _trunkDepth = 20.0;
-
 const _tileSize = 30.0;
 const _halfSize = _tileSize / 2;
 const _width = _length * _tileSize + _space * (_length - 1);
 const _space = 10.0;
-
 const _length = 2;
 
+// TODO(alestiago): Refactor and decompose this class.
 class ZCarBody extends StatelessWidget {
   const ZCarBody({Key? key}) : super(key: key);
 
@@ -24,8 +23,6 @@ class ZCarBody extends StatelessWidget {
     final theme = context.theme;
 
     final sideColor = theme.colorScheme.sideColor;
-    final doorSideColor = theme.colorScheme.doorSideColor;
-    final windowSideColor = theme.colorScheme.windowSideColor;
     final topColor = theme.colorScheme.topColor;
     final topMiddleColor = theme.colorScheme.topMiddleColor;
     final topBoxColor = theme.colorScheme.topBoxColor;

@@ -104,4 +104,6 @@ class ZCarColorScheme {
   }
 }
 
-class ZCarLayout {}
+class ZCarLayout {
+  // TODO(alestiago): define measures.
+}

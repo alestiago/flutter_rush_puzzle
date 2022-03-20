@@ -4,26 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:zvehicles/zvehicles.dart';
 
 class BusThemeData {
-  const BusThemeData({
+  const BusThemeData._({
     required this.colorScheme,
     required this.layout,
   });
 
-  static final school = BusThemeData(
+  static final school = BusThemeData._(
     colorScheme: ZBusColorScheme.school,
     layout: ZBusLayout.school(),
   );
 
-  static final publicBus = BusThemeData(
-    colorScheme: ZBusColorScheme.publicBus,
-    layout: ZBusLayout.publicBus(),
+  static final blue = BusThemeData._(
+    colorScheme: ZBusColorScheme.blue,
+    layout: ZBusLayout.blue(),
   );
 
   final ZBusColorScheme colorScheme;
   final ZBusLayout layout;
 
   static BusThemeData? lerp(BusThemeData? a, BusThemeData? b, double t) {
-    return BusThemeData(
+    return BusThemeData._(
       colorScheme: ZBusColorScheme.lerp(a?.colorScheme, b?.colorScheme, t)!,
       layout: b!.layout,
     );
@@ -31,7 +31,7 @@ class BusThemeData {
 }
 
 class ZBusColorScheme {
-  const ZBusColorScheme({
+  const ZBusColorScheme._({
     required this.busColor,
     required this.bodyShadowColor,
     required this.roofColor,
@@ -47,7 +47,7 @@ class ZBusColorScheme {
     required this.rimColor,
   });
 
-  static final school = ZBusColorScheme(
+  static final school = ZBusColorScheme._(
     busColor: Colors.yellow,
     bodyShadowColor: Colors.yellow[600]!,
     roofColor: Colors.yellow,
@@ -63,7 +63,7 @@ class ZBusColorScheme {
     rimColor: Colors.grey,
   );
 
-  static final publicBus = ZBusColorScheme(
+  static final blue = ZBusColorScheme._(
     busColor: Colors.blueAccent,
     bodyShadowColor: Colors.blueAccent[700]!,
     roofColor: Colors.blueAccent[400]!,
@@ -98,7 +98,7 @@ class ZBusColorScheme {
     ZBusColorScheme? b,
     double t,
   ) {
-    return ZBusColorScheme(
+    return ZBusColorScheme._(
       busColor: Color.lerp(a?.busColor, b?.busColor, t)!,
       bodyShadowColor: Color.lerp(a?.bodyShadowColor, b?.bodyShadowColor, t)!,
       roofColor: Color.lerp(a?.roofColor, b?.roofColor, t)!,
@@ -118,7 +118,7 @@ class ZBusColorScheme {
 }
 
 class ZBusLayout {
-  const ZBusLayout({
+  const ZBusLayout._({
     required this.width,
     required this.height,
     required this.bodyHeight,
@@ -153,7 +153,6 @@ class ZBusLayout {
 
     const width = length * size + space * (length - 1);
     const height = size;
-    //const height = width / 2.5;
 
     const rearWidth = height;
     const smallWindowWidth = height / 4;
@@ -175,7 +174,7 @@ class ZBusLayout {
     const bodyHeight = height;
     const doorWidth = smallWindowWidth;
 
-    return ZBusLayout(
+    return ZBusLayout._(
       width: width,
       height: height,
       bodyWidth: bodyWidth,
@@ -206,7 +205,7 @@ class ZBusLayout {
     );
   }
 
-  factory ZBusLayout.publicBus() {
+  factory ZBusLayout.blue() {
     const length = 3;
     const size = 30.0;
     const space = 10.0;
@@ -232,7 +231,7 @@ class ZBusLayout {
     const bodyHeight = height;
     const doorWidth = smallWindowWidth;
 
-    return const ZBusLayout(
+    return const ZBusLayout._(
       width: width,
       height: height,
       bodyWidth: bodyWidth,
