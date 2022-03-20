@@ -70,7 +70,7 @@ class PuzzleView extends StatelessWidget {
             ],
           ],
         ),
-        if (state.status == GameStatus.playing) ...[
+        if (state.status.isPlaying) ...[
           Align(
             alignment: Alignment.bottomRight,
             child: SafeArea(
@@ -78,8 +78,9 @@ class PuzzleView extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: const [
-                  PerspectiveSegmentedControl(),
                   TutorialButton(),
+                  SizedBox(width: 10),
+                  PerspectiveSegmentedControl(),
                 ],
               ),
             ),
