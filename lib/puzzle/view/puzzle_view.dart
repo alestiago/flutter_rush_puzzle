@@ -25,7 +25,7 @@ class PuzzleView extends StatelessWidget {
         : GameLayoutPerspective.presentation;
 
     final vehicleTheme = state.status.isTutorial
-        ? ZVehiclesThemeData.fallback
+        ? ZVehiclesThemeData.tutorial
         : ZVehiclesThemeData.fallback;
 
     final vehicles = state.puzzle.vehicles.values;
