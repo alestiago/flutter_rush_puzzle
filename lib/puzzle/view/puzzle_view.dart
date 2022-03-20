@@ -18,12 +18,16 @@ class PuzzleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final vehicleTheme = ZVehiclesThemeData.fallback;
     final boardTheme = BoardThemeData.fromMaterialColor(Colors.blue);
     final state = context.select((PuzzleBloc b) => b.state);
     final perspective = state.status.isPlaying
         ? state.perspective
         : GameLayoutPerspective.presentation;
+
+    // TODO(alestiago): Use transparent theme.
+    final vehicleTheme = state.status.isTutorial
+        ? ZVehiclesThemeData.fallback
+        : ZVehiclesThemeData.fallback;
 
     final vehicles = state.puzzle.vehicles.values;
     final jammedVehicle = vehicles.firstWhereOrNull(
@@ -68,11 +72,17 @@ class PuzzleView extends StatelessWidget {
           ],
         ),
         if (state.status == GameStatus.playing) ...[
-          const Align(
+          Align(
             alignment: Alignment.bottomRight,
             child: SafeArea(
-              minimum: EdgeInsets.all(16),
-              child: PerspectiveSegmentedControl(),
+              minimum: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: const [
+                  PerspectiveSegmentedControl(),
+                  TutorialButton(),
+                ],
+              ),
             ),
           ),
         ]
