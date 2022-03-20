@@ -1,3 +1,5 @@
+import 'dart:math' as math show pi;
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:puzzle_models/puzzle_models.dart';
@@ -14,6 +16,7 @@ class ZVehicle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Widget child;
+    const quarterTurn = math.pi / 2;
 
     switch (data.type) {
       case VehicleType.car:
