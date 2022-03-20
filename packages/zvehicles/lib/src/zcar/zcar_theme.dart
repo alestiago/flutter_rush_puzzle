@@ -22,6 +22,17 @@ class CarThemeData {
   final ZCarColorScheme colorScheme;
   final ZCarLayout layout;
 
+  CarThemeData map(CarThemeData Function(CarThemeData) map) => map(this);
+
+  CarThemeData copyWith({
+    ZCarColorScheme? colorScheme,
+    ZCarLayout? layout,
+  }) {
+    return CarThemeData._(
+      colorScheme: colorScheme ?? this.colorScheme,
+    );
+  }
+
   static CarThemeData? lerp(CarThemeData? a, CarThemeData? b, double t) {
     return CarThemeData._(
       colorScheme: ZCarColorScheme.lerp(a?.colorScheme, b?.colorScheme, t)!,
@@ -85,6 +96,18 @@ class ZCarColorScheme {
     windowColor: Colors.blue[400]!,
     windowSideColor: Colors.yellow[700]!,
   );
+
+  ZCarColorScheme withOpacity(double opacity) {
+    return ZCarColorScheme._(
+      bodyColor: bodyColor.withOpacity(opacity),
+      sideColor: sideColor.withOpacity(opacity),
+      topColor: topColor.withOpacity(opacity),
+      topMiddleColor: topMiddleColor.withOpacity(opacity),
+      doorSideColor: doorSideColor.withOpacity(opacity),
+      windowColor: windowColor.withOpacity(opacity),
+      windowSideColor: windowSideColor.withOpacity(opacity),
+    );
+  }
 
   static ZCarColorScheme? lerp(
     ZCarColorScheme? a,

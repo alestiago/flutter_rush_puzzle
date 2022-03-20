@@ -19,6 +19,17 @@ class TruckThemeData {
   final ZTruckColorScheme colorScheme;
   final ZTrucklayout layout;
 
+  TruckThemeData map(TruckThemeData Function(TruckThemeData) map) => map(this);
+
+  TruckThemeData copyWith({
+    ZTruckColorScheme? colorScheme,
+    ZTrucklayout? layout,
+  }) {
+    return TruckThemeData._(
+      colorScheme: colorScheme ?? this.colorScheme,
+    );
+  }
+
   static TruckThemeData? lerp(TruckThemeData? a, TruckThemeData? b, double t) {
     return TruckThemeData._(
       colorScheme: ZTruckColorScheme.lerp(a?.colorScheme, b?.colorScheme, t)!,
@@ -43,7 +54,6 @@ class ZTruckColorScheme {
   }) : backCabinColor = backCabinColor ?? cabinColor;
 
   final Color truckColor;
-
   final Color roofColor;
   final Color stripesColor;
   final Color windowColor;
@@ -85,6 +95,22 @@ class ZTruckColorScheme {
     lightBorderColor: Colors.black,
     bottomColor: Colors.black,
   );
+
+  ZTruckColorScheme withOpacity(double opacity) {
+    return ZTruckColorScheme._(
+      truckColor: truckColor.withOpacity(opacity),
+      roofColor: roofColor.withOpacity(opacity),
+      stripesColor: stripesColor.withOpacity(opacity),
+      windowColor: windowColor.withOpacity(opacity),
+      cabinColor: cabinColor.withOpacity(opacity),
+      fenderColor: fenderColor.withOpacity(opacity),
+      frontLightColor: frontLightColor.withOpacity(opacity),
+      rearLightColor: rearLightColor.withOpacity(opacity),
+      lightBorderColor: lightBorderColor.withOpacity(opacity),
+      bottomColor: bottomColor.withOpacity(opacity),
+      backColor: backColor.withOpacity(opacity),
+    );
+  }
 
   static ZTruckColorScheme? lerp(
     ZTruckColorScheme? a,
