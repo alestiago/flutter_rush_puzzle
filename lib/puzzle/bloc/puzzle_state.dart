@@ -1,22 +1,22 @@
 part of 'puzzle_bloc.dart';
 
 enum GameStatus {
-  /// Initial game state, no game has been loaded yet
+  /// Initial game state, no game has been loaded yet.
   initial,
 
-  /// A game is being loaded
+  /// A game is being loaded.
   loading,
 
-  /// A game is ready to play
+  /// A game is ready to play.
   setup,
 
-  /// Game is being played
+  /// Game is being played.
   playing,
 
-  /// Game has been won
+  /// Game has been won.
   finished,
 
-  /// Showing how to play the game
+  /// Showing game tutorial.
   tutorial,
 }
 
@@ -26,8 +26,7 @@ extension GameStatusExtension on GameStatus {
       this == GameStatus.loading ||
       this == GameStatus.setup;
 
-  bool get isPlaying =>
-      this == GameStatus.playing || this == GameStatus.tutorial;
+  bool get isPlaying => this == GameStatus.playing || isTutorial;
 
   bool get isTutorial => this == GameStatus.tutorial;
 }
@@ -47,6 +46,7 @@ class PuzzleState extends Equatable {
   final GameStatus status;
 
   final List<RushPuzzle> history;
+
   final int historyPointer;
 
   final GameLayoutPerspective perspective;
