@@ -1,13 +1,15 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/material.dart';
 import 'package:zflutter/zflutter.dart' show ZVector;
 
 class AmbulanceThemeData {
-  const AmbulanceThemeData({
+  const AmbulanceThemeData._({
     required this.colorScheme,
     required this.layout,
   });
 
-  static final white = AmbulanceThemeData(
+  static final white = AmbulanceThemeData._(
     colorScheme: ZAmbulanceColorScheme.white,
     layout: ZAmbulanceLayout.white(),
   );
@@ -20,7 +22,7 @@ class AmbulanceThemeData {
     AmbulanceThemeData? b,
     double t,
   ) {
-    return AmbulanceThemeData(
+    return AmbulanceThemeData._(
       colorScheme:
           ZAmbulanceColorScheme.lerp(a?.colorScheme, b?.colorScheme, t)!,
       layout: b!.layout,
@@ -29,7 +31,7 @@ class AmbulanceThemeData {
 }
 
 class ZAmbulanceColorScheme {
-  const ZAmbulanceColorScheme({
+  const ZAmbulanceColorScheme._({
     required this.bodyColor,
     required this.roofColor,
     required this.stripesColor,
@@ -48,13 +50,13 @@ class ZAmbulanceColorScheme {
     required this.secondarySirenShadowColor,
   });
 
-  static final white = ZAmbulanceColorScheme(
+  static final white = ZAmbulanceColorScheme._(
     bodyColor: Colors.white,
     shadowColor: Colors.grey[100]!,
     roofColor: Colors.white,
     floorColor: Colors.grey[300]!,
     stripesColor: Colors.red,
-    windowColor: Colors.blue[300]!,
+    windowColor: Colors.blue[400]!,
     fenderColor: Colors.grey[300]!,
     frontLightColor: Colors.yellow[200]!,
     rearLightColor: Colors.red[400]!,
@@ -89,7 +91,7 @@ class ZAmbulanceColorScheme {
     ZAmbulanceColorScheme? b,
     double t,
   ) {
-    return ZAmbulanceColorScheme(
+    return ZAmbulanceColorScheme._(
       bodyColor: Color.lerp(a?.bodyColor, b?.bodyColor, t)!,
       shadowColor: Color.lerp(a?.shadowColor, b?.shadowColor, t)!,
       roofColor: Color.lerp(a?.roofColor, b?.roofColor, t)!,
@@ -122,7 +124,7 @@ class ZAmbulanceColorScheme {
 }
 
 class ZAmbulanceLayout {
-  const ZAmbulanceLayout({
+  const ZAmbulanceLayout._({
     required this.width,
     required this.height,
     required this.bodyHeight,
@@ -162,7 +164,7 @@ class ZAmbulanceLayout {
     const driverWidth = width - bodyWidth;
     const driverHeight = height * 0.85;
 
-    return const ZAmbulanceLayout(
+    return const ZAmbulanceLayout._(
       width: width,
       height: height,
       bodyWidth: bodyWidth,

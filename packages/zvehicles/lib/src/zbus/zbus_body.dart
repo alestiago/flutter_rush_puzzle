@@ -1,6 +1,10 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:zcomponents/zcomponents.dart';
+import 'package:zvehicles/src/helpers/helpers.dart';
+import 'package:zvehicles/src/zvehicle_side.dart';
+import 'package:zvehicles/zvehicles.dart';
 
 class ZBusBody extends ZRectNet {
   const ZBusBody({Key? key}) : super(key: key);
@@ -260,14 +264,14 @@ class _ZSide extends StatelessWidget {
             x: -theme.layout.bodyWidth * 0.3,
             y: -theme.layout.bodyHeight / 2,
           ),
-          child: ZWheel(side: _side.isLeft ? ZCarSide.left : ZCarSide.right),
+          child: _ZWheel(side: _side),
         ),
         ZPositioned(
           translate: ZVector.only(
             x: theme.layout.bodyWidth * 0.3,
             y: -theme.layout.bodyHeight / 2,
           ),
-          child: ZWheel(side: _side.isLeft ? ZCarSide.left : ZCarSide.right),
+          child: _ZWheel(side: _side),
         ),
       ],
     );
@@ -449,4 +453,56 @@ class _ZLight extends StatelessWidget {
       ],
     );
   }
+}
+
+class _ZWheel extends StatelessWidget {
+  const _ZWheel({
+    Key? key,
+    required this.side,
+  }) : super(key: key);
+
+  final ZVehicleSide side;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+
+    return ZGroup(
+      sortMode: SortMode.stack,
+      children: [
+        ZPositioned(
+          rotate: ZVector.only(x: side.isLeft ? tau / 2 : 0),
+          child: ZGroup(
+            sortMode: SortMode.stack,
+            children: [
+              ZCylinder(
+                diameter: theme.layout.tyreDiameter,
+                length: theme.layout.tyreDepth,
+                color: theme.colorScheme.tyreColor,
+              ),
+              ZPositioned(
+                translate: ZVector.only(z: -theme.layout.tyreDepth),
+                child: ZCircle(
+                  diameter: theme.layout.rimDiameter,
+                  fill: true,
+                  color: theme.colorScheme.rimColor,
+                ),
+              ),
+              ZPositioned(
+                translate: const ZVector(0, 0, -1),
+                child: ZShape(
+                  visible: false,
+                  color: theme.colorScheme.rimColor,
+                ),
+              )
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+extension on BuildContext {
+  BusThemeData get theme => watch<BusThemeData>();
 }

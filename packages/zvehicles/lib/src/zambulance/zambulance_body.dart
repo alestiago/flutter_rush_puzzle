@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:zcomponents/zcomponents.dart';
+import 'package:zvehicles/src/helpers/helpers.dart';
+import 'package:zvehicles/src/zvehicle_side.dart';
+import 'package:zvehicles/zvehicles.dart';
 
+/// {@template zvehicles.zambulance.zambulance_body}
+/// The body of the [ZAmbulance].
+///
+/// This body of an ambulance is where a patient is usually sitting.
+/// {@endtemplate}
 class ZAmbulanceBody extends ZRectNet {
+  /// {@macro zvehicles.zambulance.zambulance_body}
   const ZAmbulanceBody({Key? key}) : super(key: key);
 
   @override
@@ -263,7 +271,6 @@ class _ZCross extends StatelessWidget {
   }
 }
 
-// TODO(jamesblasco): Replace with [ZWheel].
 class _ZWheel extends StatelessWidget {
   const _ZWheel({
     Key? key,

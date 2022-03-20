@@ -5,6 +5,7 @@ import 'package:puzzle_models/puzzle_models.dart';
 import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
 import 'package:rush_hour_puzzle/vehicle/vehicle.dart';
 import 'package:zcomponents/zcomponents.dart';
+import 'package:zvehicles/zvehicles.dart';
 
 class ZVehicleView extends StatelessWidget {
   const ZVehicleView({

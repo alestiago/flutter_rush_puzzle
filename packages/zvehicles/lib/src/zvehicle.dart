@@ -1,59 +1,69 @@
+import 'dart:math' as math show pi;
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:puzzle_models/puzzle_models.dart';
-import 'package:zcomponents/zcomponents.dart';
+import 'package:zvehicles/zvehicles.dart';
 
+/// {@template zvehicles.zvehicle}
+/// A [ZVehicle] represents a vehicle defined by [Vehicle.type] vehicle.
+///
+/// It is rotated depending on [Vehicle.steering].
+/// {@endtemplate}
 class ZVehicle extends StatelessWidget {
+  /// {@macro zvehicles.zvehicle}
   const ZVehicle({
     Key? key,
     required this.data,
   }) : super(key: key);
 
+  /// {@macro vehicle}
   final Vehicle data;
 
   @override
   Widget build(BuildContext context) {
     final Widget child;
+    const quarterTurn = math.pi / 2;
 
     switch (data.type) {
       case VehicleType.car:
-        child = ZSquaredCar(
-          theme: context.select((VehiclesThemeData d) => d.car),
+        child = ZCar(
+          theme: context.select((ZVehiclesThemeData d) => d.car),
         );
         break;
       case VehicleType.taxi:
-        child = ZSquaredCar(
-          theme: context.select((VehiclesThemeData d) => d.taxi),
+        child = ZCar(
+          theme: context.select((ZVehiclesThemeData d) => d.taxi),
         );
         break;
       case VehicleType.police:
-        child = ZSquaredCar(
-          theme: context.select((VehiclesThemeData d) => d.police),
+        child = ZCar(
+          theme: context.select((ZVehiclesThemeData d) => d.police),
         );
         break;
       case VehicleType.ambulance:
         child = ZAmbulance(
-          theme: context.select((VehiclesThemeData d) => d.ambulance),
+          theme: context.select((ZVehiclesThemeData d) => d.ambulance),
         );
         break;
       case VehicleType.bus:
         child = ZBus(
-          theme: context.select((VehiclesThemeData d) => d.bus),
+          theme: context.select((ZVehiclesThemeData d) => d.bus),
         );
         break;
       case VehicleType.secondaryBus:
         child = ZBus(
-          theme: context.select((VehiclesThemeData d) => d.secondaryBus),
+          theme: context.select((ZVehiclesThemeData d) => d.secondaryBus),
         );
         break;
       case VehicleType.truck:
         child = ZTruck(
-          theme: context.select((VehiclesThemeData d) => d.truck),
+          theme: context.select((ZVehiclesThemeData d) => d.truck),
         );
         break;
       case VehicleType.secondaryTruck:
         child = ZTruck(
-          theme: context.select((VehiclesThemeData d) => d.secondaryTruck),
+          theme: context.select((ZVehiclesThemeData d) => d.secondaryTruck),
         );
         break;
     }

@@ -1,23 +1,33 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/material.dart';
 import 'package:zflutter/zflutter.dart';
 
 class TruckThemeData {
-  TruckThemeData({
+  TruckThemeData._({
     required this.colorScheme,
-  }) : layout = ZTrucklayout.school();
+  }) : layout = ZTrucklayout.primary();
+
+  static final orange = TruckThemeData._(
+    colorScheme: ZTruckColorScheme.orange,
+  );
+
+  static final green = TruckThemeData._(
+    colorScheme: ZTruckColorScheme.green,
+  );
 
   final ZTruckColorScheme colorScheme;
   final ZTrucklayout layout;
 
   static TruckThemeData? lerp(TruckThemeData? a, TruckThemeData? b, double t) {
-    return TruckThemeData(
+    return TruckThemeData._(
       colorScheme: ZTruckColorScheme.lerp(a?.colorScheme, b?.colorScheme, t)!,
     );
   }
 }
 
 class ZTruckColorScheme {
-  const ZTruckColorScheme({
+  const ZTruckColorScheme._({
     required this.truckColor,
     required this.roofColor,
     required this.stripesColor,
@@ -46,12 +56,42 @@ class ZTruckColorScheme {
   final Color lightBorderColor;
   final Color bottomColor;
 
+  static final orange = ZTruckColorScheme._(
+    truckColor: Colors.orange,
+    roofColor: Colors.orange[600]!,
+    stripesColor: Colors.orange[700]!,
+    windowColor: Colors.blue[400]!,
+    backColor: Colors.orange[700]!,
+    cabinColor: Colors.white,
+    backCabinColor: Colors.grey[400],
+    fenderColor: Colors.black,
+    frontLightColor: Colors.amber[200]!,
+    rearLightColor: Colors.orange[400]!,
+    lightBorderColor: Colors.black,
+    bottomColor: Colors.black,
+  );
+
+  static final green = ZTruckColorScheme._(
+    truckColor: Colors.green,
+    roofColor: Colors.green[600]!,
+    stripesColor: Colors.transparent,
+    windowColor: Colors.blue[400]!,
+    backColor: Colors.green[700]!,
+    cabinColor: Colors.white,
+    backCabinColor: Colors.grey[400],
+    fenderColor: Colors.black,
+    frontLightColor: Colors.amber[200]!,
+    rearLightColor: Colors.green[400]!,
+    lightBorderColor: Colors.black,
+    bottomColor: Colors.black,
+  );
+
   static ZTruckColorScheme? lerp(
     ZTruckColorScheme? a,
     ZTruckColorScheme? b,
     double t,
   ) {
-    return ZTruckColorScheme(
+    return ZTruckColorScheme._(
       truckColor: Color.lerp(a?.truckColor, b?.truckColor, t)!,
       roofColor: Color.lerp(a?.roofColor, b?.roofColor, t)!,
       stripesColor: Color.lerp(a?.stripesColor, b?.stripesColor, t)!,
@@ -70,7 +110,7 @@ class ZTruckColorScheme {
 }
 
 class ZTrucklayout {
-  const ZTrucklayout({
+  const ZTrucklayout._({
     required this.width,
     required this.height,
     required this.bodyHeight,
@@ -92,18 +132,17 @@ class ZTrucklayout {
     required this.fenderPosition,
   });
 
-  factory ZTrucklayout.school() {
+  factory ZTrucklayout.primary() {
     const length = 3;
     const size = 30.0;
     const space = 10.0;
 
     const width = length * size + space * (length - 1);
     const height = size;
-    //const height = width / 2.5;
 
     const rearWidth = height;
-
     const fenderHeight = height * 0.05;
+
     const bodyWidth = width * 1;
     const bodyHeight = height;
 
@@ -111,10 +150,9 @@ class ZTrucklayout {
     const upperStripePosition = ZVector.only(
       y: -bodyHeight / 2 + stripeHeight,
     );
-
     const lowerStripePosition = upperStripePosition;
 
-    return const ZTrucklayout(
+    return const ZTrucklayout._(
       width: width,
       height: height,
       bodyWidth: bodyWidth,

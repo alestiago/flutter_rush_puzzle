@@ -1,32 +1,33 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/material.dart';
-import 'package:zcomponents/zcomponents.dart';
+import 'package:provider/provider.dart';
+import 'package:zvehicles/src/zvehicle_side.dart';
+import 'package:zvehicles/zvehicles.dart';
+
+extension on BuildContext {
+  CarThemeData get theme => watch<CarThemeData>();
+}
 
 const _trunkDepth = 20.0;
-
 const _tileSize = 30.0;
 const _halfSize = _tileSize / 2;
 const _width = _length * _tileSize + _space * (_length - 1);
 const _space = 10.0;
-
 const _length = 2;
 
-class ZSquaredCar extends StatelessWidget {
-  const ZSquaredCar({
-    Key? key,
-    required this.theme,
-  }) : super(key: key);
-
-  final CarThemeData theme;
+// TODO(alestiago): Refactor and decompose this class.
+class ZCarBody extends StatelessWidget {
+  const ZCarBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final sideColor = theme.sideColor ?? theme.color;
+    final theme = context.theme;
 
-    final doorSideColor = theme.doorSideColor ?? sideColor;
-    final windowSideColor = theme.windowSideColor ?? doorSideColor;
-    final topColor = theme.topColor ?? theme.color;
-    final topMiddleColor = theme.topMiddleColor ?? topColor;
-    final topBoxColor = theme.topBoxColor;
+    final sideColor = theme.colorScheme.sideColor;
+    final topColor = theme.colorScheme.topColor;
+    final topMiddleColor = theme.colorScheme.topMiddleColor;
+    final topBoxColor = theme.colorScheme.topBoxColor;
 
     const halfWidth = _width / 2;
 
@@ -36,22 +37,16 @@ class ZSquaredCar extends StatelessWidget {
         // Left side
 
         ZGroup(
-          children: [
+          children: const [
             _ZCarSide(
-              side: ZCarSide.left,
-              sideColor: sideColor,
-              doorSideColor: doorSideColor,
-              windowSideColor: windowSideColor,
+              side: ZVehicleSide.left,
             ),
           ],
         ),
 
         // Right side
-        _ZCarSide(
-          side: ZCarSide.right,
-          sideColor: sideColor,
-          doorSideColor: doorSideColor,
-          windowSideColor: windowSideColor,
+        const _ZCarSide(
+          side: ZVehicleSide.right,
         ),
 
         /// Top of the car
@@ -131,11 +126,11 @@ class ZSquaredCar extends StatelessWidget {
                   children: const [
                     ZPositioned(
                       translate: ZVector.only(y: 10),
-                      child: _Ligth(),
+                      child: _ZLigth(),
                     ),
                     ZPositioned(
                       translate: ZVector.only(y: -10),
-                      child: _Ligth(),
+                      child: _ZLigth(),
                     ),
                   ],
                 ),
@@ -170,7 +165,7 @@ class ZSquaredCar extends StatelessWidget {
                 ZLine(0, _halfSize, 0),
                 ZLine(0, -_halfSize, 0),
               ],
-              color: theme.windowColor ?? Colors.blue,
+              color: theme.colorScheme.windowColor,
               fill: true,
             ),
           ),
@@ -186,7 +181,7 @@ class ZSquaredCar extends StatelessWidget {
                 ZLine(0, _halfSize, 0),
                 ZLine(0, -_halfSize, 0),
               ],
-              color: theme.windowColor ?? Colors.blue,
+              color: theme.colorScheme.windowColor,
               fill: true,
             ),
           ),
@@ -196,8 +191,8 @@ class ZSquaredCar extends StatelessWidget {
   }
 }
 
-class _Ligth extends StatelessWidget {
-  const _Ligth({Key? key}) : super(key: key);
+class _ZLigth extends StatelessWidget {
+  const _ZLigth({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -224,26 +219,23 @@ class _Ligth extends StatelessWidget {
 class _ZCarSide extends StatelessWidget {
   const _ZCarSide({
     Key? key,
-    required this.side,
-    required this.sideColor,
-    required this.doorSideColor,
-    required this.windowSideColor,
-  }) : super(key: key);
+    required ZVehicleSide side,
+  })  : _side = side,
+        super(key: key);
 
-  final ZCarSide side;
-
-  final Color sideColor;
-  final Color doorSideColor;
-  final Color windowSideColor;
+  final ZVehicleSide _side;
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
+
     const distanceWheel = _tileSize / 1.4;
+
     return ZPositioned(
       rotate: const ZVector.only(x: -tau / 4),
       child: ZPositioned(
         translate: ZVector.only(
-          y: side == ZCarSide.left ? _halfSize : -_halfSize,
+          y: _side.isLeft ? _halfSize : -_halfSize,
         ),
         child: ZGroup(
           children: [
@@ -258,13 +250,13 @@ class _ZCarSide extends StatelessWidget {
                   child: ZRect(
                     width: _trunkDepth,
                     height: _halfSize - 4,
-                    color: sideColor,
+                    color: theme.colorScheme.sideColor,
                     fill: true,
                   ),
                 ),
                 ZPositioned(
                   translate: const ZVector(distanceWheel, _halfSize - 4, 0),
-                  child: ZWheel(side: side, tyreDiameter: 10),
+                  child: _ZWheel(side: _side, tyreDiameter: 10),
                 ),
               ],
             ),
@@ -279,13 +271,13 @@ class _ZCarSide extends StatelessWidget {
                   child: ZRect(
                     width: _trunkDepth,
                     height: _halfSize - 4,
-                    color: sideColor,
+                    color: theme.colorScheme.sideColor,
                     fill: true,
                   ),
                 ),
                 ZPositioned(
                   translate: const ZVector(-distanceWheel, _halfSize - 4, 0),
-                  child: ZWheel(side: side, tyreDiameter: 10),
+                  child: _ZWheel(side: _side, tyreDiameter: 10),
                 ),
               ],
             ),
@@ -294,7 +286,7 @@ class _ZCarSide extends StatelessWidget {
               child: ZRect(
                 width: _width - _trunkDepth * 2 - 2,
                 height: _tileSize / 2 - 4,
-                color: windowSideColor,
+                color: theme.colorScheme.windowSideColor,
                 fill: true,
               ),
             ),
@@ -303,13 +295,67 @@ class _ZCarSide extends StatelessWidget {
               child: ZRect(
                 width: _width - _trunkDepth * 2 - 2,
                 height: _tileSize / 2 - 4,
-                color: doorSideColor,
+                color: theme.colorScheme.doorSideColor,
                 fill: true,
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _ZWheel extends StatelessWidget {
+  const _ZWheel({
+    Key? key,
+    required ZVehicleSide side,
+    this.tyreDiameter = 12,
+    this.tyreDepth = 2,
+    this.rimDiameter = 4,
+  })  : _side = side,
+        super(key: key);
+
+  final ZVehicleSide _side;
+
+  final double tyreDiameter;
+  final double tyreDepth;
+  final double rimDiameter;
+
+  @override
+  Widget build(BuildContext context) {
+    return ZGroup(
+      sortMode: SortMode.stack,
+      children: [
+        ZPositioned(
+          rotate: ZVector.only(x: _side.isLeft ? tau / 2 : 0),
+          child: ZGroup(
+            sortMode: SortMode.stack,
+            children: [
+              ZCylinder(
+                diameter: tyreDiameter,
+                length: tyreDepth,
+                color: Colors.black,
+              ),
+              ZPositioned(
+                translate: ZVector.only(z: -tyreDepth),
+                child: ZCircle(
+                  diameter: rimDiameter,
+                  fill: true,
+                  color: Colors.grey,
+                ),
+              ),
+              ZPositioned(
+                translate: const ZVector(0, 0, -1),
+                child: ZShape(
+                  visible: false,
+                  color: Colors.grey,
+                ),
+              )
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

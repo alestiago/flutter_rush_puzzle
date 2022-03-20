@@ -1,6 +1,6 @@
 import 'package:example/z_axis.dart';
 import 'package:flutter/material.dart';
-import 'package:zcomponents/zcomponents.dart';
+import 'package:zvehicles/zvehicles.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     final vehicles = [
       ZAmbulance(theme: AmbulanceThemeData.white),
       ZBus(theme: BusThemeData.school),
-      const ZSquaredCar(theme: CarThemeData(color: Colors.red))
+      ZCar(theme: CarThemeData.red)
     ];
 
     return MaterialApp(
