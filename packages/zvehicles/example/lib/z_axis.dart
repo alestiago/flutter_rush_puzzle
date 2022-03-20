@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:zcomponents/zcomponents.dart';
+import 'package:zvehicles/zvehicles.dart';
 
-enum _ZArrowAxis { z, x, y }
+enum _ZArrowAxis {
+  x,
+  y,
+  z,
+}
 
 extension on _ZArrowAxis {
   ZLine get line {
