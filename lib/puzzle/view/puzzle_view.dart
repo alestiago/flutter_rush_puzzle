@@ -11,13 +11,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
 import 'package:rush_hour_puzzle/vehicle/vehicle.dart';
 import 'package:zcomponents/zcomponents.dart';
+import 'package:zvehicles/zvehicles.dart';
 
 class PuzzleView extends StatelessWidget {
   const PuzzleView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final vehicleTheme = VehiclesThemeData.fallback;
+    final vehicleTheme = ZVehiclesThemeData.fallback;
     final boardTheme = BoardThemeData.fromMaterialColor(Colors.blue);
     final state = context.select((PuzzleBloc b) => b.state);
     final perspective = state.status.isPlaying
