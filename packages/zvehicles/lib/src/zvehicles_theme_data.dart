@@ -110,7 +110,7 @@ class ZVehiclesThemeData extends Equatable {
     double t,
   ) {
     return ZVehiclesThemeData(
-      police: CarThemeData.lerp(a?.car, b?.car, t)!,
+      police: CarThemeData.lerp(a?.police, b?.police, t)!,
       car: CarThemeData.lerp(a?.car, b?.car, t)!,
       taxi: CarThemeData.lerp(a?.taxi, b?.taxi, t)!,
       bus: BusThemeData.lerp(a?.bus, b?.bus, t)!,
