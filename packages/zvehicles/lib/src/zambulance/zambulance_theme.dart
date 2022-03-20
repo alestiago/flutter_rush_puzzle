@@ -54,7 +54,7 @@ class ZAmbulanceColorScheme {
     roofColor: Colors.white,
     floorColor: Colors.grey[300]!,
     stripesColor: Colors.red,
-    windowColor: Colors.blue[300]!,
+    windowColor: Colors.blue[400]!,
     fenderColor: Colors.grey[300]!,
     frontLightColor: Colors.yellow[200]!,
     rearLightColor: Colors.red[400]!,

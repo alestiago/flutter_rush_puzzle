@@ -57,11 +57,11 @@ class ZCarColorScheme {
   static final red = ZCarColorScheme._(
     bodyColor: Colors.red[700]!,
     sideColor: Colors.red[700]!,
-    topMiddleColor: Colors.red[700]!,
+    topMiddleColor: Colors.red[400]!,
     topColor: Colors.red[400]!,
-    windowColor: Colors.blue[100]!,
+    windowColor: Colors.blue[400]!,
     doorSideColor: Colors.red[700]!,
-    windowSideColor: Colors.blue[100]!,
+    windowSideColor: Colors.red[700]!,
   );
 
   static final police = ZCarColorScheme._(
@@ -71,7 +71,7 @@ class ZCarColorScheme {
     doorSideColor: Colors.grey[900]!,
     topColor: Colors.grey[800]!,
     topBoxColor: Colors.blue,
-    windowColor: Colors.grey[100]!,
+    windowColor: Colors.blue[400]!,
     windowSideColor: Colors.grey[100]!,
   );
 
@@ -81,8 +81,8 @@ class ZCarColorScheme {
     topColor: Colors.yellow[600]!,
     topBoxColor: Colors.black,
     doorSideColor: Colors.yellow[700]!,
-    topMiddleColor: Colors.yellow[700]!,
-    windowColor: Colors.yellow[700]!,
+    topMiddleColor: Colors.yellow[600]!,
+    windowColor: Colors.blue[400]!,
     windowSideColor: Colors.yellow[700]!,
   );
 
