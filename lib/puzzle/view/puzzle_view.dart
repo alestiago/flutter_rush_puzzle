@@ -24,7 +24,6 @@ class PuzzleView extends StatelessWidget {
         ? state.perspective
         : GameLayoutPerspective.presentation;
 
-    // TODO(alestiago): Use transparent theme.
     final vehicleTheme = state.status.isTutorial
         ? ZVehiclesThemeData.fallback
         : ZVehiclesThemeData.fallback;
