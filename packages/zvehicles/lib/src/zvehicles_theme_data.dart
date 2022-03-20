@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -65,7 +67,7 @@ class ZVehiclesThemeData extends Equatable {
     police: CarThemeData.police,
     taxi: CarThemeData.taxi,
     bus: BusThemeData.school,
-    secondaryBus: BusThemeData.publicBus,
+    secondaryBus: BusThemeData.blue,
     ambulance: AmbulanceThemeData.white,
     truck: TruckThemeData.green,
     secondaryTruck: TruckThemeData.orange,

@@ -5,18 +5,23 @@ import 'package:zvehicles/zvehicles.dart';
 
 export 'zcar_theme.dart';
 
+/// {@template zvehicles.zcar}
+/// A [ZCar] is a car represented by a [ZGroup].
+/// {@endtemplate}
 class ZCar extends StatelessWidget {
+  /// {@macro zvehicles.zcar}
   const ZCar({
     Key? key,
-    required this.theme,
-  }) : super(key: key);
+    required CarThemeData theme,
+  })  : _theme = theme,
+        super(key: key);
 
-  final CarThemeData theme;
+  final CarThemeData _theme;
 
   @override
   Widget build(BuildContext context) {
     return Provider<CarThemeData>.value(
-      value: theme,
+      value: _theme,
       child: const ZCarBody(),
     );
   }

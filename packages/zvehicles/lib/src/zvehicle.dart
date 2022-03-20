@@ -5,12 +5,19 @@ import 'package:provider/provider.dart';
 import 'package:puzzle_models/puzzle_models.dart';
 import 'package:zvehicles/zvehicles.dart';
 
+/// {@template zvehicles.zvehicle}
+/// A [ZVehicle] represents a vehicle defined by [Vehicle.type] vehicle.
+///
+/// It is rotated depending on [Vehicle.steering].
+/// {@endtemplate}
 class ZVehicle extends StatelessWidget {
+  /// {@macro zvehicles.zvehicle}
   const ZVehicle({
     Key? key,
     required this.data,
   }) : super(key: key);
 
+  /// {@macro vehicle}
   final Vehicle data;
 
   @override

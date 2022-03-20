@@ -97,7 +97,7 @@ class ZCarColorScheme {
       topColor: Color.lerp(a?.topColor, b?.topColor, t)!,
       topMiddleColor: Color.lerp(a?.topMiddleColor, b?.topMiddleColor, t)!,
       doorSideColor: Color.lerp(a?.doorSideColor, b?.doorSideColor, t)!,
-      topBoxColor: Color.lerp(a?.topBoxColor, b?.topBoxColor, t)!,
+      topBoxColor: Color.lerp(a?.topBoxColor, b?.topBoxColor, t),
       windowColor: Color.lerp(a?.windowColor, b?.windowColor, t)!,
       windowSideColor: Color.lerp(a?.windowSideColor, b?.windowSideColor, t)!,
     );

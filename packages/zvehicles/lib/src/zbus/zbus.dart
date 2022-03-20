@@ -5,18 +5,23 @@ import 'package:zvehicles/zvehicles.dart';
 
 export 'zbus_theme.dart';
 
+/// {@template zvehicles.zbus}
+/// A [ZBus] is a bus represented by a [ZGroup].
+/// {@endtemplate}
 class ZBus extends StatelessWidget {
+  /// {@macro zvehicles.zbus}
   const ZBus({
     Key? key,
-    required this.theme,
-  }) : super(key: key);
+    required BusThemeData theme,
+  })  : _theme = theme,
+        super(key: key);
 
-  final BusThemeData theme;
+  final BusThemeData _theme;
 
   @override
   Widget build(BuildContext context) {
     return Provider<BusThemeData>.value(
-      value: theme,
+      value: _theme,
       child: ZGroup(
         sortMode: SortMode.stack,
         children: const [
