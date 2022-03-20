@@ -130,7 +130,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       name: 'game_perspective_changed',
       parameters: {
         'version': puzzleVersion,
-        'vehicle': event.perspective,
+        'vehicle': event.perspective.toString(),
       },
     );
   }
