@@ -76,19 +76,19 @@ class ZVehiclesThemeData extends Equatable {
   static final ZVehiclesThemeData tutorial = ZVehiclesThemeData(
     ambulance: AmbulanceThemeData.white,
     car: CarThemeData.red
-        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.2))),
+        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.1))),
     police: CarThemeData.police
-        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.2))),
+        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.1))),
     taxi: CarThemeData.taxi
-        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.2))),
+        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.1))),
     bus: BusThemeData.school
-        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.2))),
+        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.1))),
     secondaryBus: BusThemeData.blue
-        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.2))),
+        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.1))),
     truck: TruckThemeData.green
-        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.2))),
+        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.1))),
     secondaryTruck: TruckThemeData.orange
-        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.2))),
+        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.1))),
   );
 
   final CarThemeData car;
