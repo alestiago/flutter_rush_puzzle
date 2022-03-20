@@ -6,7 +6,9 @@ import 'package:rush_hour_puzzle/timer/timer.dart';
 
 class TimerHandler extends StatelessWidget {
   const TimerHandler({Key? key, this.child}) : super(key: key);
+
   final Widget? child;
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<PuzzleBloc, PuzzleState>(
@@ -14,23 +16,31 @@ class TimerHandler extends StatelessWidget {
         return current.status != previous.status;
       },
       listener: (context, state) {
-        // Start the puzzle timer when the countdown finishes.
-        if (state.status == GameStatus.playing) {
-          context.read<TimerBloc>().add(const TimerStarted());
-        }
-        if (state.status == GameStatus.finished) {
-          context.read<TimerBloc>().add(const TimerStopped());
-          FirebaseAnalytics.instance.logEvent(
-            name: 'game_finished',
-            parameters: {
-              'version': context.read<PuzzleBloc>().puzzleVersion,
-              'historyMove': state.historyPointer,
-              'timer': context.read<TimerBloc>().state.secondsElapsed,
-            },
-          );
-        }
-        if (state.status == GameStatus.setup) {
-          context.read<TimerBloc>().add(const TimerReset());
+        switch (state.status) {
+          case GameStatus.setup:
+            context.read<TimerBloc>().add(const TimerReset());
+            break;
+          case GameStatus.playing:
+            final isTimerRunning = context.read<TimerBloc>().state.isRunning;
+            if (!isTimerRunning) {
+              context.read<TimerBloc>().add(const TimerStarted());
+            }
+            break;
+          case GameStatus.finished:
+            context.read<TimerBloc>().add(const TimerStopped());
+            FirebaseAnalytics.instance.logEvent(
+              name: 'game_finished',
+              parameters: {
+                'version': context.read<PuzzleBloc>().puzzleVersion,
+                'historyMove': state.historyPointer,
+                'timer': context.read<TimerBloc>().state.secondsElapsed,
+              },
+            );
+            break;
+          case GameStatus.tutorial:
+          case GameStatus.initial:
+          case GameStatus.loading:
+            break;
         }
       },
       child: child,
