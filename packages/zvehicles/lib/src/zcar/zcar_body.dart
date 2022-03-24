@@ -196,6 +196,8 @@ class _ZLigth extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
+
     return ZGroup(
       children: [
         ZPositioned(
@@ -203,12 +205,12 @@ class _ZLigth extends StatelessWidget {
           child: ZCylinder(
             diameter: 4,
             length: 0.5,
-            color: Colors.yellow,
+            color: theme.colorScheme.lightColor,
           ),
         ),
         ZCircle(
           diameter: 5,
-          color: Colors.grey,
+          color: theme.colorScheme.lightBorderColor,
           fill: true,
         ),
       ],

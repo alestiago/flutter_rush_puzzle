@@ -51,6 +51,8 @@ class ZCarColorScheme {
     required this.windowSideColor,
     required this.tyreColor,
     required this.rimColor,
+    required this.lightColor,
+    required this.lightBorderColor,
     this.topBoxColor,
   });
 
@@ -63,6 +65,8 @@ class ZCarColorScheme {
   final Color windowColor;
   final Color tyreColor;
   final Color rimColor;
+  final Color lightColor;
+  final Color lightBorderColor;
 
   /// Color of box above the car.
   ///
@@ -79,6 +83,8 @@ class ZCarColorScheme {
     windowSideColor: Colors.red[700]!,
     tyreColor: Colors.black,
     rimColor: Colors.grey,
+    lightColor: Colors.yellow,
+    lightBorderColor: Colors.grey,
   );
 
   static final police = ZCarColorScheme._(
@@ -92,6 +98,8 @@ class ZCarColorScheme {
     windowSideColor: Colors.grey[100]!,
     tyreColor: Colors.black,
     rimColor: Colors.grey,
+    lightColor: Colors.yellow,
+    lightBorderColor: Colors.grey,
   );
 
   static final taxi = ZCarColorScheme._(
@@ -105,6 +113,8 @@ class ZCarColorScheme {
     windowSideColor: Colors.yellow[700]!,
     tyreColor: Colors.black,
     rimColor: Colors.grey,
+    lightColor: Colors.yellow,
+    lightBorderColor: Colors.grey,
   );
 
   ZCarColorScheme withOpacity(double opacity) {
@@ -118,6 +128,8 @@ class ZCarColorScheme {
       windowSideColor: windowSideColor.withOpacity(opacity),
       tyreColor: tyreColor.withOpacity(opacity),
       rimColor: rimColor.withOpacity(opacity),
+      lightColor: lightColor.withOpacity(opacity),
+      lightBorderColor: lightBorderColor.withOpacity(opacity),
     );
   }
 
@@ -137,6 +149,9 @@ class ZCarColorScheme {
       windowSideColor: Color.lerp(a?.windowSideColor, b?.windowSideColor, t)!,
       tyreColor: Color.lerp(a?.tyreColor, b?.tyreColor, t)!,
       rimColor: Color.lerp(a?.rimColor, b?.rimColor, t)!,
+      lightColor: Color.lerp(a?.lightColor, b?.lightColor, t)!,
+      lightBorderColor:
+          Color.lerp(a?.lightBorderColor, b?.lightBorderColor, t)!,
     );
   }
 }
