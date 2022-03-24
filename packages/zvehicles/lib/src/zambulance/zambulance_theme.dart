@@ -48,6 +48,8 @@ class ZAmbulanceColorScheme {
     required this.primarySirenShadowColor,
     required this.secondarySirenColor,
     required this.secondarySirenShadowColor,
+    required this.rimColor,
+    required this.tyreColor,
   });
 
   static final white = ZAmbulanceColorScheme._(
@@ -67,6 +69,8 @@ class ZAmbulanceColorScheme {
     secondarySirenColor: Colors.blue[400]!,
     primarySirenShadowColor: Colors.red[700]!,
     secondarySirenShadowColor: Colors.blue[700]!,
+    tyreColor: Colors.black,
+    rimColor: Colors.grey,
   );
 
   final Color bodyColor;
@@ -85,6 +89,8 @@ class ZAmbulanceColorScheme {
   final Color primarySirenShadowColor;
   final Color secondarySirenColor;
   final Color secondarySirenShadowColor;
+  final Color tyreColor;
+  final Color rimColor;
 
   static ZAmbulanceColorScheme? lerp(
     ZAmbulanceColorScheme? a,
@@ -119,6 +125,8 @@ class ZAmbulanceColorScheme {
         b?.secondarySirenShadowColor,
         t,
       )!,
+      tyreColor: Color.lerp(a?.tyreColor, b?.tyreColor, t)!,
+      rimColor: Color.lerp(a?.rimColor, b?.rimColor, t)!,
     );
   }
 }

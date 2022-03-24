@@ -50,6 +50,8 @@ class ZTruckColorScheme {
     required this.lightBorderColor,
     required this.bottomColor,
     required this.backColor,
+    required this.tyreColor,
+    required this.rimColor,
     Color? backCabinColor,
   }) : backCabinColor = backCabinColor ?? cabinColor;
 
@@ -65,6 +67,8 @@ class ZTruckColorScheme {
   final Color rearLightColor;
   final Color lightBorderColor;
   final Color bottomColor;
+  final Color tyreColor;
+  final Color rimColor;
 
   static final orange = ZTruckColorScheme._(
     truckColor: Colors.orange,
@@ -79,6 +83,8 @@ class ZTruckColorScheme {
     rearLightColor: Colors.orange[400]!,
     lightBorderColor: Colors.black,
     bottomColor: Colors.black,
+    tyreColor: Colors.black,
+    rimColor: Colors.grey,
   );
 
   static final green = ZTruckColorScheme._(
@@ -94,6 +100,8 @@ class ZTruckColorScheme {
     rearLightColor: Colors.green[400]!,
     lightBorderColor: Colors.black,
     bottomColor: Colors.black,
+    tyreColor: Colors.black,
+    rimColor: Colors.grey,
   );
 
   ZTruckColorScheme withOpacity(double opacity) {
@@ -109,6 +117,9 @@ class ZTruckColorScheme {
       lightBorderColor: lightBorderColor.withOpacity(opacity),
       bottomColor: bottomColor.withOpacity(opacity),
       backColor: backColor.withOpacity(opacity),
+      backCabinColor: backCabinColor.withOpacity(opacity),
+      tyreColor: tyreColor.withOpacity(opacity),
+      rimColor: rimColor.withOpacity(opacity),
     );
   }
 
@@ -131,6 +142,8 @@ class ZTruckColorScheme {
       bottomColor: Color.lerp(a?.bottomColor, b?.bottomColor, t)!,
       backColor: Color.lerp(a?.backColor, b?.backColor, t)!,
       backCabinColor: Color.lerp(a?.backCabinColor, b?.backCabinColor, t),
+      tyreColor: Color.lerp(a?.tyreColor, b?.tyreColor, t)!,
+      rimColor: Color.lerp(a?.rimColor, b?.rimColor, t)!,
     );
   }
 }

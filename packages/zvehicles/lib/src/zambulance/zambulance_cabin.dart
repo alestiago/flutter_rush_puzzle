@@ -336,21 +336,21 @@ class _ZWheel extends StatelessWidget {
               ZCylinder(
                 diameter: theme.layout.wheelDiameter,
                 length: 2,
-                color: Colors.black,
+                color: theme.colorScheme.tyreColor,
               ),
               ZPositioned(
                 translate: const ZVector(0, 0, -2.1),
                 child: ZCircle(
                   diameter: theme.layout.wheelDiameter / 2.3,
                   fill: true,
-                  color: Colors.grey,
+                  color: theme.colorScheme.rimColor,
                 ),
               ),
               ZPositioned(
                 translate: const ZVector(0, 0, -1),
                 child: ZShape(
                   visible: false,
-                  color: Colors.grey,
+                  color: theme.colorScheme.rimColor,
                 ),
               )
             ],
