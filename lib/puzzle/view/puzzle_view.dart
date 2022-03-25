@@ -9,6 +9,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
+import 'package:rush_hour_puzzle/puzzle/widgets/zwidgets/zarrow.dart';
 import 'package:rush_hour_puzzle/vehicle/vehicle.dart';
 import 'package:zcomponents/zcomponents.dart';
 import 'package:zvehicles/zvehicles.dart';
@@ -63,6 +64,7 @@ class PuzzleView extends StatelessWidget {
                       vehicle: vehicle,
                     ),
                   const ZScoreBoard(),
+                  if (state.status.isTutorial) const ZArrow(),
                 ],
               )
             else ...[
