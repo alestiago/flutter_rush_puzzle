@@ -15,8 +15,15 @@ class PuzzlesRepository {
   ///
   /// The [RushPuzzle] is expected to be on the initial state.
   FutureOr<RushPuzzle> getPuzzle(int number) async {
-    final game = await rootBundle
-        .loadString('packages/puzzles_repository/assets/$number.json');
+    String game;
+
+    try {
+      game = await rootBundle
+          .loadString('packages/puzzles_repository/assets/$number.json');
+    } catch (e) {
+      game = await rootBundle
+          .loadString('packages/puzzles_repository/assets/1.json');
+    }
     final json = jsonDecode(game) as Map<String, dynamic>;
     return RushPuzzle.fromJson(json);
   }
