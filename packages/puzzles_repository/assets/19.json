@@ -1,0 +1,80 @@
+{
+    "jammedVehicleId": "X",
+    "difficulty": "intermediate",
+    "minMoves": "22",
+    "vehicles": {
+        "A": {
+            "id": "A",
+            "type": "taxi",
+            "steering": "vertical",
+            "firstPosition": {
+                "x": 2,
+                "y": 0
+            }
+        },
+        "B": {
+            "id": "B",
+            "type": "car",
+            "steering": "horizontal",
+            "firstPosition": {
+                "x": 3,
+                "y": 0
+            }
+        },
+        "D": {
+            "id": "D",
+            "type": "taxi",
+            "steering": "vertical",
+            "firstPosition": {
+                "x": 1,
+                "y": 2
+            }
+        },
+        "E": {
+            "id": "E",
+            "type": "police",
+            "steering": "horizontal",
+            "firstPosition": {
+                "x": 2,
+                "y": 3
+            }
+        },
+        "F": {
+            "id": "F",
+            "type": "car",
+            "steering": "vertical",
+            "firstPosition": {
+                "x": 4,
+                "y": 3
+            }
+        },
+        "J": {
+            "id": "J",
+            "type": "police",
+            "steering": "vertical",
+            "firstPosition": {
+                "x": 4,
+                "y": 1
+            }
+        },
+        "O": {
+            "id": "O",
+            "type": "truck",
+            "steering": "horizontal",
+            "firstPosition": {
+                "x": 1,
+                "y": 4
+            }
+        },
+
+        "X": {
+            "id": "X",
+            "type": "ambulance",
+            "steering": "horizontal",
+            "firstPosition": {
+                "x": 2,
+                "y": 2
+            }
+        }
+    }
+}
