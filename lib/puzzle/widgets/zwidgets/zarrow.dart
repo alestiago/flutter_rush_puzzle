@@ -8,27 +8,30 @@ class ZArrow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO(alestiago): Define this.
     const length = zTileSize * 1.5;
     const pointiness = zTileSize / 2;
-    const width2 = zTileSize / 2;
+    const width = zTileSize / 2;
+    const stroke = 5.0;
 
     // TODO(alestiago): Transform this correctly.
     return ZPositioned(
       translate: ZVector(
         (layout.boundary.center.dx * 2) + (layout.boardPadding / 2),
-        (layout.boundary.center.dy / 2) + (layout.boardPadding / 2),
-        -layout.boardBorder - layout.boardPadding,
+        (layout.boundary.center.dy / 2) +
+            zTileSize +
+            (layout.boardPadding / 2) -
+            stroke,
+        10,
       ),
       child: ZShape(
-        stroke: 5,
+        stroke: stroke,
         color: Colors.yellow[600]!,
         path: [
           ZMove(0, 0, 0),
           ZLine(length, 0, 0),
-          ZMove(length - pointiness, -width2, 0),
+          ZMove(length - pointiness, -width, 0),
           ZLine(length, 0, 0),
-          ZMove(length - pointiness, width2, 0),
+          ZMove(length - pointiness, width, 0),
           ZLine(length, 0, 0),
         ],
       ),
