@@ -27,7 +27,7 @@ class PuzzlePausedView extends StatelessWidget {
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
       child: Container(
-        color: Colors.grey[100]!.withOpacity(0.7),
+        color: Colors.blue[100]!.withOpacity(0.7),
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(

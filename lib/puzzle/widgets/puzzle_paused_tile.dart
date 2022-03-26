@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class PuzzlePausedTile extends StatelessWidget {
   const PuzzlePausedTile({
     Key? key,
@@ -20,6 +19,7 @@ class PuzzlePausedTile extends StatelessWidget {
     return Center(
       child: Container(
         constraints: const BoxConstraints(maxWidth: 400),
+        margin: const EdgeInsets.symmetric(horizontal: 16),
         child: InkWell(
           onTap: onPressed,
           child: Container(
