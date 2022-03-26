@@ -93,7 +93,7 @@ extension on PuzzleDifficulty {
       case PuzzleDifficulty.beginner:
         return 'Beginner';
       case PuzzleDifficulty.intermediate:
-        return 'Intermediate';
+        return 'Medium';
       case PuzzleDifficulty.advanced:
         return 'Advanced';
       case PuzzleDifficulty.expert:
