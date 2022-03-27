@@ -77,13 +77,6 @@ class PuzzlePausedView extends StatelessWidget {
                     context.read<PuzzleBloc>().add(const PuzzleReseted());
                   },
                 ),
-
-                /// const PuzzlePausedTile(
-                ///   icon: Icon(
-                ///     Icons.numbers,
-                ///   ),
-                ///   title: Text('Choose another level'),
-                /// ),
                 const SizedBox(height: 48),
                 PuzzlePausedTile(
                   icon: const Icon(
