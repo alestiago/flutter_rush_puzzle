@@ -32,18 +32,28 @@ extension GameStatusExtension on GameStatus {
   bool get isPlaying => this == GameStatus.playing || isTutorial;
 
   bool get isTutorial => this == GameStatus.tutorial;
+
+  bool get isPaused => this == GameStatus.paused;
 }
 
 @immutable
 class PuzzleState extends Equatable {
   const PuzzleState({
-    this.status = GameStatus.initial,
-    this.perspective = GameLayoutPerspective.p3D,
+    required this.status,
+    required this.perspective,
     required this.history,
-    this.historyPointer = 0,
+    required this.historyPointer,
   }) : assert(
           0 <= historyPointer && historyPointer < history.length,
           'historyPointer is invalid',
+        );
+
+  const PuzzleState.empty()
+      : this(
+          status: GameStatus.initial,
+          perspective: GameLayoutPerspective.p3D,
+          history: const [RushPuzzle.empty()],
+          historyPointer: 0,
         );
 
   final GameStatus status;
@@ -75,5 +85,10 @@ class PuzzleState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [history, historyPointer, status, perspective];
+  List<Object?> get props => [
+        history,
+        historyPointer,
+        status,
+        perspective,
+      ];
 }

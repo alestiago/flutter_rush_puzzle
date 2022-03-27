@@ -55,7 +55,7 @@ class PuzzleView extends StatelessWidget {
                   PuzzleZFinishGroup(boardTheme: boardTheme),
                 ],
               )
-            else if (state.status.isPlaying)
+            else if (state.status.isPlaying || state.status.isPaused)
               ZGroup(
                 children: [
                   for (final vehicle in vehicles)

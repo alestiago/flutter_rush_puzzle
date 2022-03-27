@@ -10,13 +10,13 @@ import 'package:zcomponents/zcomponents.dart';
 part 'puzzle_event.dart';
 part 'puzzle_state.dart';
 
-const _kTutorialDuration = Duration(seconds: 4);
+const _kTutorialDuration = Duration(seconds: 3);
 
 class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   PuzzleBloc({
     required PuzzlesRepository puzzlesRepository,
   })  : _puzzlesRepository = puzzlesRepository,
-        super(PuzzleState(history: const [RushPuzzle.empty()])) {
+        super(PuzzleState.empty()) {
     on<PuzzleFetched>(_onPuzzleFetched);
     on<PuzzleStarted>(_onPuzzleStarted);
     on<PuzzleReseted>(_onPuzzleReseted);
@@ -76,7 +76,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     Emitter emit,
   ) async {
     assert(
-      state.status == GameStatus.playing,
+      state.status.isPlaying,
       'Vehicle should move only when playing',
     );
     final newPuzzle = event.vehicle.driveTo(state.puzzle, event.newPosition);
@@ -102,9 +102,12 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
 
   Future<void> _onPuzzleReseted(PuzzleReseted event, Emitter emit) async {
     emit(
-      PuzzleState(
-        status: GameStatus.setup,
-        history: [state.history[0]],
+      state.copyWith(
+        status: GameStatus.playing,
+        history: [
+          state.history[0],
+        ],
+        historyPointer: 0,
       ),
     );
     await FirebaseAnalytics.instance.logEvent(
@@ -117,9 +120,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
 
   Future<void> _onPuzzlePaused(PuzzlePaused event, Emitter emit) async {
     emit(
-      state.copyWith(
-        status: GameStatus.paused,
-      ),
+      state.copyWith(status: GameStatus.paused),
     );
     await FirebaseAnalytics.instance.logEvent(
       name: 'game_paused',
@@ -131,9 +132,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
 
   Future<void> _onPuzzleResumed(PuzzleResumed event, Emitter emit) async {
     emit(
-      state.copyWith(
-        status: GameStatus.playing,
-      ),
+      state.copyWith(status: GameStatus.playing),
     );
     await FirebaseAnalytics.instance.logEvent(
       name: 'game_resumed',
@@ -198,9 +197,11 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     _PuzzleTutorialFinished _,
     Emitter emit,
   ) async {
-    emit(
-      state.copyWith(status: GameStatus.playing),
-    );
+    if (state.status.isTutorial) {
+      emit(
+        state.copyWith(status: GameStatus.playing),
+      );
+    }
   }
 }
 
