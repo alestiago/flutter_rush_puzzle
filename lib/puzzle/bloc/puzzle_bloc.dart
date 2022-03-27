@@ -20,6 +20,8 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     on<PuzzleFetched>(_onPuzzleFetched);
     on<PuzzleStarted>(_onPuzzleStarted);
     on<PuzzleReseted>(_onPuzzleReseted);
+    on<PuzzlePaused>(_onPuzzlePaused);
+    on<PuzzleResumed>(_onPuzzleResumed);
     on<PuzzleVehicleMoved>(_onPuzzleVehicleMoved);
     on<PuzzleMoveUndid>(_onPuzzleMoveUndid);
     on<PuzzleShared>(_onPuzzleShared);
@@ -107,6 +109,34 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     );
     await FirebaseAnalytics.instance.logEvent(
       name: 'game_rested',
+      parameters: {
+        'version': puzzleVersion,
+      },
+    );
+  }
+
+  Future<void> _onPuzzlePaused(PuzzlePaused event, Emitter emit) async {
+    emit(
+      state.copyWith(
+        status: GameStatus.paused,
+      ),
+    );
+    await FirebaseAnalytics.instance.logEvent(
+      name: 'game_paused',
+      parameters: {
+        'version': puzzleVersion,
+      },
+    );
+  }
+
+  Future<void> _onPuzzleResumed(PuzzleResumed event, Emitter emit) async {
+    emit(
+      state.copyWith(
+        status: GameStatus.playing,
+      ),
+    );
+    await FirebaseAnalytics.instance.logEvent(
+      name: 'game_resumed',
       parameters: {
         'version': puzzleVersion,
       },

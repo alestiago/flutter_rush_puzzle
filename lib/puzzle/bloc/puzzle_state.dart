@@ -13,6 +13,9 @@ enum GameStatus {
   /// Game is being played.
   playing,
 
+  /// Game is paused.
+  paused,
+
   /// Game has been won.
   finished,
 

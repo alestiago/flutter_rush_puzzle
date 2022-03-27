@@ -80,14 +80,17 @@ class PuzzleView extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: const [
-                  TutorialButton(),
-                  SizedBox(width: 10),
                   PerspectiveSegmentedControl(),
+                  SizedBox(width: 4),
+                  PauseButton(),
                 ],
               ),
             ),
           ),
-        ]
+        ],
+        if (state.status == GameStatus.paused) ...[
+          const PuzzlePausedView(),
+        ],
       ],
     );
 

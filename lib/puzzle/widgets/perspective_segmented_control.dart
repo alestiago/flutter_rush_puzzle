@@ -25,11 +25,13 @@ class PerspectiveSegmentedControl extends StatelessWidget {
             fontSize: 14,
           ),
         ),
-        GameLayoutPerspective.p3D: Text('3D',
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 14,
-            ),),
+        GameLayoutPerspective.p3D: Text(
+          '3D',
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 14,
+          ),
+        ),
       },
     );
   }
