@@ -65,7 +65,9 @@ class PuzzlePausedView extends StatelessWidget {
                   icon: const Icon(Icons.help),
                   title: const Text('Show Instructions'),
                   onPressed: () {
-                    context.read<PuzzleBloc>().add(const PuzzleResumed());
+                    context.read<PuzzleBloc>().add(
+                          const PuzzleTutorialStarted(),
+                        );
                   },
                 ),
                 PuzzlePausedTile(
