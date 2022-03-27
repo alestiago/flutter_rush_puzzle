@@ -7,10 +7,10 @@ import 'package:puzzles_repository/puzzles_repository.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:zcomponents/zcomponents.dart';
 
-// ignore: always_use_package_imports
-
 part 'puzzle_event.dart';
 part 'puzzle_state.dart';
+
+const _kTutorialDuration = Duration(seconds: 4);
 
 class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   PuzzleBloc({
@@ -159,7 +159,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     );
 
     Future<void>.delayed(
-      const Duration(seconds: 4),
+      _kTutorialDuration,
       () => add(const _PuzzleTutorialFinished()),
     );
   }
