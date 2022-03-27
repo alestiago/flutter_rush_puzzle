@@ -22,6 +22,18 @@ class BusThemeData {
   final ZBusColorScheme colorScheme;
   final ZBusLayout layout;
 
+  BusThemeData map(BusThemeData Function(BusThemeData) map) => map(this);
+
+  BusThemeData copyWith({
+    ZBusColorScheme? colorScheme,
+    ZBusLayout? layout,
+  }) {
+    return BusThemeData._(
+      colorScheme: colorScheme ?? this.colorScheme,
+      layout: layout ?? this.layout,
+    );
+  }
+
   static BusThemeData? lerp(BusThemeData? a, BusThemeData? b, double t) {
     return BusThemeData._(
       colorScheme: ZBusColorScheme.lerp(a?.colorScheme, b?.colorScheme, t)!,
@@ -92,6 +104,26 @@ class ZBusColorScheme {
   final Color bottomColor;
   final Color tyreColor;
   final Color rimColor;
+
+  ZBusColorScheme withOpacity(double opacity) {
+    final reducedOpacity = opacity - opacity / 2;
+
+    return ZBusColorScheme._(
+      busColor: busColor.withOpacity(opacity),
+      bodyShadowColor: bodyShadowColor.withOpacity(opacity),
+      roofColor: roofColor.withOpacity(opacity),
+      stripesColor: stripesColor.withOpacity(reducedOpacity),
+      windowColor: windowColor.withOpacity(opacity),
+      doorColor: doorColor.withOpacity(opacity),
+      fenderColor: fenderColor.withOpacity(opacity),
+      frontLightColor: frontLightColor.withOpacity(opacity),
+      rearLightColor: rearLightColor.withOpacity(opacity),
+      lightBorderColor: lightBorderColor.withOpacity(opacity),
+      bottomColor: bottomColor.withOpacity(opacity),
+      tyreColor: tyreColor.withOpacity(reducedOpacity),
+      rimColor: rimColor.withOpacity(reducedOpacity),
+    );
+  }
 
   static ZBusColorScheme? lerp(
     ZBusColorScheme? a,

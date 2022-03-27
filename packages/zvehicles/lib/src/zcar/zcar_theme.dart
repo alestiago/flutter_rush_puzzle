@@ -22,6 +22,17 @@ class CarThemeData {
   final ZCarColorScheme colorScheme;
   final ZCarLayout layout;
 
+  CarThemeData map(CarThemeData Function(CarThemeData) map) => map(this);
+
+  CarThemeData copyWith({
+    ZCarColorScheme? colorScheme,
+    ZCarLayout? layout,
+  }) {
+    return CarThemeData._(
+      colorScheme: colorScheme ?? this.colorScheme,
+    );
+  }
+
   static CarThemeData? lerp(CarThemeData? a, CarThemeData? b, double t) {
     return CarThemeData._(
       colorScheme: ZCarColorScheme.lerp(a?.colorScheme, b?.colorScheme, t)!,
@@ -38,6 +49,10 @@ class ZCarColorScheme {
     required this.doorSideColor,
     required this.windowColor,
     required this.windowSideColor,
+    required this.tyreColor,
+    required this.rimColor,
+    required this.lightColor,
+    required this.lightBorderColor,
     this.topBoxColor,
   });
 
@@ -48,6 +63,10 @@ class ZCarColorScheme {
   final Color doorSideColor;
   final Color windowSideColor;
   final Color windowColor;
+  final Color tyreColor;
+  final Color rimColor;
+  final Color lightColor;
+  final Color lightBorderColor;
 
   /// Color of box above the car.
   ///
@@ -62,6 +81,10 @@ class ZCarColorScheme {
     windowColor: Colors.blue[400]!,
     doorSideColor: Colors.red[700]!,
     windowSideColor: Colors.red[700]!,
+    tyreColor: Colors.black,
+    rimColor: Colors.grey,
+    lightColor: Colors.yellow,
+    lightBorderColor: Colors.grey,
   );
 
   static final police = ZCarColorScheme._(
@@ -73,6 +96,10 @@ class ZCarColorScheme {
     topBoxColor: Colors.blue,
     windowColor: Colors.blue[400]!,
     windowSideColor: Colors.grey[100]!,
+    tyreColor: Colors.black,
+    rimColor: Colors.grey,
+    lightColor: Colors.yellow,
+    lightBorderColor: Colors.grey,
   );
 
   static final taxi = ZCarColorScheme._(
@@ -84,7 +111,28 @@ class ZCarColorScheme {
     topMiddleColor: Colors.yellow[600]!,
     windowColor: Colors.blue[400]!,
     windowSideColor: Colors.yellow[700]!,
+    tyreColor: Colors.black,
+    rimColor: Colors.grey,
+    lightColor: Colors.yellow,
+    lightBorderColor: Colors.grey,
   );
+
+  ZCarColorScheme withOpacity(double opacity) {
+    final reducedOpacity = opacity - opacity / 2;
+    return ZCarColorScheme._(
+      bodyColor: bodyColor.withOpacity(opacity),
+      sideColor: sideColor.withOpacity(opacity),
+      topColor: topColor.withOpacity(opacity),
+      topMiddleColor: topMiddleColor.withOpacity(opacity),
+      doorSideColor: doorSideColor.withOpacity(opacity),
+      windowColor: windowColor.withOpacity(opacity),
+      windowSideColor: windowSideColor.withOpacity(opacity),
+      tyreColor: tyreColor.withOpacity(reducedOpacity),
+      rimColor: rimColor.withOpacity(reducedOpacity),
+      lightColor: lightColor.withOpacity(opacity),
+      lightBorderColor: lightBorderColor.withOpacity(opacity),
+    );
+  }
 
   static ZCarColorScheme? lerp(
     ZCarColorScheme? a,
@@ -100,6 +148,11 @@ class ZCarColorScheme {
       topBoxColor: Color.lerp(a?.topBoxColor, b?.topBoxColor, t),
       windowColor: Color.lerp(a?.windowColor, b?.windowColor, t)!,
       windowSideColor: Color.lerp(a?.windowSideColor, b?.windowSideColor, t)!,
+      tyreColor: Color.lerp(a?.tyreColor, b?.tyreColor, t)!,
+      rimColor: Color.lerp(a?.rimColor, b?.rimColor, t)!,
+      lightColor: Color.lerp(a?.lightColor, b?.lightColor, t)!,
+      lightBorderColor:
+          Color.lerp(a?.lightBorderColor, b?.lightBorderColor, t)!,
     );
   }
 }

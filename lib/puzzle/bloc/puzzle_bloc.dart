@@ -7,10 +7,10 @@ import 'package:puzzles_repository/puzzles_repository.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:zcomponents/zcomponents.dart';
 
-// ignore: always_use_package_imports
-
 part 'puzzle_event.dart';
 part 'puzzle_state.dart';
+
+const _kTutorialDuration = Duration(seconds: 4);
 
 class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   PuzzleBloc({
@@ -24,6 +24,8 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     on<PuzzleMoveUndid>(_onPuzzleMoveUndid);
     on<PuzzleShared>(_onPuzzleShared);
     on<PuzzlePerspectiveChanged>(_onPuzzlePerspectiveChanged);
+    on<PuzzleTutorialStarted>(_onPuzzleTutorialStarted);
+    on<_PuzzleTutorialFinished>(_onPuzzleTutorialFinished);
   }
 
   final PuzzlesRepository _puzzlesRepository;
@@ -145,6 +147,29 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
         'version': puzzleVersion,
         'historyMove': state.historyPointer,
       },
+    );
+  }
+
+  Future<void> _onPuzzleTutorialStarted(
+    PuzzleTutorialStarted _,
+    Emitter emit,
+  ) async {
+    emit(
+      state.copyWith(status: GameStatus.tutorial),
+    );
+
+    Future<void>.delayed(
+      _kTutorialDuration,
+      () => add(const _PuzzleTutorialFinished()),
+    );
+  }
+
+  Future<void> _onPuzzleTutorialFinished(
+    _PuzzleTutorialFinished _,
+    Emitter emit,
+  ) async {
+    emit(
+      state.copyWith(status: GameStatus.playing),
     );
   }
 }

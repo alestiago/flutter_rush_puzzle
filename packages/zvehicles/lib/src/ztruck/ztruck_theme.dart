@@ -19,6 +19,17 @@ class TruckThemeData {
   final ZTruckColorScheme colorScheme;
   final ZTrucklayout layout;
 
+  TruckThemeData map(TruckThemeData Function(TruckThemeData) map) => map(this);
+
+  TruckThemeData copyWith({
+    ZTruckColorScheme? colorScheme,
+    ZTrucklayout? layout,
+  }) {
+    return TruckThemeData._(
+      colorScheme: colorScheme ?? this.colorScheme,
+    );
+  }
+
   static TruckThemeData? lerp(TruckThemeData? a, TruckThemeData? b, double t) {
     return TruckThemeData._(
       colorScheme: ZTruckColorScheme.lerp(a?.colorScheme, b?.colorScheme, t)!,
@@ -39,11 +50,12 @@ class ZTruckColorScheme {
     required this.lightBorderColor,
     required this.bottomColor,
     required this.backColor,
+    required this.tyreColor,
+    required this.rimColor,
     Color? backCabinColor,
   }) : backCabinColor = backCabinColor ?? cabinColor;
 
   final Color truckColor;
-
   final Color roofColor;
   final Color stripesColor;
   final Color windowColor;
@@ -55,6 +67,8 @@ class ZTruckColorScheme {
   final Color rearLightColor;
   final Color lightBorderColor;
   final Color bottomColor;
+  final Color tyreColor;
+  final Color rimColor;
 
   static final orange = ZTruckColorScheme._(
     truckColor: Colors.orange,
@@ -69,6 +83,8 @@ class ZTruckColorScheme {
     rearLightColor: Colors.orange[400]!,
     lightBorderColor: Colors.black,
     bottomColor: Colors.black,
+    tyreColor: Colors.black,
+    rimColor: Colors.grey,
   );
 
   static final green = ZTruckColorScheme._(
@@ -84,7 +100,30 @@ class ZTruckColorScheme {
     rearLightColor: Colors.green[400]!,
     lightBorderColor: Colors.black,
     bottomColor: Colors.black,
+    tyreColor: Colors.black,
+    rimColor: Colors.grey,
   );
+
+  ZTruckColorScheme withOpacity(double opacity) {
+    final reducedOpacity = opacity - opacity / 2;
+
+    return ZTruckColorScheme._(
+      truckColor: truckColor.withOpacity(opacity),
+      roofColor: roofColor.withOpacity(opacity),
+      stripesColor: stripesColor.withOpacity(reducedOpacity),
+      windowColor: windowColor.withOpacity(opacity),
+      cabinColor: cabinColor.withOpacity(opacity),
+      fenderColor: fenderColor.withOpacity(opacity),
+      frontLightColor: frontLightColor.withOpacity(opacity),
+      rearLightColor: rearLightColor.withOpacity(opacity),
+      lightBorderColor: lightBorderColor.withOpacity(opacity),
+      bottomColor: bottomColor.withOpacity(opacity),
+      backColor: backColor.withOpacity(opacity),
+      backCabinColor: backCabinColor.withOpacity(opacity),
+      tyreColor: tyreColor.withOpacity(reducedOpacity),
+      rimColor: rimColor.withOpacity(reducedOpacity),
+    );
+  }
 
   static ZTruckColorScheme? lerp(
     ZTruckColorScheme? a,
@@ -105,6 +144,8 @@ class ZTruckColorScheme {
       bottomColor: Color.lerp(a?.bottomColor, b?.bottomColor, t)!,
       backColor: Color.lerp(a?.backColor, b?.backColor, t)!,
       backCabinColor: Color.lerp(a?.backCabinColor, b?.backCabinColor, t),
+      tyreColor: Color.lerp(a?.tyreColor, b?.tyreColor, t)!,
+      rimColor: Color.lerp(a?.rimColor, b?.rimColor, t)!,
     );
   }
 }

@@ -52,25 +52,43 @@ class ZVehiclesThemeData extends Equatable {
   /// Create a [ZVehiclesThemeData] that's used to configure a
   /// [AnimatedVehiclesTheme].
   const ZVehiclesThemeData({
+    required this.ambulance,
     required this.car,
     required this.taxi,
     required this.police,
     required this.bus,
-    required this.ambulance,
     required this.truck,
     required this.secondaryTruck,
     required this.secondaryBus,
   });
 
   static final ZVehiclesThemeData fallback = ZVehiclesThemeData(
+    ambulance: AmbulanceThemeData.white,
     car: CarThemeData.red,
     police: CarThemeData.police,
     taxi: CarThemeData.taxi,
     bus: BusThemeData.school,
     secondaryBus: BusThemeData.blue,
-    ambulance: AmbulanceThemeData.white,
     truck: TruckThemeData.green,
     secondaryTruck: TruckThemeData.orange,
+  );
+
+  static final ZVehiclesThemeData tutorial = ZVehiclesThemeData(
+    ambulance: AmbulanceThemeData.white,
+    car: CarThemeData.red
+        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.1))),
+    police: CarThemeData.police
+        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.1))),
+    taxi: CarThemeData.taxi
+        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.1))),
+    bus: BusThemeData.school
+        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.1))),
+    secondaryBus: BusThemeData.blue
+        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.1))),
+    truck: TruckThemeData.green
+        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.1))),
+    secondaryTruck: TruckThemeData.orange
+        .map((d) => d.copyWith(colorScheme: d.colorScheme.withOpacity(0.1))),
   );
 
   final CarThemeData car;
@@ -92,7 +110,7 @@ class ZVehiclesThemeData extends Equatable {
     double t,
   ) {
     return ZVehiclesThemeData(
-      police: CarThemeData.lerp(a?.car, b?.car, t)!,
+      police: CarThemeData.lerp(a?.police, b?.police, t)!,
       car: CarThemeData.lerp(a?.car, b?.car, t)!,
       taxi: CarThemeData.lerp(a?.taxi, b?.taxi, t)!,
       bus: BusThemeData.lerp(a?.bus, b?.bus, t)!,

@@ -6,6 +6,10 @@ import 'package:zvehicles/src/helpers/helpers.dart';
 import 'package:zvehicles/src/zvehicle_side.dart';
 import 'package:zvehicles/zvehicles.dart';
 
+extension on BuildContext {
+  BusThemeData get theme => watch<BusThemeData>();
+}
+
 class ZBusBody extends ZRectNet {
   const ZBusBody({Key? key}) : super(key: key);
 
@@ -29,7 +33,7 @@ class ZBusBody extends ZRectNet {
 
   @override
   ZRectNetSize size(BuildContext context) {
-    final theme = Provider.of<BusThemeData>(context);
+    final theme = context.theme;
 
     return ZRectNetSize(
       width: theme.layout.bodyWidth,
@@ -46,7 +50,7 @@ class _ZFloor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<BusThemeData>();
+    final theme = context.theme;
 
     return ZRect(
       width: theme.layout.rearWidth,
@@ -62,7 +66,7 @@ class _ZRoof extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<BusThemeData>();
+    final theme = context.theme;
 
     return ZRect(
       width: theme.layout.rearWidth,
@@ -80,7 +84,7 @@ class _ZRear extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<BusThemeData>();
+    final theme = context.theme;
 
     final window = _ZWindow.largeFromTheme(theme);
 
@@ -142,7 +146,7 @@ class _ZFront extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<BusThemeData>();
+    final theme = context.theme;
 
     final window = _ZWindow.doubleLargeFromTheme(theme);
     const fender = _ZFender(side: _side);
@@ -212,7 +216,7 @@ class _ZSide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<BusThemeData>();
+    final theme = context.theme;
 
     final windows = _ZWindow.smallFromTheme(theme).fillArea(
       width: theme.layout.bodyWidth,
@@ -289,7 +293,7 @@ class _ZStripe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<BusThemeData>();
+    final theme = context.theme;
 
     return ZRect(
       width: _side.isSide ? theme.layout.bodyWidth : theme.layout.rearWidth,
@@ -311,7 +315,7 @@ class _ZFender extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<BusThemeData>();
+    final theme = context.theme;
 
     return ZRect(
       width: _side.isSide ? theme.layout.bodyWidth : theme.layout.rearWidth,
@@ -327,7 +331,7 @@ class _ZDoor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<BusThemeData>();
+    final theme = context.theme;
 
     return ZRect(
       width: theme.layout.doorWidth,
@@ -430,7 +434,7 @@ class _ZLight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.read<BusThemeData>();
+    final theme = context.theme;
 
     return ZGroup(
       sortMode: SortMode.stack,
@@ -501,8 +505,4 @@ class _ZWheel extends StatelessWidget {
       ],
     );
   }
-}
-
-extension on BuildContext {
-  BusThemeData get theme => watch<BusThemeData>();
 }

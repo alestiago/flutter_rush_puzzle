@@ -9,6 +9,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
+import 'package:rush_hour_puzzle/puzzle/widgets/zwidgets/zarrow.dart';
 import 'package:rush_hour_puzzle/vehicle/vehicle.dart';
 import 'package:zcomponents/zcomponents.dart';
 import 'package:zvehicles/zvehicles.dart';
@@ -18,12 +19,15 @@ class PuzzleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final vehicleTheme = ZVehiclesThemeData.fallback;
     final boardTheme = BoardThemeData.fromMaterialColor(Colors.blue);
     final state = context.select((PuzzleBloc b) => b.state);
     final perspective = state.status.isPlaying
         ? state.perspective
         : GameLayoutPerspective.presentation;
+
+    final vehicleTheme = state.status.isTutorial
+        ? ZVehiclesThemeData.tutorial
+        : ZVehiclesThemeData.fallback;
 
     final vehicles = state.puzzle.vehicles.values;
     final jammedVehicle = vehicles.firstWhereOrNull(
@@ -60,6 +64,7 @@ class PuzzleView extends StatelessWidget {
                       vehicle: vehicle,
                     ),
                   const ZScoreBoard(),
+                  if (state.status.isTutorial) const ZArrow(),
                 ],
               )
             else ...[
@@ -67,12 +72,19 @@ class PuzzleView extends StatelessWidget {
             ],
           ],
         ),
-        if (state.status == GameStatus.playing) ...[
-          const Align(
+        if (state.status.isPlaying) ...[
+          Align(
             alignment: Alignment.bottomRight,
             child: SafeArea(
-              minimum: EdgeInsets.all(16),
-              child: PerspectiveSegmentedControl(),
+              minimum: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: const [
+                  TutorialButton(),
+                  SizedBox(width: 10),
+                  PerspectiveSegmentedControl(),
+                ],
+              ),
             ),
           ),
         ]

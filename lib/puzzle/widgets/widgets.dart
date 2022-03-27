@@ -3,5 +3,6 @@ export 'perspective_segmented_control.dart';
 export 'puzzle_timer.dart';
 export 'scoreboard.dart';
 export 'timer_handler.dart';
+export 'tutorial_button.dart';
 export 'ztext/ztext.dart';
 export 'zwidgets/zwidgets.dart';

@@ -196,6 +196,8 @@ class _ZLigth extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
+
     return ZGroup(
       children: [
         ZPositioned(
@@ -203,12 +205,12 @@ class _ZLigth extends StatelessWidget {
           child: ZCylinder(
             diameter: 4,
             length: 0.5,
-            color: Colors.yellow,
+            color: theme.colorScheme.lightColor,
           ),
         ),
         ZCircle(
           diameter: 5,
-          color: Colors.grey,
+          color: theme.colorScheme.lightBorderColor,
           fill: true,
         ),
       ],
@@ -324,6 +326,8 @@ class _ZWheel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
+
     return ZGroup(
       sortMode: SortMode.stack,
       children: [
@@ -335,21 +339,21 @@ class _ZWheel extends StatelessWidget {
               ZCylinder(
                 diameter: tyreDiameter,
                 length: tyreDepth,
-                color: Colors.black,
+                color: theme.colorScheme.tyreColor,
               ),
               ZPositioned(
                 translate: ZVector.only(z: -tyreDepth),
                 child: ZCircle(
                   diameter: rimDiameter,
                   fill: true,
-                  color: Colors.grey,
+                  color: theme.colorScheme.rimColor,
                 ),
               ),
               ZPositioned(
                 translate: const ZVector(0, 0, -1),
                 child: ZShape(
                   visible: false,
-                  color: Colors.grey,
+                  color: theme.colorScheme.rimColor,
                 ),
               )
             ],
