@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zcomponents/zcomponents.dart';
 
-/// As opposed to `children.whereType<T>().first` this method returns [null]
-/// instead of a [StateError] when no matching children are found.
 class ZArrow extends StatelessWidget {
   const ZArrow({Key? key}) : super(key: key);
 
@@ -11,7 +9,7 @@ class ZArrow extends StatelessWidget {
     const length = zTileSize * 1.5;
     const pointiness = zTileSize / 2;
     const width = zTileSize / 2;
-    const stroke = 5.0;
+    const stroke = 6.0;
 
     // TODO(alestiago): Transform this correctly.
     return ZPositioned(
