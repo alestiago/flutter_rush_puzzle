@@ -46,6 +46,22 @@ class PuzzleReseted extends PuzzleEvent {
   List<Object?> get props => [];
 }
 
+class PuzzlePaused extends PuzzleEvent {
+  const PuzzlePaused();
+
+  @override
+  List<Object?> get props => [];
+}
+
+
+
+class PuzzleResumed extends PuzzleEvent {
+  const PuzzleResumed();
+
+  @override
+  List<Object?> get props => [];
+}
+
 class PuzzleShared extends PuzzleEvent {
   const PuzzleShared();
 

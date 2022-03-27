@@ -8,7 +8,7 @@ void main() {
   group('TimerEvent', () {
     group('TimerStarted', () {
       test('supports value comparisons', () {
-        expect(TimerStarted(), equals(TimerStarted()));
+        expect(TimerResumed(), equals(TimerResumed()));
       });
     });
 
@@ -24,8 +24,8 @@ void main() {
     group('TimerStopped', () {
       test('supports value comparisons', () {
         expect(
-          TimerStopped(),
-          equals(TimerStopped()),
+          TimerPaused(),
+          equals(TimerPaused()),
         );
       });
     });

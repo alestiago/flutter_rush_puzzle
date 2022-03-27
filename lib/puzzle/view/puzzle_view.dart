@@ -55,7 +55,7 @@ class PuzzleView extends StatelessWidget {
                   PuzzleZFinishGroup(boardTheme: boardTheme),
                 ],
               )
-            else if (state.status.isPlaying)
+            else if (state.status.isPlaying || state.status.isPaused)
               ZGroup(
                 children: [
                   for (final vehicle in vehicles)
@@ -80,14 +80,17 @@ class PuzzleView extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: const [
-                  TutorialButton(),
-                  SizedBox(width: 10),
                   PerspectiveSegmentedControl(),
+                  SizedBox(width: 8),
+                  PauseButton(),
                 ],
               ),
             ),
           ),
-        ]
+        ],
+        if (state.status == GameStatus.paused) ...[
+          const PuzzlePausedView(),
+        ],
       ],
     );
 

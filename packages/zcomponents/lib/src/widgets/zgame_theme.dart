@@ -55,6 +55,7 @@ class BoardThemeData extends Equatable {
     required this.boardOutterSideColor,
     required this.boardBackColor,
     required this.backgroundColor,
+    required this.shadowColor,
   });
 
   /// Generate a [BoardThemeData] from a given [MaterialColor]
@@ -68,6 +69,7 @@ class BoardThemeData extends Equatable {
       boardOutterSideColor: color[300],
       boardBackColor: color[500],
       backgroundColor: color[100],
+      shadowColor: color[500]!.withOpacity(0.15),
     );
   }
 
@@ -94,6 +96,9 @@ class BoardThemeData extends Equatable {
 
   /// Background color for the canvas
   final Color? backgroundColor;
+
+  /// Shadow color for the canvas
+  final Color? shadowColor;
 
   /// Linearly interpolate between two board themes.
   ///
@@ -122,6 +127,7 @@ class BoardThemeData extends Equatable {
       ),
       boardBackColor: Color.lerp(a?.boardBackColor, b?.boardBackColor, t),
       backgroundColor: Color.lerp(a?.backgroundColor, b?.backgroundColor, t),
+      shadowColor: Color.lerp(a?.shadowColor, b?.shadowColor, t),
     );
   }
 
@@ -135,6 +141,7 @@ class BoardThemeData extends Equatable {
         boardOutterSideColor,
         boardBackColor,
         backgroundColor,
+        shadowColor,
       ];
 }
 

@@ -28,7 +28,9 @@ class ScoreBoard extends StatelessWidget {
           Flexible(
             child: ScoreBoardItem(
               title: Text('Difficulty'.toUpperCase()),
-              text: Text(dificulty.stringify),
+              text: Text(
+                dificulty.stringify,
+              ),
             ),
           ),
           Flexible(
@@ -78,6 +80,9 @@ class ScoreBoardItem extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
+          maxLines: 1,
+          softWrap: false,
+          overflow: TextOverflow.ellipsis,
           child: text,
         )
       ],

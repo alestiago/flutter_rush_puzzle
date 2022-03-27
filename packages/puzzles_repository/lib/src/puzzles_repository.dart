@@ -19,12 +19,16 @@ class PuzzlesRepository {
 
     try {
       game = await rootBundle
-          .loadString('packages/puzzles_repository/assets/$number.json');
+          .loadString('packages/puzzles_repository/assets/14.json');
     } catch (e) {
-      game = await rootBundle
-          .loadString('packages/puzzles_repository/assets/1.json');
+      game = await rootBundle.loadString(
+        'packages/puzzles_repository/assets/${gamesAvailable - 1}.json',
+      );
     }
     final json = jsonDecode(game) as Map<String, dynamic>;
     return RushPuzzle.fromJson(json);
   }
+  
+  /// Amount of games available in the assets folder
+  static const int gamesAvailable = 20;
 }

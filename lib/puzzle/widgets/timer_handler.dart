@@ -21,13 +21,10 @@ class TimerHandler extends StatelessWidget {
             context.read<TimerBloc>().add(const TimerReset());
             break;
           case GameStatus.playing:
-            final isTimerRunning = context.read<TimerBloc>().state.isRunning;
-            if (!isTimerRunning) {
-              context.read<TimerBloc>().add(const TimerStarted());
-            }
+            context.read<TimerBloc>().add(const TimerResumed());
             break;
           case GameStatus.finished:
-            context.read<TimerBloc>().add(const TimerStopped());
+            context.read<TimerBloc>().add(const TimerPaused());
             FirebaseAnalytics.instance.logEvent(
               name: 'game_finished',
               parameters: {
@@ -40,6 +37,7 @@ class TimerHandler extends StatelessWidget {
           case GameStatus.tutorial:
           case GameStatus.initial:
           case GameStatus.loading:
+          case GameStatus.paused:
             break;
         }
       },

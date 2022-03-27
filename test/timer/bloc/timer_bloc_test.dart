@@ -26,9 +26,9 @@ void main() {
       );
     });
 
-    group('TimerStarted', () {
+    group('TimerResumed', () {
       test('emits 3 sequential timer states', () async {
-        final bloc = TimerBloc(ticker: ticker)..add(TimerStarted());
+        final bloc = TimerBloc(ticker: ticker)..add(TimerResumed());
         await bloc.stream.first;
 
         streamController
@@ -56,9 +56,9 @@ void main() {
       );
     });
 
-    group('TimerStopped', () {
-      test('does not emit after timer is stopped', () async {
-        final bloc = TimerBloc(ticker: ticker)..add(TimerStarted());
+    group('TimerPaused', () {
+      test('does not emit after timer is paused', () async {
+        final bloc = TimerBloc(ticker: ticker)..add(TimerResumed());
 
         expect(
           await bloc.stream.first,
@@ -71,7 +71,7 @@ void main() {
           equals(TimerState(isRunning: true, secondsElapsed: 1)),
         );
 
-        bloc.add(TimerStopped());
+        bloc.add(TimerPaused());
         streamController.add(2);
 
         expect(

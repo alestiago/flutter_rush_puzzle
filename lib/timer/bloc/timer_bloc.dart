@@ -13,9 +13,9 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   TimerBloc({required Ticker ticker})
       : _ticker = ticker,
         super(const TimerState()) {
-    on<TimerStarted>(_onTimerStarted);
+    on<TimerResumed>(_onTimerResumed);
     on<TimerTicked>(_onTimerTicked);
-    on<TimerStopped>(_onTimerStopped);
+    on<TimerPaused>(_onTimerPaused);
     on<TimerReset>(_onTimerReset);
   }
 
@@ -29,11 +29,11 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     return super.close();
   }
 
-  void _onTimerStarted(TimerStarted event, Emitter<TimerState> emit) {
-    _tickerSubscription?.cancel();
-    _tickerSubscription = _ticker
+  void _onTimerResumed(TimerResumed event, Emitter<TimerState> emit) {
+    _tickerSubscription ??= _ticker
         .tick()
         .listen((secondsElapsed) => add(TimerTicked(secondsElapsed)));
+    _tickerSubscription!.resume();
     emit(state.copyWith(isRunning: true));
   }
 
@@ -41,13 +41,14 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     emit(state.copyWith(secondsElapsed: event.secondsElapsed));
   }
 
-  void _onTimerStopped(TimerStopped event, Emitter<TimerState> emit) {
+  void _onTimerPaused(TimerPaused event, Emitter<TimerState> emit) {
     _tickerSubscription?.pause();
     emit(state.copyWith(isRunning: false));
   }
 
   void _onTimerReset(TimerReset event, Emitter<TimerState> emit) {
     _tickerSubscription?.cancel();
+    _tickerSubscription = null;
     emit(state.copyWith(secondsElapsed: 0));
   }
 }

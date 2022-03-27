@@ -15,6 +15,7 @@ class ZBoard extends StatelessWidget {
 
   /// Rect of the game
   final GameLayout layout;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +118,7 @@ class _Board extends StatelessWidget {
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                        color: theme.boardBackColor!.withOpacity(0.15),
+                        color: theme.shadowColor!,
                         blurRadius: 20,
                         spreadRadius: 20,
                       )

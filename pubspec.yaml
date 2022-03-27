@@ -20,6 +20,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
+  provider: ^6.0.2
   puzzle_models:
     path: packages/puzzle_models
   puzzles_repository:
