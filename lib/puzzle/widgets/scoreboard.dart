@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puzzle_models/puzzle_models.dart';
 import 'package:rush_hour_puzzle/puzzle/puzzle.dart';
 
-
 /// {@template score_board}
 /// Overaly widget that shows details about the [PuzzlePage].
 /// {@endtemplate}
@@ -93,7 +92,7 @@ extension on PuzzleDifficulty {
       case PuzzleDifficulty.beginner:
         return 'Beginner';
       case PuzzleDifficulty.intermediate:
-        return 'Intermediate';
+        return 'Medium';
       case PuzzleDifficulty.advanced:
         return 'Advanced';
       case PuzzleDifficulty.expert:
