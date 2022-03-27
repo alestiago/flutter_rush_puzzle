@@ -106,11 +106,13 @@ class ZBusColorScheme {
   final Color rimColor;
 
   ZBusColorScheme withOpacity(double opacity) {
+    final reducedOpacity = opacity - opacity / 2;
+
     return ZBusColorScheme._(
       busColor: busColor.withOpacity(opacity),
       bodyShadowColor: bodyShadowColor.withOpacity(opacity),
       roofColor: roofColor.withOpacity(opacity),
-      stripesColor: stripesColor.withOpacity(opacity),
+      stripesColor: stripesColor.withOpacity(reducedOpacity),
       windowColor: windowColor.withOpacity(opacity),
       doorColor: doorColor.withOpacity(opacity),
       fenderColor: fenderColor.withOpacity(opacity),
@@ -118,8 +120,8 @@ class ZBusColorScheme {
       rearLightColor: rearLightColor.withOpacity(opacity),
       lightBorderColor: lightBorderColor.withOpacity(opacity),
       bottomColor: bottomColor.withOpacity(opacity),
-      tyreColor: tyreColor.withOpacity(opacity),
-      rimColor: rimColor.withOpacity(opacity),
+      tyreColor: tyreColor.withOpacity(reducedOpacity),
+      rimColor: rimColor.withOpacity(reducedOpacity),
     );
   }
 

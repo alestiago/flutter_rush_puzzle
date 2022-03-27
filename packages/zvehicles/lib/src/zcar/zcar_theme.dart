@@ -118,6 +118,7 @@ class ZCarColorScheme {
   );
 
   ZCarColorScheme withOpacity(double opacity) {
+    final reducedOpacity = opacity - opacity / 2;
     return ZCarColorScheme._(
       bodyColor: bodyColor.withOpacity(opacity),
       sideColor: sideColor.withOpacity(opacity),
@@ -126,8 +127,8 @@ class ZCarColorScheme {
       doorSideColor: doorSideColor.withOpacity(opacity),
       windowColor: windowColor.withOpacity(opacity),
       windowSideColor: windowSideColor.withOpacity(opacity),
-      tyreColor: tyreColor.withOpacity(opacity),
-      rimColor: rimColor.withOpacity(opacity),
+      tyreColor: tyreColor.withOpacity(reducedOpacity),
+      rimColor: rimColor.withOpacity(reducedOpacity),
       lightColor: lightColor.withOpacity(opacity),
       lightBorderColor: lightBorderColor.withOpacity(opacity),
     );
