@@ -129,7 +129,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   Future<void> _onPuzzleShared(PuzzleShared event, Emitter emit) async {
     if (!state.puzzle.isSolved) return;
 
-    sharePuzzle(state, puzzleVersion);
+    _sharePuzzle(state, puzzleVersion);
     await FirebaseAnalytics.instance.logEvent(
       name: 'game_shared',
       parameters: {
@@ -163,7 +163,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   }
 }
 
-void sharePuzzle(PuzzleState state, int version) {
+void _sharePuzzle(PuzzleState state, int version) {
   final introMessage = '''
 https://flutter-rush.web.app/  (#$version)
 ''';
