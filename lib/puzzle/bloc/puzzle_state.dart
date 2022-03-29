@@ -61,10 +61,6 @@ class PuzzleState extends Equatable {
 
   RushPuzzle get puzzle => history[historyPointer];
 
-  bool get canUndo => historyPointer > 0;
-
-  bool get canRedo => historyPointer < history.length - 1;
-
   PuzzleState copyWith({
     GameStatus? status,
     List<RushPuzzle>? history,
