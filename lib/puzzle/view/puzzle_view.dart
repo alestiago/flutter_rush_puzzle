@@ -38,14 +38,14 @@ class PuzzleView extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         const ZClouds(),
-        if (state.status == GameStatus.finished) const Fireworks(),
+        if (state.status.isFinished) const Fireworks(),
         ZGame(
           key: const Key('puzzlePage_game'),
           theme: boardTheme,
           perspective: perspective,
           padding: const EdgeInsets.symmetric(vertical: 20),
           vehicles: [
-            if (state.status == GameStatus.finished)
+            if (state.status.isFinished)
               ZGroup(
                 children: [
                   ZVehicleView(
@@ -73,19 +73,9 @@ class PuzzleView extends StatelessWidget {
           ],
         ),
         if (state.status.isPlaying) ...[
-          Align(
+          const Align(
             alignment: Alignment.bottomRight,
-            child: SafeArea(
-              minimum: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: const [
-                  TutorialButton(),
-                  SizedBox(width: 10),
-                  PerspectiveSegmentedControl(),
-                ],
-              ),
-            ),
+            child: _GameOverlayButtons(),
           ),
         ]
       ],
@@ -94,9 +84,9 @@ class PuzzleView extends StatelessWidget {
     return TimerHandler(
       child: GestureDetector(
         onTap: () {
-          if (state.status == GameStatus.setup) {
+          if (state.status.isSetup) {
             context.read<PuzzleBloc>().add(const PuzzleStarted());
-          } else if (state.status == GameStatus.finished) {
+          } else if (state.status.isFinished) {
             context.read<PuzzleBloc>().add(const PuzzleShared());
           }
         },
@@ -107,6 +97,25 @@ class PuzzleView extends StatelessWidget {
             child: body,
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _GameOverlayButtons extends StatelessWidget {
+  const _GameOverlayButtons({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      minimum: const EdgeInsets.all(16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: const [
+          TutorialButton(),
+          SizedBox(width: 10),
+          PerspectiveSegmentedControl(),
+        ],
       ),
     );
   }
