@@ -21,6 +21,12 @@ enum GameStatus {
 }
 
 extension GameStatusExtension on GameStatus {
+  bool get isInitial => this == GameStatus.initial;
+
+  bool get isLoading => this == GameStatus.loading;
+
+  bool get isSetup => this == GameStatus.setup;
+
   bool get isBeforePlaying =>
       this == GameStatus.initial ||
       this == GameStatus.loading ||
@@ -29,6 +35,8 @@ extension GameStatusExtension on GameStatus {
   bool get isPlaying => this == GameStatus.playing || isTutorial;
 
   bool get isTutorial => this == GameStatus.tutorial;
+
+  bool get isFinished => this == GameStatus.finished;
 }
 
 @immutable
