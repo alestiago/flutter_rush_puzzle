@@ -10,7 +10,7 @@ import 'package:zcomponents/zcomponents.dart';
 part 'puzzle_event.dart';
 part 'puzzle_state.dart';
 
-const _kTutorialDuration = Duration(seconds: 4);
+const _kTutorialDuration = Duration(seconds: 3);
 
 class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   PuzzleBloc({
