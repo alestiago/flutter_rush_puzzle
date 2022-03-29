@@ -21,7 +21,6 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     on<PuzzleStarted>(_onPuzzleStarted);
     on<PuzzleReseted>(_onPuzzleReseted);
     on<PuzzleVehicleMoved>(_onPuzzleVehicleMoved);
-    on<PuzzleMoveUndid>(_onPuzzleMoveUndid);
     on<PuzzleShared>(_onPuzzleShared);
     on<PuzzlePerspectiveChanged>(_onPuzzlePerspectiveChanged);
     on<PuzzleTutorialStarted>(_onPuzzleTutorialStarted);
@@ -110,16 +109,6 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       parameters: {
         'version': puzzleVersion,
       },
-    );
-  }
-
-  void _onPuzzleMoveUndid(PuzzleMoveUndid event, Emitter emit) {
-    if (!state.canUndo) return;
-
-    emit(
-      state.copyWith(
-        historyPointer: state.historyPointer - 1,
-      ),
     );
   }
 

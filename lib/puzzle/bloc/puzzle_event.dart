@@ -31,14 +31,6 @@ class PuzzleVehicleMoved extends PuzzleEvent {
   List<Object?> get props => [vehicle, newPosition];
 }
 
-// TODO(alestiago): Consider naming PuzzleUndo/PuzzleUndid.
-class PuzzleMoveUndid extends PuzzleEvent {
-  const PuzzleMoveUndid();
-
-  @override
-  List<Object?> get props => [];
-}
-
 class PuzzleReseted extends PuzzleEvent {
   const PuzzleReseted();
 
