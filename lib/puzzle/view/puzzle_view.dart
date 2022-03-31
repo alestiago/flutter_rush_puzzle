@@ -80,9 +80,9 @@ class PuzzleView extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: const [
-                  TutorialButton(),
-                  SizedBox(width: 10),
                   PerspectiveSegmentedControl(),
+                  SizedBox(width: 10),
+                  TutorialButton(),
                 ],
               ),
             ),

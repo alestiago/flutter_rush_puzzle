@@ -31,7 +31,7 @@ class TutorialButton extends StatelessWidget {
           ),
         ),
         child: Icon(
-          Icons.help,
+          Icons.help_outline,
           size: 20,
           color: Colors.grey[800],
         ),

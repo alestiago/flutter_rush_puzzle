@@ -72,13 +72,14 @@ workflows:
       google_play:
         credentials: $GOOGLE_PLAY_CREDENTIALS
         track: beta
-        submit_as_draft: true
       app_store_connect:
         api_key: $APPLE_STORE_CONNECT_API_KEY
         key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
         issuer_id: $APP_STORE_CONNECT_ISSUER_ID
         submit_to_testflight: true
         submit_to_app_store: false
+        beta_groups:
+          - Flutter community
 
   macos-workflow:
     name: MacOS Release
@@ -173,6 +174,8 @@ workflows:
         issuer_id: $APP_STORE_CONNECT_ISSUER_ID
         submit_to_testflight: true
         submit_to_app_store: false
+        beta_groups:
+          - Flutter community
 
   windows-workflow:
     name: Windows release
