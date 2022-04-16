@@ -1,0 +1,116 @@
+{
+    "jammedVehicleId": "X",
+    "difficulty": "expert",
+    "minMoves": "50",
+    "vehicles": {
+        "A": {
+            "id": "A",
+            "type": "taxi",
+            "steering": "vertical",
+            "firstPosition": {
+                "x": 2,
+                "y": 0
+            }
+        },
+        "B": {
+            "id": "B",
+            "type": "car",
+            "steering": "vertical",
+            "firstPosition": {
+                "x": 3,
+                "y": 1
+            }
+        },
+        "C": {
+            "id": "C",
+            "type": "police",
+            "steering": "vertical",
+            "firstPosition": {
+                "x": 2,
+                "y": 2
+            }
+        },
+        "D": {
+            "id": "D",
+            "type": "taxi",
+            "steering": "horizontal",
+            "firstPosition": {
+                "x": 0,
+                "y": 3
+            }
+        },
+        "E": {
+            "id": "E",
+            "type": "taxi",
+            "steering": "horizontal",
+            "firstPosition": {
+                "x": 3,
+                "y": 3
+            }
+        },
+        "F": {
+            "id": "F",
+            "type": "car",
+            "steering": "vertical",
+            "firstPosition": {
+                "x": 0,
+                "y": 4
+            }
+        },
+        "G": {
+            "id": "G",
+            "type": "police",
+            "steering": "vertical",
+            "firstPosition": {
+                "x": 1,
+                "y": 4
+            }
+        },
+         "H": {
+            "id": "H",
+            "type": "car",
+            "steering": "horizontal",
+            "firstPosition": {
+                "x": 2,
+                "y": 4
+            }
+        },
+        "I": {
+            "id": "I",
+            "type": "taxi",
+            "steering": "horizontal",
+            "firstPosition": {
+                "x": 2,
+                "y": 5
+            }
+        },
+        "O": {
+            "id": "O",
+            "type": "truck",
+            "steering": "horizontal",
+            "firstPosition": {
+                "x": 3,
+                "y": 0
+            }
+        },
+        
+        "R": {
+            "id": "R",
+            "type": "secondaryBus",
+            "steering": "vertical",
+            "firstPosition": {
+                "x": 5,
+                "y": 2
+            }
+        },
+        "X": {
+            "id": "X",
+            "type": "ambulance",
+            "steering": "horizontal",
+            "firstPosition": {
+                "x": 0,
+                "y": 2
+            }
+        }
+    }
+}
